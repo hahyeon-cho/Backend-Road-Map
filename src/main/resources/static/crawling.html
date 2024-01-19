@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="/crawling.js"></script>
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        fetch("https://github.com/brave-people/Dev-Event/blob/master/README.md")
+            .then((response) => response.text())
+            .then((data) => {
+                // DOMParser 객체 생성
+                var parser = new DOMParser();
+
+                // parseFromString 메서드를 사용하여 html 문자열을 DOM 객체로 변환
+                var doc = parser.parseFromString(data, "text/html");
+
+                // 변환된 DOM 객체에서 원하는 요소에 접근
+                var liElements = doc.querySelectorAll("ul > li");
+
+                var events = []; // 이벤트 정보를 저장할 배열
+
+                liElements.forEach((li) => {
+                    var ul = li.querySelector("ul");
+                    if (ul) {
+                        var event = {}; // 각 이벤트 정보를 저장할 객체
+
+                        event.title = li.querySelector("p > strong > a").textContent;
+                        console.log("Title: ", event.title);
+
+                        event.category = Array.from(li.querySelectorAll("ul > li > code")).map(code => code.textContent);
+                        console.log("Category: ", event.category);
+
+                        var liArray = Array.from(ul.querySelectorAll("li"));
+                        liArray.forEach((li) => {
+                            if (li.textContent.startsWith('주최')) {
+                                event.host = li.textContent;
+                                console.log("Host: ", event.host);
+                            }
+                            else if (li.textContent.startsWith('접수') || li.textContent.startsWith('일시')) {
+                                event.register = li.textContent;
+                                console.log("Register: ", event.register);
+                            }
+                        });
+
+                        events.push(event); // 객체를 배열에 추가
+                    }
+                });
+
+                console.log(events); // 배열 출력
+            });
+    </script>
+</body>
+</html>
