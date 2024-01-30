@@ -1,5 +1,6 @@
 package com.make.backendroadmap.domain.entity;
 
+import com.make.backendroadmap.domain.common.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class RecommendBook {
+public class RecommendBook extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

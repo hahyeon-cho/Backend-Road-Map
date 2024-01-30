@@ -1,5 +1,6 @@
 package com.make.backendroadmap.domain.entity;
 
+import com.make.backendroadmap.domain.common.BaseTimeEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
