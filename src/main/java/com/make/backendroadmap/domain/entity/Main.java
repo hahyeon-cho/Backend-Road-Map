@@ -1,5 +1,10 @@
 package com.make.backendroadmap.domain.entity;
 
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Main {
     INTERNET(1),
     BASIC_FE(2),
@@ -31,4 +36,12 @@ public enum Main {
     public int getMainDocsOrder() {
         return mainDocsOrder;
     }
+
+    public static List<Main> getOrderedMainDocs() {
+        return EnumSet.allOf(Main.class).stream()
+                .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
+                .collect(Collectors.toList());
+    }
+    
+
 }

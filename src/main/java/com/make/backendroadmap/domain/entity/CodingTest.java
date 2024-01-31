@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class CodingTest extends BaseTimeEntity {
     @Id
     @GeneratedValue
@@ -23,6 +25,7 @@ public class CodingTest extends BaseTimeEntity {
     private String problemImage;
     private String problemInput;
     private String problemOutput;
+    private Double problemAccuracy;
     private Boolean testOrQuiz;
 
     @ManyToOne

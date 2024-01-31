@@ -10,10 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class SubCategory extends BaseTimeEntity {
 
     @Id
@@ -28,5 +30,7 @@ public class SubCategory extends BaseTimeEntity {
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
+    private Long likeCount;
 
+    private String subDocsUrl;
 }
