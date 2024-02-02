@@ -24,4 +24,12 @@ public class MainCategory extends BaseTimeEntity {
 //    @OneToMany(mappedBy = "subDocsId", cascade = CascadeType.ALL)
 //    private List<SubCategory> subCategories = new ArrayList<>();
 
+
+    private MainCategory(Main mainDocsTitle) {
+        this.mainDocsTitle = mainDocsTitle;
+    }
+
+    public static MainCategory createMainCategory(Main mainDocsTitle) {
+        return new MainCategory(mainDocsTitle);
+    }
 }

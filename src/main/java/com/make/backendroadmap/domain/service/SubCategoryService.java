@@ -2,7 +2,7 @@ package com.make.backendroadmap.domain.service;
 
 import com.make.backendroadmap.domain.entity.MainCategory;
 import com.make.backendroadmap.domain.entity.SubCategory;
-import com.make.backendroadmap.domain.repository.SubCategoryRepository;
+import com.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
