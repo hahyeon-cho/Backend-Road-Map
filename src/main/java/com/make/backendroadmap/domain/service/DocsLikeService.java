@@ -8,7 +8,7 @@ import com.make.backendroadmap.domain.exception.DuplicateResourceException;
 import com.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import com.make.backendroadmap.domain.repository.DocsLikeRepository;
 import com.make.backendroadmap.domain.repository.MemberRepository;
-import com.make.backendroadmap.domain.repository.SubCategoryRepository;
+import com.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class DocsLikeService {
 
         DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
         docsLikeRepository.save(docsLike);
-//        docsLikeRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
+        subCategoryRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
     }
 
     @Transactional
@@ -51,7 +51,7 @@ public class DocsLikeService {
                 .orElseThrow(() -> new ResourceNotFoundException());
 
         docsLikeRepository.delete(docsLike);
-//        docsLikeRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
+        subCategoryRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
     }
 
     public List<SubCategory> findSubCategoriesByMember(Member member) {

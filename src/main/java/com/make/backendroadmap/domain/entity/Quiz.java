@@ -29,4 +29,17 @@ public class Quiz extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
+
+    private Quiz(String quizName, String quizContext, String quizImage, String quizAnswer, MainCategory mainCategory) {
+        this.quizName = quizName;
+        this.quizContext = quizContext;
+        this.quizImage = quizImage;
+        this.quizAnswer = quizAnswer;
+        this.mainCategory = mainCategory;
+    }
+
+    public static Quiz createQuiz(String quizName, String quizContext, String quizImage, String quizAnswer,
+                                  MainCategory mainCategory) {
+        return new Quiz(quizName, quizContext, quizImage, quizAnswer, mainCategory);
+    }
 }
