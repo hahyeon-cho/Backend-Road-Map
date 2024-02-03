@@ -8,9 +8,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class MainCategory extends BaseTimeEntity {
     @Id
