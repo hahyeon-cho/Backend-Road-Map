@@ -1,0 +1,722 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>DB Knowledge</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="33dfe5c7-313a-439b-8e52-d2926462cd32" class="page sans"><header><h1 class="page-title">DB Knowledge</h1><p class="page-description"></p></header><div class="page-body"><p id="9c3376db-4212-4650-aa90-a6c91d7779fe" class="">
+</p><h1 id="03d35576-08c5-46ac-9384-10b27456b797" class="">Transaction</h1><ul id="e446e3dc-c59b-45e7-840d-8e472fa3505d" class="bulleted-list"><li style="list-style-type:disc">DB에서 <strong>하나의 논리적 기능을 수행하기 위한 작업 단위</strong>를 의미</li></ul><ul id="733ffd3b-37b5-449d-b5b4-ba764bca4e69" class="bulleted-list"><li style="list-style-type:disc">트랜잭션은 <strong>데이터의 정합성을 보장</strong>하기 위한 기능</li></ul><p id="3db24a3b-8913-46a7-bcc3-0f0324ccf35b" class="">
+</p><h3 id="1e9aba82-7c83-4b7f-8c55-8305a05aa2ca" class="">Commit : 지금까지 작업한 내용을 DB에 영구적으로 저장</h3><h3 id="d8ab8501-8436-4a7a-aaee-ea73320987ed" class="">Rollback : 지금까지 작업들을 모두 취소하고 transaction 이전 상태로 되돌린다.</h3><p id="405d3116-ecca-4880-ae8c-96507a03e9c3" class="">
+</p><p id="189932c2-c919-45b3-a872-bc94c46bf32f" class="">
+</p><p id="d5d14df9-d8f6-4b83-ba83-c911cdc5c67f" class="">
+</p><p id="3b62f65c-12d6-4761-ac64-3d799f41313d" class="">
+</p><hr id="e6a4877f-2316-48fc-8553-f9abe92bdee5"/><h1 id="e5810bcf-1c90-450c-83ee-c2d7786f5002" class="">ACID</h1><p id="267cae5c-f2f3-424b-8129-d1e92d0a17ac" class="">
+</p><h3 id="43bb5b58-bf3b-41d8-a7ad-58b38af0e5bc" class="">1. 원자성 (Atomicity)</h3><ul id="f683766b-d2f1-4a63-8aeb-18bad84e26e6" class="bulleted-list"><li style="list-style-type:disc">트랜잭션과 관련된 일이 <strong>모두 수행되었거나 되지 않았거나</strong>를 보장</li></ul><p id="af3c06c3-7b2c-4e76-87d3-bc699ee82133" class="">
+</p><p id="ef8b6454-236f-41fc-988d-7b095c999cff" class="">
+</p><h3 id="7eea7c42-4b5f-4c40-82a6-0c205a888551" class="">2. 일관성 (Consistency)</h3><ul id="705f4bb4-e075-4d32-b8e3-1962bed943af" class="bulleted-list"><li style="list-style-type:disc">트랜잭션이 완료된 다음의 상태에서도 트랜잭션이 일어나기 전의 상황과 <strong>동일하게</strong> 데이터의 일관성을 보장</li></ul><p id="6e2e0670-aeb5-4cd6-9daf-1f199c955d54" class="">
+</p><p id="e89c7233-2eab-4136-a118-7aa4467d0972" class="">
+</p><h3 id="f54d0dcd-7ac3-4e81-aeb5-c9ab0119db65" class="">3. 격리성 (Isolation)</h3><ul id="ae5e4139-e38f-4311-873e-169e56366d79" class="bulleted-list"><li style="list-style-type:disc">각각의 트랜잭션이 서로 간섭 없이 <strong>독립적으로 수행</strong>되는 것<ul id="7e5242e9-d46e-4dac-81d2-d5ec21dd0853" class="bulleted-list"><li style="list-style-type:circle">READ Uncommitted (Dirty Read)<ul id="db073c29-866a-4095-8956-41d9d759ddbd" class="bulleted-list"><li style="list-style-type:square"><strong>완료되지 않은 트랜잭션 내용을 다른 트랜잭션에서 읽는 문제 발생</strong></li></ul></li></ul><ul id="af4bfac7-fe8a-4118-b4b6-9010e348a6aa" class="bulleted-list"><li style="list-style-type:circle">READ Committed<ul id="81571daa-2783-4ed8-a76f-74fc26e40493" class="bulleted-list"><li style="list-style-type:square">트랜잭션 작업이 끝난 데이터만 다른 트랜잭션에서 읽을 수 있다.</li></ul><ul id="27b02556-59c9-4850-9a12-cdd7260bb2eb" class="bulleted-list"><li style="list-style-type:square"><strong>NON-REPEATABLE READ 문제 : 멱등성 관련 데이터 부정합 문제 발생</strong></li></ul></li></ul><ul id="9b8a5e17-8fac-4257-8d0e-02df0ace4c98" class="bulleted-list"><li style="list-style-type:circle">Repeatable READ<ul id="6113c0e4-b45d-4c08-b5f6-f68f87c4a205" class="bulleted-list"><li style="list-style-type:square">다른 트랜잭션에 의해 레코드가 사라지거나 값이 바뀌는 현상을 방지</li></ul><ul id="36d6a436-5172-42dd-8018-89309eff7fea" class="bulleted-list"><li style="list-style-type:square"><strong>Phantom Read 문제 : 새로운 레코드가 생기거나, 존재하던 레코드가 사라지는 현상</strong><ul id="c7865df3-630f-453c-a51f-c4cf260c9907" class="bulleted-list"><li style="list-style-type:disc">MySQL InnoDB의 경우 Undo Log를 버전 관리하기 때문에 Phantom Read 발생하지 않음.</li></ul><ul id="6ff54ee9-a056-486d-87fa-411ef410b042" class="bulleted-list"><li style="list-style-type:disc"><strong>Undo Log </strong>: rollback을 위해 트랜잭션 시작 시 기존 데이터를 복사해두는 장소</li></ul></li></ul></li></ul><ul id="bacd4f4d-d6d8-440b-ab4f-913ae6497b93" class="bulleted-list"><li style="list-style-type:circle">Serializable<ul id="3957cf58-9089-4f95-a929-158dae174665" class="bulleted-list"><li style="list-style-type:square">한 트랜잭션에서 읽고 쓰는 레코드를 다른 트랜잭션에서는 절대 접근 불가</li></ul><ul id="05920ad1-4b12-430e-8b3f-7608ea3fe945" class="bulleted-list"><li style="list-style-type:square"><strong>동시 처리 성능도 다른 격리 수준보다 현저히 떨어진다.</strong></li></ul></li></ul></li></ul><p id="7d452ff1-57d7-4948-89ad-51a2d4b3fc5b" class="">
+</p><p id="40836d77-91cb-4987-a272-696d64f7d085" class="">
+</p><h3 id="ea1e6918-484d-4e0d-b954-21a7622e40c4" class="">4. 지속성 (Durability)</h3><ul id="3695660f-8d97-473d-8948-0ca39a35b9b0" class="bulleted-list"><li style="list-style-type:disc">성공적으로 커밋된 트랜잭션은 <strong>영구적으로</strong> 데이터베이스에 작업의 <strong>결과가 저장</strong>되어야 한다.</li></ul><p id="1eddddcc-033e-441e-bc9a-e29c5eba7f69" class="">
+</p><p id="d2bae8fc-acd1-4ea6-b791-0fd5b96bbe28" class="">
+</p><p id="54752041-d32e-4ce7-b7ba-9f69186a4059" class="">
+</p><p id="70a3feb2-f6e6-4b8a-9b5d-d26a469c52f8" class="">
+</p><p id="c3b5bb6d-46e8-43d5-bf67-2f29ae85a3e7" class="">
+</p><ul id="bff81780-a68a-4a81-9c57-835d3ca4c4fc" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://github.com/devSquad-study/2023-CS-Study">https://github.com/devSquad-study/2023-CS-Study</a></li></ul><ul id="1aec46c9-90ea-4941-b6ab-b8a8817d8ba3" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://velog.io/@bagt/Isolation-Level-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98-%EA%B2%A9%EB%A6%AC-%EC%88%98%EC%A4%80">https://velog.io/@bagt/Isolation-Level-트랜잭션-격리-수준</a></li></ul><p id="4e7ee19d-f854-4da0-9002-be1749690fd9" class="">
+</p><hr id="48b11ef0-9da3-480b-9110-d6b77f98626b"/><h1 id="cec506e5-559b-4abe-a5be-f778228edf67" class="">ORM (Object Relational Mapping)</h1><p id="d94fa03d-7afc-4cac-b049-080962906a4b" class="">→ <strong>객체 지향 프로그래밍 언어와 관계형 데이터베이스 사이의 호환되지 않는 데이터를 변환</strong>하는 프로그래밍 기법</p><p id="1345d717-162b-465e-9ecb-23b6a42426ad" class="">
+</p><h3 id="2d903b54-a5ec-4285-a96a-d4854be7f4d2" class="">객체를 관계형 DB에서 관리할 때 발생하는 문제점</h3><ol type="1" id="19135fa6-83ee-4443-9672-66d6ae280562" class="numbered-list" start="1"><li><strong>애플리케이션 코드보다 SQL문이 더 많아진다.</strong> <ul id="d131f03e-b340-406d-93f2-35f3ce73a1e7" class="bulleted-list"><li style="list-style-type:disc">아무리 설계를 아름답게 하더라도 SQL문을 통해 DB에서 CRUD 작업을 할 수 있기 때문이다.</li></ul><ul id="de7bc72a-400b-48f4-9961-22da728f5eb5" class="bulleted-list"><li style="list-style-type:disc">즉, <code>단순 반복 작업을 개발자가 직접 해야한다.</code></li></ul></li></ol><p id="d6e194ea-6357-46bf-a2ad-5b2ec3d90692" class="">
+</p><ol type="1" id="c28f99d6-dc80-4044-b1e3-c87cde854b63" class="numbered-list" start="2"><li><strong>패러다임의 불일치</strong><ul id="8fda5e17-e38c-4fe5-b23e-47f19819e71d" class="bulleted-list"><li style="list-style-type:disc">관계형 DB는 <strong>어떻게 데이터를 저장</strong>할지 초점이 맞춰진 기술</li></ul><ul id="87091fe4-bdf1-4b30-bd93-21734480a494" class="bulleted-list"><li style="list-style-type:disc">객체지향 프로그래밍은 메시지 기반의 <strong>기능과 속성을 한 곳에서 관리</strong>하는 기술</li></ul><ul id="a403cc20-a681-4241-80e1-47bde448de83" class="bulleted-list"><li style="list-style-type:disc">즉, <strong>사상부터 다른 두 패러다임을 중간에서 패러다임을 일치시켜야 함.</strong></li></ul></li></ol><p id="d429020a-cdb1-4066-8cd4-002e6d4ac791" class="">
+</p><p id="691248d2-4362-40f9-a0f6-9cfaf36dcdc7" class="">
+</p><h2 id="0e2cb829-e660-44fe-ac1e-d2200ca50f91" class="">JPA : 자바 표준 ORM 기술</h2><p id="fb8feb19-0e58-492a-abc5-141f646d6544" class="">
+</p><p id="ecb54180-56ee-4971-ae36-cdf74c5d7138" class="">
+</p><figure id="f575c6d8-8b7a-4f62-a5b3-438285db3625" class="image"><a href="DataSet/DB-Knowledge/JPA.png"><img style="width:646px" src="DataSet/DB-Knowledge/JPA.png"/></a><figcaption>출처 : <strong>김영한의</strong> <strong><strong>JPA 소개 - SQL 중심적인 개발의 문제점</strong></strong></figcaption></figure><p id="a29bd4cb-5962-4fd5-99fd-9f967a1e40c6" class="">
+</p><p id="2776e124-d006-4040-890c-027c79e8fc71" class="">
+</p><p id="74707bc4-0e40-4091-b71f-fca7f1e87eea" class="">
+</p><p id="a877aebb-133d-4b69-a0a8-82cdd59c5b75" class="">참고 : MyBatis는 SQL Mapper 이다. ORM은 객체를 맵핑하지만 SQL Mapper는 쿼리를 맵핑한다.</p><p id="707fd06e-750f-445f-875e-e92824b44502" class="">
+</p><p id="fa2df0cc-046d-43ad-ab62-6a6d91aba7a0" class="">
+</p><p id="0853254c-1f90-4f4b-90df-7a0c7237b1a5" class="">
+</p><ul id="96841263-242c-427d-96c5-ceefcdf85610" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://www.youtube.com/watch?v=_tMJPysViNU">https://www.youtube.com/watch?v=_tMJPysViNU</a></li></ul><ul id="d6edf53a-5848-4448-9044-fa0a9dc35b0d" class="bulleted-list"><li style="list-style-type:disc">출처 : &lt;&lt;<strong><strong>스프링 부트와 AWS 로 구현하는 웹서비스</strong></strong>&gt;&gt;, 저자 : 이동욱</li></ul><p id="b56ba366-8a00-4150-a455-f96e6cf40c07" class="">
+</p><hr id="b808d311-1a4e-4efd-b858-12f845b6fd23"/><h1 id="c5b4ab93-c62f-45d7-91e1-7f5b48cefbf0" class="">N + 1 문제</h1><p id="30533280-8816-4a6d-a2d7-9756b9847a1f" class="">
+</p><ul id="b7aae54c-c69f-495e-b2b5-4cfba2a29805" class="bulleted-list"><li style="list-style-type:disc">ORM을 사용하는 애플리케이션에서 DB와의 데이터 조회 작업에서 발생 할 수 있는 성능 문제</li></ul><ul id="ac7575da-9462-419e-bb64-860b57d30c45" class="bulleted-list"><li style="list-style-type:disc">한 번의 쿼리 실행으로 가져온 데이터를 사용하는 도중 추가로 N번의 쿼리를 실행해야 하는 상황 (<strong>성능 저하</strong>)</li></ul><p id="82d1db7a-4529-4109-aa37-7127e49925fe" class="">
+</p><p id="993212f5-1aeb-4c6e-89ab-f4a96fdc5d98" class="">
+</p><h2 id="b1a8d5fc-2973-40c0-9fc2-421ee2c40a04" class="">해결 방안</h2><ol type="1" id="21413f10-de52-4293-9a4b-6b2d6f676768" class="numbered-list" start="1"><li><strong>Fetch join</strong> : 실행할려는 쿼리와 연관된 데이터를 한 번에 가져와서 쿼리문을 수행한다.<ol type="a" id="d6a3cd0d-f5c5-43ae-b0ea-a90d5f3d62d7" class="numbered-list" start="1"><li>단점1 : 한 번에 가져와야 하는 데이터가 많을 경우 성능 저하 발생</li></ol><ol type="a" id="09609a22-dfc9-4630-be46-5331f3558054" class="numbered-list" start="2"><li>단점2 : JPA 구현체에 의존하기 때문에 이식성이 떨어질 수 있다.</li></ol></li></ol><p id="901298dd-90a8-40cc-9fbb-f3fc12ba8dde" class="">
+</p><p id="84ad75cc-326f-464a-8f7e-d428a4dc276f" class="">
+</p><ol type="1" id="1b46f951-d57c-4e86-ae4d-c223c06c3281" class="numbered-list" start="2"><li><strong>Entity Graph </strong>: 쿼리 실행 시 필요한 연관 엔티티를 즉시 로드할 수 있다.<ol type="a" id="418a4b5b-7df5-40b0-a316-de36e484db0a" class="numbered-list" start="1"><li>단점1 : NamedEntityGraph를 정의하고 사용해야 하므로 추가 작업 필요</li></ol><ol type="a" id="59f7c342-8e86-4ea7-9f30-2a38313b315e" class="numbered-list" start="2"><li>단점2 : 동적인 쿼리 생성이 제한적</li></ol></li></ol><p id="c76aed7f-8486-4784-a153-afbf757934a9" class="">
+</p><p id="cffe9b47-228c-4c0d-b2a5-1bfbe0aa3ad8" class="">
+</p><ol type="1" id="d88ac8aa-38db-4eb1-a865-7944c1a84226" class="numbered-list" start="3"><li><strong>BatchSize </strong>: @BatchSize 어노테이션을 사용하여 한 번의 쿼리로 지정된 개수의 연관 엔티티를 로드<ol type="a" id="1a1f9847-aac0-4e1f-9476-3fdb84be9a5e" class="numbered-list" start="1"><li>단점1 : BatchSize는 일괄 로딩을 수행하지만, 연관 엔티티가 많은 경우 여전히 N+1 문제가 발생 가능</li></ol><ol type="a" id="aefb7cff-4fd0-42b1-a250-78b80303bb45" class="numbered-list" start="2"><li>단점2 : 적절한 BatchSize 값을 설정해야 한다.</li></ol></li></ol><p id="ca52912f-09ca-4599-9e84-f9741f6f0a30" class="">
+</p><p id="ff014a3a-c775-4648-83b0-16932b7fe2da" class="">
+</p><p id="ed387db5-567e-4e66-b56e-74c9ec5263bf" class="">
+</p><p id="361280e0-cfeb-4704-8e8a-c5204a0e0625" class="">
+</p><p id="5ece3aa1-8dd7-4003-9380-7fb38cdbb978" class="">
+</p><p id="dbed0a9a-92fc-4075-a6e0-53ed0d39c4f6" class="">
+</p><p id="20a771c0-a59a-4176-9b92-02f3a016fd6c" class="">
+</p><ul id="4c673244-bb0e-4dd3-b52f-23ef715c4ea6" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://github.com/devSquad-study/2023-CS-Study">https://github.com/devSquad-study/2023-CS-Study</a></li></ul><ul id="2b2b9d0d-9a1b-44f5-b0a2-5908252d7434" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://www.youtube.com/watch?v=ni92wUkAmQI">https://www.youtube.com/watch?v=ni92wUkAmQI</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
