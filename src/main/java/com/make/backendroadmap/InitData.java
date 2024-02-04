@@ -9,6 +9,7 @@ import com.make.backendroadmap.domain.entity.Sub;
 import com.make.backendroadmap.domain.entity.SubCategory;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,8 @@ public class InitData {
 
     @PostConstruct
     public void init() {
-        initService.init1();
+//        initService.init1();
+        initService.html();
     }
 
     @Component
@@ -44,6 +46,24 @@ public class InitData {
 
             Quiz quiz = Quiz.createQuiz("quizName", "quizContext", "image", "quizAnswer", algorithm);
             em.persist(quiz);
+        }
+
+        public void html() {
+            List<Main> orderedMainDocs = Main.getOrderedMainDocs();
+            for (Main orderedMainDoc : orderedMainDocs) {
+                MainCategory mainCategory = MainCategory.createMainCategory(orderedMainDoc);
+                em.persist(mainCategory);
+
+                for (int i = 1; i < mainCategory.getMainDocsTitle().getMainDocsOrder() + 1; i++) {
+                    List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(i);
+                    for (Sub sub : orderedSubDocsInCategory) {
+                        SubCategory subCategory = SubCategory.createSubCategory(sub, 0L, sub.getUrl(), mainCategory);
+                        em.persist(subCategory);
+                    }
+                }
+            }
+
+
         }
     }
 }

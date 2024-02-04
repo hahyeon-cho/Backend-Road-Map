@@ -5,7 +5,9 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
-
+  mvc:
+    view:
+      suffix: .html
 
   config:
     activate:
@@ -34,6 +36,10 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
 logging:
   level:
-    org.hibernate.SQL: debug
+    org:
+      hibernate.SQL: debug
+      springframework:
+        core.LocalVariableTableParameterNameDiscoverer: ERROR

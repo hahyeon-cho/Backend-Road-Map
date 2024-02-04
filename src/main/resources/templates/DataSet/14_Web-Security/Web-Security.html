@@ -1,0 +1,701 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Web Security</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="726e8103-e05e-41fb-8c51-6bdeb5ebb7e3" class="page sans"><header><h1 class="page-title">Web Security</h1><p class="page-description"></p></header><div class="page-body"><p id="8a824509-0919-42f6-8c5d-e745560ea589" class="">
+</p><h2 id="52850846-2b11-486d-8833-0d8ec7a2b482" class="">HTTPS</h2><p id="39324f45-7232-440d-ab68-4d8f42a56d0e" class="">정의</p><p id="77acea27-2ffb-42e4-9873-8f1c090d0597" class="">HTTPS는 <a href="https://en.wikipedia.org/wiki/Public_key_infrastructure">PKI(공개 키 인프라)</a>라고 하는 기술에 기반합니다. PKI는 공개 키 암호화 및 디지털 서명을 사용합니다. &#x27;키 쌍&#x27;은 웹사이트 소유자가 만들고 공개 키는 &#x27;CA(인증 기관)&#x27;라고 하는 신뢰할 수 있는 기관으로 전송됩니다. 그러면 이 기관은 공개 키에 서명하고, 디지털 인증서라는 문서가 생성됩니다. 이제 웹사이트는 비공개 키와 공개 키를 보관하는 SSL 인증서를 보유합니다. 공개 키는 비공개 키에 의해 서명된 모든 내용을 확인합니다. 디지털 인증서는 웹사이트의 진위를 확인하는 신뢰 및 유효성 검사 체인을 제공합니다. </p><p id="604ffa38-3a2f-4096-9815-d2377969fd5c" class="">
+</p><p id="ddb7070e-d268-4de1-a845-2e5c4ab76c3d" class="">특징</p><ul id="aa9b1c29-0509-4774-823c-f8d4dcd888e5" class="bulleted-list"><li style="list-style-type:disc">무상태 (Stateless) &amp; 비연결성(Connectionless) : 모든 요청과 응답은 이전의 것들과는 상관없이 독립적으로 이루어진다. 즉, 모든 transaction이 단 한번의 응답과 요청 사이클을 가지며, 이 사이클이 끝나면 연결이 끊긴다.</li></ul><ul id="ba83eba0-2b30-421a-975e-14d8b609bdb9" class="bulleted-list"><li style="list-style-type:disc">따라서, 해당 요청에 필요한 모든 정보를 처음부터 보내야 한다.</li></ul><ul id="48abef7e-c82b-4b8f-bd63-7951eb771e72" class="bulleted-list"><li style="list-style-type:disc">불특정 다수를 대상으로 하는 서비스에 적합하다.</li></ul><ul id="5ecbc65a-e542-4d37-a66a-02b0ca4fb25e" class="bulleted-list"><li style="list-style-type:disc">무상태의 단점을 보완하기위해, 최근에는 쿠키, 세션, 로컬 스토리지 등을 사용하여 이전의 상태를 짧은 기간에서 반영구적으로 기억할 수 있게 할 수도 있다.</li></ul><p id="6f735cf3-ef68-4f77-a932-f48da5f064e2" class="">
+</p><h2 id="3d68035b-17f1-4281-9397-7918b94bf486" class="">HTTPS 작동<strong>방식</strong></h2><p id="6c87114f-2b71-4ed6-bada-4d933a585a52" class=""><strong>암호화 방식</strong></p><p id="31fb2b74-d9c2-47e9-a9fd-84a742ab9990" class="">공개키 암호화 방식과 공개키의 느리다는 단점을 보완한 대칭키 암호화 방식을 함께 사용한다. 공개키 방식으로 대칭키를 전달하고, 서로 공유된 대칭키를 가지고 통신하게 된다.</p><p id="04ecbe2f-db87-41ac-b5a9-79192032c2bc" class="">
+</p><p id="e4841a49-4c47-4755-af22-8a9c79785654" class=""><strong>공캐키 방식</strong></p><ul id="eb603d12-9c3c-45f1-b004-5c4afdd7ba02" class="bulleted-list"><li style="list-style-type:disc">A키로 암호화를 하면 B키로 복호화를 할 수 있다.</li></ul><ul id="d34ffef1-51a6-4ca1-8b1f-0fa70e34545c" class="bulleted-list"><li style="list-style-type:disc">B키로 암호화를 하면 A키로 복호화를 할 수 있다.</li></ul><ul id="0e923d82-984e-4471-8196-e4d9e61ed3c1" class="bulleted-list"><li style="list-style-type:disc">둘 중 하나를 비공개키(Private Key) 혹은 개인키라 부르며, 이는 자신만 가지고 있고 공개되지 않는다.</li></ul><ul id="0c89dcda-fe7e-4d7a-9188-8ce24d0f33ef" class="bulleted-list"><li style="list-style-type:disc">나머지 하나를 공개키(Public Key)라고 부르며 타인에게 제공한다. 공개키는 유출이 되어도 비공개키를 모르면 복호화 할 수 없기 때문에 안전하다.</li></ul><p id="dddcbe44-a1ed-45a6-94d8-6f4e00bb11b3" class="">
+</p><p id="1eb034a8-16c3-4015-8046-d73127ff850d" class=""><strong>대칭키 방식</strong></p><ul id="66f7d91b-5d76-4e82-aedb-75f246adaa8e" class="bulleted-list"><li style="list-style-type:disc">동일한 키로 암호화, 복호화가 가능하다.</li></ul><ul id="811f150a-c9e6-4f62-a0a9-522a6510127f" class="bulleted-list"><li style="list-style-type:disc">대칭키는 매번 랜덤으로 생성되어 누출되어도 다음에 사용할 때는 다른 키가 사용되기 때문에 안전하다.</li></ul><ul id="4b5e5a53-38f9-4f91-a06b-c248ccc68f28" class="bulleted-list"><li style="list-style-type:disc">공개키보다 빠르게 통신할 수 있다.</li></ul><p id="332a77ec-8ced-4b6e-969f-78c46db043ba" class="">
+</p><p id="8d920cff-7857-417e-a00a-a5d3bb333dfd" class=""><strong>HTTPS의 장단점</strong></p><p id="02547b9a-d0a4-47c4-9667-48abaa0438a7" class="">
+</p><ul id="b6af7ba8-e947-4aba-bf06-b3331ec9ecef" class="bulleted-list"><li style="list-style-type:disc">HTTPS는 웹사이트의 무결성을 보호해준다. 웹 사이트와 사용자 브라우저 사이의 통신을 침입자가 건드리지 못하도록 한다. </li></ul><ul id="7a2c8d3b-b36d-423b-93cc-2937836f34d1" class="bulleted-list"><li style="list-style-type:disc">가벼운 웹 서핑이라면 HTTP도 상관없지만, 사용자의 정보를 웹 서버와 주고 받아야하는 경우라면 HTTP는 정보 유출의 위험성을 갖게 된다. HTTPS는 침입자가 웹사이트와 사용자 사이의 통신을 몰래 수신하는 것을 방지함으로써 보안을 강화해준다.</li></ul><ul id="035292ed-c6bf-4a19-a4c4-769a91ac7bca" class="bulleted-list"><li style="list-style-type:disc"><code>getUserMedia()</code>를 통한 사진 촬영이나 오디오 녹음, 프로그레시브 웹 앱과 같은 강력한 웹 플랫폼 신기능들은 실행하려면 사용자의 명시적인 권한 허락을 필요로 한다. </li></ul><ul id="bfdc146a-e6d6-4b0e-800a-2cf8085a5667" class="bulleted-list"><li style="list-style-type:disc">네이버, 다음은 물론이고 구글 역시 검색 엔진 최적화(SEO: Search Engine Optimization) 관련 내용을 HTTPS 웹사이트에 대해서 적용하고 있다. </li></ul><ul id="4dacc41a-9fb4-4a08-a2c2-b2ecb39925ff" class="bulleted-list"><li style="list-style-type:disc">모든 사이트에서 텍스트를 암호화해서 주고 받으면 과부하가 걸려 속도가 느려질 수 있다. 중요한 사이트는 HTTPS로 관리하고, 그렇지 않은 사이트는 HTTP를 사용한다.</li></ul><ul id="d2d9413b-e32c-4f64-85cd-d27f64c06efe" class="bulleted-list"><li style="list-style-type:disc">HTTPS를 지원한다고 해서 무조건 안전한 것은 아니다. 신뢰할 수 있는 CA 기업이 아니라 자체적으로 인증서를 발급할 수도 있고, 신뢰할 수 없는 CA 기업을 통해서 인증서를 발급받을 수도 있기 때문이다.</li></ul><p id="25f4abe1-336a-478f-b253-f3140626f510" class="">
+</p><h2 id="f60de532-1a0c-40a6-ada7-27b0020c93c7" class="">CORS</h2><p id="5c808721-5ce1-4920-b1f2-23f797fa8974" class="">정의</p><p id="7e000ad2-36fd-4f30-a7d5-7a39ba6bdf41" class="">CORS (Cross-Origin Resource Sharing)란 다른 출처(도메인, 포트, 프로토콜)에서 웹 페이지의 리소스를 요청할 때, 브라우저가 이를 허용하도록 하는 보안 메커니즘다. 웹 보안을 강화하기 위해 도입되었으며, 기본적으로는 브라우저에서 한 출처(origin)의 스크립트가 다른 출처의 리소스에 접근하는 것을 금지한다. 따라서 이 정책을 우회하기 위해 CORS는 다른 출처로부터의 HTTP 요청을 허용하거나 거부하는 방법을 정의하고 있다.</p><p id="49675c7a-237b-464c-9150-fcf26a18837b" class="">
+</p><p id="a3998045-0e82-4d26-9460-e3a1c4f46a6c" class=""><strong><strong>CORS 요청의 종류</strong></strong></p><p id="8991c5ea-4281-47b3-99f7-dc7c8fa590d7" class=""><strong>Simple requests</strong></p><p id="deb6d1d2-c4ab-4be3-b558-1ad0352c55ff" class="">Simple reqeusts는 문자 그대로 간단한 요청에 해당하며, 아래 조건을 모두 만족할 경우를 뜻한다.</p><ul id="f24a1038-78a9-4141-94f6-d0947578a6e7" class="bulleted-list"><li style="list-style-type:disc"><code>GET</code>, <code>POST</code>, <code>HEAD</code> method만 허용된다.</li></ul><ul id="652b063e-3320-4f8b-a095-9733a351d6e2" class="bulleted-list"><li style="list-style-type:disc"><code>User-Agent</code>가 자동으로 지정한 header(<code>Connection</code>, <code>User-Agent</code>등) 외에는 아래의 header 값만 수동으로 지정할 수 있다</li></ul><ul id="ac8a0271-de72-4931-8349-ddfb158c6bed" class="bulleted-list"><li style="list-style-type:disc"><code>Content-Type</code> header는 아래의 3가지만 허용된다.</li></ul><ul id="70ff48cc-84cd-4b84-b77a-16e41cd7018d" class="bulleted-list"><li style="list-style-type:disc">요청에 사용된 <code>XMLHttpRequestUpdate</code> 객체에 이벤트 리스너가 등록되어 있지 않아야 한다.</li></ul><ul id="a9c2cf4d-1d8d-4cb2-b9bf-6cffb41c5072" class="bulleted-list"><li style="list-style-type:disc"><code>ReadableStream</code>가 request에 포함되지 않아야 한다.</li></ul><p id="57e4621b-0ad2-4945-ad5f-6c90da696220" class=""> </p><p id="a8572e21-8e0e-4d4e-b513-ebac9caa794a" class=""><strong>Simple Reqeusts 예제</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="96afde2b-3a8b-4c0e-8315-8051168bd934" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">GET /resources/access-control-with-credentials/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b3pre) Gecko/20081130 Minefield/3.1b3pre
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip,deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Connection: keep-alive
+Referer: http://foo.example/examples/credential.html
+Origin: http://foo.example
+Cookie: pageAccess=2</code></pre><p id="b8a9528b-a662-4776-b5e3-9845d1e4cf7e" class="">
+</p><p id="c3de8b61-c0d6-49eb-8c0f-c48ccd3ef1dd" class=""><strong>Preflighted requests</strong></p><p id="0ca95717-b74a-4e0c-a1b8-95fa11ee95f2" class="">Simple requests의 조건에 해당되지 않은 요청은 Preflighted requests로 분류된다. Preflighted requests은 이름에 걸맞게 예비 요청과 본 요청으로 나누어진다.</p><ul id="532bb349-a136-49bd-a577-78ecaa22c5e9" class="bulleted-list"><li style="list-style-type:disc">먼저 <code>OPTIONS</code>을 이용해 서버에 예비 요청을 보내 본 요청이 안전한지 검증한다(예비 요청은 브라우저가 알아서 진행하므로 개발자가 직접 구현하지 않아도 된다.).</li></ul><ul id="dbf57b76-d50d-4449-9761-db87364e9737" class="bulleted-list"><li style="list-style-type:disc">그 이후 본 요청을 보내고, 서버는 이에 응답한다.</li></ul><p id="68d46e10-5204-42d9-8c74-a4c47193ec3f" class="">
+</p><h2 id="a8bf68cc-7c72-4081-a607-5b8e693335e5" class="">SSL/TLS</h2><p id="e1b483db-a597-4aeb-9da2-6ea431237001" class=""><strong>SSL</strong></p><p id="27da8e26-08b4-4712-9e5a-c1560ee7adcf" class="">원래 웹에서의 데이터는 가로채면 누구나 읽을 수 있는 일반 텍스트 형태로 전송 되었다. 이러한 문제때문에 인터넷 통신의 개인정보 보호, 인증, 데이터 무결성을 보장하기 위해 Netscape가 1995년 처음으로 SSL을 개발하였다.</p><p id="cdeb9b8c-ca03-45d3-8f2e-c1c12742f54d" class="">SSL(Secure Scokets Layer)은 암호화 기반 인터넷 보안 프로토콜이다. 전달되는 모든 데이터를 암호화하고 특정한 유형의 사이버 공격도 차단한다. SSL은 TLS(Transport Layer Security) 암호화의 전신이기도 한다.</p><p id="20686a11-038d-4ada-aaed-f5204af0511d" class="">SSl/TLS 를 사용하는 웹사이트 URL은 HTTP 대신 HTTPS가 사용된다.</p><p id="0ad7ef7a-35fa-4959-b3c8-96dec0b4e249" class="">
+</p><p id="2bcb1314-66e3-4dc4-ba25-244d5053f2bb" class=""><strong><strong>TLS</strong></strong></p><p id="37a70fe8-67b1-41c0-97f6-3ff5b4b6e171" class="">TLS 는 SSL의 업데이트 버전으로 SSL의 최종버전인 3.0과 TLS의 최초버전의 차이는 크지않으며, 이름이 바뀐것은 SSL을 개발한 Netscape가 업데이트에 참여하지 않게 되어 소유권 변경을 위해서였다고 한다.<br/>결과적으로 TLS는 SSL의 업데이트 버전이며 명칭만 다르다고 볼 수 있다.<br/></p><p id="d7ac4aee-09f9-4617-886f-5efcbb18ffbd" class="">
+</p><p id="eac592b7-a05b-48ec-a701-c996b14b5e74" class=""><strong><strong>SSL/TLS 의 작동 방식</strong></strong></p><p id="fd9736c2-e1b0-4449-9375-9d4a598f6689" class="">SSL은 개인정보 보호를 제공하기 위해, 웹에서 전송되는 <strong>데이터를 암호화</strong> 한다. 따라서, 데이터를 가로채려해도 거의 <strong>복호화가 불가능</strong>하다.</p><p id="549f97e5-4a87-4797-8e0e-b3653d6bd0bc" class="">SSL은 클라이언트와 서버간에 <strong>핸드셰이크를 통해 인증</strong>이 이루어진다. 또한 <strong>데이터 무결성</strong>을 위해 데이터에 디지털 서명을 하여 데이터가 의도적으로 도착하기 전에 조작된 여부를 확인한다.</p><p id="1c6d0f85-7927-40a1-9ea6-c4e21bb06506" class="">
+</p><h2 id="5ee8600e-e447-405b-b77d-42a862dfe781" class=""></h2><h3 id="ea339e45-49a7-40f0-9380-13cf0ff767c6" class=""><strong><strong>인증서의 종류 및 유형</strong></strong></h3><p id="cb40d9c5-47d8-4822-a501-10a0542b48a8" class="">인증서는 적용되는 도메인의 개수 및 유효성 검사 수준에 따라 유형이 나뉜다.</p><h3 id="2be1a0db-a878-44c9-ab35-72a70be94aab" class="">적용되는 도메인 개수에 따른 유형</h3><ul id="05779d15-4a27-4cb3-9575-ca64c79a7dfd" class="bulleted-list"><li style="list-style-type:disc">단일 도메인(single domain) - 단 하나의 도메인에만 적용이 가능한 인증서</li></ul><ul id="f6254730-d09c-4b0f-b2b6-f72f79bf41c6" class="bulleted-list"><li style="list-style-type:disc">와인드카드(wildcard) - 단일 도메인 인증서처럼 하나의 도메인에만 적용되지만, 해당 도메인의 하위 도메인도 포함이 된다. 예를 들어 www.example.com, blog.example.com, delvelopoers.example.com 등 을 포함할 수 있다.</li></ul><ul id="70243975-8229-4871-a557-a38a045d17be" class="bulleted-list"><li style="list-style-type:disc">멀티 도메인(multi domain) - 관련되지 않는 여러 도메인에 적용할 수 있는 인증서</li></ul><h3 id="58c7eac1-cdf2-4a8a-970d-6dc5f28c9968" class="">유효성 검사 수준에 따른 유형</h3><ul id="6cdb391c-5f7e-46a3-a539-b21247cc32d1" class="bulleted-list"><li style="list-style-type:disc">도메인 유효성 검사(Domain Validation) - 가장 느슨한 수준의 유효성 검사, 기업이 도메인을 관리하고 있다는 것 정도만 증명된다.</li></ul><ul id="e57e86c1-6fa1-42f7-9ba4-cb79cfa1168d" class="bulleted-list"><li style="list-style-type:disc">조직 유효성 검사(Organization Validation) - 인증서 발급 시 CA가 기업을 확인하여 증명(사업자 등록증, 신청자 등)</li></ul><ul id="0206d5a1-a6e8-46d3-8e47-c86083445354" class="bulleted-list"><li style="list-style-type:disc">확장 유효성 검사(Extended Validation) - CA는 조직이 존재하고 법적으로 사업자로 등록되어 있는지, 유효한 주소인지 등을 확인한다. 그만큼 시간이 오래 걸리고 비용도 많이 든다. 가장 큰 신뢰를 제공한다.</li></ul><p id="06db81e8-99c8-4cb6-bb2f-7ebda1c57c87" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
