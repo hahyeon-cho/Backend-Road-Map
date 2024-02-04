@@ -16,6 +16,7 @@ import com.make.backendroadmap.domain.service.SolvedService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+//TODO: 마이페이지에서 Member 같은 속성값을 각 페이지마다 ResponseDto에 담아서 return 함! 리소스 낭비 예상!
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -127,6 +129,7 @@ public class MemberController {
     }
 
     @AllArgsConstructor
+    @Getter
     static class MyPage<T> {
         private String profile;
         private String email;
