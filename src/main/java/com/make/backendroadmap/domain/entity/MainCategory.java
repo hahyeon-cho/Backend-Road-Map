@@ -34,4 +34,8 @@ public class MainCategory extends BaseTimeEntity {
     public static MainCategory createMainCategory(Main mainDocsTitle) {
         return new MainCategory(mainDocsTitle);
     }
+
+    public int getMainDocsOrder() {
+        return mainDocsTitle.getMainDocsOrder();
+    }
 }
