@@ -21,7 +21,7 @@ public class InitData {
 
     @PostConstruct
     public void init() {
-//        initService.init1();
+        initService.init1();
         initService.html();
     }
 
