@@ -1,7 +1,6 @@
 package com.make.backendroadmap.domain.controller;
 
 import com.make.backendroadmap.domain.controller.dto.Member.MemberResponseDto;
-import com.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
 import com.make.backendroadmap.domain.controller.dto.Member.MyPracticeResponseDto;
 import com.make.backendroadmap.domain.controller.dto.Member.MyRoadMapResponseDto;
 import com.make.backendroadmap.domain.controller.dto.Member.MyTestResponseDto;
@@ -19,16 +18,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 //TODO: 마이페이지에서 Member 같은 속성값을 각 페이지마다 ResponseDto에 담아서 return 함! 리소스 낭비 예상!
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/member")
@@ -66,6 +62,7 @@ public class MemberController {
     @GetMapping("/practice/{id}")
     public MyPage myPractice(@PathVariable Long id) {
         Member member = memberService.findMemberById(id);
+        log.info("Member = {}", member.getMemberId());
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member);
 
         List<PracticeCode> practices = practiceCodeService.getPracticesByMember(member);
@@ -109,23 +106,6 @@ public class MemberController {
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
                 memberResponseDto.getTestResponseDto());
-    }
-
-
-    @GetMapping("/edit/{memberId}")
-    public String updateProfile(@PathVariable Long memberId, Model model) {
-        Member member = memberService.findMemberById(memberId);
-        model.addAttribute("member", member);
-        return "form/updateForm";
-    }
-
-    @PostMapping("/edit/{memberId}")
-    public String update(@PathVariable Long memberId,
-                         @ModelAttribute MemberUpdateRequestDto updateRequestDto) {
-        Member member = memberService.findMemberById(memberId);
-        memberService.updateProfile(member, updateRequestDto);
-
-        return "redirect:/form/myPage/{memberId}";
     }
 
     @AllArgsConstructor
