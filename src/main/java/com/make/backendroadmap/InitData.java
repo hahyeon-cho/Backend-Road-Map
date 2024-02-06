@@ -38,11 +38,14 @@ public class InitData {
             MainCategory algorithm = MainCategory.createMainCategory(Main.Algorithm);
             em.persist(algorithm);
 
-            SubCategory subCategory = SubCategory.createSubCategory(Sub.BUBBLE_SORT, 1L, "sub_url", algorithm);
-            em.persist(subCategory);
+            List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(algorithm.getMainDocsOrder());
+            for (Sub sub : orderedSubDocsInCategory) {
+                SubCategory subCategory = SubCategory.createSubCategory(sub, 1L, "sub_url", algorithm);
+                em.persist(subCategory);
 
-            DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
-            em.persist(docsLike);
+                DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
+                em.persist(docsLike);
+            }
 
             Quiz quiz = Quiz.createQuiz("quizName", "quizContext", "image", "quizAnswer", algorithm);
             em.persist(quiz);
