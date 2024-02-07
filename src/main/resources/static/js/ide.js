@@ -147,7 +147,7 @@ function handleResult(data) {
 
     if (blinkStatusLine) {
         $statusLine.addClass("blink");
-        setTimeout(function() {
+        setTimeout(function () {
             blinkStatusLine = false;
             localStorageSetItem("blink", "false");
             $statusLine.removeClass("blink");
@@ -213,7 +213,7 @@ function run() {
         redirect_stderr_to_stdout: true
     };
 
-    var sendRequest = function(data) {
+    var sendRequest = function (data) {
         timeStart = performance.now();
         $.ajax({
             url: apiUrl + `/submissions?base64_encoded=true&wait=${wait}`,
@@ -250,8 +250,7 @@ function run() {
                 },
                 error: handleRunError
             });
-        }
-        else {
+        } else {
             data["additional_files"] = sqliteAdditionalFiles;
         }
     }
@@ -332,12 +331,12 @@ function editorsUpdateFontSize(fontSize) {
 
 function updateScreenElements() {
     var display = window.innerWidth <= 1200 ? "none" : "";
-    $(".wide.screen.only").each(function(index) {
+    $(".wide.screen.only").each(function (index) {
         $(this).css("display", display);
     });
 }
 
-$(window).resize(function() {
+$(window).resize(function () {
     layout.updateSize();
     updateScreenElements();
 });
@@ -468,9 +467,9 @@ $(document).ready(function () {
                 }
             });
 
-            container.on("tab", function(tab) {
+            container.on("tab", function (tab) {
                 tab.element.append("<span id=\"stdout-dot\" class=\"dot\" hidden></span>");
-                tab.element.on("mousedown", function(e) {
+                tab.element.on("mousedown", function (e) {
                     e.target.closest(".lm_tab").children[3].hidden = true;
                 });
             });
@@ -1006,7 +1005,7 @@ int main(int argc, char **argv) {\n\
 }\n\
 ";
 
-var csharpTestSource ="\
+var csharpTestSource = "\
 using NUnit.Framework;\n\
 \n\
 public class Calculator\n\
