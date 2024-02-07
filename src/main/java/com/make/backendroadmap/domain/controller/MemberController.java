@@ -5,6 +5,7 @@ import com.make.backendroadmap.domain.controller.dto.Member.MyPracticeResponseDt
 import com.make.backendroadmap.domain.controller.dto.Member.MyRoadMapResponseDto;
 import com.make.backendroadmap.domain.controller.dto.Member.MyTestResponseDto;
 import com.make.backendroadmap.domain.entity.DocsLike;
+import com.make.backendroadmap.domain.entity.MainCategory;
 import com.make.backendroadmap.domain.entity.Member;
 import com.make.backendroadmap.domain.entity.PracticeCode;
 import com.make.backendroadmap.domain.entity.Solved;
@@ -65,8 +66,9 @@ public class MemberController {
         if (!subCategories.isEmpty()) {
             log.info("My RoadMap Set Data");
             for (SubCategory subCategory : subCategories) {
+                MainCategory mainCategory = subCategory.getMainCategory();
                 myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(
-                        subCategory.getSubDocsTitle(), subCategory.getSubDocsUrl()));
+                        subCategory.getSubDocsTitle(), mainCategory.getMainDocsUrl()));
             }
             memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto);
         }
