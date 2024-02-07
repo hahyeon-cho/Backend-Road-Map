@@ -22,7 +22,6 @@ public class InitData {
     @PostConstruct
     public void init() {
         initService.init1();
-        initService.html();
     }
 
     @Component
@@ -35,38 +34,25 @@ public class InitData {
             Member member = Member.createMember("profile", "email", "name", "github", 1);
             em.persist(member);
 
-            MainCategory algorithm = MainCategory.createMainCategory(Main.Algorithm);
-            em.persist(algorithm);
-
-            List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(algorithm.getMainDocsOrder());
-            for (Sub sub : orderedSubDocsInCategory) {
-                SubCategory subCategory = SubCategory.createSubCategory(sub, 1L, "sub_url", algorithm);
-                em.persist(subCategory);
-
-                DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
-                em.persist(docsLike);
-            }
-
-            Quiz quiz = Quiz.createQuiz("quizName", "quizContext", "image", "quizAnswer", algorithm);
-            em.persist(quiz);
-        }
-
-        public void html() {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
             for (Main orderedMainDoc : orderedMainDocs) {
-                MainCategory mainCategory = MainCategory.createMainCategory(orderedMainDoc);
+                MainCategory mainCategory = MainCategory.createMainCategory(orderedMainDoc, orderedMainDoc.getUrl());
                 em.persist(mainCategory);
 
-                for (int i = 1; i < mainCategory.getMainDocsTitle().getMainDocsOrder() + 1; i++) {
-                    List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(i);
-                    for (Sub sub : orderedSubDocsInCategory) {
-                        SubCategory subCategory = SubCategory.createSubCategory(sub, 0L, sub.getUrl(), mainCategory);
-                        em.persist(subCategory);
-                    }
+                List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(mainCategory.getMainDocsOrder());
+
+                for (Sub sub : orderedSubDocsInCategory) {
+                    SubCategory subCategory = SubCategory.createSubCategory(sub, 0L,
+                            mainCategory); //TODO : constant likeCount
+                    em.persist(subCategory);
+
+                    DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
+                    em.persist(docsLike);
                 }
+
+                Quiz quiz = Quiz.createQuiz("quizName", "quizContext", "image", "quizAnswer", mainCategory);
+                em.persist(quiz);
             }
-
-
         }
     }
 }
