@@ -6,14 +6,14 @@ import lombok.Getter;
 @Getter
 public class MyRoadMapResponseDto {
     private Sub subCategoryTitle;
-    private String subDocsUrl;
+    private String url;
 
-    private MyRoadMapResponseDto(Sub subCategoryTitle, String subDocsUrl) {
+    private MyRoadMapResponseDto(Sub subCategoryTitle, String url) {
         this.subCategoryTitle = subCategoryTitle;
-        this.subDocsUrl = subDocsUrl;
+        this.url = url;
     }
 
-    public static MyRoadMapResponseDto createSubCategoryResponseDto(Sub subCategoryTitle, String subDocsUrl) {
-        return new MyRoadMapResponseDto(subCategoryTitle, subDocsUrl);
+    public static MyRoadMapResponseDto createSubCategoryResponseDto(Sub subCategoryTitle, String url) {
+        return new MyRoadMapResponseDto(subCategoryTitle, url);
     }
 }

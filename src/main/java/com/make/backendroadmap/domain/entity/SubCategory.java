@@ -28,21 +28,18 @@ public class SubCategory extends BaseTimeEntity {
 
     private Long likeCount;
 
-    private String subDocsUrl;
 
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
-    private SubCategory(Sub subDocsTitle, Long likeCount, String subDocsUrl, MainCategory mainCategory) {
+    private SubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
         this.subDocsTitle = subDocsTitle;
         this.likeCount = likeCount;
-        this.subDocsUrl = subDocsUrl;
         this.mainCategory = mainCategory;
     }
 
-    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, String subDocsUrl,
-                                                MainCategory mainCategory) {
-        return new SubCategory(subDocsTitle, likeCount, subDocsUrl, mainCategory);
+    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
+        return new SubCategory(subDocsTitle, likeCount, mainCategory);
     }
 }

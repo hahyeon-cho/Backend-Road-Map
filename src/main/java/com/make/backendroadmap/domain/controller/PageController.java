@@ -10,9 +10,9 @@ public class PageController {
         return "/DataSet/01_Internet/Internet";
     }
 
-    @GetMapping("/basic-fe")
+    @GetMapping("/fe")
     public String basicFE() {
-        return "/DataSet/02_Basic-Fe/Basic-Fe";
+        return "/DataSet/02_Basic-FE/Basic-FE";
     }
 
 
@@ -40,7 +40,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/gitHubGitLab")
+    @GetMapping("/git/repo")
     public String gitHubGitLab() {
         return "/DataSet/07_GitHub-GitLab/GitHub-GitLab";
     }
@@ -58,13 +58,13 @@ public class PageController {
     }
 
 
-    @GetMapping("/dbKnowledge")
+    @GetMapping("/db/knowledge")
     public String DbKnowledge() {
         return "/DataSet/10_DB-Knowledge/DB-Knowledge";
     }
 
 
-    @GetMapping("/APIs")
+    @GetMapping("/apis")
     public String APIs() {
         return "/DataSet/11_APIs/APIs";
     }
@@ -82,7 +82,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/WebSecurity")
+    @GetMapping("/security")
     public String WebSecurity() {
         return "/DataSet/14_Web-Security/Web-Security";
     }
@@ -94,19 +94,19 @@ public class PageController {
     }
 
 
-    @GetMapping("/CICD")
+    @GetMapping("/ci/cd")
     public String CICD() {
         return "/DataSet/16_CI-CD/CI-CD";
     }
 
 
-    @GetMapping("/DesignPattern")
+    @GetMapping("/design/pattern")
     public String DesignPattern() {
         return "/DataSet/17_Design-Pattern/Design-Pattern";
     }
 
 
-    @GetMapping("/searchEngines")
+    @GetMapping("/search/engines")
     public String SearchEngines() {
         return "/DataSet/18_SearchEngines/SearchEngines";
     }
@@ -118,7 +118,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/WebServer")
+    @GetMapping("/server")
     public String WebServer() {
         return "/DataSet/20_Web-Server/Web-Server";
     }

@@ -29,8 +29,19 @@ public class RoadMapController {
 
     @GetMapping("/category")
     public RoadMap mainCategory() {
-        RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto();
-        return new RoadMap(roadMapResponseDto.getMainDocsTitle());
+
+        List<RoadMapResponseDto> roadMapResponseDtos = new ArrayList<>();
+        for (int i = 0; i < Main.getMaximumOrder(); i++) {
+            Main mainDocsTitle = Main.getEnumByMainDocsOrder(i + 1);
+            String url = mainDocsTitle.getUrl();
+            List<Sub> subDocs = Sub.getOrderedSubDocsInCategory(mainDocsTitle.getMainDocsOrder());
+
+            RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto(mainDocsTitle, subDocs,
+                    url);
+            roadMapResponseDtos.add(roadMapResponseDto);
+        }
+
+        return new RoadMap(roadMapResponseDtos);
     }
 
     @GetMapping("/sub/{mainCategoryId}")
@@ -43,7 +54,8 @@ public class RoadMapController {
 
         log.info("RoadMap Detail Page");
         for (Sub sub : subCategoriesByMainCategory) {
-            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L, sub.getUrl()));
+            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L,
+                    mainCategory.getMainDocsUrl()));
         }
 
         return new Detail(categoryResponseDtos);
@@ -53,7 +65,7 @@ public class RoadMapController {
     @AllArgsConstructor
     @Getter
     static class RoadMap<T> {
-        private List<Main> mainDocsTitle;
+        private T mainDocsTitle;
     }
 
 

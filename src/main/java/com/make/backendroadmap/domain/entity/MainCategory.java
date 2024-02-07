@@ -23,16 +23,16 @@ public class MainCategory extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Main mainDocsTitle;
 
-//    @OneToMany(mappedBy = "subDocsId", cascade = CascadeType.ALL)
-//    private List<SubCategory> subCategories = new ArrayList<>();
+    private String mainDocsUrl;
 
 
-    private MainCategory(Main mainDocsTitle) {
+    private MainCategory(Main mainDocsTitle, String mainDocsUrl) {
         this.mainDocsTitle = mainDocsTitle;
+        this.mainDocsUrl = mainDocsUrl;
     }
 
-    public static MainCategory createMainCategory(Main mainDocsTitle) {
-        return new MainCategory(mainDocsTitle);
+    public static MainCategory createMainCategory(Main mainDocsTitle, String mainDocsUrl) {
+        return new MainCategory(mainDocsTitle, mainDocsUrl);
     }
 
     public int getMainDocsOrder() {

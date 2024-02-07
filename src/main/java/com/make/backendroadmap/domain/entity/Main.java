@@ -1,40 +1,61 @@
 package com.make.backendroadmap.domain.entity;
 
+import com.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Getter;
 
+@Getter
 public enum Main {
-    INTERNET(1),
-    BASIC_FE(2),
-    OS(3),
-    LANGUAGE(4),
-    Algorithm(5),
-    GIT(6),
-    REPO_SERVICE(7),
-    RDB(8),
-    NOSQL(9),
-    DB_KNOWLEDGE(10),
-    API(11),
-    FRAMEWORK(12),
-    CACHING(13),
-    WEB_SECURITY(14),
-    TEST(15),
-    CI_CD(16),
-    DESIGN_PATTERN(17),
-    SEARCH_ENGINE(18),
-    CONTAINER(19),
-    WEB_SERVER(20);
+    INTERNET(1, "http://localhost:8080/internet"),
+    BASIC_FE(2, "http://localhost:8080/fe"),
+    OS(3, "http://localhost:8080/os"),
+    LANGUAGE(4, "http://localhost:8080/language"),
+    Algorithm(5, "http://localhost:8080/algorithm"),
+    GIT(6, "http://localhost:8080/git"),
+    REPO_SERVICE(7, "http://localhost:8080/git/repo"),
+    RDB(8, "http://localhost:8080/rdb"),
+    NOSQL(9, "http://localhost:8080/nosql"),
+    DB_KNOWLEDGE(10, "http://localhost:8080/db/knowledge"),
+    API(11, "http://localhost:8080/apis"),
+    FRAMEWORK(12, "http://localhost:8080/framework"),
+    CACHING(13, "http://localhost:8080/caching"),
+    WEB_SECURITY(14, "http://localhost:8080/security"),
+    TEST(15, "http://localhost:8080/test"),
+    CI_CD(16, "http://localhost:8080/ci/cd"),
+    DESIGN_PATTERN(17, "http://localhost:8080/design/pattern"),
+    SEARCH_ENGINE(18, "http://localhost:8080/search/engines"),
+    CONTAINER(19, "http://localhost:8080/container"),
+    WEB_SERVER(20, "http://localhost:8080/server");
 
     private final int mainDocsOrder;
 
-    Main(int mainDocsOrder) {
+    private final String url;
+
+    Main(int mainDocsOrder, String url) {
         this.mainDocsOrder = mainDocsOrder;
+        this.url = url;
     }
 
-    public int getMainDocsOrder() {
-        return mainDocsOrder;
+    public static int getMaximumOrder() {
+        int max = 0;
+        for (Main main : Main.values()) {
+            if (main.getMainDocsOrder() > max) {
+                max = main.getMainDocsOrder();
+            }
+        }
+        return max;
+    }
+
+    public static Main getEnumByMainDocsOrder(int mainDocsOrder) {
+        for (Main main : Main.values()) {
+            if (main.getMainDocsOrder() == mainDocsOrder) {
+                return main;
+            }
+        }
+        throw new ResourceNotFoundException();
     }
 
     public static List<Main> getOrderedMainDocs() {
@@ -42,6 +63,4 @@ public enum Main {
                 .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
                 .collect(Collectors.toList());
     }
-    
-
 }
