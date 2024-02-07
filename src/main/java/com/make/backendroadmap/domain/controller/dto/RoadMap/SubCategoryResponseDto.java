@@ -21,4 +21,13 @@ public class SubCategoryResponseDto {
                                                                       String subDocsUrl) {
         return new SubCategoryResponseDto(subDocsTitle, likeCount, subDocsUrl);
     }
+
+    private SubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
+        this.subDocsTitle = subDocsTitle;
+        this.likeCount = likeCount;
+    }
+
+    public static SubCategoryResponseDto createSubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
+        return new SubCategoryResponseDto(subDocsTitle, likeCount);
+    }
 }
