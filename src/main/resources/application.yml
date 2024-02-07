@@ -5,12 +5,9 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
-
-
   config:
     activate:
       on-profile: dev
-
 
   jpa:
     hibernate:
@@ -27,7 +24,7 @@ spring:
       path: /h2-console
 
 server:
-  port: 8080
+  port: 8085
   servlet:
     context-path: /
     encoding:
