@@ -574,10 +574,10 @@ blockquote {
 .highlight-red_background {
 	background: rgba(253, 235, 236, 1);
 }
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
+/*.block-color-default {*/
+/*	color: inherit;*/
+/*	fill: inherit;*/
+/*}*/
 .block-color-gray {
 	color: rgba(120, 119, 116, 1);
 	fill: rgba(120, 119, 116, 1);
@@ -652,14 +652,14 @@ blockquote {
 .select-value-color-red { background-color: rgba(255, 226, 221, 1); }
 .select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
 .select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
+/*.select-value-color-pageGlass { background-color: undefined; }*/
+/*.select-value-color-washGlass { background-color: undefined; }*/
 
 .checkbox {
 	display: inline-flex;
 	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
+	/*width: 16;*/
+	/*height: 16;*/
 	background-size: 16px;
 	margin-left: 2px;
 	margin-right: 5px;
@@ -680,25 +680,37 @@ blockquote {
 </p><figure id="f65b6a7e-6b6c-4728-bc04-cc36b28f2035" class="image"><a href="DataSet/Test/Untitled.png"><img style="width:576px" src="DataSet/Test/Untitled.png"/></a></figure><p id="d29e2113-b30f-45f6-a6eb-fea474a75bff" class="">                  &lt;출처 : <a href="https://www.geeksforgeeks.org/software-engineering-sdlc-v-model/">https://www.geeksforgeeks.org/software-engineering-sdlc-v-model/</a>&gt;</p><p id="303c44b3-d192-40c4-bebc-3d74d2823a8d" class="">
 </p><p id="a2c1d01d-402c-49b4-91e5-c22ca55a681a" class="">
 </p><p id="77550c46-fa07-4b8e-b730-46f30ff27e99" class="">
-</p><h2 id="4172d102-7806-4ebb-8cbd-7feb9107ff7d" class="">Unit Test</h2><ul id="e1838e97-9b91-4b88-b1d7-01cd4b6aa2eb" class="bulleted-list"><li style="list-style-type:disc">개별적인 코드 단위(메서드)가 의도한 대로 동작하는지 확인하는 과정</li></ul><ul id="5c24c31f-2e5b-43f1-904e-63e729f52044" class="bulleted-list"><li style="list-style-type:disc">각각의 코드 단위가 정확한 입력값과 출력값을 반환하는지 확인</li></ul><p id="1fd19977-6dea-4726-8a28-01f95467c28f" class="">
-</p><p id="6bc89cde-e22a-41ff-b7fb-4330ee20b018" class="">
-</p><h2 id="da6d47c5-6bf7-4b34-880e-24f6e76d8ccc" class="">Integration Test</h2><ul id="3260246b-0c87-4109-baf5-ecafa0aeb321" class="bulleted-list"><li style="list-style-type:disc">서로 다른 모듈 간의 상호작용을 테스트하는 과정</li></ul><ul id="efc11ca8-9460-467c-9c3f-839ae84207c8" class="bulleted-list"><li style="list-style-type:disc">모듈 간 인터페이스 테스트, 시스템 레벨 테스트 등의 방법으로 수행</li></ul><p id="41073c4f-e3ab-4da6-a293-07c3b6004ea7" class="">
-</p><p id="0bd99579-be7a-4629-9ca4-cfdba94aef0f" class="">
-</p><h2 id="a6fb7c89-eef5-4abf-9021-0fdb93f9665b" class="">Functional Test</h2><ul id="e1e3575b-a2b4-43ec-9e56-86efb3413c3d" class="bulleted-list"><li style="list-style-type:disc">어떤 어플리케이션이 제대로 동작하는지 완전한 기능을 테스트하는 것</li></ul><p id="a73813de-c69b-4346-b6c0-be5ebf30f401" class="">
-</p><p id="229ffc30-80a4-4fd9-a8e3-f1e81a333733" class="">
-</p><p id="f903da50-67cc-4acc-bf61-a4189ce5e3c4" class="">
-</p><p id="5c7ad904-d115-4364-951b-2ecb23409635" class="">
-</p><h2 id="7302085b-47e1-44dd-b683-29aa148732ae" class="">테스트 코드 작성의 이점</h2><ol type="1" id="c9b37a65-9a2e-4c2c-b142-78ae7d88a916" class="numbered-list" start="1"><li><strong>어떤 애플리케이션을 만드는지 정확한 인지</strong> : 테스트 코드 작성을 통해 요구사항 기능을 정리하고 코너 케이스 (Corner case)를 찾고 문서화 가능</li></ol><ol type="1" id="d5750484-a48b-4ab2-8344-02ca4d3cd4a6" class="numbered-list" start="2"><li><strong>리팩토링 진행시 부담 덜기 </strong>: 코드 수정 후에도 기능이 정상적으로 작동하는지 검증할 수 있으므로 개발자의 불안감 감소</li></ol><ol type="1" id="3f4a384a-f6e6-4ecc-b579-cbf1da101dd3" class="numbered-list" start="3"><li><strong>결합도와 의존성이 낮은 코드 지향</strong> : 의존성이 높은 부분을 찾고 개선함으로써 프로젝트 코드 품질 향상</li></ol><p id="0631b360-3fcc-4d66-97e4-986999559eab" class="">
-</p><p id="f417984f-546f-4939-b59a-fc1e766bbe58" class="">
-</p><p id="4503f739-c159-492d-8c27-c0c5f4d66c45" class="">
-</p><p id="85822e8a-e02b-4a8a-94f3-8aeff224bbf6" class="">
-</p><h2 id="63b92957-2d5d-402e-a95f-36d7ed1bc1db" class="">Test 작성에 자주 사용하는 라이브러리</h2><ol type="1" id="8a22ffb1-6168-4752-bd2f-767b2e2a550a" class="numbered-list" start="1"><li><strong>AssertJ </strong>: 자바 테스트를 돕기 위해 메서드 체이닝을 통해 읽기 쉬운 테스트 코드 작성 가능<ul id="a438632d-6f8e-43e7-a67e-74007f985836" class="bulleted-list"><li style="list-style-type:disc">참고 :<a href="https://assertj.github.io/doc/"> https://assertj.github.io/doc/</a></li></ul></li></ol><p id="ca73f172-de91-4fe0-b7fc-b714bc6786ec" class="">
-</p><p id="2ec9ad5c-6a6d-4ec1-9ee5-b29a723e5c51" class="">
-</p><ol type="1" id="d95ec477-8fb1-4f8e-baf9-8bf405df53d4" class="numbered-list" start="2"><li><strong>Junit </strong>: 자바 프로젝트를 위한 단위 테스트 프레임워크<ul id="ac2550c7-7614-4579-bb6b-237bf9e05f8e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://junit.org/junit5/">https://junit.org/junit5/</a> </li></ul></li></ol><p id="a20408a1-826d-4957-acab-2cf041a97384" class="">
-</p><p id="6c2d26fa-8ea8-42e0-a906-4c1a8352c789" class="">
-</p><ol type="1" id="daebcbf1-c150-4736-b236-8bd3d4cc40d5" class="numbered-list" start="3"><li><strong>Mokito </strong>: 자바 오픈소스 테스트 프레임워크, 실제 객체를 모방한 가짜 객체 (Mock 객체)를 생성하여 편리한 테스트가 가능 <ul id="4a7a397f-e2de-4dfb-9da5-f82da16bfbe2" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://site.mockito.org/">https://site.mockito.org/</a></li></ul><ul id="08c86f76-4560-4775-b56f-cb0a10b46d05" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://www.nextree.io/mockito/">https://www.nextree.io/mockito/</a></li></ul></li></ol><p id="c439e963-4bcc-4a2c-aa09-ec24f04345bf" class="">
-</p><p id="1fbf2bc0-7064-4872-9d89-08da3b090f11" class="">
-</p><p id="75ce99c7-a7e1-453a-ab2d-74b98485abfe" class="">
-</p><p id="7593eb7f-9ea7-4068-b1b2-36fe218e77aa" class="">
-</p><ul id="19ff6b83-dde7-434c-a486-8af583efb7a6" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://yozm.wishket.com/magazine/detail/1964/">https://yozm.wishket.com/magazine/detail/1964/</a></li></ul><ul id="bdb69878-f3b0-4f07-824a-d68fa7fef21e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/">https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/</a></li></ul><p id="63d2ca32-bb5c-4e43-baa4-4fafe2faf92c" class="">
-</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+</p>
+    <div class="test_01">
+        <h2 id="da6d47c5-6bf7-4b34-880e-24f6e76d8ccc" class="">Integration Test</h2><ul id="3260246b-0c87-4109-baf5-ecafa0aeb321" class="bulleted-list"><li style="list-style-type:disc">서로 다른 모듈 간의 상호작용을 테스트하는 과정</li></ul><ul id="efc11ca8-9460-467c-9c3f-839ae84207c8" class="bulleted-list"><li style="list-style-type:disc">모듈 간 인터페이스 테스트, 시스템 레벨 테스트 등의 방법으로 수행</li></ul><p id="41073c4f-e3ab-4da6-a293-07c3b6004ea7" class="">
+        </p><p id="0bd99579-be7a-4629-9ca4-cfdba94aef0f" class="">
+        </p>
+    </div>
+
+    <div class="test02">
+        <h2 id="4172d102-7806-4ebb-8cbd-7feb9107ff7d" class="">Unit Test</h2><ul id="e1838e97-9b91-4b88-b1d7-01cd4b6aa2eb" class="bulleted-list"><li style="list-style-type:disc">개별적인 코드 단위(메서드)가 의도한 대로 동작하는지 확인하는 과정</li></ul><ul id="5c24c31f-2e5b-43f1-904e-63e729f52044" class="bulleted-list"><li style="list-style-type:disc">각각의 코드 단위가 정확한 입력값과 출력값을 반환하는지 확인</li></ul><p id="1fd19977-6dea-4726-8a28-01f95467c28f" class="">
+        </p><p id="6bc89cde-e22a-41ff-b7fb-4330ee20b018" class=""></p>
+    </div>
+
+    <div class="test03">
+        <h2 id="a6fb7c89-eef5-4abf-9021-0fdb93f9665b" class="">Functional Test</h2><ul id="e1e3575b-a2b4-43ec-9e56-86efb3413c3d" class="bulleted-list"><li style="list-style-type:disc">어떤 어플리케이션이 제대로 동작하는지 완전한 기능을 테스트하는 것</li></ul><p id="a73813de-c69b-4346-b6c0-be5ebf30f401" class="">
+        </p><p id="229ffc30-80a4-4fd9-a8e3-f1e81a333733" class="">
+        </p><p id="f903da50-67cc-4acc-bf61-a4189ce5e3c4" class="">
+        </p><p id="5c7ad904-d115-4364-951b-2ecb23409635" class="">
+        </p><h3 id="7302085b-47e1-44dd-b683-29aa148732ae" class="">테스트 코드 작성의 이점</h3><ol type="1" id="c9b37a65-9a2e-4c2c-b142-78ae7d88a916" class="numbered-list" start="1"><li><strong>어떤 애플리케이션을 만드는지 정확한 인지</strong> : 테스트 코드 작성을 통해 요구사항 기능을 정리하고 코너 케이스 (Corner case)를 찾고 문서화 가능</li></ol><ol type="1" id="d5750484-a48b-4ab2-8344-02ca4d3cd4a6" class="numbered-list" start="2"><li><strong>리팩토링 진행시 부담 덜기 </strong>: 코드 수정 후에도 기능이 정상적으로 작동하는지 검증할 수 있으므로 개발자의 불안감 감소</li></ol><ol type="1" id="3f4a384a-f6e6-4ecc-b579-cbf1da101dd3" class="numbered-list" start="3"><li><strong>결합도와 의존성이 낮은 코드 지향</strong> : 의존성이 높은 부분을 찾고 개선함으로써 프로젝트 코드 품질 향상</li></ol><p id="0631b360-3fcc-4d66-97e4-986999559eab" class="">
+        </p><p id="f417984f-546f-4939-b59a-fc1e766bbe58" class="">
+        </p><p id="4503f739-c159-492d-8c27-c0c5f4d66c45" class="">
+        </p><p id="85822e8a-e02b-4a8a-94f3-8aeff224bbf6" class="">
+        </p><h3 id="63b92957-2d5d-402e-a95f-36d7ed1bc1db" class="">Test 작성에 자주 사용하는 라이브러리</h3><ol type="1" id="8a22ffb1-6168-4752-bd2f-767b2e2a550a" class="numbered-list" start="1"><li><strong>AssertJ </strong>: 자바 테스트를 돕기 위해 메서드 체이닝을 통해 읽기 쉬운 테스트 코드 작성 가능<ul id="a438632d-6f8e-43e7-a67e-74007f985836" class="bulleted-list"><li style="list-style-type:disc">참고 :<a href="https://assertj.github.io/doc/"> https://assertj.github.io/doc/</a></li></ul></li></ol><p id="ca73f172-de91-4fe0-b7fc-b714bc6786ec" class="">
+        </p><p id="2ec9ad5c-6a6d-4ec1-9ee5-b29a723e5c51" class="">
+        </p><ol type="1" id="d95ec477-8fb1-4f8e-baf9-8bf405df53d4" class="numbered-list" start="2"><li><strong>Junit </strong>: 자바 프로젝트를 위한 단위 테스트 프레임워크<ul id="ac2550c7-7614-4579-bb6b-237bf9e05f8e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://junit.org/junit5/">https://junit.org/junit5/</a> </li></ul></li></ol><p id="a20408a1-826d-4957-acab-2cf041a97384" class="">
+        </p><p id="6c2d26fa-8ea8-42e0-a906-4c1a8352c789" class="">
+        </p><ol type="1" id="daebcbf1-c150-4736-b236-8bd3d4cc40d5" class="numbered-list" start="3"><li><strong>Mokito </strong>: 자바 오픈소스 테스트 프레임워크, 실제 객체를 모방한 가짜 객체 (Mock 객체)를 생성하여 편리한 테스트가 가능 <ul id="4a7a397f-e2de-4dfb-9da5-f82da16bfbe2" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://site.mockito.org/">https://site.mockito.org/</a></li></ul><ul id="08c86f76-4560-4775-b56f-cb0a10b46d05" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://www.nextree.io/mockito/">https://www.nextree.io/mockito/</a></li></ul></li></ol><p id="c439e963-4bcc-4a2c-aa09-ec24f04345bf" class="">
+        </p><p id="1fbf2bc0-7064-4872-9d89-08da3b090f11" class="">
+        </p><p id="75ce99c7-a7e1-453a-ab2d-74b98485abfe" class="">
+        </p><p id="7593eb7f-9ea7-4068-b1b2-36fe218e77aa" class="">
+        </p><ul id="19ff6b83-dde7-434c-a486-8af583efb7a6" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://yozm.wishket.com/magazine/detail/1964/">https://yozm.wishket.com/magazine/detail/1964/</a></li></ul><ul id="bdb69878-f3b0-4f07-824a-d68fa7fef21e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/">https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/</a></li></ul><p id="63d2ca32-bb5c-4e43-baa4-4fafe2faf92c" class="">
+        </p>
+    </div>
+</div>
+</article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
