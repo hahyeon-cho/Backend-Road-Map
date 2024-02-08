@@ -574,10 +574,10 @@ blockquote {
 .highlight-red_background {
 	background: rgba(253, 235, 236, 1);
 }
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
+/*.block-color-default {*/
+/*	color: inherit;*/
+/*	fill: inherit;*/
+/*}*/
 .block-color-gray {
 	color: rgba(120, 119, 116, 1);
 	fill: rgba(120, 119, 116, 1);
@@ -652,14 +652,14 @@ blockquote {
 .select-value-color-red { background-color: rgba(255, 226, 221, 1); }
 .select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
 .select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
+/*.select-value-color-pageGlass { background-color: undefined; }*/
+/*.select-value-color-washGlass { background-color: undefined; }*/
 
 .checkbox {
 	display: inline-flex;
 	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
+	/*width: 16;*/
+	/*height: 16;*/
 	background-size: 16px;
 	margin-left: 2px;
 	margin-right: 5px;
@@ -673,25 +673,30 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="812157f3-a620-4612-b91a-63f163e6f51e" class="page sans"><header><h1 class="page-title">NoSQL DB</h1><p class="page-description"></p></header><div class="page-body"><h2 id="84d65644-667f-4872-9201-fd791b234b80" class=""><strong><strong>Amazon DynamoDB</strong></strong></h2><p id="92e6a23e-b702-42aa-bb93-6cbee15e4f34" class="">
-</p><figure id="40b16fca-11cf-4d18-af47-46d17179954c" class="image"><a href="DataSet/NoSQL-DB/Untitled.png"><img style="width:343px" src="DataSet/NoSQL-DB/Untitled.png"/></a></figure><p id="45385e1e-9af3-4c8f-b087-a8635cecb232" class="">
-</p><p id="c94bf366-6f93-4e76-a50a-9b8bf752f346" class="">
-</p><p id="f8148fb5-f9dc-488f-b024-23266165e9eb" class="">
-</p><h2 id="51dd1dac-9097-49e5-9b97-10cc3ee5c696" class="">NoSQL 이란?</h2><p id="78042d26-f29f-45f4-a1b7-c492337c1797" class="">→ Not Only SQL 이라는 뜻으로, 테이블 형식을 따르지 않는 DB를 뜻한다. NoSQL의 범주로는 DocumentDB(MongoDB), Key-Value DB(Cassandra DB, DynamoDB), Graph DB(페이스북 자체적으로 만든 Tao DB)가 있다.</p><p id="c72683d1-1562-4ef9-867b-15833933e0f5" class="">
-</p><p id="a1720300-5a76-439b-b605-2c8d9d2e2330" class="">
-</p><table id="b7ce2f61-8c02-4a5a-b5ac-e14f62ceae14" class="simple-table"><tbody><tr id="0d1293a0-419f-422f-ab1c-ff843ff33dae"><td id="k`p]" class="" style="width:143px">장점</td><td id=":kF&gt;" class="" style="width:851px">설명</td></tr><tr id="552ed645-d580-4829-8186-c756b0cc1c7f"><td id="k`p]" class="" style="width:143px">1. 수평적 확장에 유리</td><td id=":kF&gt;" class="" style="width:851px">서비스 규모가 확장되면 개발자는 Scale-up 또는 Scale-out 중 선택해야한다. 개발자는 보통 Scale-out을 선호하고 NoSQL은 Scale-out을 돕는다.</td></tr><tr id="51019a95-35a2-4e63-a112-c1d55e0bdb34"><td id="k`p]" class="" style="width:143px">2. 빠른 속도</td><td id=":kF&gt;" class="" style="width:851px">Hash Table 구조를 사용하기 때문에 O(1)의 시간복잡도가 소모된다. <br/>(SQL의 경우 : B-Tree 구조로 O(logN)의 시간복잡도 소모)<br/></td></tr><tr id="fe475f34-d776-4339-81cb-1c438babc76f"><td id="k`p]" class="" style="width:143px">3. 유연성</td><td id=":kF&gt;" class="" style="width:851px"><code>Schemaless</code> 로 테이블만 존재하고 스키마가 존재하지 않는다. <br/>또한 Key-Value DB 이므로 비정형 데이터를 저장하기 유리하다.<br/></td></tr></tbody></table><ul id="b7146850-fc3b-44a7-ba45-44d86bc521a8" class="bulleted-list"><li style="list-style-type:disc">Scale-up : 더 높은 성능을 내는 하드웨어로 교체한다. (하나의 장비에 트래픽이 몰리는 경우 리스크가 커지기 때문에 비선호, <code>Power wall 현상</code>으로 인한 <code>쓰로틀링 현상</code> 발생)</li></ul><ul id="7cc9f475-2b48-406d-b828-4b17fad75054" class="bulleted-list"><li style="list-style-type:disc">Scale-out : 비슷한 성능을 내는 하드웨어를 추가한다.</li></ul><p id="fd07b162-c661-49a8-8b16-d86886b27b90" class="">
-</p><p id="b356452b-e811-4619-b53c-dc7bceae2b17" class="">
-</p><p id="e1e5b8c8-806a-4f5b-9b6f-7023d0d8985a" class="">
-</p><h3 id="3a6dfccb-0afe-4543-9ce9-8dc57db4a18d" class="">NoSQL 단점</h3><ol type="1" id="28522b8a-3b8e-4a57-9d16-e320d896f05b" class="numbered-list" start="1"><li>Join 연산 불가</li></ol><ol type="1" id="491540af-6fbc-4357-90c3-c2a127fb7344" class="numbered-list" start="2"><li>Primary Key가 아닌 Attribute에 대해서 Conditional Check를 수행할 때는 SQL보다 느리다.</li></ol><p id="deeffa4f-1b9d-4940-a9a2-595b4b5d1230" class="">
-</p><p id="5fbeac27-581a-49f4-926c-c9b8e145a54c" class="">
-</p><p id="407c762b-348a-49ed-80c7-b6b924c88562" class="">
-</p><h2 id="aca6f7f7-4391-4169-8b4e-efa12933ed20" class="">DynamoDB의 2가지 보조 인덱스</h2><p id="ee01c4f5-aa26-4186-8c05-958ebfb872ca" class="">
-</p><ul id="16eca7d8-018a-46f7-80b5-7999b3dc4ee8" class="bulleted-list"><li style="list-style-type:disc"><strong>LSI(Local Secondary Index)</strong>: 소속된 테이블과 Partition Key가 동일하지만 Sort Key가 다른 인덱스 <br/>(5개까지 할당 가능)<br/></li></ul><ul id="54bcf451-4520-4fc9-b392-0e6b30a12651" class="bulleted-list"><li style="list-style-type:disc"><strong>GSI(Global Secondary Index)</strong>: 소속된 테이블과 Partition Key와 Sort Key가 모두 다를 수있는 인덱스<br/>(20개까지 할당 가능)<br/></li></ul><ul id="2b7091c6-09bb-4624-89a4-9d4ed3efd248" class="bulleted-list"><li style="list-style-type:disc">보조 인덱스를 이용한 테이블간 연관관계 구현 가능 → Join 가능</li></ul><p id="2e0207a2-3642-4535-a097-284c93be5039" class="">
-</p><ul id="fbab7939-42dd-44fc-85d2-481d3867857e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html">https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html</a></li></ul><p id="2b30ab90-73e3-46cd-9cbf-5fce23ef016f" class="">
-</p><p id="da44b4a3-6a5d-4e10-8149-d868369ea9ac" class="">
-</p><p id="4a679672-6fd4-4ac5-b772-dfe51475e688" class="">
-</p><p id="9e4727c0-ea4d-47ab-a8ae-4697e8141899" class="">
-</p><p id="dd99c7e3-a2b6-4f62-999d-745f060fbf30" class="">
-</p><p id="eba1536e-d69b-45cb-b992-3c758455433e" class="">
-</p><ul id="f5b9a754-edec-4c39-9198-deba6ab1c70e" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://velog.io/@18k7102dy/DevOps-Amazon-DynamoDB%EB%9E%80-1">https://velog.io/@18k7102dy/DevOps-Amazon-DynamoDB란-1</a></li></ul><ul id="8a85b182-bfd5-4c6d-81a9-c0bb9b9f2b76" class="bulleted-list"><li style="list-style-type:disc">참고</li></ul><p id="67dcd8e3-c489-41bb-89ef-9d916342e921" class=""><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html">https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html</a></p><p id="b05b8565-e7b9-449f-a724-74adddb41d39" class=""><a href="https://www.youtube.com/watch?v=RfOt2bo0bSA">https://www.youtube.com/watch?v=RfOt2bo0bSA</a></p><p id="49f37849-2488-494a-a562-b1ec19d367fe" class="">
-</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+</style></head><body><article id="812157f3-a620-4612-b91a-63f163e6f51e" class="page sans"><header><h1 class="page-title">NoSQL DB</h1><p class="page-description"></p></header><div class="page-body">
+
+    <div class="noDB_01">
+        <h2 id="84d65644-667f-4872-9201-fd791b234b80" class=""><strong><strong>Amazon DynamoDB</strong></strong></h2><p id="92e6a23e-b702-42aa-bb93-6cbee15e4f34" class="">
+        </p><figure id="40b16fca-11cf-4d18-af47-46d17179954c" class="image"><a href="DataSet/NoSQL-DB/Untitled.png"><img style="width:343px" src="DataSet/NoSQL-DB/Untitled.png"/></a></figure><p id="45385e1e-9af3-4c8f-b087-a8635cecb232" class="">
+        </p><p id="c94bf366-6f93-4e76-a50a-9b8bf752f346" class="">
+        </p><p id="f8148fb5-f9dc-488f-b024-23266165e9eb" class="">
+        </p><h2 id="51dd1dac-9097-49e5-9b97-10cc3ee5c696" class="">NoSQL 이란?</h2><p id="78042d26-f29f-45f4-a1b7-c492337c1797" class="">→ Not Only SQL 이라는 뜻으로, 테이블 형식을 따르지 않는 DB를 뜻한다. NoSQL의 범주로는 DocumentDB(MongoDB), Key-Value DB(Cassandra DB, DynamoDB), Graph DB(페이스북 자체적으로 만든 Tao DB)가 있다.</p><p id="c72683d1-1562-4ef9-867b-15833933e0f5" class="">
+        </p><p id="a1720300-5a76-439b-b605-2c8d9d2e2330" class="">
+        </p><table id="b7ce2f61-8c02-4a5a-b5ac-e14f62ceae14" class="simple-table"><tbody><tr id="0d1293a0-419f-422f-ab1c-ff843ff33dae"><td id="k`p]" class="" style="width:143px">장점</td><td id=":kF&gt;" class="" style="width:851px">설명</td></tr><tr id="552ed645-d580-4829-8186-c756b0cc1c7f"><td id="k`p]" class="" style="width:143px">1. 수평적 확장에 유리</td><td id=":kF&gt;" class="" style="width:851px">서비스 규모가 확장되면 개발자는 Scale-up 또는 Scale-out 중 선택해야한다. 개발자는 보통 Scale-out을 선호하고 NoSQL은 Scale-out을 돕는다.</td></tr><tr id="51019a95-35a2-4e63-a112-c1d55e0bdb34"><td id="k`p]" class="" style="width:143px">2. 빠른 속도</td><td id=":kF&gt;" class="" style="width:851px">Hash Table 구조를 사용하기 때문에 O(1)의 시간복잡도가 소모된다. <br/>(SQL의 경우 : B-Tree 구조로 O(logN)의 시간복잡도 소모)<br/></td></tr><tr id="fe475f34-d776-4339-81cb-1c438babc76f"><td id="k`p]" class="" style="width:143px">3. 유연성</td><td id=":kF&gt;" class="" style="width:851px"><code>Schemaless</code> 로 테이블만 존재하고 스키마가 존재하지 않는다. <br/>또한 Key-Value DB 이므로 비정형 데이터를 저장하기 유리하다.<br/></td></tr></tbody></table><ul id="b7146850-fc3b-44a7-ba45-44d86bc521a8" class="bulleted-list"><li style="list-style-type:disc">Scale-up : 더 높은 성능을 내는 하드웨어로 교체한다. (하나의 장비에 트래픽이 몰리는 경우 리스크가 커지기 때문에 비선호, <code>Power wall 현상</code>으로 인한 <code>쓰로틀링 현상</code> 발생)</li></ul><ul id="7cc9f475-2b48-406d-b828-4b17fad75054" class="bulleted-list"><li style="list-style-type:disc">Scale-out : 비슷한 성능을 내는 하드웨어를 추가한다.</li></ul><p id="fd07b162-c661-49a8-8b16-d86886b27b90" class="">
+        </p><p id="b356452b-e811-4619-b53c-dc7bceae2b17" class="">
+        </p><p id="e1e5b8c8-806a-4f5b-9b6f-7023d0d8985a" class="">
+        </p><h3 id="3a6dfccb-0afe-4543-9ce9-8dc57db4a18d" class="">NoSQL 단점</h3><ol type="1" id="28522b8a-3b8e-4a57-9d16-e320d896f05b" class="numbered-list" start="1"><li>Join 연산 불가</li></ol><ol type="1" id="491540af-6fbc-4357-90c3-c2a127fb7344" class="numbered-list" start="2"><li>Primary Key가 아닌 Attribute에 대해서 Conditional Check를 수행할 때는 SQL보다 느리다.</li></ol><p id="deeffa4f-1b9d-4940-a9a2-595b4b5d1230" class="">
+        </p><p id="5fbeac27-581a-49f4-926c-c9b8e145a54c" class="">
+        </p><p id="407c762b-348a-49ed-80c7-b6b924c88562" class="">
+        </p><h2 id="aca6f7f7-4391-4169-8b4e-efa12933ed20" class="">DynamoDB의 2가지 보조 인덱스</h2><p id="ee01c4f5-aa26-4186-8c05-958ebfb872ca" class="">
+        </p><ul id="16eca7d8-018a-46f7-80b5-7999b3dc4ee8" class="bulleted-list"><li style="list-style-type:disc"><strong>LSI(Local Secondary Index)</strong>: 소속된 테이블과 Partition Key가 동일하지만 Sort Key가 다른 인덱스 <br/>(5개까지 할당 가능)<br/></li></ul><ul id="54bcf451-4520-4fc9-b392-0e6b30a12651" class="bulleted-list"><li style="list-style-type:disc"><strong>GSI(Global Secondary Index)</strong>: 소속된 테이블과 Partition Key와 Sort Key가 모두 다를 수있는 인덱스<br/>(20개까지 할당 가능)<br/></li></ul><ul id="2b7091c6-09bb-4624-89a4-9d4ed3efd248" class="bulleted-list"><li style="list-style-type:disc">보조 인덱스를 이용한 테이블간 연관관계 구현 가능 → Join 가능</li></ul><p id="2e0207a2-3642-4535-a097-284c93be5039" class="">
+        </p><ul id="fbab7939-42dd-44fc-85d2-481d3867857e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html">https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SecondaryIndexes.html</a></li></ul><p id="2b30ab90-73e3-46cd-9cbf-5fce23ef016f" class="">
+        </p><p id="da44b4a3-6a5d-4e10-8149-d868369ea9ac" class="">
+        </p><p id="4a679672-6fd4-4ac5-b772-dfe51475e688" class="">
+        </p><p id="9e4727c0-ea4d-47ab-a8ae-4697e8141899" class="">
+        </p><p id="dd99c7e3-a2b6-4f62-999d-745f060fbf30" class="">
+        </p><p id="eba1536e-d69b-45cb-b992-3c758455433e" class="">
+        </p><ul id="f5b9a754-edec-4c39-9198-deba6ab1c70e" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://velog.io/@18k7102dy/DevOps-Amazon-DynamoDB%EB%9E%80-1">https://velog.io/@18k7102dy/DevOps-Amazon-DynamoDB란-1</a></li></ul><ul id="8a85b182-bfd5-4c6d-81a9-c0bb9b9f2b76" class="bulleted-list"><li style="list-style-type:disc">참고</li></ul><p id="67dcd8e3-c489-41bb-89ef-9d916342e921" class=""><a href="https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html">https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html</a></p><p id="b05b8565-e7b9-449f-a724-74adddb41d39" class=""><a href="https://www.youtube.com/watch?v=RfOt2bo0bSA">https://www.youtube.com/watch?v=RfOt2bo0bSA</a></p><p id="49f37849-2488-494a-a562-b1ec19d367fe" class="">
+        </p></div>
+    </div>
+</article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
