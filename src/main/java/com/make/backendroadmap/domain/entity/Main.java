@@ -13,7 +13,7 @@ public enum Main {
     BASIC_FE(2, "http://localhost:8080/fe"),
     OS(3, "http://localhost:8080/os"),
     LANGUAGE(4, "http://localhost:8080/language"),
-    Algorithm(5, "http://localhost:8080/algorithm"),
+    ALGORITHM(5, "http://localhost:8080/algorithm"),
     GIT(6, "http://localhost:8080/git"),
     REPO_SERVICE(7, "http://localhost:8080/git/repo"),
     RDB(8, "http://localhost:8080/rdb"),
@@ -48,6 +48,16 @@ public enum Main {
         }
         return max;
     }
+
+    public static Main getInstance(String mainDoc) {
+        for (Main main : Main.values()) {
+            if (main.toString().equals(mainDoc)) {
+                return main;
+            }
+        }
+        throw new ResourceNotFoundException();
+    }
+
 
     public static Main getEnumByMainDocsOrder(int mainDocsOrder) {
         for (Main main : Main.values()) {

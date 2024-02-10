@@ -7,39 +7,57 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Quiz extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "quiz_id")
     private Long quizId;
 
-    private String quizName;
-
+    @Column(length = 1000)
     private String quizContext;
-
-    private String quizImage;
-
     private String quizAnswer;
+    @Column(length = 1000)
+    private String quizExplain;
 
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
-    private Quiz(String quizName, String quizContext, String quizImage, String quizAnswer, MainCategory mainCategory) {
-        this.quizName = quizName;
+    private Quiz(String quizContext, String quizAnswer, String quizExplain, MainCategory mainCategory) {
         this.quizContext = quizContext;
-        this.quizImage = quizImage;
         this.quizAnswer = quizAnswer;
+        this.quizExplain = quizExplain;
         this.mainCategory = mainCategory;
     }
 
-    public static Quiz createQuiz(String quizName, String quizContext, String quizImage, String quizAnswer,
+    public static Quiz createQuiz(String quizContext, String quizAnswer, String quizExplain,
                                   MainCategory mainCategory) {
-        return new Quiz(quizName, quizContext, quizImage, quizAnswer, mainCategory);
+        return new Quiz(quizContext, quizAnswer, quizExplain, mainCategory);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Quiz quiz = (Quiz) o;
+        return Objects.equals(quizContext, quiz.quizContext);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(quizContext);
+    }
+
 }

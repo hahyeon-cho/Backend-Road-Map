@@ -38,3 +38,6 @@ out/
 
 ### API-Key ###
 apikey.js
+
+### Setting ###
+application-personal.properties
