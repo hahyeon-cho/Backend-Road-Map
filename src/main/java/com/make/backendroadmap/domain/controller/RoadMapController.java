@@ -45,25 +45,6 @@ public class RoadMapController {
         return new RoadMap(roadMapResponseDtos);
     }
 
-    // 중복된 URL 출력... 하지만 파싱은 쉬움
-//    @GetMapping("/sub/{mainCategoryId}")
-//    public Detail subCategory(@PathVariable Long mainCategoryId) {
-//        MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
-//        List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
-//                mainCategory.getMainDocsOrder());
-//
-//        List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
-//
-//        log.info("RoadMap Detail Page");
-//        for (Sub sub : subCategoriesByMainCategory) {
-//            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L,
-//                    mainCategory.getMainDocsUrl()));
-//        }
-//
-//        return new Detail(categoryResponseDtos);
-//    }
-
-    // 중복된 URL 출력 X... 하지만 파싱 어려움
     @GetMapping("/sub/{mainCategoryId}")
     public Detail subCategory(@PathVariable Long mainCategoryId) {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
