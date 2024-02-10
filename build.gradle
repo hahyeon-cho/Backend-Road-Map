@@ -41,6 +41,12 @@ dependencies {
             }
         }
     }
+
+    // 엑셀파일 DB 삽입
+    implementation 'org.apache.poi:poi:5.0.0'
+    implementation 'org.apache.poi:poi-ooxml:5.0.0'
+    implementation 'com.opencsv:opencsv:5.5.2'
+    
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
