@@ -1,6 +1,7 @@
 package com.make.backendroadmap.domain.entity;
 
 import com.make.backendroadmap.domain.common.BaseTimeEntity;
+import com.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -37,5 +38,13 @@ public class MainCategory extends BaseTimeEntity {
 
     public int getMainDocsOrder() {
         return mainDocsTitle.getMainDocsOrder();
+    }
+
+    public MainCategory getMainCategory(String mainDoc) {
+        Main main = Main.getInstance(mainDoc.trim());
+        if (main.name().equals(mainDoc)) {
+            return this;
+        }
+        throw new ResourceNotFoundException();
     }
 }
