@@ -134,20 +134,20 @@ public class InitData {
 //                            }
 //                        }
 //                    }
-                    if (!quizAnswer.contains("|")) {
-                        for (MainCategory mainCategory : mainCategories) {
-                            if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
-                                category = mainCategory.getMainCategory(mainDoc);
-                                break;
-                            }
-                        }
-                        if (category != null) {
-                            Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
-                            if (!quizs.getQuizs().contains(quiz)) {
-                                quizs.getQuizs().add(quiz);
-                            }
+//                    if (!quizAnswer.contains("|")) {
+                    for (MainCategory mainCategory : mainCategories) {
+                        if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
+                            category = mainCategory.getMainCategory(mainDoc);
+                            break;
                         }
                     }
+                    if (category != null) {
+                        Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
+                        if (!quizs.getQuizs().contains(quiz)) {
+                            quizs.getQuizs().add(quiz);
+                        }
+                    }
+//                    }
                 }
             }
             return quizs;
