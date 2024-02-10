@@ -68,7 +68,7 @@ public class MemberController {
             for (SubCategory subCategory : subCategories) {
                 MainCategory mainCategory = subCategory.getMainCategory();
                 myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(
-                        subCategory.getSubDocsTitle(), mainCategory.getMainDocsUrl()));
+                        subCategory, mainCategory));
             }
             memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto);
         }
@@ -97,7 +97,7 @@ public class MemberController {
 
             for (PracticeCode practice : practices) {
                 myPracticeResponseDto.add(MyPracticeResponseDto.createMyPracticeResponseDto(
-                        practice.getTitle(), practice.getLanguage()));
+                        practice));
             }
             memberResponseDto.setPracticeResponseDto(myPracticeResponseDto);
         }

@@ -1,19 +1,21 @@
 package com.make.backendroadmap.domain.controller.dto.Member;
 
-import com.make.backendroadmap.domain.entity.Sub;
+import com.make.backendroadmap.domain.entity.MainCategory;
+import com.make.backendroadmap.domain.entity.SubCategory;
 import lombok.Getter;
 
 @Getter
 public class MyRoadMapResponseDto {
-    private Sub subCategoryTitle;
+    private SubCategory subCategory;
     private String url;
 
-    private MyRoadMapResponseDto(Sub subCategoryTitle, String url) {
-        this.subCategoryTitle = subCategoryTitle;
-        this.url = url;
+    private MyRoadMapResponseDto(SubCategory subCategory, MainCategory mainCategory) {
+        this.subCategory = subCategory;
+        this.url = mainCategory.getMainDocsUrl();
     }
 
-    public static MyRoadMapResponseDto createSubCategoryResponseDto(Sub subCategoryTitle, String url) {
-        return new MyRoadMapResponseDto(subCategoryTitle, url);
+    public static MyRoadMapResponseDto createSubCategoryResponseDto(SubCategory subCategory,
+                                                                    MainCategory mainCategory) {
+        return new MyRoadMapResponseDto(subCategory, mainCategory);
     }
 }
