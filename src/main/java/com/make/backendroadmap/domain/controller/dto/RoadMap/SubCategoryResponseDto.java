@@ -9,16 +9,13 @@ import lombok.Setter;
 public class SubCategoryResponseDto {
     private Sub subDocsTitle;
     private Long likeCount;
-    private String subDocsUrl;
 
-    private SubCategoryResponseDto(Sub subDocsTitle, Long likeCount, String subDocsUrl) {
+    private SubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
         this.subDocsTitle = subDocsTitle;
         this.likeCount = likeCount;
-        this.subDocsUrl = subDocsUrl;
     }
 
-    public static SubCategoryResponseDto createSubCategoryResponseDto(Sub subDocsTitle, Long likeCount,
-                                                                      String subDocsUrl) {
-        return new SubCategoryResponseDto(subDocsTitle, likeCount, subDocsUrl);
+    public static SubCategoryResponseDto createSubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
+        return new SubCategoryResponseDto(subDocsTitle, likeCount);
     }
 }
