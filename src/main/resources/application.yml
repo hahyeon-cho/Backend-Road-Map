@@ -9,9 +9,9 @@ spring:
     view:
       suffix: .html
 
-  config:
-    activate:
-      on-profile: dev
+  profiles:
+    active: dev
+    include: personal
 
 
   jpa:
@@ -43,3 +43,7 @@ logging:
       hibernate.SQL: debug
       springframework:
         core.LocalVariableTableParameterNameDiscoverer: ERROR
+
+#excel:
+#  file:
+#    path: /Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/src/main/resources/file/RoadMap-CS-Quiz.xlsx
