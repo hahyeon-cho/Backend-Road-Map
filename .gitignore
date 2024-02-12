@@ -37,7 +37,7 @@ out/
 .vscode/
 
 ### API-Key ###
-apikey.js
+config.js
 
 ### Setting ###
 application-personal.properties
