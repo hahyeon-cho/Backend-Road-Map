@@ -1,11 +1,14 @@
-import config from "/../config/apikey";
+import config from "../config/config.js";
 
-const API_KEY = config.API_KEY; // Get yours for free at https://judge0.com/ce and https://judge0.com/extra-ce
-
+const {API_KEY} = config;
+console.log(API_KEY);
 
 const AUTH_HEADERS = API_KEY ? {
     "X-RapidAPI-Key": API_KEY
 } : {};
+
+console.log(AUTH_HEADERS);
+
 
 var defaultUrl = localStorageGetItem("api-url") || "https://judge0-ce.p.rapidapi.com";
 var extraApiUrl = "https://judge0-extra-ce.p.rapidapi.com";
