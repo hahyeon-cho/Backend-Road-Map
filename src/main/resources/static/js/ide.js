@@ -1,7 +1,4 @@
-import config from "../config/config.js";
-
 const {API_KEY} = config;
-console.log(API_KEY);
 
 const AUTH_HEADERS = API_KEY ? {
     "X-RapidAPI-Key": API_KEY
@@ -176,10 +173,31 @@ function importSource() {
     readLocalFile();
 }
 
+
 function downloadSource() {
     var value = parseInt($selectLanguage.val());
     download(sourceEditor.getValue(), fileNames[value], "text/plain");
 }
+
+// function downloadSource() {
+//     var value = parseInt($selectLanguage.val());
+//     var sourceCode = sourceEditor.getValue();
+//     var fileName = fileNames[value];
+//
+//     $.ajax({
+//         url: "/generate/file",
+//         method: "POST",
+//         data: {
+//             sourceCode: sourceCode,
+//             fileName: fileName
+//         },
+//         success: function (response) {
+//             // 서버로부터 받은 응답을 통해 파일 다운로드 URL을 알게 되었으므로,
+//             // 이 URL로 사용자를 리다이렉트하거나 새 창을 열어 파일 다운로드를 진행
+//             window.location.href = response;
+//         }
+//     });
+// }
 
 
 function run() {
