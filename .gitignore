@@ -36,4 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
-application-oauth.properties
+### API-Key ###
+config.js
+
+### Setting ###
+application-personal.properties

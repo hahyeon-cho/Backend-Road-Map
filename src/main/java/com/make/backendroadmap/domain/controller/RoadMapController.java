@@ -5,20 +5,21 @@ import com.make.backendroadmap.domain.controller.dto.RoadMap.RoadMapResponseDto;
 import com.make.backendroadmap.domain.controller.dto.RoadMap.SubCategoryResponseDto;
 import com.make.backendroadmap.domain.entity.Main;
 import com.make.backendroadmap.domain.entity.MainCategory;
-import com.make.backendroadmap.domain.entity.SubCategory;
+import com.make.backendroadmap.domain.entity.Sub;
 import com.make.backendroadmap.domain.service.MainCategoryService;
 import com.make.backendroadmap.domain.service.SubCategoryService;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/roadmap")
@@ -26,39 +27,51 @@ public class RoadMapController {
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
 
+
     @GetMapping("/category")
     public RoadMap mainCategory() {
-        RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto();
-        return new RoadMap(roadMapResponseDto.getMainDocsTitle());
+
+        List<RoadMapResponseDto> roadMapResponseDtos = new ArrayList<>();
+        for (int i = 0; i < Main.getMaximumOrder(); i++) {
+            Main mainDocsTitle = Main.getEnumByMainDocsOrder(i + 1);
+            List<Sub> subDocs = Sub.getOrderedSubDocsInCategory(mainDocsTitle.getMainDocsOrder());
+            String url = mainDocsTitle.getUrl();
+
+            RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto(mainDocsTitle, subDocs,
+                    url);
+            roadMapResponseDtos.add(roadMapResponseDto);
+        }
+
+        return new RoadMap(roadMapResponseDtos);
     }
 
     @GetMapping("/sub/{mainCategoryId}")
     public Detail subCategory(@PathVariable Long mainCategoryId) {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
-        List<SubCategory> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(mainCategory);
+        List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
+                mainCategory.getMainDocsOrder());
 
         List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
-        if (!subCategoriesByMainCategory.isEmpty()) {
-            log.info("RoadMap Detail Page");
-
-            for (SubCategory subCategory : subCategoriesByMainCategory) {
-                categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(
-                        subCategory.getSubDocsTitle(), subCategory.getLikeCount(), subCategory.getSubDocsUrl()));
-            }
+        String mainDocsUrl = mainCategory.getMainDocsUrl();
+        log.info("RoadMap Detail Page");
+        for (Sub sub : subCategoriesByMainCategory) {
+            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L));
         }
 
-        return new Detail(categoryResponseDtos);
+        return new Detail(categoryResponseDtos, mainDocsUrl);
     }
 
-
     @AllArgsConstructor
+    @Getter
     static class RoadMap<T> {
-        private List<Main> mainDocsTitle;
+        private T mainDocsTitle;
     }
 
 
     @AllArgsConstructor
+    @Getter
     static class Detail<T> {
         private List<SubCategoryResponseDto> subCategory;
+        private String url;
     }
 }

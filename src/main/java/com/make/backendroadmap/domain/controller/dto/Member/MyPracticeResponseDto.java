@@ -1,5 +1,6 @@
 package com.make.backendroadmap.domain.controller.dto.Member;
 
+import com.make.backendroadmap.domain.entity.PracticeCode;
 import lombok.Getter;
 
 @Getter
@@ -7,12 +8,12 @@ public class MyPracticeResponseDto {
     private String title;
     private String language;
 
-    private MyPracticeResponseDto(String title, String language) {
-        this.title = title;
-        this.language = language;
+    private MyPracticeResponseDto(PracticeCode practiceCode) {
+        this.title = practiceCode.getTitle();
+        this.language = practiceCode.getLanguage();
     }
 
-    public static MyPracticeResponseDto createMyPracticeResponseDto(String title, String language) {
-        return new MyPracticeResponseDto(title, language);
+    public static MyPracticeResponseDto createMyPracticeResponseDto(PracticeCode practiceCode) {
+        return new MyPracticeResponseDto(practiceCode);
     }
 }

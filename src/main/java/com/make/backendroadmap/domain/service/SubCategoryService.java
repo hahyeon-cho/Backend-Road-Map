@@ -1,8 +1,7 @@
 package com.make.backendroadmap.domain.service;
 
-import com.make.backendroadmap.domain.entity.MainCategory;
-import com.make.backendroadmap.domain.entity.SubCategory;
-import com.make.backendroadmap.domain.repository.SubCategoryRepository;
+import com.make.backendroadmap.domain.entity.Sub;
+import com.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class SubCategoryService {
     private final SubCategoryRepository subCategoryRepository;
 
-    public List<SubCategory> getSubCategoriesByMainCategory(MainCategory mainCategory) {
-        return subCategoryRepository.findSubCategoriesByMainCategory(mainCategory);
+    public List<Sub> getSubCategoriesByMainCategory(int mainCategoryDocsOrder) {
+        return Sub.getOrderedSubDocsInCategory(mainCategoryDocsOrder);
     }
 
 }

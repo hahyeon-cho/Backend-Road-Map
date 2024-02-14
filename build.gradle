@@ -4,12 +4,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
-group = 'com.gtg'
+group = 'com.make'
 version = '0.0.1-SNAPSHOT'
-
-java {
-    sourceCompatibility = '17'
-}
+sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -29,12 +26,31 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+
     implementation 'org.springframework.session:spring-session-jdbc'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
 
+    //Querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    sourceSets {
+        main {
+            java {
+                srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+            }
+        }
+    }
+
+    // 엑셀파일 DB 삽입
+    implementation 'org.apache.poi:poi:5.0.0'
+    implementation 'org.apache.poi:poi-ooxml:5.0.0'
+    implementation 'com.opencsv:opencsv:5.5.2'
+    
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
@@ -43,10 +59,10 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
-tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder-jammy-base:latest'
-}
-
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+clean {
+    delete file('src/main/generated')
 }
