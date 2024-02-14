@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(@RequestParam String path) {
         if (path.equals("RoadMap")) {
             return "category/roadMap";
