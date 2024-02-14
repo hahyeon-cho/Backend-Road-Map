@@ -6,6 +6,8 @@ import com.make.backendroadmap.domain.entity.Role;
 import java.util.Map;
 import lombok.Getter;
 
+import java.util.Map;
+
 @Getter
 public class OAuthAttributes {
     private Map<String, Object> attributes;
@@ -13,7 +15,6 @@ public class OAuthAttributes {
     private String name;
     private String email;
     private String picture;
-
 
     private OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email,
                             String picture) {
@@ -24,11 +25,9 @@ public class OAuthAttributes {
         this.picture = picture;
     }
 
-    public static OAuthAttributes createOAuthAttributes(Map<String, Object> attributes, String nameAttributeKey,
-                                                        String name, String email, String picture) {
+    public static OAuthAttributes createOAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
         return new OAuthAttributes(attributes, nameAttributeKey, name, email, picture);
     }
-
 
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
@@ -57,7 +56,7 @@ public class OAuthAttributes {
 
         return createOAuthAttributes(attributes, userNameAttributeName, name, email, picture);
     }
-    
+
     public Member toEntity() {
         return Member.createMember(picture, email, name, "git", Constant.initLevel, Role.GUEST);
     }

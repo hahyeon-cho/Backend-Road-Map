@@ -25,30 +25,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-//        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
-//        OAuth2User oAuth2User = delegate.loadUser(userRequest);
-//
-//        String registrationId = userRequest
-//                .getClientRegistration().getRegistrationId(); //1
-//        String userNameAttributeName = userRequest
-//                .getClientRegistration().getProviderDetails()
-//                .getUserInfoEndpoint()
-//                .getUserNameAttributeName(); //2
-//
-//        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName,
-//                oAuth2User.getAttributes()); //3
-
-//        User user = saveOrUpdate(attributes);
-//
-//        httpSession.setAttribute("user", new SessionUser(user)); //4
-//
-//        return new DefaultOAuth2User(
-//                Collections.singleton(new
-//                        SimpleGrantedAuthority((user.getRoleKey()))),
-//                attributes.getAttributes(),
-//                attributes.getNameAttributeKey()
-//        );
-
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -68,6 +44,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private Member saveOrUpdate(OAuthAttributes attributes) {
+        //TODO 사용자로부터 github 주소, 닉네임, 프로필 사진을 추가로 받는 로직을 추가한다.
+        
         Member member = memberRepository.findMemberByEmail(attributes.getEmail())
                 .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "금쪽이 GITHUB"))
                 .orElse(attributes.toEntity());
