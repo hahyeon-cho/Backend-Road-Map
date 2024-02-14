@@ -5,6 +5,7 @@ import com.make.backendroadmap.domain.entity.Main;
 import com.make.backendroadmap.domain.entity.MainCategory;
 import com.make.backendroadmap.domain.entity.Member;
 import com.make.backendroadmap.domain.entity.Quiz;
+import com.make.backendroadmap.domain.entity.Role;
 import com.make.backendroadmap.domain.entity.Sub;
 import com.make.backendroadmap.domain.entity.SubCategory;
 import com.make.backendroadmap.domain.repository.QuizRepository;
@@ -52,7 +53,7 @@ public class InitData {
         private final InsertQuizService insertQuizService;
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "github", 1);
+            Member member = Member.createMember("profile", "email", "name", "github", 1, Role.GUEST);
             em.persist(member);
 
             return member;
