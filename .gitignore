@@ -41,3 +41,6 @@ config.js
 
 ### Setting ###
 application-personal.properties
+
+### OAuth ###
+application-oauth.properties
