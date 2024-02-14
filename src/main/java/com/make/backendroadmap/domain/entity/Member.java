@@ -4,6 +4,8 @@ import com.make.backendroadmap.domain.common.BaseTimeEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -32,16 +34,22 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
-    private Member(String profile, String email, String name, String github, int level) {
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
+
+    private Member(String profile, String email, String name, String github, int level, Role role) {
         this.profile = profile;
         this.email = email;
         this.name = name;
         this.github = github;
         this.level = level;
+        this.role = role;
     }
 
-    public static Member createMember(String profile, String email, String name, String github, int level) {
-        return new Member(profile, email, name, github, level);
+    public static Member createMember(String profile, String email, String name, String github, int level, Role role) {
+        return new Member(profile, email, name, github, level, role);
     }
 
     public Member updateMember(String profile, String name, String github) {
@@ -50,5 +58,9 @@ public class Member extends BaseTimeEntity {
         this.github = github;
 
         return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }
