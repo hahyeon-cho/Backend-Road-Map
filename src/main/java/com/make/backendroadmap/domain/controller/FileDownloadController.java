@@ -1,5 +1,6 @@
 package com.make.backendroadmap.domain.controller;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -7,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @Slf4j
@@ -17,19 +20,23 @@ public class FileDownloadController {
     @Value("${file.dir}")
     private String fileDir;
 
-    @PostMapping("/generate/file")
-    public ResponseEntity<String> generateFile(@RequestBody Map<String, String> body) throws Exception {
-        String sourceCode = body.get("sourceCode");
-        String fileName = body.get("fileName");
+    @PostMapping("/uploadFormAction")
+    public void uploadFormAction(MultipartFile[] uploadFile, Model model) {
 
-        // sourceCode를 이용하여 파일 생성 로직...
+        String uploadFolder = "/Users/hayoung_p/Downloads/web-compiler";
 
-        // 생성된 파일의 위치
-        Path path = Paths.get(fileDir, fileName);
+        for (MultipartFile multipartFile : uploadFile) {
+            log.info("==========");
+            log.info("업로드 파일이름:  " + multipartFile.getOriginalFilename());
 
-        // 생성된 파일의 다운로드 URL. 실제 상황에 맞게 변경해야 합니다.
-        String downloadUrl = "http://localhost:8080/download/" + fileName;
 
-        return ResponseEntity.ok(downloadUrl);
+            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+            try {
+                multipartFile.transferTo(saveFile);
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
     }
+
 }
