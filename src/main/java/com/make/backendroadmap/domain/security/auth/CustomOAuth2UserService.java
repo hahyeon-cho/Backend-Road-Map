@@ -35,7 +35,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 oAuth2User.getAttributes());
 
         Member member = saveOrUpdate(attributes);
-        httpSession.setAttribute("member", new SessionUser(member));
+        httpSession.setAttribute("user", new SessionUser(member));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
@@ -45,7 +45,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private Member saveOrUpdate(OAuthAttributes attributes) {
         //TODO 사용자로부터 github 주소, 닉네임, 프로필 사진을 추가로 받는 로직을 추가한다.
-        
+
         Member member = memberRepository.findMemberByEmail(attributes.getEmail())
                 .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "금쪽이 GITHUB"))
                 .orElse(attributes.toEntity());
