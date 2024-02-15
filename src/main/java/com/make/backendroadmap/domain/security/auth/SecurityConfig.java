@@ -39,7 +39,8 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
 //                                .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
-                        .anyRequest().authenticated())
+//                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
 //                .formLogin((formLogin) ->
 //                        formLogin
 //                                .loginPage("/login/login")
