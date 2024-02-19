@@ -73,4 +73,13 @@ public enum Main {
                 .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
                 .collect(Collectors.toList());
     }
+
+    public static Main findMainBySearchQuery(int searchQuery) {
+        for (Main main : Main.values()) {
+            if (main.getMainDocsOrder() == searchQuery) {
+                return main;
+            }
+        }
+        throw new ResourceNotFoundException();
+    }
 }
