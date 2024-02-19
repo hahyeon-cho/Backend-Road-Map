@@ -1,12 +1,15 @@
 package com.make.backendroadmap.domain.controller;
 
 
+import com.make.backendroadmap.domain.controller.dto.RoadMap.RecommendBookDto;
 import com.make.backendroadmap.domain.controller.dto.RoadMap.RoadMapResponseDto;
 import com.make.backendroadmap.domain.controller.dto.RoadMap.SubCategoryResponseDto;
 import com.make.backendroadmap.domain.entity.Main;
 import com.make.backendroadmap.domain.entity.MainCategory;
+import com.make.backendroadmap.domain.entity.RecommendBook;
 import com.make.backendroadmap.domain.entity.Sub;
 import com.make.backendroadmap.domain.service.MainCategoryService;
+import com.make.backendroadmap.domain.service.RecommendBookService;
 import com.make.backendroadmap.domain.service.SubCategoryService;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoadMapController {
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
+    private final RecommendBookService recommendBookService;
 
 
     @GetMapping("/category")
@@ -51,6 +55,13 @@ public class RoadMapController {
         List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
                 mainCategory.getMainDocsOrder());
 
+        List<RecommendBookDto> recommendBookDtos = new ArrayList<>();
+        List<RecommendBook> recommendBooks = recommendBookService.getRecommendBookList(mainCategory);
+        for (RecommendBook recommendBook : recommendBooks) {
+            RecommendBookDto recommendBookDto = RecommendBookDto.createRecommendBookDto(recommendBook);
+            recommendBookDtos.add(recommendBookDto);
+        }
+
         List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
         String mainDocsUrl = mainCategory.getMainDocsUrl();
         log.info("RoadMap Detail Page");
@@ -58,7 +69,7 @@ public class RoadMapController {
             categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L));
         }
 
-        return new Detail(categoryResponseDtos, mainDocsUrl);
+        return new Detail(categoryResponseDtos, mainDocsUrl, recommendBookDtos);
     }
 
     @AllArgsConstructor
@@ -73,5 +84,6 @@ public class RoadMapController {
     static class Detail<T> {
         private List<SubCategoryResponseDto> subCategory;
         private String url;
+        private List<RecommendBookDto> recommendBookDtos;
     }
 }
