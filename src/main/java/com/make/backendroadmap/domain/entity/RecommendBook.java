@@ -8,10 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class RecommendBook extends BaseTimeEntity {
 
     @Id
@@ -25,8 +27,23 @@ public class RecommendBook extends BaseTimeEntity {
 
     private String bookImage;
 
-    @ManyToOne
-    @JoinColumn(name = "sub_docs_id")
-    private SubCategory subCategory;
+    private String publisher;
 
+    @ManyToOne
+    @JoinColumn(name = "main_docs_id")
+    private MainCategory mainCategory;
+
+    private RecommendBook(String bookTitle, String bookAuthor, String bookImage, String publisher,
+                          MainCategory mainCategory) {
+        this.bookTitle = bookTitle;
+        this.bookAuthor = bookAuthor;
+        this.bookImage = bookImage;
+        this.publisher = publisher;
+        this.mainCategory = mainCategory;
+    }
+
+    public static RecommendBook createRecommend(String bookTitle, String bookAuthor, String bookImage, String publisher,
+                                                MainCategory mainCategory) {
+        return new RecommendBook(bookTitle, bookAuthor, bookImage, publisher, mainCategory);
+    }
 }
