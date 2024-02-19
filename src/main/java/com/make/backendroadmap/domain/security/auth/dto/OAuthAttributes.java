@@ -2,7 +2,6 @@ package com.make.backendroadmap.domain.security.auth.dto;
 
 import com.make.backendroadmap.domain.constant.Constant;
 import com.make.backendroadmap.domain.entity.Member;
-import com.make.backendroadmap.domain.entity.Role;
 import lombok.Getter;
 
 import java.util.Map;
@@ -58,8 +57,9 @@ public class OAuthAttributes {
         return createOAuthAttributes(attributes, userNameAttributeName, name, email, picture);
     }
 
-    //2
     public Member toEntity() {
-        return Member.createMember(picture, email, name, "", Constant.initLevel, Role.GUEST);
+        return Member.createMember(picture, email, name, "", Constant.initLevel);
     }
+
+
 }

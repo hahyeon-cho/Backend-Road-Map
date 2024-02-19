@@ -20,6 +20,7 @@ public class Member extends BaseTimeEntity {
     private String email;
     private String name;
     private String github;
+    //private static String nickname;
     private int level;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -28,7 +29,7 @@ public class Member extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private static Role role;
 
 
     private Member(String profile, String email, String name, String github, int level, Role role) {
@@ -40,7 +41,7 @@ public class Member extends BaseTimeEntity {
         this.role = role;
     }
 
-    public static Member createMember(String profile, String email, String name, String github, int level, Role role) {
+    public static Member createMember(String profile, String email, String name, String github, int level) {
         return new Member(profile, email, name, github, level, role);
     }
 
@@ -48,7 +49,6 @@ public class Member extends BaseTimeEntity {
         this.profile = profile;
         this.name = name;
         this.github = github;
-
         return this;
     }
 

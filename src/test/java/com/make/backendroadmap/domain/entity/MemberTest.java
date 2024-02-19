@@ -1,12 +1,13 @@
 package com.make.backendroadmap.domain.entity;
 
 import com.make.backendroadmap.domain.repository.MemberRepository;
-import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 class MemberTest {
@@ -19,7 +20,7 @@ class MemberTest {
     void basicTest() {
         //given
         MainCategory mainCategory = new MainCategory();
-        Member member = Member.createMember("profile", "email", "name", "github", 1);
+        Member member = Member.createMember ("profile", "email", "name", "github", 1);
 
         //when
         Member saveMember = memberRepository.save(member);
