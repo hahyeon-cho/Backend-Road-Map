@@ -1,5 +1,6 @@
 package com.make.backendroadmap.init;
 
+import com.make.backendroadmap.api.Book.BookApi;
 import com.make.backendroadmap.domain.entity.DocsLike;
 import com.make.backendroadmap.domain.entity.Main;
 import com.make.backendroadmap.domain.entity.MainCategory;
@@ -38,6 +39,7 @@ public class InitData {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
         initService.initQuiz(mainCategories);
+        initService.insertBook();
     }
 
     @Component
@@ -51,6 +53,12 @@ public class InitData {
         private String excelFilePath;
         private final QuizRepository quizRepository;
         private final InsertQuizService insertQuizService;
+
+        private final BookApi bookApi;
+
+        public void insertBook() {
+            bookApi.callAladinApi();
+        }
 
         public Member initMember() {
             Member member = Member.createMember("profile", "email", "name", "github", 1, Role.GUEST);
