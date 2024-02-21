@@ -72,6 +72,7 @@ public class RoadMapController {
         return new Detail(categoryResponseDtos, mainDocsUrl, recommendBookDtos);
     }
 
+
     @AllArgsConstructor
     @Getter
     static class RoadMap<T> {
