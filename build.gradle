@@ -33,13 +33,13 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
 
-    implementation 'io.github.bonigarcia:webdrivermanager:5.5.3'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.12.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.6.4'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.17.0'
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
     implementation 'org.apache.httpcomponents.core5:httpcore5:5.2'
     implementation 'org.apache.httpcomponents.core5:httpcore5-h2:5.2'
-    implementation group: 'org.json', name: 'json', version: '20201115'
+    implementation group: 'org.json', name: 'json', version: '20231013'
 
 
     //Querydsl 추가
