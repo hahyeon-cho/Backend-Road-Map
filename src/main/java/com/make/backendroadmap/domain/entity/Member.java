@@ -25,6 +25,7 @@ public class Member extends BaseTimeEntity {
     private String profile;
     private String email;
     private String name;
+    private String nickName;
     private String github;
     private int level;
 
@@ -32,16 +33,18 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
-    private Member(String profile, String email, String name, String github, int level) {
+    private Member(String profile, String email, String name, String nickName, String github, int level) {
         this.profile = profile;
         this.email = email;
         this.name = name;
+        this.nickName = nickName;
         this.github = github;
         this.level = level;
     }
 
-    public static Member createMember(String profile, String email, String name, String github, int level) {
-        return new Member(profile, email, name, github, level);
+    public static Member createMember(String profile, String email, String name, String nickName, String github,
+                                      int level) {
+        return new Member(profile, email, name, nickName, github, level);
     }
 
     public Member updateMember(String profile, String name, String github) {
