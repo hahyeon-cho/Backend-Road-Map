@@ -52,7 +52,7 @@ public class InitData {
         private final InsertQuizService insertQuizService;
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "github", 1);
+            Member member = Member.createMember("profile", "email", "name", "nickName", "github", 1);
             em.persist(member);
 
             return member;
