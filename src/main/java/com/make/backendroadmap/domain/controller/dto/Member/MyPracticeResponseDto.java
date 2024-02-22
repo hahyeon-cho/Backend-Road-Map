@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public class MyPracticeResponseDto {
     private String title;
-    private String language;
+//    private String language;
 
     private MyPracticeResponseDto(PracticeCode practiceCode) {
-        this.title = practiceCode.getTitle();
-        this.language = practiceCode.getLanguage();
+        this.title = practiceCode.getFileName();
+//        this.language = practiceCode.getLanguage();
     }
 
     public static MyPracticeResponseDto createMyPracticeResponseDto(PracticeCode practiceCode) {
