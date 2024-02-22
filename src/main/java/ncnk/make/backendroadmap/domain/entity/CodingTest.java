@@ -31,39 +31,4 @@ public class CodingTest extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
-
-    private CodingTest(String problemName, String problemLevel, String problemContext,
-                       String problemImage, String problemInput, String problemOutput, Double problemAccuracy,
-                       Boolean testOrQuiz, MainCategory mainCategory) {
-        this.problemName = problemName;
-        this.problemLevel = problemLevel;
-        this.problemContext = problemContext;
-        this.problemImage = problemImage;
-        this.problemInput = problemInput;
-        this.problemOutput = problemOutput;
-        this.problemAccuracy = problemAccuracy;
-        this.testOrQuiz = testOrQuiz;
-        this.mainCategory = mainCategory;
-    }
-
-    public static CodingTest createCodingTest(String problemName, String problemLevel, String problemContext,
-                                              String problemImage, String problemInput, String problemOutput,
-                                              Double problemAccuracy,
-                                              Boolean testOrQuiz, MainCategory mainCategory) {
-        return new CodingTest(problemName, problemLevel, problemContext, problemImage, problemInput, problemOutput,
-                problemAccuracy, testOrQuiz, mainCategory);
-    }
-
-    private CodingTest(String problemContext, String problemInput, String problemOutput, MainCategory mainCategory) {
-        this.problemContext = problemContext;
-        this.problemInput = problemInput;
-        this.problemOutput = problemOutput;
-        this.testOrQuiz = false;
-        this.mainCategory = mainCategory;
-    }
-
-    public static CodingTest createAlgorithmTest(String problemContext, String problemInput,
-                                                 String problemOutput, MainCategory mainCategory) {
-        return new CodingTest(problemContext, problemInput, problemOutput, mainCategory);
-    }
 }

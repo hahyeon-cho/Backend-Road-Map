@@ -67,8 +67,7 @@ public class MemberController {
             log.info("My RoadMap Set Data");
             for (SubCategory subCategory : subCategories) {
                 MainCategory mainCategory = subCategory.getMainCategory();
-                myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(
-                        subCategory, mainCategory));
+                myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(subCategory, mainCategory));
             }
             memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto);
         }
@@ -130,7 +129,6 @@ public class MemberController {
                 memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
                 pageable.getPageSize(), memberResponseDto.getTestResponseDto());
     }
-
     @AllArgsConstructor
     @Getter
     static class MyPage<T> {

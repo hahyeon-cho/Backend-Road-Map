@@ -38,7 +38,7 @@ public class DocsLikeService {
 
         DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
         docsLikeRepository.save(docsLike);
-        subCategoryRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
+//        docsLikeRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
     }
 
     @Transactional
@@ -51,7 +51,7 @@ public class DocsLikeService {
                 .orElseThrow(() -> new ResourceNotFoundException());
 
         docsLikeRepository.delete(docsLike);
-        subCategoryRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
+//        docsLikeRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
     }
 
     public List<SubCategory> findSubCategoriesByMember(Member member) {
