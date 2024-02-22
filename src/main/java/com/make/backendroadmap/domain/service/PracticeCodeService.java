@@ -20,4 +20,9 @@ public class PracticeCodeService {
     public Page<PracticeCode> getPracticesByMember(Member member, Pageable pageable) {
         return practiceCodeRepository.findPracticeCodesByMember(member, pageable);
     }
+
+    public void save(String fileName, String filePath, Member member) {
+        PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), member);
+        practiceCodeRepository.save(practiceCode);
+    }
 }
