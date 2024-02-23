@@ -10,12 +10,13 @@ import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
@@ -28,12 +29,12 @@ public class FileDownloadController {
     private String fileDir;
 
     @PostMapping("/upload/{id}")
-    public String uploadFile(@PathVariable Long id, @RequestParam("file") MultipartFile file,
-                             @RequestParam("fileName") String fileName, RedirectAttributes attributes) {
+    public ResponseEntity<?> uploadFile(@PathVariable Long id, @RequestParam("file") MultipartFile file,
+                                        @RequestParam("fileName") String fileName,
+                                        @RequestParam("extension") String extension) {
         // 파일이 비어있는지 확인
         if (file.isEmpty()) {
-            attributes.addFlashAttribute("message", "파일을 선택해주세요");
-            return "redirect:/practice";
+            return new ResponseEntity<>("파일을 선택해주세요", HttpStatus.BAD_REQUEST);
         }
 
         Member member = memberService.findMemberById(id);
@@ -42,17 +43,24 @@ public class FileDownloadController {
         try {
             byte[] bytes = file.getBytes();
             Path dirPath = Paths.get(fileDir, nickName);
-            Path filePath = dirPath.resolve(file.getOriginalFilename());
+            Path filePath = dirPath.resolve(fileName + '.' + extension);
+
+            // 파일이 이미 존재하는지 확인
+            if (Files.exists(filePath)) {
+                return new ResponseEntity<>("같은 이름의 파일이 이미 존재합니다.", HttpStatus.BAD_REQUEST);
+            }
 
             Files.createDirectories(dirPath); //유저 닉네임으로 폴더 생성
             Files.write(filePath, bytes);
 
             log.info("Success To Upload Web-Compiler!!");
 
-            practiceCodeService.save(fileName, String.valueOf(filePath), member);
+            practiceCodeService.save(fileName, String.valueOf(filePath), extension, member);
         } catch (IOException e) {
             log.error("Error uploading web-compiler: {}", e.getMessage());
         }
-        return "redirect:/practice";
+
+        return new ResponseEntity<>("저장되었습니다!", HttpStatus.OK);
     }
+
 }

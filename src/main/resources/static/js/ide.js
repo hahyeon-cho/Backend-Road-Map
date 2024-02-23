@@ -180,7 +180,6 @@ function downloadSource() {
     var value = parseInt($selectLanguage.val());
     var sourceCode = sourceEditor.getValue();
 
-    var extension = fileNames[value].split('.')[1]; //확장자 추출
     var inputFileName = prompt("파일 이름을 입력해주세요:");
 
     // sourceCode 값이 없는 경우 확인
@@ -195,6 +194,7 @@ function downloadSource() {
         return;
     }
 
+    var extension = fileNames[value].split('.')[1]; //확장자 추출
     var fileName = inputFileName + "." + extension;
 
     var file = new File([sourceCode], fileName, {type: "text/plain"});
@@ -202,6 +202,7 @@ function downloadSource() {
     var formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", fileName);
+    formData.append("extension", extension);
 
     $.ajax({
         url: "http://localhost:8080/upload/" + userId,
@@ -210,8 +211,17 @@ function downloadSource() {
         processData: false,  // 필수 옵션
         contentType: false,  // 필수 옵션
         success: function (response) {
-            alert('저장되었습니다!');
-            window.location.href = response;
+            if (response === "success") {
+                console.log(response)
+                window.location.href = "/practice";
+            } else {
+                console.log(response)
+                alert(response);
+            }
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR)
+            alert(jqXHR.responseText);
         }
     });
 }
