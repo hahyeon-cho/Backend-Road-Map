@@ -1,14 +1,14 @@
-package com.make.backendroadmap.domain.controller;
+package ncnk.make.backendroadmap.domain.controller;
 
-import com.make.backendroadmap.domain.entity.Member;
-import com.make.backendroadmap.domain.service.MemberService;
-import com.make.backendroadmap.domain.service.PracticeCodeService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.service.MemberService;
+import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
