@@ -43,7 +43,7 @@ public class FileDownloadController {
         try {
             byte[] bytes = file.getBytes();
             Path dirPath = Paths.get(fileDir, nickName);
-            Path filePath = dirPath.resolve(fileName + '.' + extension);
+            Path filePath = dirPath.resolve(fileName);
 
             // 파일이 이미 존재하는지 확인
             if (Files.exists(filePath)) {
