@@ -13,9 +13,6 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
-import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyPracticeResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyRoadMapResponseDto;
@@ -39,9 +36,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequestMapping("/api/member")
 public class MemberController {
-    private final DocsLikeRepository docsLikeRepository;
-    private final SubCategoryRepository subCategoryRepository;
-    private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final DocsLikeService docsLikeService;
     private final PracticeCodeService practiceCodeService;
@@ -55,7 +49,7 @@ public class MemberController {
         Member member = memberService.findMemberById(id);
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member);
 
-        Page<DocsLike> docsLikesPage = docsLikeRepository.findAllByMember(member, pageable);
+        Page<DocsLike> docsLikesPage = docsLikeService.findAllByMember(member, pageable);
 
         List<SubCategory> subCategories = docsLikesPage.getContent().stream()
                 .map(DocsLike::getSubCategory)
@@ -73,8 +67,9 @@ public class MemberController {
         }
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                pageable.getPageSize(), memberResponseDto.getRoadMapResponseDto());
+                memberResponseDto.getName(), memberResponseDto.getNickName(),
+                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getRoadMapResponseDto());
     }
 
     @GetMapping("/practice/{id}")
@@ -101,8 +96,9 @@ public class MemberController {
         }
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                pageable.getPageSize(), memberResponseDto.getPracticeResponseDto());
+                memberResponseDto.getName(), memberResponseDto.getNickName(),
+                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getPracticeResponseDto());
     }
 
     @GetMapping("/test/{id}")
@@ -125,17 +121,21 @@ public class MemberController {
         }
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                pageable.getPageSize(), memberResponseDto.getTestResponseDto());
+                memberResponseDto.getName(), memberResponseDto.getNickName(),
+                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getTestResponseDto());
     }
+
     @AllArgsConstructor
     @Getter
     static class MyPage<T> {
         private String profile;
         private String email;
         private String name;
+        private String nickName;
         private String github;
         private int level;
+        private int point;
         private int pageSize;
         private T data;
     }

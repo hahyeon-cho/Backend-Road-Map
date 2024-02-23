@@ -6,11 +6,17 @@ import ncnk.make.backendroadmap.domain.entity.SubCategory;
 
 @Getter
 public class MyRoadMapResponseDto {
-    private SubCategory subCategory;
+    private String subDocsTitle;
+    private Long likeCount;
+    private String subDescription;
+    private String mainDocsTitle;
     private String url;
 
-    private MyRoadMapResponseDto(SubCategory subCategory, MainCategory mainCategory) {
-        this.subCategory = subCategory;
+    public MyRoadMapResponseDto(SubCategory subCategory, MainCategory mainCategory) {
+        this.subDocsTitle = subCategory.getSubDocsTitle().getSubCategory();
+        this.likeCount = subCategory.getLikeCount();
+        this.subDescription = subCategory.getSubDescription();
+        this.mainDocsTitle = mainCategory.getMainDocsTitle().getMainCategory();
         this.url = mainCategory.getMainDocsUrl();
     }
 
