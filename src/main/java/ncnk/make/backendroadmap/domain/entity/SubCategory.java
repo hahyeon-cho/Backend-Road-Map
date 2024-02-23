@@ -1,4 +1,3 @@
-
 package ncnk.make.backendroadmap.domain.entity;
 
 import jakarta.persistence.Column;
@@ -29,18 +28,21 @@ public class SubCategory extends BaseTimeEntity {
 
     private Long likeCount;
 
-
+    private String subDescription;
+    
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
 
-    private SubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
+    private SubCategory(Sub subDocsTitle, Long likeCount, String subDescription, MainCategory mainCategory) {
         this.subDocsTitle = subDocsTitle;
         this.likeCount = likeCount;
+        this.subDescription = subDescription;
         this.mainCategory = mainCategory;
     }
 
-    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
-        return new SubCategory(subDocsTitle, likeCount, mainCategory);
+    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, String subDescription,
+                                                MainCategory mainCategory) {
+        return new SubCategory(subDocsTitle, likeCount, subDescription, mainCategory);
     }
 }

@@ -9,32 +9,34 @@ import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 
 @Getter
 public enum Main {
-    INTERNET(1, "http://localhost:8080/internet"),
-    BASIC_FE(2, "http://localhost:8080/fe"),
-    OS(3, "http://localhost:8080/os"),
-    LANGUAGE(4, "http://localhost:8080/language"),
-    ALGORITHM(5, "http://localhost:8080/algorithm"),
-    GIT(6, "http://localhost:8080/git"),
-    REPO_SERVICE(7, "http://localhost:8080/git/repo"),
-    RDB(8, "http://localhost:8080/rdb"),
-    NOSQL(9, "http://localhost:8080/nosql"),
-    DB_KNOWLEDGE(10, "http://localhost:8080/db/knowledge"),
-    API(11, "http://localhost:8080/apis"),
-    FRAMEWORK(12, "http://localhost:8080/framework"),
-    CACHING(13, "http://localhost:8080/caching"),
-    WEB_SECURITY(14, "http://localhost:8080/security"),
-    TEST(15, "http://localhost:8080/test"),
-    CI_CD(16, "http://localhost:8080/ci/cd"),
-    DESIGN_PATTERN(17, "http://localhost:8080/design/pattern"),
-    SEARCH_ENGINE(18, "http://localhost:8080/search/engines"),
-    CONTAINER(19, "http://localhost:8080/container"),
-    WEB_SERVER(20, "http://localhost:8080/server");
+    INTERNET("Internet", 1, "http://localhost:8080/internet"),
+    BASIC_FE("Basic FE", 2, "http://localhost:8080/fe"),
+    OS("OS", 3, "http://localhost:8080/os"),
+    LANGUAGE("Language", 4, "http://localhost:8080/language"),
+    ALGORITHM("Algorithm", 5, "http://localhost:8080/algorithm"),
+    GIT("Using Git", 6, "http://localhost:8080/git"),
+    REPO_SERVICE("Repo hosting Services", 7, "http://localhost:8080/git/repo"),
+    RDB("Relational DB", 8, "http://localhost:8080/rdb"),
+    NOSQL("NoSQL DB", 9, "http://localhost:8080/nosql"),
+    DB_KNOWLEDGE("DB Knowledge", 10, "http://localhost:8080/db/knowledge"),
+    API("APIs", 11, "http://localhost:8080/apis"),
+    FRAMEWORK("Framework", 12, "http://localhost:8080/framework"),
+    CACHING("Caching", 13, "http://localhost:8080/caching"),
+    WEB_SECURITY("Web Security", 14, "http://localhost:8080/security"),
+    TEST("Test", 15, "http://localhost:8080/test"),
+    CI_CD("CI / CD", 16, "http://localhost:8080/ci/cd"),
+    DESIGN_PATTERN("Design Pattern", 17, "http://localhost:8080/design/pattern"),
+    SEARCH_ENGINE("Search Engines", 18, "http://localhost:8080/search/engines"),
+    CONTAINER("Container", 19, "http://localhost:8080/container"),
+    WEB_SERVER("Web Server", 20, "http://localhost:8080/server");
 
+
+    private final String mainCategory;
     private final int mainDocsOrder;
-
     private final String url;
 
-    Main(int mainDocsOrder, String url) {
+    Main(String mainCategory, int mainDocsOrder, String url) {
+        this.mainCategory = mainCategory;
         this.mainDocsOrder = mainDocsOrder;
         this.url = url;
     }
