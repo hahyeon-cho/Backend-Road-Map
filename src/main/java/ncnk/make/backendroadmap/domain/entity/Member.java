@@ -30,6 +30,7 @@ public class Member extends BaseTimeEntity {
     private String nickName;
     private String github;
     private int level;
+    private int point;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "main_docs_id")
@@ -40,19 +41,21 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
 
-    private Member(String profile, String email, String name, String nickName, String github, int level, Role role) {
+    private Member(String profile, String email, String name, String nickName, String github, int level, int point,
+                   Role role) {
         this.profile = profile;
         this.email = email;
         this.name = name;
         this.nickName = nickName;
         this.github = github;
         this.level = level;
+        this.point = point;
         this.role = role;
     }
 
     public static Member createMember(String profile, String email, String name, String nickName, String github,
-                                      int level, Role role) {
-        return new Member(profile, email, name, nickName, github, level, role);
+                                      int level, int point, Role role) {
+        return new Member(profile, email, name, nickName, github, level, point, role);
     }
 
     public Member updateMember(String profile, String name, String github) {

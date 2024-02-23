@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.Book.BookApi;
+import ncnk.make.backendroadmap.domain.constant.Constant;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
@@ -33,12 +34,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class InitData {
     private final InitService initService;
+    private static final Long initLikeCount = 0L;
 
     @PostConstruct
     public void init() {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
         initService.initQuiz(mainCategories);
+//        initService.insertBook();
     }
 
     @Component
@@ -60,7 +63,8 @@ public class InitData {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "nickName", "github", 1, Role.GUEST);
+            Member member = Member.createMember("profile", "email", "name", "nickName", "github",
+                    Constant.initLevel, Constant.initPoint, Role.GUEST);
             em.persist(member);
 
             return member;
@@ -77,8 +81,8 @@ public class InitData {
                 List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(mainCategory.getMainDocsOrder());
 
                 for (Sub sub : orderedSubDocsInCategory) {
-                    SubCategory subCategory = SubCategory.createSubCategory(sub, 0L,
-                            mainCategory); //TODO : constant likeCount
+                    SubCategory subCategory = SubCategory.createSubCategory(sub, initLikeCount, sub.getSubDescription(),
+                            mainCategory);
                     em.persist(subCategory);
 
                     DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
