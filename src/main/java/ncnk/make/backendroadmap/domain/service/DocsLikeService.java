@@ -13,6 +13,8 @@ import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
 import ncnk.make.backendroadmap.domain.repository.MemberRepository;
 import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import ncnk.make.backendroadmap.domain.restController.dto.Like.DocsLikeResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +60,10 @@ public class DocsLikeService {
         return docsLikeRepository.findDocsLikesByMember(member).stream()
                 .map(DocsLike::getSubCategory)
                 .collect(Collectors.toList());
+    }
+
+    public Page<DocsLike> findAllByMember(Member member, Pageable pageable) {
+        return docsLikeRepository.findAllByMember(member, pageable);
     }
 
     private Member getMember(DocsLikeResponseDto docsLikeResponseDto) {
