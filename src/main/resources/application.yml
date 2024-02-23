@@ -1,10 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
   mvc:
     view:
       suffix: .html
@@ -13,6 +7,8 @@ spring:
     active: dev
     include: personal
 
+  session:
+    store-type: jdbc
 
   jpa:
     hibernate:
@@ -27,6 +23,11 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
 server:
   port: 8080
@@ -43,7 +44,3 @@ logging:
       hibernate.SQL: debug
       springframework:
         core.LocalVariableTableParameterNameDiscoverer: ERROR
-
-#excel:
-#  file:
-#    path: /Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/src/main/resources/file/RoadMap-CS-Quiz.xlsx
