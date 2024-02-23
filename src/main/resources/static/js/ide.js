@@ -179,13 +179,23 @@ function downloadSource() {
     var userId = document.getElementById('userId').value;
     var value = parseInt($selectLanguage.val());
     var sourceCode = sourceEditor.getValue();
-    var fileName = fileNames[value];
+
+    var extension = fileNames[value].split('.')[1]; //확장자 추출
+    var inputFileName = prompt("파일 이름을 입력해주세요:");
 
     // sourceCode 값이 없는 경우 확인
     if (!sourceCode) {
         alert("데이터가 없어 저장에 실패했습니다.");
         return;
     }
+
+    // 사용자가 파일 이름을 입력하지 않은 경우 확인
+    if (!inputFileName) {
+        alert("파일 이름을 입력해주세요.");
+        return;
+    }
+
+    var fileName = inputFileName + "." + extension;
 
     var file = new File([sourceCode], fileName, {type: "text/plain"});
 
