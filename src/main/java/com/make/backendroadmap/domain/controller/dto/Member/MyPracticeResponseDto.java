@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 public class MyPracticeResponseDto {
-    private String title;
-//    private String language;
+    private String fileName;
+    private String language;
 
     private MyPracticeResponseDto(PracticeCode practiceCode) {
-        this.title = practiceCode.getFileName();
-//        this.language = practiceCode.getLanguage();
+        this.fileName = practiceCode.getFileName();
+        this.language = practiceCode.getLanguage();
     }
 
     public static MyPracticeResponseDto createMyPracticeResponseDto(PracticeCode practiceCode) {

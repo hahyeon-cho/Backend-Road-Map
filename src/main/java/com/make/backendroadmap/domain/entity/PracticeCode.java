@@ -21,18 +21,20 @@ public class PracticeCode extends BaseTimeEntity {
     private Long practiceId;
     private String fileName;
     private String path;
+    private String language;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private PracticeCode(String fileName, String path, Member member) {
+    private PracticeCode(String fileName, String path, String language, Member member) {
         this.fileName = fileName;
         this.path = path;
+        this.language = language;
         this.member = member;
     }
 
-    public static PracticeCode createPracticeCode(String fileName, String path, Member member) {
-        return new PracticeCode(fileName, path, member);
+    public static PracticeCode createPracticeCode(String fileName, String path, String language, Member member) {
+        return new PracticeCode(fileName, path, language, member);
     }
 }
