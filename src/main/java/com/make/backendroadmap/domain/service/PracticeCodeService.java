@@ -21,8 +21,10 @@ public class PracticeCodeService {
         return practiceCodeRepository.findPracticeCodesByMember(member, pageable);
     }
 
-    public void save(String fileName, String filePath, Member member) {
-        PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), member);
+    @Transactional
+    public void save(String fileName, String filePath, String extension, Member member) {
+        PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), extension,
+                member);
         practiceCodeRepository.save(practiceCode);
     }
 }
