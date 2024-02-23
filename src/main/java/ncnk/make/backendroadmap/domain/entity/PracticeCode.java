@@ -19,13 +19,22 @@ public class PracticeCode extends BaseTimeEntity {
     @GeneratedValue
     @Column(name = "practice_id")
     private Long practiceId;
-    private String title;
-    private String code;
+    private String fileName;
+    private String path;
     private String language;
-    private String practicePath;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private PracticeCode(String fileName, String path, String language, Member member) {
+        this.fileName = fileName;
+        this.path = path;
+        this.language = language;
+        this.member = member;
+    }
+
+    public static PracticeCode createPracticeCode(String fileName, String path, String language, Member member) {
+        return new PracticeCode(fileName, path, language, member);
+    }
 }

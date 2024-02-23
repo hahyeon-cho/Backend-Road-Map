@@ -39,7 +39,6 @@ public class InitData {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
         initService.initQuiz(mainCategories);
-        initService.insertBook();
     }
 
     @Component
@@ -61,7 +60,7 @@ public class InitData {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "github", 1, Role.GUEST);
+            Member member = Member.createMember("profile", "email", "name", "nickName", "github", 1, Role.GUEST);
             em.persist(member);
 
             return member;

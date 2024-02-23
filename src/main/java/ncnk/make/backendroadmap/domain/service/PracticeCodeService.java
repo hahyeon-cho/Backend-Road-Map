@@ -22,4 +22,11 @@ public class PracticeCodeService {
     public Page<PracticeCode> getPracticesByMember(Member member, Pageable pageable) {
         return practiceCodeRepository.findPracticeCodesByMember(member, pageable);
     }
+
+    @Transactional
+    public void save(String fileName, String filePath, String extension, Member member) {
+        PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), extension,
+                member);
+        practiceCodeRepository.save(practiceCode);
+    }
 }

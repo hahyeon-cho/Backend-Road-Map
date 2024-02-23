@@ -27,6 +27,7 @@ public class Member extends BaseTimeEntity {
     private String profile;
     private String email;
     private String name;
+    private String nickName;
     private String github;
     private int level;
 
@@ -39,17 +40,19 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
 
-    private Member(String profile, String email, String name, String github, int level, Role role) {
+    private Member(String profile, String email, String name, String nickName, String github, int level, Role role) {
         this.profile = profile;
         this.email = email;
         this.name = name;
+        this.nickName = nickName;
         this.github = github;
         this.level = level;
         this.role = role;
     }
 
-    public static Member createMember(String profile, String email, String name, String github, int level, Role role) {
-        return new Member(profile, email, name, github, level, role);
+    public static Member createMember(String profile, String email, String name, String nickName, String github,
+                                      int level, Role role) {
+        return new Member(profile, email, name, nickName, github, level, role);
     }
 
     public Member updateMember(String profile, String name, String github) {

@@ -95,8 +95,7 @@ public class MemberController {
             log.info("My Practice Set Data");
 
             for (PracticeCode practice : practices) {
-                myPracticeResponseDto.add(MyPracticeResponseDto.createMyPracticeResponseDto(
-                        practice));
+                myPracticeResponseDto.add(MyPracticeResponseDto.createMyPracticeResponseDto(practice));
             }
             memberResponseDto.setPracticeResponseDto(myPracticeResponseDto);
         }
