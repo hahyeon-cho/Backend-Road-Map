@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/roadmap")
-public class RoadMapController {
+public class RoadMapApiController {
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
     private final RecommendBookService recommendBookService;
