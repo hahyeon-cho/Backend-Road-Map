@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/roadmap")
-public class RoadMapController {
+public class RoadMapApiController {
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
     private final RecommendBookService recommendBookService;
@@ -53,7 +53,7 @@ public class RoadMapController {
     public Detail subCategory(@PathVariable Long mainCategoryId) {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
         List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
-                mainCategory.getMainDocsOrder());
+                mainCategory);
 
         List<RecommendBookDto> recommendBookDtos = new ArrayList<>();
         List<RecommendBook> recommendBooks = recommendBookService.getRecommendBookList(mainCategory);

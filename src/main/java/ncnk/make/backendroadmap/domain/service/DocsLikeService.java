@@ -1,18 +1,17 @@
 package ncnk.make.backendroadmap.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.exception.DuplicateResourceException;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
 import ncnk.make.backendroadmap.domain.repository.MemberRepository;
 import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
-import ncnk.make.backendroadmap.domain.restController.dto.Like.DocsLikeResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,33 +27,24 @@ public class DocsLikeService {
     private final DocsLikeRepository docsLikeRepository;
 
     @Transactional
-    public void insertSubCategoryLike(DocsLikeResponseDto docsLikeResponseDto) {
-        SubCategory subCategory = getSubCategory(docsLikeResponseDto);
+    public void toggleSubCategoryLike(Member member, SubCategory subCategory) {
+        Optional<DocsLike> optionalLike = docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory);
 
-        Member member = getMember(docsLikeResponseDto);
-
-        if (docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory).isPresent()) {
-            throw new DuplicateResourceException("[ERROR] Already Exist Like!! MemberId: " + member.getMemberId()
-                    + "SubCategoryId: " + subCategory.getSubDocsId());
+        if (optionalLike.isPresent()) {
+            docsLikeRepository.delete(optionalLike.get());
+            subCategoryRepository.subLikeCount(subCategory); //소분류 누적 좋아요 개수 --
+        } else {
+            DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
+            docsLikeRepository.save(docsLike);
+            subCategoryRepository.addLikeCount(subCategory); //소분류 누적 좋아요 개수 ++
         }
-
-        DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
-        docsLikeRepository.save(docsLike);
-//        docsLikeRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
     }
 
-    @Transactional
-    public void deleteSubCategoryLike(DocsLikeResponseDto docsLikeResponseDto) {
-        SubCategory subCategory = getSubCategory(docsLikeResponseDto);
-
-        Member member = getMember(docsLikeResponseDto);
-
-        DocsLike docsLike = docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory)
+    public DocsLike findDocsLikeByMemberAndSubCategory(Member member, SubCategory subCategory) {
+        return docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory)
                 .orElseThrow(() -> new ResourceNotFoundException());
-
-        docsLikeRepository.delete(docsLike);
-//        docsLikeRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
     }
+
 
     public List<SubCategory> findSubCategoriesByMember(Member member) {
         return docsLikeRepository.findDocsLikesByMember(member).stream()
@@ -66,13 +56,16 @@ public class DocsLikeService {
         return docsLikeRepository.findAllByMember(member, pageable);
     }
 
-    private Member getMember(DocsLikeResponseDto docsLikeResponseDto) {
-        return memberRepository.findMemberByMemberId(docsLikeResponseDto.getMemberId())
+    private SubCategory getSubCategory(DocsLike docsLike) {
+        SubCategory subCategory = subCategoryRepository.findSubCategoryBySubDocsId(
+                        docsLike.getSubCategory().getSubDocsId())
                 .orElseThrow(() -> new ResourceNotFoundException());
+        return subCategory;
     }
 
-    private SubCategory getSubCategory(DocsLikeResponseDto docsLikeResponseDto) {
-        return subCategoryRepository.findSubCategoryBySubDocsId(docsLikeResponseDto.getSubDocsId())
+    private Member getMember(DocsLike docsLike) {
+        Member member = memberRepository.findMemberByMemberId(docsLike.getMember().getMemberId())
                 .orElseThrow(() -> new ResourceNotFoundException());
+        return member;
     }
 }

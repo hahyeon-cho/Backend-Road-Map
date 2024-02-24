@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/quiz")
-public class QuizController {
+public class QuizApiController {
     private final QuizService quizService;
     private final MainCategoryService mainCategoryService;
 

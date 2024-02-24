@@ -39,7 +39,7 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
         em.clear();
 
         return queryFactory
-                .select(QSubCategory.subCategory)
+                .selectFrom(QSubCategory.subCategory)
                 .fetch();
     }
 }
