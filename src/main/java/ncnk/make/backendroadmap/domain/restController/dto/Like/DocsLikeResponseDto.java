@@ -1,22 +1,28 @@
 package ncnk.make.backendroadmap.domain.restController.dto.Like;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.entity.Sub;
+import ncnk.make.backendroadmap.domain.entity.SubCategory;
 
 @Getter
+@Slf4j
 public class DocsLikeResponseDto {
-    @NotBlank
-    private Long memberId;
+    private String nickName;
+    private String email;
+    private Sub subDocsTitle;
+    private Long likeCount;
 
-    @NotBlank
-    private Long subDocsId;
+    private DocsLikeResponseDto(Member member, SubCategory subCategory) {
+        this.nickName = member.getNickName();
+        this.email = member.getEmail();
+        this.subDocsTitle = subCategory.getSubDocsTitle();
+        this.likeCount = subCategory.getLikeCount();
 
-    private DocsLikeResponseDto(Long memberId, Long subDocsId) {
-        this.memberId = memberId;
-        this.subDocsId = subDocsId;
     }
 
-    public static DocsLikeResponseDto createSubCategoryDto(Long memberId, Long subDocsId) {
-        return new DocsLikeResponseDto(memberId, subDocsId);
+    public static DocsLikeResponseDto createDocsLikeResponseDto(Member member, SubCategory subCategory) {
+        return new DocsLikeResponseDto(member, subCategory);
     }
 }
