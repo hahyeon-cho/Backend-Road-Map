@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/roadmap")
-public class roadMapPageController {
+public class RoadMapController {
 
     @GetMapping()
     public String roadMapMain() {

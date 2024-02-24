@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/practice")
-public class PracticeController {
+public class PracticeCodeController {
 
     @GetMapping()
     public String webCompiler(Model model, HttpServletRequest request) {
@@ -26,6 +26,6 @@ public class PracticeController {
         model.addAttribute("userID", 1);
         return "ide";
     }
-    
+
 
 }
