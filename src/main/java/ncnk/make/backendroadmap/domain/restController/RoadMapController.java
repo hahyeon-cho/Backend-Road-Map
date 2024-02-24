@@ -53,7 +53,7 @@ public class RoadMapController {
     public Detail subCategory(@PathVariable Long mainCategoryId) {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
         List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
-                mainCategory.getMainDocsOrder());
+                mainCategory);
 
         List<RecommendBookDto> recommendBookDtos = new ArrayList<>();
         List<RecommendBook> recommendBooks = recommendBookService.getRecommendBookList(mainCategory);
