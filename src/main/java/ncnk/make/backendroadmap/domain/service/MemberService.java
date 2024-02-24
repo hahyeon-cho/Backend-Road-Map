@@ -28,8 +28,12 @@ public class MemberService {
     }
 
     public Member findMemberById(Long id) {
-        Member member = memberRepository.findMemberByMemberId(id)
+        return memberRepository.findMemberByMemberId(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
-        return member;
+    }
+
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findMemberByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException());
     }
 }
