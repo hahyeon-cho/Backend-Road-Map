@@ -2,20 +2,22 @@ package ncnk.make.backendroadmap.domain.restController.dto.RoadMap;
 
 import lombok.Getter;
 import lombok.Setter;
-import ncnk.make.backendroadmap.domain.entity.Sub;
 
 @Getter
 @Setter
 public class SubCategoryResponseDto {
-    private Sub subDocsTitle;
+    private String subDocsTitle;
+    private String subDescription;
     private Long likeCount;
 
-    private SubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
+    private SubCategoryResponseDto(String subDocsTitle, String subDescription, Long likeCount) {
         this.subDocsTitle = subDocsTitle;
+        this.subDescription = subDescription;
         this.likeCount = likeCount;
     }
 
-    public static SubCategoryResponseDto createSubCategoryResponseDto(Sub subDocsTitle, Long likeCount) {
-        return new SubCategoryResponseDto(subDocsTitle, likeCount);
+    public static SubCategoryResponseDto createSubCategoryResponseDto(String subDocsTitle,
+                                                                      String subDescription, Long likeCount) {
+        return new SubCategoryResponseDto(subDocsTitle, subDescription, likeCount);
     }
 }

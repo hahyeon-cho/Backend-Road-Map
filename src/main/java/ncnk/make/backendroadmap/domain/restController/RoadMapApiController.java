@@ -66,7 +66,9 @@ public class RoadMapApiController {
         String mainDocsUrl = mainCategory.getMainDocsUrl();
         log.info("RoadMap Detail Page");
         for (Sub sub : subCategoriesByMainCategory) {
-            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L));
+            categoryResponseDtos.add(
+                    SubCategoryResponseDto.createSubCategoryResponseDto(
+                            sub.getSubCategory(), sub.getSubDescription(), 0L));
         }
 
         return new Detail(categoryResponseDtos, mainDocsUrl, recommendBookDtos);
