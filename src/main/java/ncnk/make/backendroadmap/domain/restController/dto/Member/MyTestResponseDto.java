@@ -9,13 +9,13 @@ public class MyTestResponseDto {
     private Boolean problemSolved;
     private String problemName;
     private Double problemAccuracy;
-    private String problemLevel;
+    private String problemDifficulty;
 
     public MyTestResponseDto(Solved solved, CodingTest codingTest) {
         this.problemSolved = solved.getProblemSolved();
         this.problemName = codingTest.getProblemName();
         this.problemAccuracy = codingTest.getProblemAccuracy();
-        this.problemLevel = codingTest.getProblemLevel();
+        this.problemDifficulty = codingTest.getProblemDifficulty();
     }
 
     public static MyTestResponseDto createTestResponseDto(Solved solved, CodingTest codingTest) {
