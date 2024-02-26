@@ -23,6 +23,9 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
                 .where(QSubCategory.subCategory.eq(subCategory))
                 .execute();
 
+        em.flush();
+        em.clear();
+        
         return queryFactory
                 .selectFrom(QSubCategory.subCategory)
                 .fetch();

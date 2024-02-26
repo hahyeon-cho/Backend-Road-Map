@@ -20,7 +20,7 @@ public class CodingTest extends BaseTimeEntity {
     @Column(name = "codingTest_id")
     private Long codingTestId;
     private String problemName;
-    private String problemLevel;
+    private String problemDifficulty;
     private String problemContext;
     private String problemImage;
     private String problemInput;
@@ -31,4 +31,27 @@ public class CodingTest extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory;
+
+    private CodingTest(String problemName, String problemDifficulty, String problemContext, String problemImage,
+                       String problemInput, String problemOutput, Double problemAccuracy, Boolean testOrQuiz,
+                       MainCategory mainCategory) {
+        this.problemName = problemName;
+        this.problemDifficulty = problemDifficulty;
+        this.problemContext = problemContext;
+        this.problemImage = problemImage;
+        this.problemInput = problemInput;
+        this.problemOutput = problemOutput;
+        this.problemAccuracy = problemAccuracy;
+        this.testOrQuiz = testOrQuiz;
+        this.mainCategory = mainCategory;
+    }
+
+    public static CodingTest createCodingTest(String problemName, String problemDifficulty, String problemContext,
+                                              String problemImage,
+                                              String problemInput, String problemOutput, Double problemAccuracy,
+                                              Boolean testOrQuiz,
+                                              MainCategory mainCategory) {
+        return new CodingTest(problemName, problemDifficulty, problemContext, problemImage, problemInput, problemOutput,
+                problemAccuracy, testOrQuiz, mainCategory);
+    }
 }

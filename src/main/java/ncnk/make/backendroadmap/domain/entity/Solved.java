@@ -32,4 +32,20 @@ public class Solved {
 
     private String problemPath;
 
+
+    private Solved(CodingTest codingTest, Member member, Boolean problemSolved, String problemPath) {
+        this.codingTest = codingTest;
+        this.member = member;
+        this.problemSolved = problemSolved;
+        this.problemPath = problemPath;
+    }
+
+    public static Solved createSolved(CodingTest codingTest, Member member, Boolean problemSolved, String problemPath) {
+        return new Solved(codingTest, member, problemSolved, problemPath);
+    }
+
+
+    public void checkSolved() {
+        //TODO: 정답이 맞다면 problemSolved를 true로 바꾸는 로직
+    }
 }

@@ -28,6 +28,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //TODO: 마이페이지에서 Member 같은 속성값을 각 페이지마다 ResponseDto에 담아서 return 함! 리소스 낭비 예상!
@@ -39,7 +40,6 @@ public class MemberApiController {
     private final MemberService memberService;
     private final DocsLikeService docsLikeService;
     private final PracticeCodeService practiceCodeService;
-
     private final SolvedService solvedService;
 
     //    http://localhost:8080/member/roadmap/1?page=2&size=5
@@ -101,16 +101,22 @@ public class MemberApiController {
                 memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getPracticeResponseDto());
     }
 
+//     동적쿼리로 찾기
+//     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
+//     속성값 diffuculty - Hard - Middle - Easy order - asc - desc problemSolved - true - false
+
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id,
+                         @RequestParam(value = "difficulty", required = false) String difficulty,
+                         @RequestParam(value = "order", required = false) String order,
+                         @RequestParam(value = "problemSolved", required = false) Boolean problemSolved,
                          @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
         Member member = memberService.findMemberById(id);
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member);
 
-        Page<Solved> solveds = solvedService.getSolved(member, pageable);
+        Page<Solved> solveds = solvedService.dynamicSearching(difficulty, order, problemSolved, pageable);
 
         List<MyTestResponseDto> myTestResponseDto = new ArrayList<>();
-
         if (!solveds.isEmpty()) {
             log.info("My Test Set Data");
 

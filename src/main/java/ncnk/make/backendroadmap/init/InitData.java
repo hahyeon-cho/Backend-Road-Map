@@ -11,12 +11,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.Book.BookApi;
 import ncnk.make.backendroadmap.domain.constant.Constant;
+import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 import ncnk.make.backendroadmap.domain.entity.Role;
+import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.QuizRepository;
@@ -67,8 +69,45 @@ public class InitData {
                     Constant.initLevel, Constant.initPoint, Role.GUEST);
             em.persist(member);
 
+            for (int i = 0; i < 30; i++) {
+                if (i < 10) {
+                    createInitHard(member);
+                } else if (i >= 10 && i < 20) {
+                    createInitMid(member);
+                } else {
+                    createInitEasy(member);
+                }
+            }
             return member;
         }
+
+        private void createInitHard(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("HardName", "Hard", "Hard내용",
+                    "image", "input", "output", 10.2, true, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitMid(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("MiddleName", "Middle", "Mid내용",
+                    "image", "input", "output", 50.7, false, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitEasy(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("EasyName", "Easy", "Easy내용",
+                    "image", "input", "output", 80.9, false, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
 
         public List<MainCategory> initCategory(Member member) {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
