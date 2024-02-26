@@ -69,4 +69,10 @@ public class Member extends BaseTimeEntity {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
+    // 상/중/하 레벨을 찾고 해당 포인트를 더하는 메서드
+    public void calculatePoint(String problemLevel) {
+        Problem problem = Problem.getProblem(problemLevel);
+        point += problem.getPoint();
+    }
 }
