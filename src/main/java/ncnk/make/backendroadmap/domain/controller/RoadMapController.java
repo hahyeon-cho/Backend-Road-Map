@@ -17,14 +17,9 @@ public class RoadMapController {
         return "roadMap/roadMapMain";
     }
 
-    @GetMapping("/internet")
+    @GetMapping("/subcategory")
     public String roadMapsub() {
         return "roadMap/roadMapsub";
-    }
-
-    @GetMapping("/internet/detail")
-    public String roadMapdetail() {
-        return "roadMap/roadMapdetail";
     }
 
 }
