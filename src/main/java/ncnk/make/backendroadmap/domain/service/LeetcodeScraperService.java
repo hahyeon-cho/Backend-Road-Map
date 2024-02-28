@@ -1,8 +1,11 @@
-package ncnk.make.backendroadmap.crawling.leetcode;
+package ncnk.make.backendroadmap.domain.service;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.api.leetcode.LeetCodeApiService;
+import ncnk.make.backendroadmap.domain.utils.CodingTestAnswerDTO;
+import ncnk.make.backendroadmap.domain.utils.ProblemInfo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +21,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -40,37 +44,23 @@ import java.util.regex.Pattern;
 @Service
 public class LeetcodeScraperService {
     private static WebDriver driver;
+    private final LeetCodeApiService leetCodeApiService;
 
-    public LeetcodeScraperService() {
+    @Autowired
+    public LeetcodeScraperService(LeetCodeApiService leetCodeApiService) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
+
+        this.leetCodeApiService = leetCodeApiService;
     }
-
-    public List<JSONObject> getLeetCodeProblemList() throws IOException, JSONException {
-        String apiUrl = "https://leetcode.com/api/problems/algorithms/";
-        String json = Jsoup.connect(apiUrl).ignoreContentType(true).execute().body();
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray problemsArray = jsonObject.getJSONArray("stat_status_pairs");
-
-        List<JSONObject> freeProblems = new ArrayList<>();
-        for (int i = 0; i < problemsArray.length(); i++) {
-            JSONObject problem = problemsArray.getJSONObject(i);
-            if (!problem.getBoolean("paid_only")) {
-                freeProblems.add(problem);
-            }
-        }
-
-        return freeProblems;
-    }//getLeetCodeProblemList()
 
     public ProblemInfo scrapeLeetCodeProblemContents(JSONObject problem) throws JSONException {
         String PROBLEMS_BASE_URL = "https://leetcode.com/problems/";
 
         ProblemInfo problemInfo = ProblemInfo.createProblemInfo();
 
-        // problemInfo.setId(problem.getJSONObject("stat").getInt("question_id"));
         problemInfo.updateInit(problem.getJSONObject("stat").getString("question__title_slug"),
                 problem.getJSONObject("stat").getString("question__title"),
                 problem.getJSONObject("difficulty").getInt("level"));
@@ -104,11 +94,13 @@ public class LeetcodeScraperService {
         problemInfo.setContents(contents.outerHtml());
 
         Elements preData = contents.select("pre");
-        List<ExampleResult> exlist = getExamples(preData);
+        List<CodingTestAnswerDTO> exlist = getExamples(preData);
         problemInfo.setExampleResults(exlist);
 
         List<String> tags = getTags();
         problemInfo.setTags(tags);
+
+        System.out.println(problemInfo.getTitle());
 
         return problemInfo;
     }
@@ -140,8 +132,8 @@ public class LeetcodeScraperService {
         }
     }
 
-    public static List<ExampleResult> getExamples(Elements preData) {
-        List<ExampleResult> exlist = new ArrayList<>();
+    public static List<CodingTestAnswerDTO> getExamples(Elements preData) {
+        List<CodingTestAnswerDTO> exlist = new ArrayList<>();
 
         for (Element pre : preData) {
             String preText = pre.text().trim();
@@ -149,7 +141,7 @@ public class LeetcodeScraperService {
             Matcher matcher = pattern.matcher(preText);
 
             if (matcher.find()) {
-                ExampleResult ex = new ExampleResult();
+                CodingTestAnswerDTO ex = new CodingTestAnswerDTO();
 
                 ex.setExample(matcher.group(1).trim(), matcher.group(2).trim());
                 exlist.add(ex);
@@ -193,8 +185,9 @@ public class LeetcodeScraperService {
 
     @Scheduled(cron = "0 0 3 * * SUN")  // 매주 일요일 새벽 3시에 실행
     public void scrapeAllProblemsWeekly() {
+
         try {
-            List<JSONObject> problems = getLeetCodeProblemList();
+            List<JSONObject> problems = leetCodeApiService.getLeetCodeProblemList();
             for (JSONObject problem : problems) {
                 scrapeProblemAsync(problem);
             }

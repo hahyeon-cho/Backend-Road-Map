@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.crawling.leetcode;
+package ncnk.make.backendroadmap.domain.utils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 public class ProblemInfo {
-    // private int id;
     private String slug;
     private String title;
     private int level;
     private double correctRate;
     private String contents;
     private List<String> images = new ArrayList<>();
-    private List<ExampleResult> exampleResults = new ArrayList<>();
+    private List<CodingTestAnswerDTO> exampleResults = new ArrayList<>();
     private List<String> tags = new ArrayList<>();
 
     private ProblemInfo() {

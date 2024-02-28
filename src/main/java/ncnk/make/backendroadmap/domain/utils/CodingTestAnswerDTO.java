@@ -1,11 +1,10 @@
-package ncnk.make.backendroadmap.crawling.leetcode;
+package ncnk.make.backendroadmap.domain.utils;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class ExampleResult {
+public class CodingTestAnswerDTO {
     @NotBlank
     private String input;
 
