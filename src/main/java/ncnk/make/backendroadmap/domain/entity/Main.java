@@ -9,26 +9,26 @@ import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 
 @Getter
 public enum Main {
-    INTERNET("Internet", 1, "http://localhost:8080/internet"),
-    BASIC_FE("Basic FE", 2, "http://localhost:8080/fe"),
-    OS("OS", 3, "http://localhost:8080/os"),
-    LANGUAGE("Language", 4, "http://localhost:8080/language"),
-    ALGORITHM("Algorithm", 5, "http://localhost:8080/algorithm"),
-    GIT("Using Git", 6, "http://localhost:8080/git"),
-    REPO_SERVICE("Repo hosting Services", 7, "http://localhost:8080/git/repo"),
-    RDB("Relational DB", 8, "http://localhost:8080/rdb"),
-    NOSQL("NoSQL DB", 9, "http://localhost:8080/nosql"),
-    DB_KNOWLEDGE("DB Knowledge", 10, "http://localhost:8080/db/knowledge"),
-    API("APIs", 11, "http://localhost:8080/apis"),
-    FRAMEWORK("Framework", 12, "http://localhost:8080/framework"),
-    CACHING("Caching", 13, "http://localhost:8080/caching"),
-    WEB_SECURITY("Web Security", 14, "http://localhost:8080/security"),
-    TEST("Test", 15, "http://localhost:8080/test"),
-    CI_CD("CI / CD", 16, "http://localhost:8080/ci/cd"),
-    DESIGN_PATTERN("Design Pattern", 17, "http://localhost:8080/design/pattern"),
-    SEARCH_ENGINE("Search Engines", 18, "http://localhost:8080/search/engines"),
-    CONTAINER("Container", 19, "http://localhost:8080/container"),
-    WEB_SERVER("Web Server", 20, "http://localhost:8080/server");
+    INTERNET("Internet", 1, "http://localhost:8080/1"),
+    BASIC_FE("Basic FE", 2, "http://localhost:8080/2"),
+    OS("OS", 3, "http://localhost:8080/3"),
+    LANGUAGE("Language", 4, "http://localhost:8080/4"),
+    ALGORITHM("Algorithm", 5, "http://localhost:8080/5"),
+    GIT("Using Git", 6, "http://localhost:8080/6"),
+    REPO_SERVICE("Repo hosting Services", 7, "http://localhost:8080/7"),
+    RDB("Relational DB", 8, "http://localhost:8080/8"),
+    NOSQL("NoSQL DB", 9, "http://localhost:8080/9"),
+    DB_KNOWLEDGE("DB Knowledge", 10, "http://localhost:8080/10"),
+    API("APIs", 11, "http://localhost:8080/11"),
+    FRAMEWORK("Framework", 12, "http://localhost:8080/12"),
+    CACHING("Caching", 13, "http://localhost:8080/13"),
+    WEB_SECURITY("Web Security", 14, "http://localhost:8080/14"),
+    TEST("Test", 15, "http://localhost:8080/15"),
+    CI_CD("CI / CD", 16, "http://localhost:8080/16"),
+    DESIGN_PATTERN("Design Pattern", 17, "http://localhost:8080/17"),
+    SEARCH_ENGINE("Search Engines", 18, "http://localhost:8080/18"),
+    CONTAINER("Container", 19, "http://localhost:8080/19"),
+    WEB_SERVER("Web Server", 20, "http://localhost:8080/20");
 
 
     private final String mainCategory;
