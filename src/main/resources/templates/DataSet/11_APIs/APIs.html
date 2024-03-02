@@ -675,7 +675,7 @@ blockquote {
 	
 </style></head><body><article id="0e9e090e-5dfb-4747-add6-9fac283d308f" class="page sans"><header><h1 class="page-title">APIs</h1><p class="page-description"></p></header><div class="page-body">
 
-    <div class="api_01">
+    <div class="0">
         <h2 id="20c090b1-ba1b-45dd-8b46-55638a360cef" class="">Authentication</h2><p id="3bac16a4-dd03-4cce-91c0-e2579ee60d60" class="">API의 보호된 리소스에 대한 액세스를 허용하기 전에 사용자 또는 디바이스의 신원을 확인하는 프로세스이며 인증은 권한이 부여된 사용자만이 API에 액세스할 수 있도록 하고 무단 액세스를 방지함.</p><p id="5524877a-97e6-4c5e-80cb-776da96ededf" class="">
         </p><p id="c055eab4-97f1-4fe3-bf1c-4e679464c75b" class=""><strong>4가지 인증 방법</strong></p><ul id="1bd82144-a03b-4ead-add3-e2399ebd48f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Basic Authentication</strong></li></ul><p id="9d683d14-a7f9-4653-95f1-06e49a2c24fe" class="">가장 간단한 형태의 인증 방식으로 매 HTTP 요청마다 서버로 사용자의 이름과 비밀번호 정보를 송신한다.</p><p id="94397d80-8dab-45c6-a12b-eff194dda1c0" class="">HTTP 인증은 헤더에 저장되며 자격 증명은 Base64 로 인코딩되어 수행된다.</p><p id="9d27419a-5f0a-435d-b534-25d07a4754d0" class=""><strong>다만 해당 방식은 기본 인증 정보가 평문으로 전달되기 때문에 운용 환경에 적합하지 않다.</strong></p><p id="d920797a-c4d3-4bab-adcf-e9fe454c4c7a" class="">
         </p><div id="4c9da872-c435-4677-afa3-e89f7374a265" class="column-list"><div id="cbd7c27a-eda0-439c-991b-ee90497d1b6f" style="width:50%" class="column"><ul id="8d4a215a-3053-4d17-92e3-7d083ff9e8f4" class="bulleted-list"><li style="list-style-type:disc">T<strong>oken Authentication</strong></li></ul></div><div id="68404fab-229e-46af-967d-a5d070178e1b" style="width:50%" class="column"><p id="0489b27d-5688-43f0-af08-0ea6bd40ecd3" class="">
@@ -687,7 +687,7 @@ blockquote {
         </p>
     </div>
 
-    <div class="api_02">
+    <div class="1">
         <h2 id="cff88d31-430b-4695-8b60-6fbad11c60a7" class="">REST</h2><p id="1c6bee24-3735-4ce3-a3bb-701e19be3fa1" class="">API(<em>애플리케이션 프로그래밍 인터페이스)</em>는 애플리케이션이나 디바이스가 서로 간에 연결하여 통신할 수 있는 방법을 정의하는 규칙 세트입니다. REST API는 <em>REST(REpresentational State Transfer) </em>아키텍처 스타일의 디자인 원칙을 준수하는 API입니다. 이러한 이유로 REST API를 RESTful API<em>라고도 합니다.</em></p><p id="001c4189-905e-4b46-9f58-243d3c488926" class="">
         </p><p id="a5fa52f9-f5ef-4548-85c4-69a015f74ca5" class=""><strong>균일한 인터페이스</strong></p><p id="110973a2-ecab-4b8d-be90-3e48e053bdf0" class="">요청이 어디에서 오는지와 무관하게, 동일한 리소스에 대한 모든 API 요청은 동일하게 보여야 합니다.</p><p id="05371b73-bd3c-4630-8259-85364279e618" class="">
         </p><p id="b46c36e6-0550-4046-a186-cbc1ef1b063e" class=""><strong>클라이언트-서버 디커플링</strong></p><p id="c3a20d4d-e647-47e9-8d4e-6bdc018261f9" class="">REST API 디자인에서 클라이언트와 서버 애플리케이션은 서로 간에 완전히 독립적이어야 합니다. 클라이언트 애플리케이션이 알아야 하는 유일한 정보는 요청된 리소스의 URI이며, 이는 다른 방법으로 서버 애플리케이션과 상호작용할 수 없습니다.</p><p id="53a12147-4716-48ee-a261-c28ea0845598" class="">
@@ -699,7 +699,7 @@ blockquote {
         </p>
     </div>
 
-    <div class="api_03">
+    <div class="2">
         <h1 id="b48a3e37-2e53-4390-9602-9f70a0c96344" class="">JSON API</h1><p id="a870a550-bbee-4312-8f9f-6be7446c2717" class="">데이터는 무엇보다 중요합니다. 하지만 다양한 종류의 데이터를 어떻게 활용해야 할지 아는 일은 그보다 더 중요하죠. 프로그래머, 개발자, IT 전문가들은 어떤 언어에서든 데이터 구조와 실제 데이터를 다른 언어 및 플랫폼에서 해석 가능한 형식으로 전송할 수 있어야 합니다.</p><p id="13d4936c-8185-4251-8f12-d3995567f400" class="">
         </p><p id="3d7c83b9-6a8d-4e6e-a0db-76d9da19ec44" class=""><strong><strong>JSON 데이터 유형 및 예시</strong></strong></p><ul id="b611f940-cfe2-4b72-9100-996d9aaa456d" class="bulleted-list"><li style="list-style-type:disc">배열</li></ul><p id="624fa354-a81e-41c8-8bac-03aa645a549b" class="">배열 데이터 유형은 순서가 지정된 값의 모음입니다. JSON에서 배열 값은 문자열, 숫자, 객체, 배열, Boolean 또는 Null 유형이어야 합니다.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8ff63587-b493-4b0e-9f8e-ebfd3738e77d" class="code"><code class="language-JavaScript">{
 
@@ -731,7 +731,7 @@ blockquote {
         </p>
     </div>
 
-    <div class="api_04">
+    <div class="3">
         <h2 id="1ac7ce24-9521-4ae0-b56b-ff76bcb2928e" class="">SOAP</h2><p id="6dfe1537-5f9d-47ae-a517-63088519b37b" class="">SOAP(Simple Object Access Protocol)은 일반적으로 널리 알려진 HTTP, HTTPS, SMTP 등을 통해 <strong>XML 기반</strong>의 메시지를 컴퓨터 네트워크 상에서 교환하는 프로토콜입니다. 간단하게 객체를 접근할 수 있는 프로토콜이란 의미입니다.<br/><br/></p><p id="d3e47ed6-49fa-40bc-a16f-cc5e61f0b0b1" class="">SOAP 서버 혹은 클라이언트를 보다 쉽게 개발할 수 있도록 해주는 COM 컴포넌트, 유틸리티 등으로 구성된 SOAP 툴킷(toolkit)도 제공되고 있다. 또한 HTTP와 XML이 갖는 장점을 모두 포함하면서 컴포넌트의 상호운용성을 높일 수도 있다.</p><h2 id="219ad0b7-412c-4c18-a359-828e06c82c0d" class="">SOAP의 특징</h2><ul id="3911f5d7-f759-41e2-ad5e-8cf5301dc987" class="bulleted-list"><li style="list-style-type:disc">HTTP를 이용하기 때문에 다른 RPC에 비해 Proxy와 방화벽에 제약을 받지 않고 쉽게 통신이 가능</li></ul><ul id="20bf2c1d-7cee-4459-b010-449979459c35" class="bulleted-list"><li style="list-style-type:disc">플랫폼과 프로그래밍 언어에 독립적</li></ul><ul id="69715d1c-8066-4e60-be70-206a9e995195" class="bulleted-list"><li style="list-style-type:disc">멀티파트 MIME 구조</li></ul><ul id="73dc1229-ab6a-44cf-9a6a-5d8d227ce2b0" class="bulleted-list"><li style="list-style-type:disc">XML형식 메시지 처리</li></ul><p id="5168532c-40a2-4b1c-8192-24027efd11e9" class="">
         </p><p id="2a1607fd-7c13-4c4d-a4bb-00072185e67b" class="">
         </p><h2 id="8f5e9556-1601-4171-8a9a-d0de66905880" class=""><strong><strong>SOAP 장점</strong></strong></h2><ul id="7842cc50-f08e-4d0c-9302-8187a90fe744" class="bulleted-list"><li style="list-style-type:disc">기존 원격 기술들에 비해서프록시와 방화벽에 구애받지 않고 쉽게 통신 가능합니다.</li></ul><ul id="8aabd1b0-9af3-4579-bafa-ab747c707164" class="bulleted-list"><li style="list-style-type:disc">플랫폼과 프로그래밍 언어에독립적입니다.</li></ul><ul id="02fad752-4662-4248-ab36-91960da07870" class="bulleted-list"><li style="list-style-type:disc">웹 서비스를 제공하기 위한 표준(WSDL, UDDI, WS-*)이 잘 정립되어 있습니다.</li></ul><ul id="9916cc85-cd61-485a-b700-806ce3fb77f3" class="bulleted-list"><li style="list-style-type:disc">에러 처리에 대한 내용이기본으로 내장되어 있습니다.분산 환경에 적합합니다.</li></ul><p id="fa4b39cc-c0fc-4495-9bdb-22883e6d6fb1" class="">
