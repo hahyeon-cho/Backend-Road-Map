@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileDownloadController {
     private final PracticeCodeService practiceCodeService;
     private final MemberService memberService;
+    private final TraceTemplate template;
 
     @Value("${file.dir}")
     private String fileDir;
@@ -53,14 +55,13 @@ public class FileDownloadController {
             Files.createDirectories(dirPath); //유저 닉네임으로 폴더 생성
             Files.write(filePath, bytes);
 
-            log.info("Success To Upload Web-Compiler!!");
-
-            practiceCodeService.save(fileName, String.valueOf(filePath), extension, member);
+            return template.execute("PracticeCodeController.uploadFile()", () -> {
+                practiceCodeService.save(fileName, String.valueOf(filePath), extension, member);
+                return new ResponseEntity<>("저장되었습니다!", HttpStatus.OK);
+            });
         } catch (IOException e) {
             log.error("Error uploading web-compiler: {}", e.getMessage());
         }
-
-        return new ResponseEntity<>("저장되었습니다!", HttpStatus.OK);
+        return null;
     }
-
 }
