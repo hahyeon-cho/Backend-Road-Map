@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
@@ -26,11 +27,11 @@ public class DocsLikeApiController {
     private final SubCategoryService subCategoryService;
     private final DocsLikeService docsLikeService;
     private final MemberService memberService;
+    private final TraceTemplate template;
 
     @PostMapping("/{id}")
     public Result toggleDocsLike(@PathVariable("id") Long id,
                                  @SessionAttribute(name = "member", required = false) SessionUser sessionUser) {
-
         if (sessionUser == null) {
             throw new SessionNullPointException("[ERROR] SessionUser is null");
         }
@@ -38,10 +39,13 @@ public class DocsLikeApiController {
         SubCategory subCategory = subCategoryService.findSubCategoryById(id);
         Member member = memberService.findMemberByEmail(sessionUser.getEmail());
 
-        docsLikeService.toggleSubCategoryLike(member, subCategory);
-        log.info("좋아요 로직 수행!");
-        DocsLikeResponseDto docsLikeResponseDto = DocsLikeResponseDto.createDocsLikeResponseDto(member, subCategory);
-        return new Result(docsLikeResponseDto);
+        template.execute("DocsLikeApiController.toggleDocsLike()", () -> {
+            docsLikeService.toggleSubCategoryLike(member, subCategory);
+            DocsLikeResponseDto docsLikeResponseDto = DocsLikeResponseDto.createDocsLikeResponseDto(member,
+                    subCategory);
+            return new Result(docsLikeResponseDto);
+        });
+        return null;
     }
 
     @Data

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
@@ -25,18 +26,25 @@ public class DocsLikeService {
     private final MemberRepository memberRepository;
     private final SubCategoryRepository subCategoryRepository;
     private final DocsLikeRepository docsLikeRepository;
+    private final TraceTemplate template;
 
     @Transactional
     public void toggleSubCategoryLike(Member member, SubCategory subCategory) {
         Optional<DocsLike> optionalLike = docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory);
 
         if (optionalLike.isPresent()) {
-            docsLikeRepository.delete(optionalLike.get());
-            subCategoryRepository.subLikeCount(subCategory); //소분류 누적 좋아요 개수 --
+            template.execute("DocsLikeService.toggleSubCategoryLike.delete()", () -> {
+                docsLikeRepository.delete(optionalLike.get());
+                subCategoryRepository.subLikeCount(subCategory); //소분류 누적 좋아요 개수 --
+                return null;
+            });
         } else {
-            DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
-            docsLikeRepository.save(docsLike);
-            subCategoryRepository.addLikeCount(subCategory); //소분류 누적 좋아요 개수 ++
+            template.execute("DocsLikeService.toggleSubCategoryLike.add()", () -> {
+                DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
+                docsLikeRepository.save(docsLike);
+                subCategoryRepository.addLikeCount(subCategory); //소분류 누적 좋아요 개수 ++
+                return null;
+            });
         }
     }
 
@@ -44,7 +52,6 @@ public class DocsLikeService {
         return docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory)
                 .orElseThrow(() -> new ResourceNotFoundException());
     }
-
 
     public List<SubCategory> findSubCategoriesByMember(Member member) {
         return docsLikeRepository.findDocsLikesByMember(member).stream()
