@@ -5,6 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+/**
+ * [멤버 포인트 계산] 트랜잭션 AOP
+ */
 @Slf4j
 @Aspect
 public class SolvedAspect {

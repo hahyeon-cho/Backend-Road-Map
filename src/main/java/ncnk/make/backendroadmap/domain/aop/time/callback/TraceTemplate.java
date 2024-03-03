@@ -5,7 +5,7 @@ import ncnk.make.backendroadmap.domain.aop.time.logtrace.LogTrace;
 import org.springframework.stereotype.Component;
 
 /**
- * 템플릿 콜백 패턴: "템플릿" 역할
+ * Time Trace Log를 위한 템플릿
  */
 @Component
 public class TraceTemplate {

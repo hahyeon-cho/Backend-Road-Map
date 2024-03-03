@@ -3,6 +3,9 @@ package ncnk.make.backendroadmap.domain.aop.time.logtrace;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.TraceStatus;
 
+/**
+ * 동시성 문제 해결을 위한 ThreadLocal를 이용한 Log Trace
+ */
 @Slf4j
 public class ThreadLocalLogTrace implements LogTrace {
 

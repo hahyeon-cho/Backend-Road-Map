@@ -3,6 +3,9 @@ package ncnk.make.backendroadmap.domain.aop.time;
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.aop.time.logtrace.TraceId;
 
+/**
+ * Log에 출력할 정보
+ */
 @Getter
 public class TraceStatus {
     private TraceId traceId;

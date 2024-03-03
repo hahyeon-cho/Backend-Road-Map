@@ -5,6 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+/**
+ * [소분류 카테고리 좋아요 + 1] 트랜잭션 AOP
+ */
 @Slf4j
 @Aspect
 public class DocsLikeAspect {

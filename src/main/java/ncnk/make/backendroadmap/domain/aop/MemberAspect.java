@@ -5,6 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+/**
+ * [회원 프로필 업데이트] 트랜잭션 AOP
+ */
 @Slf4j
 @Aspect
 public class MemberAspect {
