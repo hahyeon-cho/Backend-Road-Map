@@ -19,7 +19,7 @@ public class RoadMapController {
 
     @GetMapping("/subcategory")
     public String roadMapsub() {
-        return "roadMap/roadMapsub";
+        return "roadMap/roadMapSub";
     }
 
 }
