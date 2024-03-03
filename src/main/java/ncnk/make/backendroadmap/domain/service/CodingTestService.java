@@ -59,16 +59,16 @@ public class CodingTestService {
         }
     }
 
-//    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
-//    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
-//    public void scrapeAllProblemsOnSchedule() {
-//        scrapeAllProblems();
-//    }
-//
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void scrapeAllProblemsAtStart() {
-//        scrapeAllProblems();
-//    }
+    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
+    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
+    public void scrapeAllProblemsOnSchedule() {
+        scrapeAllProblems();
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void scrapeAllProblemsAtStart() {
+        scrapeAllProblems();
+    }
 
     public void scrapeAllProblems() {
         try {
