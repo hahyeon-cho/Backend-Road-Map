@@ -24,5 +24,4 @@ public class RoadMapController {
     public String roadMapSub() {
         return "roadMap/roadMapSub";
     }
-
 }
