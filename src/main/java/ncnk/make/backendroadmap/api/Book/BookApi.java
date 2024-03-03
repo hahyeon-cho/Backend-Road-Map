@@ -1,5 +1,11 @@
 package ncnk.make.backendroadmap.api.Book;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Main;
@@ -14,13 +20,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -78,7 +77,7 @@ public class BookApi {
                     String cover = bookInfo.getString("cover");
                     String publisher = bookInfo.getString("publisher");
 
-                    Main main = Main.findMainBySearchQuery(searchQuery.getCategory());
+                    Main main = Main.getEnumByMainDocsOrder(searchQuery.getCategory());
                     MainCategory mainCategory = mainCategoryRepository.findMainCategoryByMainDocsTitle(main)
                             .orElseThrow(() -> new ResourceNotFoundException());
 

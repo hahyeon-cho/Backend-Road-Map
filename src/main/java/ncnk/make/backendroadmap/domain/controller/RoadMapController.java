@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 로드맵 Controller
+ */
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -18,8 +21,7 @@ public class RoadMapController {
     }
 
     @GetMapping("/subcategory")
-    public String roadMapsub() {
+    public String roadMapSub() {
         return "roadMap/roadMapSub";
     }
-
 }

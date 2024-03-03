@@ -6,13 +6,17 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 
+/**
+ * 소분류 좋아요 Dto
+ */
+
 @Getter
 @Slf4j
 public class DocsLikeResponseDto {
-    private String nickName;
-    private String email;
-    private Sub subDocsTitle;
-    private Long likeCount;
+    private String nickName; //닉네임
+    private String email; //이메일
+    private Sub subDocsTitle; //소분류 제목
+    private Long likeCount; //누적 좋아요 개수
 
     private DocsLikeResponseDto(Member member, SubCategory subCategory) {
         this.nickName = member.getNickName();

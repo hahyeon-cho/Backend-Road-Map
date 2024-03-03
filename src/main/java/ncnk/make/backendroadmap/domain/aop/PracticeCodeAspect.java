@@ -5,6 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+/**
+ * [웹 컴파일러 다운로드] 트랜잭션 AOP
+ */
 @Slf4j
 @Aspect
 public class PracticeCodeAspect {

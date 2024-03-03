@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+/**
+ * 소분류 좋아요 RestController (json)
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -29,21 +32,23 @@ public class DocsLikeApiController {
     private final MemberService memberService;
     private final TraceTemplate template;
 
+    //토글 형식의 좋아요
     @PostMapping("/{id}")
     public Result toggleDocsLike(@PathVariable("id") Long id,
                                  @SessionAttribute(name = "member", required = false) SessionUser sessionUser) {
+        //로그인 하지 않은 사용자의 경우 예외 발생
         if (sessionUser == null) {
             throw new SessionNullPointException("[ERROR] SessionUser is null");
         }
 
-        SubCategory subCategory = subCategoryService.findSubCategoryById(id);
-        Member member = memberService.findMemberByEmail(sessionUser.getEmail());
+        SubCategory subCategory = subCategoryService.findSubCategoryById(id); //소분류 PK값을 통해 소분류 찾기
+        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
 
         template.execute("DocsLikeApiController.toggleDocsLike()", () -> {
             docsLikeService.toggleSubCategoryLike(member, subCategory);
             DocsLikeResponseDto docsLikeResponseDto = DocsLikeResponseDto.createDocsLikeResponseDto(member,
                     subCategory);
-            return new Result(docsLikeResponseDto);
+            return new Result(docsLikeResponseDto); //TimeTrace Log와 함께 dto 반환
         });
         return null;
     }

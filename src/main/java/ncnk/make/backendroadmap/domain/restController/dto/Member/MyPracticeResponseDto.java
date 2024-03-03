@@ -4,11 +4,15 @@ import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 
+/**
+ * 마이 페이지 (MyPractice)
+ */
+
 @Getter
 public class MyPracticeResponseDto {
-    private String fileName;
-    private String language;
-    private String modifiedDate;
+    private String fileName; //파일 이름
+    private String language; //언어
+    private String modifiedDate; //최근 수정일
 
     private MyPracticeResponseDto(PracticeCode practiceCode) {
         this.fileName = practiceCode.getFileName();

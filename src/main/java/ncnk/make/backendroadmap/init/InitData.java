@@ -83,7 +83,7 @@ public class InitData {
 
         private void createInitHard(Member member) {
             CodingTest codingTest = CodingTest.createCodingTest("HardName", "Hard", "Hard내용",
-                    "image", "input", "output", 10.2, true, null);
+                    "image", "input", "output", 10.2, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
@@ -92,7 +92,7 @@ public class InitData {
 
         private void createInitMid(Member member) {
             CodingTest codingTest = CodingTest.createCodingTest("MiddleName", "Middle", "Mid내용",
-                    "image", "input", "output", 50.7, false, null);
+                    "image", "input", "output", 50.7, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
@@ -101,7 +101,7 @@ public class InitData {
 
         private void createInitEasy(Member member) {
             CodingTest codingTest = CodingTest.createCodingTest("EasyName", "Easy", "Easy내용",
-                    "image", "input", "output", 80.9, false, null);
+                    "image", "input", "output", 80.9, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");

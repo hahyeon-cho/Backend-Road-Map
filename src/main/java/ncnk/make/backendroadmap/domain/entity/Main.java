@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 
+/**
+ * 대분류 정보 (대분류 이름, 대분류 순서, 저장 URL)
+ */
 @Getter
 public enum Main {
     INTERNET("Internet", 1, "http://localhost:8080/roadmap/sub/1"),
@@ -35,12 +38,14 @@ public enum Main {
     private final int mainDocsOrder;
     private final String url;
 
+    //생성자
     Main(String mainCategory, int mainDocsOrder, String url) {
         this.mainCategory = mainCategory;
         this.mainDocsOrder = mainDocsOrder;
         this.url = url;
     }
 
+    // 대분류 중 마지막 순서의 대분류 순서값 얻기
     public static int getMaximumOrder() {
         int max = 0;
         for (Main main : Main.values()) {
@@ -51,6 +56,7 @@ public enum Main {
         return max;
     }
 
+    // 인자 값(mainDoc)와 같은 대분류 정보 얻기
     public static Main getInstance(String mainDoc) {
         for (Main main : Main.values()) {
             if (main.toString().equals(mainDoc)) {
@@ -61,6 +67,7 @@ public enum Main {
     }
 
 
+    // 인자 값(mainDocsOrder)와 같은 대분류 정보 얻기
     public static Main getEnumByMainDocsOrder(int mainDocsOrder) {
         for (Main main : Main.values()) {
             if (main.getMainDocsOrder() == mainDocsOrder) {
@@ -70,18 +77,11 @@ public enum Main {
         throw new ResourceNotFoundException();
     }
 
+
+    // 대분류 순서대로 정렬해서 List로 반환
     public static List<Main> getOrderedMainDocs() {
         return EnumSet.allOf(Main.class).stream()
                 .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
                 .collect(Collectors.toList());
-    }
-
-    public static Main findMainBySearchQuery(int searchQuery) {
-        for (Main main : Main.values()) {
-            if (main.getMainDocsOrder() == searchQuery) {
-                return main;
-            }
-        }
-        throw new ResourceNotFoundException();
     }
 }

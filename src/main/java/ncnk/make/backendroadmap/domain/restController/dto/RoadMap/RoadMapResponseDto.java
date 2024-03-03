@@ -5,11 +5,15 @@ import lombok.Getter;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 
+/**
+ * 로드맵 Dto
+ */
+
 @Getter
 public class RoadMapResponseDto {
-    private Main mainDocsTitle;
-    private List<Sub> subDocs;
-    private String url;
+    private Main mainDocsTitle; //대분류 데이터
+    private List<Sub> subDocs; //대분류에 속한 소분류 데이터
+    private String url; //대분류 URL
 
     private RoadMapResponseDto(Main mainDocsTitle, List<Sub> subDocs, String url) {
         this.mainDocsTitle = mainDocsTitle;
