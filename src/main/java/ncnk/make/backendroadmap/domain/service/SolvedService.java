@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 테스트 풀이 여부 Service (BIZ 로직)
+ */
 @Service
 @Transactional(readOnly = true)
 @Slf4j
@@ -20,6 +23,7 @@ public class SolvedService {
     private final SolvedRepository solvedRepository;
     private final TraceTemplate template;
 
+    //코딩 테스트 풀이 여부에 따라 포인트 더하는 로직
     @Transactional
     public void calculatePoint(Member member, CodingTest codingTest) {
 //        List<Solved> solvedByMemberAndCodingTest = solvedRepository.findSolvedByMemberAndCodingTest(member, codingTest);
@@ -31,6 +35,7 @@ public class SolvedService {
 //        }
     }
 
+    //마이페이지(MyTest) 검색 기능
     public Page<Solved> dynamicSearching(String difficulty, String order, Boolean problemSolved, Pageable pageable) {
         return solvedRepository.dynamicSearching(difficulty, order, problemSolved, pageable);
     }
