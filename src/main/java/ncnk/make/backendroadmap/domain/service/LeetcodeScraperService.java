@@ -1,12 +1,10 @@
 package ncnk.make.backendroadmap.domain.service;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApiService;
 import ncnk.make.backendroadmap.domain.utils.CodingTestAnswerDTO;
-import ncnk.make.backendroadmap.domain.utils.ProblemInfo;
-import org.json.JSONArray;
+import ncnk.make.backendroadmap.domain.utils.CodingTestProblemDTO;
+import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -14,16 +12,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -36,6 +30,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,69 +38,81 @@ import java.util.regex.Pattern;
 @Slf4j
 @Service
 public class LeetcodeScraperService {
-    private static WebDriver driver;
-    private final LeetCodeApiService leetCodeApiService;
+    private static final String PROBLEMS_BASE_URL = "https://leetcode.com/problems/";
 
-    @Autowired
-    public LeetcodeScraperService(LeetCodeApiService leetCodeApiService) {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
-
-        this.leetCodeApiService = leetCodeApiService;
-    }
-
-    public ProblemInfo scrapeLeetCodeProblemContents(JSONObject problem) throws JSONException {
-        String PROBLEMS_BASE_URL = "https://leetcode.com/problems/";
-
-        ProblemInfo problemInfo = ProblemInfo.createProblemInfo();
-
-        problemInfo.updateInit(problem.getJSONObject("stat").getString("question__title_slug"),
-                problem.getJSONObject("stat").getString("question__title"),
-                problem.getJSONObject("difficulty").getInt("level"));
-
-        long acs = problem.getJSONObject("stat").getLong("total_acs");
-        long submitted = problem.getJSONObject("stat").getLong("total_submitted");
-        problemInfo.setCorrectRate(calCorrectRate(acs, submitted));
-
-        LeetcodeScraperService.driver.get(PROBLEMS_BASE_URL + problemInfo.getSlug());
-        new WebDriverWait(LeetcodeScraperService.driver, Duration.ofSeconds(20)).until(
-                ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-track-load='description_content']")));
-
-        Document doc = Jsoup.parse(LeetcodeScraperService.driver.getPageSource());
-        Element contents = doc.selectFirst("[data-track-load='description_content']");
-
+    public Optional<CodingTestProblemDTO> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver) throws JSONException {
+        CodingTestProblemDTO problemInfo = CodingTestProblemDTO.createProblemInfo();
+        String slug = problem.getJSONObject("stat").getString("question__title_slug");
+        String contents = "";
+        List<CodingTestAnswerDTO> exlist;
         List<String> imagePaths = new ArrayList<>();
-        Elements imgElements = contents.select("img");
-        if (!imgElements.isEmpty()) {
-            String imgDir = "src/main/resources/images/algorithm/" + problemInfo.getSlug();
-            for (int i = 0; i < imgElements.size(); i++) {
-                Element img = imgElements.get(i);
-                String imgUrl = img.attr("src");
+        List<String> topics;
 
-                String imgPath = changeImgPath(imgUrl, imgDir, problemInfo.getSlug(), i);
-                img.attr("src", imgPath);
-                imagePaths.add(imgPath);
+        try {
+            long acs = problem.getJSONObject("stat").getLong("total_acs");
+            long submitted = problem.getJSONObject("stat").getLong("total_submitted");
+            double correctRate = calCorrectRate(acs, submitted);
+
+            driver.get(PROBLEMS_BASE_URL + slug);
+            new WebDriverWait(driver, Duration.ofSeconds(20))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-track-load='description_content']")));
+
+            Document doc = Jsoup.parse(driver.getPageSource());
+            Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
+
+            Elements imgElements = contentsElement.select("img");
+            if (!imgElements.isEmpty()) {
+                String imgDir = "src/main/resources/images/algorithm/" + slug;
+                for (Element img : imgElements) {
+                    String imgUrl = img.attr("src");
+
+                    String imgPath = changeImgPath(imgUrl, imgDir, slug, imgElements.indexOf(img));
+                    img.attr("src", imgPath);
+                    imagePaths.add(imgPath);
+                }
             }
+
+            String level;
+            switch (problem.getJSONObject("difficulty").getInt("level")) {
+                case 1:
+                    level = "Easy";
+                    break;
+                case 2:
+                    level = "Nomal";
+                    break;
+                case 3:
+                    level = "Hard";
+                    break;
+                default:
+                    level = "Easy";
+                    break;
+            }
+
+
+            contents = contentsElement.outerHtml();
+
+            Elements preData = contentsElement.select("pre");
+            exlist = getExamples(preData);
+            topics = getTopics(driver);
+
+            problemInfo.updateInit(
+                    problem.getJSONObject("stat").getString("question__title"),
+                    slug,
+                    level,
+                    correctRate,
+                    contents,
+                    imagePaths,
+                    exlist,
+                    topics
+            );
+
+            return Optional.of(problemInfo);
+        } catch (Exception e) {
+            return Optional.empty();
         }
-
-        problemInfo.setImages(imagePaths);
-        problemInfo.setContents(contents.outerHtml());
-
-        Elements preData = contents.select("pre");
-        List<CodingTestAnswerDTO> exlist = getExamples(preData);
-        problemInfo.setExampleResults(exlist);
-
-        List<String> tags = getTags();
-        problemInfo.setTags(tags);
-
-        System.out.println(problemInfo.getTitle());
-
-        return problemInfo;
     }
 
-    public static double calCorrectRate(long acs, long submitted) {
+    public double calCorrectRate(long acs, long submitted) {
         if (acs == 0) {
             return 0.0;
         }
@@ -132,7 +139,7 @@ public class LeetcodeScraperService {
         }
     }
 
-    public static List<CodingTestAnswerDTO> getExamples(Elements preData) {
+    public List<CodingTestAnswerDTO> getExamples(Elements preData) {
         List<CodingTestAnswerDTO> exlist = new ArrayList<>();
 
         for (Element pre : preData) {
@@ -151,49 +158,103 @@ public class LeetcodeScraperService {
         return exlist;
     }
 
-    public static List<String> getTags() {
+    public List<String> getTopics(WebDriver driver) {
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(
                 ExpectedConditions.presenceOfElementLocated(By.cssSelector("div a[href^='/tag/']"))
         );
         List<WebElement> tagElements = driver.findElements(By.cssSelector("div a[href^='/tag/']"));
 
-        List<String> tags = new ArrayList<>();
+        List<String> topics = new ArrayList<>();
         for (WebElement tagElement : tagElements) {
-            tags.add(tagElement.getAttribute("innerText"));
+            topics.add(tagElement.getAttribute("innerText"));
         }
 
-        return tags;
+        return topics;
     }
 
-    @Async
-    public void scrapeProblemAsync(JSONObject problem) {
-        try {
-            scrapeLeetCodeProblemContents(problem);
-        } catch (TimeoutException e){
-            log.info("Scraper - Connection timed out.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Async
+//    public void scrapeProblemAsync(JSONObject problem) {
+//        WebDriver driver = null;
+//        try {
+//            driver = webDriverPool.getDriver();
+//            Optional<CodingTestProblemDTO> problemOptional = scrapeLeetCodeProblemContents(problem, driver); // 수정된 메서드 호출
+//
+//            if (problemOptional.isPresent()) {
+//                // DB insert
+//                // problemOptional.ifPresent(this::insertDB);
+//            }
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        } catch (Exception e) {
+//            log.error("Error message", e);
+//        } finally {
+//            if (driver != null) {
+//                webDriverPool.returnDriver(driver); // 드라이버 반환
+//            }
+//        }
+//    }
 
-    @PreDestroy
-    public void destroy() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+//    @Async
+//    public CompletableFuture<Optional<CodingTestProblemDTO>> scrapeProblemAsync(JSONObject problem) {
+//        CompletableFuture<Optional<CodingTestProblemDTO>> future = new CompletableFuture<>();
+//        WebDriver driver = null;
+//
+//        try {
+//            driver = webDriverPool.getDriver();
+//            Optional<CodingTestProblemDTO> problemOptional = scrapeLeetCodeProblemContents(problem, driver);
+//            future.complete(problemOptional);
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//            future.completeExceptionally(e);
+//        } catch (Exception e) {
+//            future.completeExceptionally(e);
+//        } finally {
+//            if (driver != null) {
+//                webDriverPool.returnDriver(driver); // 작업 완료 후 드라이버 반환
+//            }
+//        }
+//        return future;
+//    }
 
-    @Scheduled(cron = "0 0 3 * * SUN")  // 매주 일요일 새벽 3시에 실행
-    public void scrapeAllProblemsWeekly() {
+//    public void driverSettings(){
+//        WebDriverManager.chromedriver().setup();
+//        ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--headless");
+//        driver = new ChromeDriver(options);
+//    }
 
-        try {
-            List<JSONObject> problems = leetCodeApiService.getLeetCodeProblemList();
-            for (JSONObject problem : problems) {
-                scrapeProblemAsync(problem);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @PreDestroy
+//    public void destroy() {
+//        if (driver != null) {
+//            driver.quit();
+//        }
+//    }
+
+//
+
+//    @Scheduled(cron = "0 0 3 * * SUN")  // 매주 일요일 새벽 3시에 실행
+//    public void scrapeAllProblemsWeekly() {
+//        try {
+//            List<JSONObject> problems = leetCodeApiService.getLeetCodeProblemList();
+//            for (JSONObject problem : problems) {
+//                scrapeProblemAsync(problem);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+//    public void nonScheduledScrape() {
+//        try {
+//            List<JSONObject> problems = leetCodeApiService.getLeetCodeProblemList();
+//
+//            for (JSONObject p : problems) {
+//                scrapeProblemAsync(p);
+//            }
+//        } catch (Exception e) {
+//            log.error("Error message", e);
+//        }
+//    }
+
 
 }
