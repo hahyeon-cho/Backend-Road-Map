@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 웹 컴파일러 다운로드 Controller
+ */
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -40,10 +43,10 @@ public class FileDownloadController {
         }
 
         Member member = memberService.findMemberById(id);
-        String nickName = member.getNickName();
+        String nickName = member.getNickName(); //회원의 닉네임 조회
 
         try {
-            byte[] bytes = file.getBytes();
+            byte[] bytes = file.getBytes(); //저장하려는 파일 내용
             Path dirPath = Paths.get(fileDir, nickName);
             Path filePath = dirPath.resolve(fileName);
 
@@ -53,11 +56,11 @@ public class FileDownloadController {
             }
 
             Files.createDirectories(dirPath); //유저 닉네임으로 폴더 생성
-            Files.write(filePath, bytes);
+            Files.write(filePath, bytes); //파일 저장
 
             return template.execute("PracticeCodeController.uploadFile()", () -> {
                 practiceCodeService.save(fileName, String.valueOf(filePath), extension, member);
-                return new ResponseEntity<>("저장되었습니다!", HttpStatus.OK);
+                return new ResponseEntity<>("저장되었습니다!", HttpStatus.OK); //TimeTrace Log와 함께 DB에 저장
             });
         } catch (IOException e) {
             log.error("Error uploading web-compiler: {}", e.getMessage());
