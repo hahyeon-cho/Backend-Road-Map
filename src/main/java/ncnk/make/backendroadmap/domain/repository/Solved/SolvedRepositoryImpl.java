@@ -13,6 +13,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+/**
+ * QueryDsl 라이브러리를 이용한 Query 작성
+ */
 @Repository
 @RequiredArgsConstructor
 public class SolvedRepositoryImpl implements SolvedCustomRepository {
@@ -38,7 +41,7 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
 //    }
 
     /**
-     * 성능 최적화 버전
+     * 성능 최적화 버전 마이페이지에서 정렬 기능 (페이징을 반환하는 동적쿼리)
      */
     @Override
     public Page<Solved> dynamicSearching(String difficulty, String order, Boolean problemSolved,
@@ -54,7 +57,8 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
 
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
-    
+
+    //검색 정보 중 "난이도(상/중/하)"가 있으면 적용, 없으면 무시
     private BooleanExpression searchByDifficulty(String difficulty) {
         if (difficulty == null) {
             return null;
@@ -62,13 +66,15 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
         return QSolved.solved.codingTest.problemDifficulty.contains(difficulty);
     }
 
+    //검색 정보 중 "정렬 기준(오름/내림차순)"가 있으면 적용, 없으면 오름차순 적용
     private OrderSpecifier<Double> orderByAccuracy(String order) {
         if ("desc".equalsIgnoreCase(order)) {
             return QSolved.solved.codingTest.problemAccuracy.desc();
         }
-        return QSolved.solved.codingTest.problemAccuracy.asc(); //기본 값은 오름차순
+        return QSolved.solved.codingTest.problemAccuracy.asc();
     }
 
+    //검색 정보 중 "풀이 여부"가 있으면 적용, 없으면 무시
     private BooleanExpression searchByProblemSolved(Boolean problemSolved) {
         if (problemSolved == null) {
             return null;
