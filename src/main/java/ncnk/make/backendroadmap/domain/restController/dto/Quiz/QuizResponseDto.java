@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 
+/**
+ * 퀴즈 Dto
+ */
+
 @Getter
 @Setter
 public class QuizResponseDto {
-    private String quizContext;
-    private String quizAnswer;
-    private String quizExplain;
+    private String quizContext; //퀴즈 내용
+    private String quizAnswer; //퀴즈 정답
+    private String quizExplain; //퀴즈 설명
 
     private QuizResponseDto(Quiz quiz) {
         this.quizContext = quiz.getQuizContext();

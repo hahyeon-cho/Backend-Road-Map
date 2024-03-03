@@ -4,6 +4,10 @@ import lombok.Getter;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 
+/**
+ * 회원 업데이트 request
+ */
+
 @Getter
 public class MyTestResponseDto {
     private Boolean problemSolved;
