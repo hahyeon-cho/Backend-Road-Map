@@ -1,0 +1,89 @@
+/*네비게이션바 css*/
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.mainNav{
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+}
+.navbar-brand img {
+    width:110px;
+}
+
+.navbar-brand{
+    margin-left: 10px;
+    margin-right: 100px;
+}
+.maintitle{
+    display: flex;
+}
+.navbar-nav{
+    display: flex;
+}
+.navbar-nav li {
+    margin-right: 45px;
+}
+
+.navbar-nav a:link{
+    color:white;
+}
+.navbar-nav a:visited{
+    color:white;
+}
+.navbar-nav a:hover{
+    color:white;
+    text-shadow: 0 0 5px #ffc01f,
+    0 0 25px #ffc01f,
+    0 0 50px #ffc01f,
+    0 0 100px #ffc01f,
+    0 0 150px #ffc01f,
+    0 0 200px #ffc01f;
+
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a{
+    padding: 8px 13px;
+    color: #ffc01f;
+    transition: 0.5s;
+    letter-spacing: 1px;
+    border: 1px solid #ffc01f;
+    outline: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.nav a:hover {
+    background: #ffc01f;
+    color: #fff;
+    box-shadow: 0 0 5px #ffc01f, 0 0 25px #ffc01f, 0 0 50px #ffc01f,
+    0 0 100px #ffc01f;
+}
+.nav img{
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 70%;
+    overflow: hidden;
+    align-items: center;
+}
+
+#main-content {
+    padding: 20px;
+    height: 100vh;
+}
+#main-container {
+    min-height: calc(100% - 120px);
+}

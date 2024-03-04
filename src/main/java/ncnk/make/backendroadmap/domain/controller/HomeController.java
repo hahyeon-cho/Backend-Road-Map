@@ -11,22 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+
 public class HomeController {
 
-    //    @GetMapping("/home")
-//    public String home(@RequestParam String path) {
-//        if (path.equals("RoadMap")) {
-//            return "category/roadMap";
-//        }
-//        if (path.equals("Practice")) {
-//            return "category/practice";
-//        }
-//        if (path.equals("Coding Test")) {
-//            return "category/codingTest";
-//        }
-//        throw new UndefinedAddressException();
-//    }
+
     @GetMapping("/")
+    public String mainhome(@LoginUser SessionUser user, Model model){
+        if (user != null) { //로그인한 사용자 접속 가능
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userPicture", user.getPicture());
+        }
+        return "mainHome";
+    }
+
+    @GetMapping("/home")
     public String homeLoginV3ArgumentResolver(@LoginUser SessionUser user, Model model) {
         if (user != null) {
             model.addAttribute("userName", user.getName());
