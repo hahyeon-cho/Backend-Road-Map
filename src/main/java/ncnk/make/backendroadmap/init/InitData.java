@@ -66,9 +66,9 @@ public class InitData {
             Member member = Member.createMember("profile", "email", "name", "nickName", "github",
                     Constant.initLevel, Constant.initPoint, Role.GUEST);
             em.persist(member);
+
             return member;
         }
-
 
         public List<MainCategory> initCategory(Member member) {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
