@@ -7,38 +7,45 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 
+/**
+ * 대분류 정보 (대분류 이름, 대분류 순서, 저장 URL)
+ */
 @Getter
 public enum Main {
-    INTERNET(1, "http://localhost:8080/internet"),
-    BASIC_FE(2, "http://localhost:8080/fe"),
-    OS(3, "http://localhost:8080/os"),
-    LANGUAGE(4, "http://localhost:8080/language"),
-    ALGORITHM(5, "http://localhost:8080/algorithm"),
-    GIT(6, "http://localhost:8080/git"),
-    REPO_SERVICE(7, "http://localhost:8080/git/repo"),
-    RDB(8, "http://localhost:8080/rdb"),
-    NOSQL(9, "http://localhost:8080/nosql"),
-    DB_KNOWLEDGE(10, "http://localhost:8080/db/knowledge"),
-    API(11, "http://localhost:8080/apis"),
-    FRAMEWORK(12, "http://localhost:8080/framework"),
-    CACHING(13, "http://localhost:8080/caching"),
-    WEB_SECURITY(14, "http://localhost:8080/security"),
-    TEST(15, "http://localhost:8080/test"),
-    CI_CD(16, "http://localhost:8080/ci/cd"),
-    DESIGN_PATTERN(17, "http://localhost:8080/design/pattern"),
-    SEARCH_ENGINE(18, "http://localhost:8080/search/engines"),
-    CONTAINER(19, "http://localhost:8080/container"),
-    WEB_SERVER(20, "http://localhost:8080/server");
+    INTERNET("Internet", 1, "http://localhost:8080/roadmap/sub/1"),
+    BASIC_FE("Basic FE", 2, "http://localhost:8080/roadmap/sub/2"),
+    OS("OS", 3, "http://localhost:8080/roadmap/sub/3"),
+    LANGUAGE("Language", 4, "http://localhost:8080/roadmap/sub/4"),
+    ALGORITHM("Algorithm", 5, "http://localhost:8080/roadmap/sub/5"),
+    GIT("Using Git", 6, "http://localhost:8080/roadmap/sub/6"),
+    REPO_SERVICE("Repo hosting Services", 7, "http://localhost:8080/roadmap/sub/7"),
+    RDB("Relational DB", 8, "http://localhost:8080/roadmap/sub/8"),
+    NOSQL("NoSQL DB", 9, "http://localhost:8080/roadmap/sub/9"),
+    DB_KNOWLEDGE("DB Knowledge", 10, "http://localhost:8080/roadmap/sub/10"),
+    API("APIs", 11, "http://localhost:8080/roadmap/sub/11"),
+    FRAMEWORK("Framework", 12, "http://localhost:8080/roadmap/sub/12"),
+    CACHING("Caching", 13, "http://localhost:8080/roadmap/sub/13"),
+    WEB_SECURITY("Web Security", 14, "http://localhost:8080/roadmap/sub/14"),
+    TEST("Test", 15, "http://localhost:8080/roadmap/sub/15"),
+    CI_CD("CI / CD", 16, "http://localhost:8080/roadmap/sub/16"),
+    DESIGN_PATTERN("Design Pattern", 17, "http://localhost:8080/roadmap/sub/17"),
+    SEARCH_ENGINE("Search Engines", 18, "http://localhost:8080/roadmap/sub/18"),
+    CONTAINER("Container", 19, "http://localhost:8080/roadmap/sub/19"),
+    WEB_SERVER("Web Server", 20, "http://localhost:8080/roadmap/sub/20");
 
+
+    private final String mainCategory;
     private final int mainDocsOrder;
-
     private final String url;
 
-    Main(int mainDocsOrder, String url) {
+    //생성자
+    Main(String mainCategory, int mainDocsOrder, String url) {
+        this.mainCategory = mainCategory;
         this.mainDocsOrder = mainDocsOrder;
         this.url = url;
     }
 
+    // 대분류 중 마지막 순서의 대분류 순서값 얻기
     public static int getMaximumOrder() {
         int max = 0;
         for (Main main : Main.values()) {
@@ -49,6 +56,7 @@ public enum Main {
         return max;
     }
 
+    // 인자 값(mainDoc)와 같은 대분류 정보 얻기
     public static Main getInstance(String mainDoc) {
         for (Main main : Main.values()) {
             if (main.toString().equals(mainDoc)) {
@@ -59,6 +67,7 @@ public enum Main {
     }
 
 
+    // 인자 값(mainDocsOrder)와 같은 대분류 정보 얻기
     public static Main getEnumByMainDocsOrder(int mainDocsOrder) {
         for (Main main : Main.values()) {
             if (main.getMainDocsOrder() == mainDocsOrder) {
@@ -68,18 +77,11 @@ public enum Main {
         throw new ResourceNotFoundException();
     }
 
+
+    // 대분류 순서대로 정렬해서 List로 반환
     public static List<Main> getOrderedMainDocs() {
         return EnumSet.allOf(Main.class).stream()
                 .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
                 .collect(Collectors.toList());
-    }
-
-    public static Main findMainBySearchQuery(int searchQuery) {
-        for (Main main : Main.values()) {
-            if (main.getMainDocsOrder() == searchQuery) {
-                return main;
-            }
-        }
-        throw new ResourceNotFoundException();
     }
 }

@@ -10,12 +10,15 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.Book.BookApi;
+import ncnk.make.backendroadmap.domain.constant.Constant;
+import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 import ncnk.make.backendroadmap.domain.entity.Role;
+import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.QuizRepository;
@@ -33,13 +36,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class InitData {
     private final InitService initService;
+    private static final Long initLikeCount = 0L;
 
     @PostConstruct
     public void init() {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
         initService.initQuiz(mainCategories);
-        initService.insertBook();
+//        initService.insertBook();
     }
 
     @Component
@@ -61,11 +65,49 @@ public class InitData {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "github", 1, Role.GUEST);
+            Member member = Member.createMember("profile", "email", "name", "nickName", "github",
+                    Constant.initLevel, Constant.initPoint, Role.GUEST);
             em.persist(member);
 
+            for (int i = 0; i < 30; i++) {
+                if (i < 10) {
+                    createInitHard(member);
+                } else if (i >= 10 && i < 20) {
+                    createInitMid(member);
+                } else {
+                    createInitEasy(member);
+                }
+            }
             return member;
         }
+
+        private void createInitHard(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("HardName", "Hard", "Hard내용",
+                    "image", "input", "output", 10.2, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitMid(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("MiddleName", "Middle", "Mid내용",
+                    "image", "input", "output", 50.7, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitEasy(Member member) {
+            CodingTest codingTest = CodingTest.createCodingTest("EasyName", "Easy", "Easy내용",
+                    "image", "input", "output", 80.9, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
 
         public List<MainCategory> initCategory(Member member) {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
@@ -78,8 +120,8 @@ public class InitData {
                 List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(mainCategory.getMainDocsOrder());
 
                 for (Sub sub : orderedSubDocsInCategory) {
-                    SubCategory subCategory = SubCategory.createSubCategory(sub, 0L,
-                            mainCategory); //TODO : constant likeCount
+                    SubCategory subCategory = SubCategory.createSubCategory(sub, initLikeCount, sub.getSubDescription(),
+                            mainCategory);
                     em.persist(subCategory);
 
                     DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
@@ -170,4 +212,3 @@ public class InitData {
         }
     }
 }
-
