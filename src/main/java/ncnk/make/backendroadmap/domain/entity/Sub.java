@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 
+/**
+ * 소분류 정보 (대분류 이름, 포함된 대분류 번호, 대분류 내에서 소분류 순서, 한 줄 설명)
+ */
 @Getter
 public enum Sub {
     IP("IP", 1, 1, "[Internet protocol]\n네트워크를 통해 데이터를 보내는 데 사용되는 프로토콜."),
@@ -94,6 +97,7 @@ public enum Sub {
     private final String subDescription;
 
 
+    //생성자
     Sub(String subCategory, int mainCategoryNumber, int subDocsOrder, String subDescription) {
         this.subCategory = subCategory;
         this.mainCategoryNumber = mainCategoryNumber;
@@ -101,6 +105,7 @@ public enum Sub {
         this.subDescription = subDescription;
     }
 
+    //대분류 카테고리와 일치하는 소분류 데이터를 List로 반환
     public static List<Sub> getOrderedSubDocsInCategory(int category) {
         return Arrays.stream(Sub.values())
                 .filter(sub -> sub.getMainCategoryNumber() == category)

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+/**
+ * 웹 컴파일러 Controller
+ */
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -23,14 +26,15 @@ public class PracticeCodeController {
     public String webCompiler(Model model,
                               @SessionAttribute(name = "member", required = false) SessionUser sessionUser) {
 
+        //로그인 하지 않은 사용자 접근 불가
         if (sessionUser == null) {
             throw new SessionNullPointException("[ERROR] SessionUser is null");
         }
 
-        Member member = memberService.findMemberByEmail(sessionUser.getEmail());
-        model.addAttribute("userID", member.getMemberId());
+        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //회원 찾기
+        model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
 
-        return "ide";
+        return "ide"; //ide.html로 반환
     }
 
 

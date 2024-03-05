@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * 로드맵 RestController (json)
+ */
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -31,15 +36,15 @@ public class RoadMapApiController {
     private final SubCategoryService subCategoryService;
     private final RecommendBookService recommendBookService;
 
-
+    //로드맵 페이지
     @GetMapping("/category")
     public RoadMap mainCategory() {
 
         List<RoadMapResponseDto> roadMapResponseDtos = new ArrayList<>();
-        for (int i = 0; i < Main.getMaximumOrder(); i++) {
-            Main mainDocsTitle = Main.getEnumByMainDocsOrder(i + 1);
-            List<Sub> subDocs = Sub.getOrderedSubDocsInCategory(mainDocsTitle.getMainDocsOrder());
-            String url = mainDocsTitle.getUrl();
+        for (int i = 0; i < Main.getMaximumOrder(); i++) { //대분류를 순서대로 반복시켜서 dto에 담기
+            Main mainDocsTitle = Main.getEnumByMainDocsOrder(i + 1); //대분류 정보
+            List<Sub> subDocs = Sub.getOrderedSubDocsInCategory(mainDocsTitle.getMainDocsOrder()); //대분류에 포함된 소분류
+            String url = mainDocsTitle.getUrl(); //대분류 URL
 
             RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto(mainDocsTitle, subDocs,
                     url);
@@ -49,24 +54,27 @@ public class RoadMapApiController {
         return new RoadMap(roadMapResponseDtos);
     }
 
+    //소분류 페이지
     @GetMapping("/sub/{mainCategoryId}")
     public Detail subCategory(@PathVariable Long mainCategoryId) {
-        MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId);
+        MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId); //대분류 PK값을 통해 대분류 찾기
         List<Sub> subCategoriesByMainCategory = subCategoryService.getSubCategoriesByMainCategory(
-                mainCategory);
+                mainCategory); //대분류에 속한 소분류 데이터를 List로 얻기
 
         List<RecommendBookDto> recommendBookDtos = new ArrayList<>();
-        List<RecommendBook> recommendBooks = recommendBookService.getRecommendBookList(mainCategory);
+        List<RecommendBook> recommendBooks = recommendBookService.getRecommendBookList(mainCategory); //대분류에 속한 추천 책 얻기
         for (RecommendBook recommendBook : recommendBooks) {
             RecommendBookDto recommendBookDto = RecommendBookDto.createRecommendBookDto(recommendBook);
-            recommendBookDtos.add(recommendBookDto);
+            recommendBookDtos.add(recommendBookDto); //추천 책을 dto로 set
         }
 
         List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
-        String mainDocsUrl = mainCategory.getMainDocsUrl();
+        String mainDocsUrl = mainCategory.getMainDocsUrl(); //대분류 URL
         log.info("RoadMap Detail Page");
         for (Sub sub : subCategoriesByMainCategory) {
-            categoryResponseDtos.add(SubCategoryResponseDto.createSubCategoryResponseDto(sub, 0L));
+            categoryResponseDtos.add(
+                    SubCategoryResponseDto.createSubCategoryResponseDto(
+                            sub.getSubCategory(), sub.getSubDescription(), 0L)); //소분류 데이터 중 필요한 Fit한 데이터를 dto로 Set
         }
 
         return new Detail(categoryResponseDtos, mainDocsUrl, recommendBookDtos);

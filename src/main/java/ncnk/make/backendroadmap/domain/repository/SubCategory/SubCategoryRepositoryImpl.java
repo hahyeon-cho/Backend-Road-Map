@@ -9,6 +9,9 @@ import ncnk.make.backendroadmap.domain.entity.QSubCategory;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import org.springframework.stereotype.Repository;
 
+/**
+ * QueryDsl 라이브러리를 이용한 Query 작성
+ */
 @Repository
 @RequiredArgsConstructor
 public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
@@ -16,6 +19,7 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
     @PersistenceContext
     EntityManager em;
 
+    // 인자 값(subCategory)에 해당하는 소분류 값의 좋아요 + 1
     @Override
     public List<SubCategory> addLikeCount(SubCategory subCategory) {
         queryFactory.update(QSubCategory.subCategory)
@@ -23,11 +27,15 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
                 .where(QSubCategory.subCategory.eq(subCategory))
                 .execute();
 
+        em.flush();
+        em.clear();
+
         return queryFactory
                 .selectFrom(QSubCategory.subCategory)
                 .fetch();
     }
 
+    //인자 값(subCategory)에 해당하는 소분류 값의 좋아요 - 1
     @Override
     public List<SubCategory> subLikeCount(SubCategory subCategory) {
         queryFactory.update(QSubCategory.subCategory)

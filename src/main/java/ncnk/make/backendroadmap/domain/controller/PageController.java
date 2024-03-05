@@ -2,123 +2,128 @@ package ncnk.make.backendroadmap.domain.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 소분류 페이지 Controller
+ */
 @Controller
+@RequestMapping("/roadmap/sub")
 public class PageController {
-    @GetMapping("/internet")
+    @GetMapping("/1")
     public String internet() {
         return "/DataSet/01_Internet/Internet";
     }
 
-    @GetMapping("/fe")
+    @GetMapping("/2")
     public String basicFE() {
         return "/DataSet/02_Basic-FE/Basic-FE";
     }
 
 
-    @GetMapping("/os")
+    @GetMapping("/3")
     public String os() {
         return "/DataSet/03_OS-work/OS";
     }
 
 
-    @GetMapping("/language")
+    @GetMapping("/4")
     public String language() {
         return "/DataSet/04_Language/Language";
     }
 
 
-    @GetMapping("/algorithm")
+    @GetMapping("/5")
     public String algorithm() {
         return "/DataSet/05_Algorithm/Algorithm";
     }
 
 
-    @GetMapping("/git")
+    @GetMapping("/6")
     public String git() {
         return "/DataSet/06_Git/Git";
     }
 
 
-    @GetMapping("/git/repo")
+    @GetMapping("/7")
     public String gitHubGitLab() {
         return "/DataSet/07_GitHub-GitLab/GitHub-GitLab";
     }
 
 
-    @GetMapping("/rdb")
+    @GetMapping("/8")
     public String RDB() {
         return "/DataSet/08_RDB/RDB";
     }
 
 
-    @GetMapping("/nosql")
+    @GetMapping("/9")
     public String noSQL() {
         return "/DataSet/09_NoSQL/NoSQL-DB";
     }
 
 
-    @GetMapping("/db/knowledge")
+    @GetMapping("/10")
     public String DbKnowledge() {
         return "/DataSet/10_DB-Knowledge/DB-Knowledge";
     }
 
 
-    @GetMapping("/apis")
+    @GetMapping("/11")
     public String APIs() {
         return "/DataSet/11_APIs/APIs";
     }
 
 
-    @GetMapping("/framework")
+    @GetMapping("/12")
     public String framework() {
         return "/DataSet/12_Framework/Framework";
     }
 
 
-    @GetMapping("/caching")
+    @GetMapping("/13")
     public String caching() {
         return "/DataSet/13_Caching/caching";
     }
 
 
-    @GetMapping("/security")
+    @GetMapping("/14")
     public String WebSecurity() {
         return "/DataSet/14_Web-Security/Web-Security";
     }
 
 
-    @GetMapping("/test")
+    @GetMapping("/15")
     public String test() {
         return "/DataSet/15_Test/Test";
     }
 
 
-    @GetMapping("/ci/cd")
+    @GetMapping("/16")
     public String CICD() {
         return "/DataSet/16_CI-CD/CI-CD";
     }
 
 
-    @GetMapping("/design/pattern")
+    @GetMapping("/17")
     public String DesignPattern() {
         return "/DataSet/17_Design-Pattern/Design-Pattern";
     }
 
 
-    @GetMapping("/search/engines")
+    @GetMapping("/18")
     public String SearchEngines() {
         return "/DataSet/18_SearchEngines/SearchEngines";
     }
 
 
-    @GetMapping("/container")
+    @GetMapping("/19")
     public String container() {
         return "/DataSet/19_Container/Container";
     }
 
 
-    @GetMapping("/server")
+    @GetMapping("/20")
     public String WebServer() {
         return "/DataSet/20_Web-Server/Web-Server";
     }

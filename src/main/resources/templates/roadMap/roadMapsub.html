@@ -1,123 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title></title>
-        <link href="/css/RoadMap/roadMapsub.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery 로드 -->
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $.get('http://localhost:8080/roadmap/internet/detail', function(data){
-                    $('#subcategory').html(data);
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function() {
-                $('.nav-link').click(function(e) {
-                    e.preventDefault();
-                    var id = $(this).data('id');
-                    loadJSONData('http://localhost:8080/api/roadmap/sub/' + id);
-                });
-
-                function loadJSONData(url) {
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            processData(data);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error('AJAX Error: ' + textStatus, errorThrown);
-                        }
-                    });
-                }
-
-                function processData(data) {
-                    var html = '';
-
-                    for (var i = 0; i < data.subCategory.length; i++) {
-                        var sub01 = data.subCategory[i];
-                        html += '<div>';
-                        html += '<h2>' + sub01.subDocsTitle + '</h2>';
-                        html += '<p>Like Count: ' + sub01.likeCount + '</p>';
-                        html += '</div>';
-                    }
-
-                    var sub02 = data.url;
-                    html += '<div>';
-                    html += '<h2>' + sub02 + '</h2>';
-                    html += '</div>';
-
-                    for (var i = 0; i < data.recommendBookDtos.length; i++) {
-                        var sub03 = data.recommendBookDtos[i];
-                        html += '<div>';
-                        html += '<h2>' + sub03.bookTitle + '</h2>';
-                        html += '<p>' + sub03.bookAuthor + '</p>';
-                        html += '<p>' + sub03.bookImage + '</p>';
-                        html += '<p>' + sub03.publisher + '</p>';
-                        html += '</div>';
-                    }
-
-                    $('#data-container').html(html);
-                }
-
-            });
-
-        </script>
-
-
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            </form>
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="#" data-id="1">Internet</a>
-                            <a class="nav-link" href="#" data-id="2">Basic FE</a>
-                            <a class="nav-link" href="#" data-id="3">CS</a>
-                            <a class="nav-link" href="#" data-id="4">Algorithm</a>
-                            <a class="nav-link" href="#" data-id="5">Using Git</a>
-                            <a class="nav-link" href="#" data-id="6">Github & GitLab</a>
-                            <a class="nav-link" href="#" data-id="7">Relational DB</a>
-                            <a class="nav-link" href="#" data-id="8">NoSQL DB</a>
-                            <a class="nav-link" href="#" data-id="9">DB Knowledge</a>
-                            <a class="nav-link" href="#" data-id="10">APIs</a>
-                            <a class="nav-link" href="#" data-id="11">Caching</a>
-                            <a class="nav-link" href="#" data-id="12">Web Security</a>
-                            <a class="nav-link" href="#" data-id="13">Test</a>
-                            <a class="nav-link" href="#" data-id="14">CI / CD</a>
-                            <a class="nav-link" href="#" data-id="15">Design Pattern</a>
-                            <a class="nav-link" href="#" data-id="16">Search Engines</a>
-                            <a class="nav-link" href="#" data-id="17">Container</a>
-                            <a class="nav-link" href="#" data-id="18">Web Server</a>
-                        </div>
-                    </div>
-                </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap</title>
+    <link rel="stylesheet" href="/css/RoadMap/roadMapsub.css">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+<div id="layoutSidenav">
+    <!-- mainCategory 선택 -->
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="#" data-id="1">Internet</a>
+                    <a class="nav-link" href="#" data-id="2">Basic FE</a>
+                    <a class="nav-link" href="#" data-id="3">OS</a>
+                    <a class="nav-link" href="#" data-id="4">Langugage</a>
+                    <a class="nav-link" href="#" data-id="5">Algorithm</a>
+                    <a class="nav-link" href="#" data-id="6">Using Git</a>
+                    <a class="nav-link" href="#" data-id="7">Github & GitLab</a>
+                    <a class="nav-link" href="#" data-id="8">Relational DB</a>
+                    <a class="nav-link" href="#" data-id="9">NoSQL DB</a>
+                    <a class="nav-link" href="#" data-id="10">DB Knowledge</a>
+                    <a class="nav-link" href="#" data-id="11">APIs</a>
+                    <a class="nav-link" href="#" data-id="12">Framework</a>
+                    <a class="nav-link" href="#" data-id="13">Caching</a>
+                    <a class="nav-link" href="#" data-id="14">Web Security</a>
+                    <a class="nav-link" href="#" data-id="15">Test</a>
+                    <a class="nav-link" href="#" data-id="16">CI/CD</a>
+                    <a class="nav-link" href="#" data-id="17">Design Pattern</a>
+                    <a class="nav-link" href="#" data-id="18">Search Engines</a>
+                    <a class="nav-link" href="#" data-id="19">Container</a>
+                    <a class="nav-link" href="#" data-id="20">Web server</a>
+                </div>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4" id="subcategory">
+        </nav>
+    </div>
+    <!-- subCategory 박스 -->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4" id="subcategory">
+                <section class="page-section portfolio" id="portfolio">
+                    <div class="container">
+                        <div class="row justify-content-center" id="portfolioItems"></div>
                     </div>
-                </main>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- subCategory Modal창 -->
+<div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body text-center pb-5" id="portfolioModalContent">
+
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/roadMapsub.js"></script>
-        <script src="/js/datatables-simple-demo.js"></script>
-    </body>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.nav-link').click(function(e) {
+            e.preventDefault();
+            var categoryId = $(this).data('id');
+            var apiUrl = 'http://localhost:8080/api/roadmap/sub/' + categoryId;
+
+            $.getJSON(apiUrl, function(data) {
+                $('#portfolioItems').empty();
+                data.subCategory.forEach(function(subCategory, index) {
+                    var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
+                    html += '<div style="margin:20px; background-color: gray; padding: 20px;">';
+                    html += '<h2>' + subCategory.subDocsTitle + '</h2>';
+                    html += '<p>' + subCategory.subDescription + '</p>';
+                    html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    var $portfolioItem = $(html);
+
+                    $portfolioItem.click(function() {
+                        var index = $(this).data('index');
+
+                        // 데이터 주소에서 HTML 파일 가져오기
+                        $.get(data.url, function(htmlData) {
+                            console.log(data.url);
+                            // 가져온 데이터에서 해당 인덱스 값을 가진 div 찾기
+                            var selectedContent = $(htmlData).find('div.'+index).html();
+                            // 모달 창 내용에 해당 div의 HTML 내용 삽입
+                            $('#portfolioModalContent').html(selectedContent);
+                        });
+
+                        $('#portfolioModal').modal('show');
+                    });
+
+                    $('#portfolioItems').append($portfolioItem);
+                });
+            });
+        });
+    });
+
+</script>
+
+</body>
 </html>
