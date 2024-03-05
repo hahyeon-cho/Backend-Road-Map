@@ -1,24 +1,4 @@
-package ncnk.make.backendroadmap.domain.service;
-
-import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.api.leetcode.LeetCodeApiService;
-import ncnk.make.backendroadmap.domain.utils.CodingTestAnswerDTO;
-import ncnk.make.backendroadmap.domain.utils.CodingTestProblemDTO;
-import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+package ncnk.make.backendroadmap.domain.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,29 +13,42 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestProblem;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
 
 
 @Slf4j
-@Service
-public class LeetcodeScraperService {
+@Component
+public class LeetCodeCrawling {
     private static final String PROBLEMS_BASE_URL = "https://leetcode.com/problems/";
 
-    public Optional<CodingTestProblemDTO> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver) throws JSONException {
-        CodingTestProblemDTO problemInfo = CodingTestProblemDTO.createProblemInfo();
+    public Optional<CodingTestProblem> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver)
+            throws JSONException {
         String slug = problem.getJSONObject("stat").getString("question__title_slug");
-        String contents = "";
-        List<CodingTestAnswerDTO> exlist;
-        List<String> imagePaths = new ArrayList<>();
-        List<String> topics;
-
+        
         try {
+            List<String> imagePaths = new ArrayList<>();
             long acs = problem.getJSONObject("stat").getLong("total_acs");
             long submitted = problem.getJSONObject("stat").getLong("total_submitted");
             double correctRate = calCorrectRate(acs, submitted);
 
             driver.get(PROBLEMS_BASE_URL + slug);
             new WebDriverWait(driver, Duration.ofSeconds(20))
-                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-track-load='description_content']")));
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                            By.cssSelector("[data-track-load='description_content']")));
 
             Document doc = Jsoup.parse(driver.getPageSource());
             Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
@@ -88,31 +81,22 @@ public class LeetcodeScraperService {
                     break;
             }
 
-
-            contents = contentsElement.outerHtml();
+            String contents = contentsElement.outerHtml();
 
             Elements preData = contentsElement.select("pre");
-            exlist = getExamples(preData);
-            topics = getTopics(driver);
+            List<CodingTestAnswer> exlist = getExamples(preData);
+            List<String> topics = getTopics(driver);
 
-            problemInfo.updateInit(
-                    problem.getJSONObject("stat").getString("question__title"),
-                    slug,
-                    level,
-                    correctRate,
-                    contents,
-                    imagePaths,
-                    exlist,
-                    topics
-            );
-
+            CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
+                    problem.getJSONObject("stat").getString("question__title"), slug, level, correctRate, contents,
+                    imagePaths, exlist, topics);
             return Optional.of(problemInfo);
         } catch (Exception e) {
             return Optional.empty();
         }
     }
 
-    public double calCorrectRate(long acs, long submitted) {
+    private double calCorrectRate(long acs, long submitted) {
         if (acs == 0) {
             return 0.0;
         }
@@ -124,7 +108,9 @@ public class LeetcodeScraperService {
     private String changeImgPath(String imgUrl, String imgDir, String slug, int idx) {
         try {
             File directory = new File(imgDir);
-            if (!directory.exists()) { directory.mkdirs(); }
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
 
             String imgPath = imgDir + "/" + slug + "_" + idx + ".png";
             URL url = new URL(imgUrl);
@@ -134,13 +120,13 @@ public class LeetcodeScraperService {
 
             return imgPath;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("[Error] Fail ChangeImgPath! {}", e.getMessage());
             return null;
         }
     }
 
-    public List<CodingTestAnswerDTO> getExamples(Elements preData) {
-        List<CodingTestAnswerDTO> exlist = new ArrayList<>();
+    private List<CodingTestAnswer> getExamples(Elements preData) {
+        List<CodingTestAnswer> exlist = new ArrayList<>();
 
         for (Element pre : preData) {
             String preText = pre.text().trim();
@@ -148,9 +134,8 @@ public class LeetcodeScraperService {
             Matcher matcher = pattern.matcher(preText);
 
             if (matcher.find()) {
-                CodingTestAnswerDTO ex = new CodingTestAnswerDTO();
-
-                ex.setExample(matcher.group(1).trim(), matcher.group(2).trim());
+                CodingTestAnswer ex = CodingTestAnswer.createCodingTestAnswer(matcher.group(1).trim(),
+                        matcher.group(2).trim());
                 exlist.add(ex);
             }
         }
@@ -158,7 +143,7 @@ public class LeetcodeScraperService {
         return exlist;
     }
 
-    public List<String> getTopics(WebDriver driver) {
+    private List<String> getTopics(WebDriver driver) {
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(
                 ExpectedConditions.presenceOfElementLocated(By.cssSelector("div a[href^='/tag/']"))
         );

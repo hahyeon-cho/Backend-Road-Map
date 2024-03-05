@@ -13,7 +13,7 @@ public class MyTestResponseDto {
 
     public MyTestResponseDto(Solved solved, CodingTest codingTest) {
         this.problemSolved = solved.getProblemSolved();
-        this.problemName = codingTest.getProblemName();
+//        this.problemName = codingTest.getProblemName();
         this.problemLevel = codingTest.getProblemLevel();
         this.problemAccuracy = codingTest.getProblemAccuracy();
     }

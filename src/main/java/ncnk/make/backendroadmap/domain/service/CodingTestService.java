@@ -1,57 +1,49 @@
 package ncnk.make.backendroadmap.domain.service;
 
-import jakarta.annotation.PostConstruct;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.api.leetcode.LeetCodeApiService;
+import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.repository.CodingTestRepository;
-import ncnk.make.backendroadmap.domain.utils.CodingTestProblemDTO;
+import ncnk.make.backendroadmap.domain.utils.LeetCodeCrawling;
 import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
+import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CodingTestService {
     private final CodingTestRepository codingTestRepository;
-    private final LeetCodeApiService leetCodeApiService;
-    private final LeetcodeScraperService leetcodeScraperService;
+    private final LeetCodeApi leetCodeApi;
+    private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
+    private static final int COUNT = 50;
 
-    @Autowired
-    public CodingTestService(CodingTestRepository codingTestRepository,
-                             LeetCodeApiService leetCodeApiService,
-                             LeetcodeScraperService leetcodeScraperService,
-                             WebDriverPool webDriverPool) {
-        this.codingTestRepository = codingTestRepository;
-        this.leetCodeApiService = leetCodeApiService;
-        this.leetcodeScraperService = leetcodeScraperService;
-        this.webDriverPool = webDriverPool;
-    }
 
     @Async
     public void scrapeAndSaveProblemAsync(JSONObject problem) {
         WebDriver driver = null;
         try {
             driver = webDriverPool.getDriver();
-            Optional<CodingTestProblemDTO> problemOptional = leetcodeScraperService.scrapeLeetCodeProblemContents(problem, driver);
+            Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
+                    problem, driver);
 
-            problemOptional.ifPresent(this::saveProblem);
+            if (problemOptional.isPresent()) {
+                saveProblem(problemOptional);
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         } catch (Exception e) {
-            log.error("Error during async scraping and saving problem", e);
+            log.error("[ERROR] During async scraping and saving problem = {}", e.getMessage());
         } finally {
             if (driver != null) {
                 webDriverPool.returnDriver(driver);
@@ -70,30 +62,32 @@ public class CodingTestService {
         scrapeAllProblems();
     }
 
-    public void scrapeAllProblems() {
+    private void scrapeAllProblems() {
         try {
-            List<JSONObject> problems = leetCodeApiService.getLeetCodeProblemList();
+            List<JSONObject> problems = leetCodeApi.getLeetCodeProblemList();
+            int temp = 0;
             for (JSONObject problem : problems) {
-                scrapeAndSaveProblemAsync(problem);
+                if (temp < COUNT) {
+                    scrapeAndSaveProblemAsync(problem);
+                    temp++;
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("[ERROR] ScrapeAllProblems = {}", e.getMessage());
         }
     }
 
-    public CodingTest saveProblem(CodingTestProblemDTO problemDTO) {
+    private CodingTest saveProblem(Optional<CodingTestProblem> codingTestProblem) {
         CodingTest codingTest = CodingTest.createCodingTest(
-                problemDTO.getProblemTitle(),
-                problemDTO.getProblemSlug(),
-                problemDTO.getProblemLevel(),
-                problemDTO.getProblemAccuracy(),
-                problemDTO.getProblemContents(),
-                problemDTO.getProblemImages(),
-                problemDTO.getProblemTopics()
+                codingTestProblem.get().getProblemTitle(),
+                codingTestProblem.get().getProblemSlug(),
+                codingTestProblem.get().getProblemLevel(),
+                codingTestProblem.get().getProblemAccuracy(),
+                codingTestProblem.get().getProblemContents(),
+                codingTestProblem.get().getProblemImages(),
+                codingTestProblem.get().getExInputOutput(),
+                codingTestProblem.get().getProblemTopics()
         );
-
         return codingTestRepository.save(codingTest);
     }
-
-
 }

@@ -2,28 +2,26 @@ package ncnk.make.backendroadmap.domain.utils;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 @Component
 public class WebDriverPool {
     private final Semaphore semaphore;
     private final BlockingQueue<WebDriver> pool;
-    private final int poolSize = 5;
+    private final ApplicationContext applicationContext;
+    private static final int poolSize = 5;
 
     @Autowired
-    private ApplicationContext applicationContext;
-
-//    public WebDriverPool(@Value("${webdriver.pool.size:5}") int poolSize) {
-    public WebDriverPool() {
+    public WebDriverPool(ApplicationContext applicationContext) {
         this.semaphore = new Semaphore(this.poolSize);
         this.pool = new LinkedBlockingQueue<>(this.poolSize);
+        this.applicationContext = applicationContext;
     }
 
     @PostConstruct
@@ -40,7 +38,7 @@ public class WebDriverPool {
     }
 
     public void returnDriver(WebDriver driver) {
-        boolean driverAdded = false;
+        boolean driverAdded;
 
         synchronized (this) {
             if (isDriverValid(driver)) {
