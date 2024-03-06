@@ -1,12 +1,14 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
-import ncnk.make.backendroadmap.domain.repository.CodingTestRepository;
+import ncnk.make.backendroadmap.domain.entity.Problem;
+import ncnk.make.backendroadmap.domain.repository.CodingTest.CodingTestRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCodeCrawling;
 import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
 import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestProblem;
@@ -26,7 +28,7 @@ public class CodingTestService {
     private final LeetCodeApi leetCodeApi;
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
-    private static final int COUNT = 50;
+    private static final int COUNT = 30;
 
 
     @Async
@@ -89,5 +91,32 @@ public class CodingTestService {
                 codingTestProblem.get().getProblemTopics()
         );
         return codingTestRepository.save(codingTest);
+    }
+
+    public List<CodingTest> findRandomProblemsByLevelMySQL() {
+        List<CodingTest> normalProblems = codingTestRepository.findRandomProblemsByLevelMySQL(
+                Problem.NORMAL.getProblemLevel(), 1);
+        List<CodingTest> easyProblems = codingTestRepository.findRandomProblemsByLevelMySQL(
+                Problem.EASY.getProblemLevel(),
+                2);
+
+        List<CodingTest> result = new ArrayList<>();
+        result.addAll(normalProblems);
+        result.addAll(easyProblems);
+
+        return result;
+    }
+
+    public List<CodingTest> findRandomProblemsByLevelH2Db() {
+        List<CodingTest> normalProblems = codingTestRepository.findRandomProblemsByLevelH2Db(
+                Problem.NORMAL.getProblemLevel(), 1);
+        List<CodingTest> easyProblems = codingTestRepository.findRandomProblemsByLevelH2Db(
+                Problem.EASY.getProblemLevel(), 2);
+
+        List<CodingTest> result = new ArrayList<>();
+        result.addAll(normalProblems);
+        result.addAll(easyProblems);
+
+        return result;
     }
 }

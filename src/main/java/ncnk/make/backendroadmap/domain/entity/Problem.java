@@ -8,9 +8,9 @@ import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
  */
 @Getter
 public enum Problem {
-    HARD("상", 7),
-    NORMAL("중", 5),
-    EASY("하", 3);
+    HARD("Hard", 7),
+    NORMAL("Normal", 5),
+    EASY("Easy", 3);
 
     private final String problemLevel;
     private final int point;
