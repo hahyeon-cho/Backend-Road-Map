@@ -77,7 +77,7 @@ public class BookApi {
                     String cover = bookInfo.getString("cover");
                     String publisher = bookInfo.getString("publisher");
 
-                    Main main = Main.findMainBySearchQuery(searchQuery.getCategory());
+                    Main main = Main.getEnumByMainDocsOrder(searchQuery.getCategory());
                     MainCategory mainCategory = mainCategoryRepository.findMainCategoryByMainDocsTitle(main)
                             .orElseThrow(() -> new ResourceNotFoundException());
 

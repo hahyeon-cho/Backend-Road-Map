@@ -9,6 +9,9 @@ import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateReq
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 회원 Service (BIZ 로직)
+ */
 @Transactional(readOnly = true)
 @Service
 @Slf4j
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    //회원 프로필 수정
     @Transactional
     public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),
@@ -27,9 +31,15 @@ public class MemberService {
         return updateMember.getMemberId();
     }
 
+    //회원 PK 이용해 회원 정보 조회
     public Member findMemberById(Long id) {
-        Member member = memberRepository.findMemberByMemberId(id)
+        return memberRepository.findMemberByMemberId(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
-        return member;
+    }
+
+    //이메일 이용해 회원 정보 조회
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findMemberByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException());
     }
 }
