@@ -64,7 +64,7 @@ public class CodingTest extends BaseTimeEntity {
         this.problemContents = problemContents;
     }
 
-    public static CodingTest createAlgorithmTest(String problemContents) {
+    public static CodingTest createCodingTest(String problemContents) {
         return new CodingTest(problemContents);
     }
 }
