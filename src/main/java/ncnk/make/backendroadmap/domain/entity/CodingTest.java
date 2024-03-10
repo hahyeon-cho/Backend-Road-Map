@@ -14,6 +14,9 @@ import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
 import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
 
+/**
+ * 코딩 테스트 테이블 - 리트코드 API 반환값에 따라 변동사항 있을 수 있음!
+ */
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -25,6 +28,8 @@ public class CodingTest extends BaseTimeEntity {
     private String problemTitle;
     private String problemSlug;
     private String problemLevel;
+
+    @Column(name = "problem_accuracy")
     private Double problemAccuracy;
     @Column(length = 10000)
     private String problemContents;

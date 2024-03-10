@@ -1,12 +1,14 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
-import ncnk.make.backendroadmap.domain.repository.CodingTestRepository;
+import ncnk.make.backendroadmap.domain.entity.Problem;
+import ncnk.make.backendroadmap.domain.repository.CodingTest.CodingTestRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCodeCrawling;
 import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
 import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestProblem;
@@ -26,7 +28,7 @@ public class CodingTestService {
     private final LeetCodeApi leetCodeApi;
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
-    private static final int COUNT = 50;
+    private static final int COUNT = 20;
 
 
     @Async
@@ -36,7 +38,7 @@ public class CodingTestService {
             driver = webDriverPool.getDriver();
             Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
                     problem, driver);
-
+            log.info("problemOptional: {}", problemOptional.get().getProblemSlug());
             if (problemOptional.isPresent()) {
                 saveProblem(problemOptional);
             }
@@ -68,7 +70,9 @@ public class CodingTestService {
             int temp = 0;
             for (JSONObject problem : problems) {
                 if (temp < COUNT) {
+                    log.info("--------Before scrapeAndSaveProblemAsync------");
                     scrapeAndSaveProblemAsync(problem);
+                    log.info("--------After scrapeAndSaveProblemAsync------");
                     temp++;
                 }
             }
@@ -89,5 +93,22 @@ public class CodingTestService {
                 codingTestProblem.get().getProblemTopics()
         );
         return codingTestRepository.save(codingTest);
+    }
+
+    public List<CodingTest> findRandomProblemsByLevelWorst() {
+        return codingTestRepository.findCsProblems();
+    }
+
+    public List<CodingTest> findRandomProblemsByLevel() {
+        List<CodingTest> normalProblems = codingTestRepository.findRandomProblemsByLevel(
+                Problem.NORMAL.getProblemLevel(), 1);
+        List<CodingTest> easyProblems = codingTestRepository.findRandomProblemsByLevel(
+                Problem.EASY.getProblemLevel(), 2);
+
+        List<CodingTest> result = new ArrayList<>();
+        result.addAll(normalProblems);
+        result.addAll(easyProblems);
+
+        return result;
     }
 }

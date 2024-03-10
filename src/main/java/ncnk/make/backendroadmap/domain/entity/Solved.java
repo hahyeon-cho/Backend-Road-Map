@@ -10,11 +10,12 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Solved {
+public class Solved extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "solved_id")

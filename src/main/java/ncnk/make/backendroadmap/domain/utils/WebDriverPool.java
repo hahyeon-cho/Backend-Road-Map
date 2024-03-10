@@ -15,7 +15,7 @@ public class WebDriverPool {
     private final Semaphore semaphore;
     private final BlockingQueue<WebDriver> pool;
     private final ApplicationContext applicationContext;
-    private static final int poolSize = 5;
+    private static final int poolSize = 2;
 
     @Autowired
     public WebDriverPool(ApplicationContext applicationContext) {
