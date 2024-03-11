@@ -1,8 +1,6 @@
 package ncnk.make.backendroadmap.domain.config;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import lombok.Value;
-import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -19,6 +17,7 @@ public class WebDriverConfig {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         options.addArguments("--log-level=3");
+        options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36");
         return new ChromeDriver(options);
     }
 }
