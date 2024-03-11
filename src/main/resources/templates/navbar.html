@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link href="/css/nav.css" rel="stylesheet" />
 
-
     <title>Title</title>
 
 </head>
@@ -17,7 +16,7 @@
     <div class ="main-container">
         <div class ="mainNav">
             <div class="maintitle">
-                <a class="navbar-brand" aria-current="page"  href="/static" ><img src ="/images/navNCNK.svg"></a>
+                <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
                 <div class="navbar-menu" id="menu">
                     <ul class="navbar-nav">
                         <li class="nav-rm"><a class="nav-link" href="/roadmap">RoadMap</a></li>
@@ -28,8 +27,8 @@
             </div>
             <div class="nav">
 
-                <img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" >
-                <a  href="/logout">Logout</a>
+                <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+                <div class="logoutbtn"><a  href="/logout">Logout</a></div>
 
             </div>
         </div>

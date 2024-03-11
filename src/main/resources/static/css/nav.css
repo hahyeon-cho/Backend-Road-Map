@@ -20,6 +20,7 @@
 .navbar-brand{
     margin-left: 10px;
     margin-right: 100px;
+
 }
 .maintitle{
     display: flex;
@@ -47,6 +48,15 @@
     0 0 200px #ffc01f;
 
 }
+.navbar-nav a:active{
+    color:white;
+    text-shadow: 0 0 5px #ffc01f,
+    0 0 25px #ffc01f,
+    0 0 50px #ffc01f,
+    0 0 100px #ffc01f,
+    0 0 150px #ffc01f,
+    0 0 200px #ffc01f;
+}
 
 .nav{
     display: flex;
@@ -54,7 +64,7 @@
     align-items: center;
 }
 
-.nav a{
+.logoutbtn a{
     padding: 8px 13px;
     color: #ffc01f;
     transition: 0.5s;
@@ -65,13 +75,13 @@
     font-weight: bold;
     margin-right: 10px;
 }
-.nav a:hover {
+.logoutbtn a:hover {
     background: #ffc01f;
     color: #fff;
     box-shadow: 0 0 5px #ffc01f, 0 0 25px #ffc01f, 0 0 50px #ffc01f,
     0 0 100px #ffc01f;
 }
-.nav img{
+.profile a img{
     width: 35px;
     height: 35px;
     margin-right: 10px;
