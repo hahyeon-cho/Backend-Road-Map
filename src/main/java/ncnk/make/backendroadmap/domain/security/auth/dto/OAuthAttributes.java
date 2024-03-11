@@ -1,10 +1,11 @@
 package ncnk.make.backendroadmap.domain.security.auth.dto;
 
+import lombok.Getter;
 import ncnk.make.backendroadmap.domain.constant.Constant;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
+
 import java.util.Map;
-import lombok.Getter;
 
 @Getter
 public class OAuthAttributes {
@@ -56,6 +57,6 @@ public class OAuthAttributes {
     }
 
     public Member toEntity() {
-        return Member.createMember(picture, email, name, "git", Constant.initLevel, Role.GUEST);
+        return Member.createMember(picture, email, name, null, "git", Constant.initLevel, Role.GUEST);
     }
 }

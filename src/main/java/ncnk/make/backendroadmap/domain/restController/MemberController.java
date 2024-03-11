@@ -1,29 +1,20 @@
 package ncnk.make.backendroadmap.domain.restController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.domain.entity.DocsLike;
-import ncnk.make.backendroadmap.domain.entity.MainCategory;
-import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.entity.PracticeCode;
-import ncnk.make.backendroadmap.domain.entity.Solved;
-import ncnk.make.backendroadmap.domain.entity.SubCategory;
+import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
+import ncnk.make.backendroadmap.domain.entity.*;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
 import ncnk.make.backendroadmap.domain.repository.MemberRepository;
 import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyPracticeResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyRoadMapResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyTestResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.Member.*;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
 import ncnk.make.backendroadmap.domain.service.SolvedService;
+import ncnk.make.backendroadmap.domain.utils.UploadService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -32,6 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //TODO: 마이페이지에서 Member 같은 속성값을 각 페이지마다 ResponseDto에 담아서 return 함! 리소스 낭비 예상!
 @RestController
@@ -67,8 +62,7 @@ public class MemberController {
             log.info("My RoadMap Set Data");
             for (SubCategory subCategory : subCategories) {
                 MainCategory mainCategory = subCategory.getMainCategory();
-                myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(
-                        subCategory, mainCategory));
+                myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(subCategory, mainCategory));
             }
             memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto);
         }
@@ -107,10 +101,13 @@ public class MemberController {
                 pageable.getPageSize(), memberResponseDto.getPracticeResponseDto());
     }
 
+    private final UploadService uploadService;
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id,
-                         @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+                         @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable,
+                         MemberUpdateRequestDto memberUpdateRequestDto) {
         Member member = memberService.findMemberById(id);
+        byte[] userProfile = uploadService.getUserProfile(member.getNickName(), memberUpdateRequestDto.getProfile());
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member);
 
         Page<Solved> solveds = solvedService.getSolved(member, pageable);
@@ -130,7 +127,6 @@ public class MemberController {
                 memberResponseDto.getName(), memberResponseDto.getGithub(), memberResponseDto.getLevel(),
                 pageable.getPageSize(), memberResponseDto.getTestResponseDto());
     }
-
     @AllArgsConstructor
     @Getter
     static class MyPage<T> {

@@ -2,32 +2,21 @@ package ncnk.make.backendroadmap.init;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.api.Book.BookApi;
+import ncnk.make.backendroadmap.domain.entity.*;
+import ncnk.make.backendroadmap.domain.repository.QuizRepository;
+import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.api.Book.BookApi;
-import ncnk.make.backendroadmap.domain.entity.DocsLike;
-import ncnk.make.backendroadmap.domain.entity.Main;
-import ncnk.make.backendroadmap.domain.entity.MainCategory;
-import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.entity.Quiz;
-import ncnk.make.backendroadmap.domain.entity.Role;
-import ncnk.make.backendroadmap.domain.entity.Sub;
-import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.repository.QuizRepository;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -36,10 +25,10 @@ public class InitData {
 
     @PostConstruct
     public void init() {
-        Member member = initService.initMember();
-        List<MainCategory> mainCategories = initService.initCategory(member);
-        initService.initQuiz(mainCategories);
-        initService.insertBook();
+//        Member member = initService.initMember();
+//        List<MainCategory> mainCategories = initService.initCategory(member);
+//        initService.initQuiz(mainCategories);
+//        initService.insertBook();
     }
 
     @Component
@@ -61,7 +50,7 @@ public class InitData {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "github", 1, Role.GUEST);
+            Member member = Member.createMember("profile", "email", "name", "nickName" , "github", 1, Role.GUEST);
             em.persist(member);
 
             return member;
@@ -170,4 +159,3 @@ public class InitData {
         }
     }
 }
-

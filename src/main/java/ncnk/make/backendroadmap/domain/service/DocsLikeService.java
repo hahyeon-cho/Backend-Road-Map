@@ -1,7 +1,5 @@
 package ncnk.make.backendroadmap.domain.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
@@ -15,6 +13,9 @@ import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryReposit
 import ncnk.make.backendroadmap.domain.restController.dto.Like.DocsLikeResponseDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -38,7 +39,7 @@ public class DocsLikeService {
 
         DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
         docsLikeRepository.save(docsLike);
-        subCategoryRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
+//        docsLikeRepository.addLikeCount(subCategory); //TODO 소분류 좋아요 개수 ++
     }
 
     @Transactional
@@ -51,7 +52,7 @@ public class DocsLikeService {
                 .orElseThrow(() -> new ResourceNotFoundException());
 
         docsLikeRepository.delete(docsLike);
-        subCategoryRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
+//        docsLikeRepository.subLikeCount(subCategory); //TODO 소분류 좋아요 개수 --
     }
 
     public List<SubCategory> findSubCategoriesByMember(Member member) {

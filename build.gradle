@@ -6,7 +6,10 @@ plugins {
 
 group = 'ncnk.make'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    sourceCompatibility = '17'
+}
 
 configurations {
     compileOnly {
@@ -26,7 +29,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
-
     implementation 'org.springframework.session:spring-session-jdbc'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -36,6 +38,7 @@ dependencies {
     implementation group: 'org.json', name: 'json', version: '20201115'
 
 
+    implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
     //Querydsl 추가
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
@@ -62,10 +65,10 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
-clean {
-    delete file('src/main/generated')
+tasks.named('test') {
+    useJUnitPlatform()
 }

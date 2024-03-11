@@ -1,3 +1,4 @@
+
 package ncnk.make.backendroadmap.domain.entity;
 
 import jakarta.persistence.Column;

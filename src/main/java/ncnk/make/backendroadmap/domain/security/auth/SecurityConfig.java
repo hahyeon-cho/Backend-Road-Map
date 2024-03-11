@@ -25,15 +25,14 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile");
+                .requestMatchers("/login","/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile");
     }
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception { http
                 .csrf(csrf -> csrf.disable())
                 .headers(header -> header
-                        .frameOptions(frameOptions -> frameOptions.disable()))
+                .frameOptions(frameOptions -> frameOptions.disable()))
 
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(PathRequest.toH2Console()).permitAll()

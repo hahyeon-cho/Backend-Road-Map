@@ -1,14 +1,6 @@
 package ncnk.make.backendroadmap.domain.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +19,7 @@ public class Member extends BaseTimeEntity {
     private String profile;
     private String email;
     private String name;
+    private String nickName;
     private String github;
     private int level;
 
@@ -39,22 +32,23 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
 
-    private Member(String profile, String email, String name, String github, int level, Role role) {
+    private Member(String profile, String email, String name, String nickName, String github, int level, Role role) {
         this.profile = profile;
         this.email = email;
         this.name = name;
+        this.nickName = nickName;
         this.github = github;
         this.level = level;
         this.role = role;
     }
 
-    public static Member createMember(String profile, String email, String name, String github, int level, Role role) {
-        return new Member(profile, email, name, github, level, role);
+    public static Member createMember(String profile, String email, String name, String nickName, String github, int level, Role role) {
+        return new Member(profile, email, name, nickName, github, level, role);
     }
 
-    public Member updateMember(String profile, String name, String github) {
+    public Member updateMember(String profile, String nickName, String github) {
         this.profile = profile;
-        this.name = name;
+        this.nickName = nickName;
         this.github = github;
 
         return this;
