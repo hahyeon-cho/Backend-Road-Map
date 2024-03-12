@@ -1,0 +1,23 @@
+/*footer css*/
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+
+}
+.f-text {
+    margin-left: auto;
+
+}
+
+.f-loge{
+    margin-right: 15px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-top: 7px;
+    vertical-align: middle;
+}
+.f-loge img{
+    width: 30px;
+}

@@ -23,13 +23,17 @@
         </div>
         <div class="nav">
             <!--로그인 전 -->
-            <a th:unless="${userName != null}" href="/home">Login</a>
+            <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+            <div class="logoutbtn">
+                <a th:unless="${userName != null}" href="/home">Login</a>
+                <a th:if="${userName != null}" href="/logout">Logout</a>
+            </div>
             <!--로그인 후 userpicture, 로그인버튼 -> 로그인으로 변경-->
-            <img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" >
-            <a th:if="${userName != null}" href="/logout">Logout</a>
+
+
         </div>
     </div>
-
+</div>
     <header id="main-header">
         <div class="backgrounImg"></div>
     </header>
@@ -44,8 +48,7 @@
 
 
 </section>
-
-<!--<div th:replace="footer :: footer"></div>-->
+<div th:replace="footer :: footer"></div>
 
 </body>
 </html>

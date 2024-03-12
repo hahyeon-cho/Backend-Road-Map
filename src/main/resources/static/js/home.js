@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// $(function (){
-//     $("#footer").load("footer.html");
-// });
+$(function (){
+   $("#footer").load("footer.html");
+});
