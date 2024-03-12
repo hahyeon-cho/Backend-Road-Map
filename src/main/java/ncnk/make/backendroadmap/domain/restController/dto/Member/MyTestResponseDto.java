@@ -11,16 +11,15 @@ import ncnk.make.backendroadmap.domain.entity.Solved;
 @Getter
 public class MyTestResponseDto {
     private Boolean problemSolved;
-    private String problemName;
+    private String problemTitle;
+    private String problemLevel;
     private Double problemAccuracy;
-    private String problemDifficulty;
 
     public MyTestResponseDto(Solved solved, CodingTest codingTest) {
         this.problemSolved = solved.getProblemSolved();
-//        this.problemName = codingTest.getProblemName();
+        this.problemTitle = codingTest.getProblemTitle();
         this.problemLevel = codingTest.getProblemLevel();
         this.problemAccuracy = codingTest.getProblemAccuracy();
-        this.problemDifficulty = codingTest.getProblemDifficulty();
     }
 
     public static MyTestResponseDto createTestResponseDto(Solved solved, CodingTest codingTest) {

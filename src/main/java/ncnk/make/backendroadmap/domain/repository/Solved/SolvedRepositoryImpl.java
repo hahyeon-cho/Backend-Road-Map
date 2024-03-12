@@ -49,7 +49,7 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
         QueryResults<Solved> results = queryFactory
                 .selectFrom(QSolved.solved)
                 .join(QSolved.solved.member, QMember.member).fetchJoin()
-                .where(searchByDifficulty(difficulty), searchByProblemSolved(problemSolved))
+                //.where(searchByDifficulty(difficulty), searchByProblemSolved(problemSolved))
                 .orderBy(orderByAccuracy(order))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -59,12 +59,12 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
     }
 
     //검색 정보 중 "난이도(상/중/하)"가 있으면 적용, 없으면 무시
-    private BooleanExpression searchByDifficulty(String difficulty) {
-        if (difficulty == null) {
-            return null;
-        }
-        return QSolved.solved.codingTest.problemDifficulty.contains(difficulty);
-    }
+//    private BooleanExpression searchByDifficulty(String difficulty) {
+//        if (difficulty == null) {
+//            return null;
+//        }
+//        return QSolved.solved.codingTest.problemDifficulty.contains(difficulty);
+//    }
 
     //검색 정보 중 "정렬 기준(오름/내림차순)"가 있으면 적용, 없으면 오름차순 적용
     private OrderSpecifier<Double> orderByAccuracy(String order) {
