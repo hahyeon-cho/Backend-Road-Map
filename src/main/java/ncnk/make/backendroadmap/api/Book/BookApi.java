@@ -32,7 +32,7 @@ public class BookApi {
     public static final String apiUrl = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
     public static final String encode = "UTF-8";
 
-    @Value("${book.api}")
+//    @Value("${book.api}")
     String apiKey;
 
     //    @Scheduled(cron = "0 0 0 1 * ?") //매달 1일 0시 0분 0초

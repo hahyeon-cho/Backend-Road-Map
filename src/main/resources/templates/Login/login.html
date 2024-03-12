@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 화면</title>
+
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+<div class="container">
+    <div class='header' th:if="${userName}">
+        Logged in as : <span id="user" th:text="${userName}"></span>
+        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+    </div>
+    <div class="black">
+        <img src="/img/logo.jpg" alt="logo Login" />
+    </div>
+    <div class="cacaca">
+        <div>
+            <button
+                    class="w-100 btn btn-dark btn-lg"
+                    onclick="location.href='loginHome.html'"
+                    th:onclick="|location.href='@{/login}'|" type="button">
+                로그인
+            </button>
+        </div>
+        <div class="row">
+            <div class='button-container' th:unless="${userName}">
+                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/google'">
+                    <img class='sns-img' width='250' height='50' src="/img/google.png" alt="Google Login"/>
+                </button>
+                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/naver'">
+                    <img class='sns-img' width='250' height='50' src="/img/naver.jpeg" alt="naver Login" /> </button>
+                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/kakao'">
+                    <img class='sns-img' width='250' height='50' src="/img/kakao.jpeg" alt="kakao Login" /> </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
