@@ -14,10 +14,9 @@ header{
 }
 
 .roadMapTitle h1{
+    position: absolute;
     margin-left: 40px;
-    vertical-align : bottom;
-    font-size: xx-large ;
-    font-weight: 900;
+    top: 28%;
 }
 
 article{
@@ -32,12 +31,7 @@ article{
     background-size : 85% 85%;
 }
 
-/*.MainCategory a {*/
-/*    !* 하이퍼링크의 밑줄 제거 *!*/
-/*    text-decoration: none;*/
-/*    !* 하이퍼링크의 글자색을 파란색으로 설정 *!*/
-/*    color: white;*/
-/*}*/
+
 .MainCategory a {
     color: white;
     font-size:1.2rem;
@@ -46,15 +40,8 @@ article{
     aspect-ratio: 16 / 9;
 }
 
-/* 마우스를 올렸을 때의 하이퍼링크의 스타일 변경 */
 .MainCategory :hover {
     color: #96b1ff;
-}
-.nav-link-Internet{
-    position: relative;
-    top: 50%;
-    left: 30%;
-
 }
 
 .subCategory a{

@@ -30,26 +30,26 @@
 <article>
     <div class="MainCategory">
         <a class="main-nvl">
-            <a class="nav-link-Internet" href="#" data-id="1">Internet</a>
-            <a class="nav-link-FE" href="#" data-id="2">Basic FE</a>
-            <a class="nav-link-OS" href="#" data-id="3">OS</a>
-            <a class="nav-link-Langugage" href="#" data-id="4">Langugage</a>
-            <a class="nav-link-Alogorithm" href="#" data-id="5">Algorithm</a>
-            <a class="nav-link-UsingGit" href="#" data-id="6">Using Git</a>
-            <a class="nav-link-Github" href="#" data-id="7">Github & GitLab</a>
-            <a class="nav-link-RDB" href="#" data-id="8">Relational DB</a>
-            <a class="nav-link-SQLDB" href="#" data-id="9">NoSQL DB</a>
-            <a class="nav-link-DBK" href="#" data-id="10">DB Knowledge</a>
-            <a class="nav-link-API" href="#" data-id="11">APIs</a>
-            <a class="nav-link-Framework" href="#" data-id="12">Framework</a>
-            <a class="nav-link-Caching" href="#" data-id="13">Caching</a>
-            <a class="nav-link-WebSecurity" href="#" data-id="14">Web Security</a>
-            <a class="nav-link-Test" href="#" data-id="15">Test</a>
-            <a class="nav-link-CI/CD" href="#" data-id="16">CI/CD</a>
-            <a class="nav-link_DesignPattern" href="#" data-id="17">Design Pattern</a>
-            <a class="nav-link-SearchEngines" href="#" data-id="18">Search Engines</a>
-            <a class="nav-link-Container" href="#" data-id="19">Container</a>
-            <a class="nav-link-WevServer" href="#" data-id="20">Web server</a>
+            <a th:if="${Level >= 1}" class="nav-link" href="#" data-id="1">Internet</a>
+            <a th:if="${Level >= 2}" class="nav-link" href="#" data-id="2">Basic FE</a>
+            <a th:if="${Level >= 3}" class="nav-link" href="#" data-id="3">OS</a>
+            <a th:if="${Level >= 4}" class="nav-link" href="#" data-id="4">Langugage</a>
+            <a th:if="${Level >= 5}" class="nav-link" href="#" data-id="5">Algorithm</a>
+            <a th:if="${Level >= 6}" class="nav-link" href="#" data-id="6">Using Git</a>
+            <a th:if="${Level >= 7}" class="nav-link" href="#" data-id="7">Github & GitLab</a>
+            <a th:if="${Level >= 8}" class="nav-link" href="#" data-id="8">Relational DB</a>
+            <a th:if="${Level >= 9}" class="nav-link" href="#" data-id="9">NoSQL DB</a>
+            <a th:if="${Level >= 10}" class="nav-link" href="#" data-id="10">DB Knowledge</a>
+            <a th:if="${Level >= 11}" class="nav-link" href="#" data-id="11">APIs</a>
+            <a th:if="${Level >= 12}" class="nav-link" href="#" data-id="12">Framework</a>
+            <a th:if="${Level >= 13}" class="nav-link" href="#" data-id="13">Caching</a>
+            <a th:if="${Level >= 14}" class="nav-link" href="#" data-id="14">Web Security</a>
+            <a th:if="${Level >= 15}" class="nav-link" href="#" data-id="15">Test</a>
+            <a th:if="${Level >= 16}" class="nav-link" href="#" data-id="16">CI/CD</a>
+            <a th:if="${Level >= 17}" class="nav-link" href="#" data-id="17">Design Pattern</a>
+            <a th:if="${Level >= 18}" class="nav-link" href="#" data-id="18">Search Engines</a>
+            <a th:if="${Level >= 19}" class="nav-link" href="#" data-id="19">Container</a>
+            <a th:if="${Level >= 20}" class="nav-link" href="#" data-id="20">Web server</a>
         </a>
     </div>
     <!--소분류-->
@@ -78,6 +78,11 @@
 
 
 </article>
+<input type="hidden" id="myLevel" value="${Level}" />
+
+<script>
+
+</script>
 
 <div th:replace="footer :: footer"></div>
 </body>

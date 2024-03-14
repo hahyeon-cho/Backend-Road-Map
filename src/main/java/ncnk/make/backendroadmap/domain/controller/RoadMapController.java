@@ -34,6 +34,7 @@ public class RoadMapController {
         Member member = memberService.findMemberByEmail(sessionUser.getEmail()); // 회원 검색
         model.addAttribute("userID", member.getMemberId());
         model.addAttribute("userPicture", user.getPicture());
+        model.addAttribute("Level", member.getLevel());
         return "roadMap/roadMapMain";
     }
 
