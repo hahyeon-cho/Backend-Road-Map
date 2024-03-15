@@ -41,6 +41,10 @@ server:
       enabled: true
       force: true
 
+  devtools:
+    restart:
+      enabled: false
+
 logging:
   level:
     org:
