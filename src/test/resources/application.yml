@@ -1,29 +1,36 @@
 spring:
-  datasource:
-    #    url: jdbc:h2:mem:testdb
-    url: jdbc:h2:tcp://localhost/~/h2_DB/BackendRoadMap
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+  mvc:
+    view:
+      suffix: .html
 
+  profiles:
+    active: test
+    include: personal
 
-  config:
-    activate:
-      on-profile: dev
-
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  #    timeout: 30m # 세션 생성 후 30분 동안 유효, 이후에 자동 만료
 
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-        #      show_sql: true      -> System.out
         format_sql: true
-        use_sql_comments: true #실행되는 JPQL 보기
+        use_sql_comments: true
+    database-platform: org.hibernate.dialect.H2Dialect
 
   h2:
     console:
       enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 
 server:
   port: 8080
@@ -33,6 +40,10 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
 logging:
   level:
-    org.hibernate.SQL: debug
+    org:
+      hibernate.SQL: debug
+      springframework:
+        core.LocalVariableTableParameterNameDiscoverer: ERROR

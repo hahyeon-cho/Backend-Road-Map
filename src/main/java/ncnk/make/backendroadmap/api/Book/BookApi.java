@@ -39,7 +39,6 @@ public class BookApi {
 //    @Scheduled(cron = "0/20 * * * * ?") // 20초
     @Transactional
     public void callAladinApi() {
-        log.info("call callAladinApi!!!");
         List<SearchQuery> searchQueries = SearchQuery.getSearchQueries();
         for (SearchQuery searchQuery : searchQueries) {
             try {

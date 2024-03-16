@@ -46,6 +46,23 @@
             <div class="container-fluid px-4" id="subcategory">
                 <section class="page-section portfolio" id="portfolio">
                     <div class="container">
+                        <button popovertarget="mydiv">도서추천</button>
+                        <div popover id="mydiv">
+                            <h2>도서 판매량 TOP3</h2>
+                            <hr>
+                            <div id="bookItems">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                            <button popovertarget="mydiv" popovertargetaction="hide">Close</button>
+                        </div>
+                        <button popovertarget="mydiv1">Quiz</button>
+                        <div popover id="mydiv1">
+                            <div id="quiz">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
                         <div class="row justify-content-center" id="portfolioItems"></div>
                     </div>
                 </section>
@@ -72,7 +89,9 @@
             var categoryId = $(this).data('id');
             var apiUrl = 'http://localhost:8080/api/roadmap/sub/' + categoryId;
 
+            //ajax
             $.getJSON(apiUrl, function(data) {
+                //subCategory 박스
                 $('#portfolioItems').empty();
                 data.subCategory.forEach(function(subCategory, index) {
                     var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
@@ -87,12 +106,10 @@
                     $portfolioItem.click(function() {
                         var index = $(this).data('index');
 
-                        // 데이터 주소에서 HTML 파일 가져오기
+                        // 설명 html 출력
                         $.get(data.url, function(htmlData) {
                             console.log(data.url);
-                            // 가져온 데이터에서 해당 인덱스 값을 가진 div 찾기
                             var selectedContent = $(htmlData).find('div.'+index).html();
-                            // 모달 창 내용에 해당 div의 HTML 내용 삽입
                             $('#portfolioModalContent').html(selectedContent);
                         });
 
@@ -101,6 +118,21 @@
 
                     $('#portfolioItems').append($portfolioItem);
                 });
+
+                //도서추천
+                $('#bookItems').empty();
+                data.recommendBookDtos.forEach(function(book, index) {
+                    var html = '<div>';
+                    html += '<h4>' + book.bookTitle + '</h4>';
+                    html += '<p>' + book.bookAuthor + '</p>';
+                    html += '<img src="' + book.bookImage + '" alt="' + book.bookTitle + '">';
+                    html += '<p>' + book.publisher + '</p>';
+                    html += '</div>';
+                    var $bookItems = $(html);
+
+                    $('#bookItems').append($bookItems);
+                });
+
             });
         });
     });

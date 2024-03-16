@@ -15,14 +15,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
-    
+
     @GetMapping("/")
-    public String homeLoginV3ArgumentResolver(@LoginUser SessionUser user, Model model) {
+    public String mainhomepage(@LoginUser SessionUser user, Model model){
         //로그인한 사용자만 home.html에 접속가능
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userPicture", user.getPicture());
+        }
+        return "mainHome";
+    }
+
+    @GetMapping("/home")
+    public String homeLoginV3ArgumentResolver(@LoginUser SessionUser user, Model model) {
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
 
         return "home";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage(@LoginUser SessionUser user, Model model) {
+
+       return "myPage/myPage";
     }
 }
