@@ -36,5 +36,3 @@ public class CodingTestProblem {
                 problemImages, exInputOutput, problemTopics);
     }
 }
-
-

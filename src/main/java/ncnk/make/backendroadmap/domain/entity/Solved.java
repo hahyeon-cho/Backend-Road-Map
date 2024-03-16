@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 
 /**
  * 코딩 테스트 풀이 여부 테이블 CodingTest 테이블 변동에 따라 컬럼값 변할 수 있음!
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Solved {
+public class Solved extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "solved_id")

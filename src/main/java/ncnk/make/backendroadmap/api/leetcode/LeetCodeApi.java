@@ -8,8 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 @Component
 @Slf4j
@@ -19,8 +22,16 @@ public class LeetCodeApi {
     private static final String STAT_STATUS_PAIRS = "stat_status_pairs";
 
     public List<JSONObject> getLeetCodeProblemList() throws IOException, JSONException {
-        String json = Jsoup.connect(LEETCODE_API_URL).ignoreContentType(true).execute().body();
-        JSONObject jsonObject = new JSONObject(json);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(LEETCODE_API_URL)
+                .addHeader("User-Agent", "Mozilla/5.0")
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String responseBody = response.body().string();
+        JSONObject jsonObject = new JSONObject(responseBody);
         JSONArray problemsArray = jsonObject.getJSONArray(STAT_STATUS_PAIRS);
 
         List<JSONObject> freeProblems = new ArrayList<>();

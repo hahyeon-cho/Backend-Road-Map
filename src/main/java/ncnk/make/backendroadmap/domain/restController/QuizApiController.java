@@ -38,8 +38,9 @@ public class QuizApiController {
     public Quizzes quizzes(@PathVariable Long mainCategoryId) {
         if (mainCategoryId == Main.ALGORITHM.getMainDocsOrder()) {
             List<AlgorithmResponseDto> algorithmResponseDtos = new ArrayList<>();
-            List<CodingTest> randomProblemsByLevelH2Db = codingTestService.findRandomProblemsByLevelH2Db();
-            for (CodingTest codingTest : randomProblemsByLevelH2Db) {
+            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevel();
+//            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevelWorst();
+            for (CodingTest codingTest : randomProblemsByLevel) {
                 AlgorithmResponseDto algorithmResponseDto = AlgorithmResponseDto.createAlgorithmResponseDto(codingTest);
                 algorithmResponseDtos.add(algorithmResponseDto);
             }

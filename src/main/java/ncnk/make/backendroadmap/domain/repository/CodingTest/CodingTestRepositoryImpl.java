@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
 import ncnk.make.backendroadmap.domain.entity.QCodingTest;
+import ncnk.make.backendroadmap.domain.entity.QSolved;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,15 +20,19 @@ public class CodingTestRepositoryImpl implements CodingTestCustomRepository {
      * 비효율적인 코드 - 랜덤 값 추출을 위해 Normal / Easy 데이터를 모두 Select함!
      */
     @Override
-    public List<CodingTest> findCsProblems(CodingTest codingTest) {
+    public List<CodingTest> findCsProblems() {
         List<CodingTest> normalProblems = queryFactory
                 .selectFrom(QCodingTest.codingTest)
-                .where(QCodingTest.codingTest.problemLevel.eq(Problem.NORMAL.getProblemLevel()))
+                .join(QCodingTest.codingTest, QSolved.solved.codingTest)
+                .where(QCodingTest.codingTest.problemLevel.eq(Problem.NORMAL.getProblemLevel())
+                        .and(QSolved.solved.problemSolved.eq(false)))
                 .fetch();
 
         List<CodingTest> easyProblems = queryFactory
                 .selectFrom(QCodingTest.codingTest)
-                .where(QCodingTest.codingTest.problemLevel.eq(Problem.EASY.getProblemLevel()))
+                .join(QCodingTest.codingTest, QSolved.solved.codingTest)
+                .where(QCodingTest.codingTest.problemLevel.eq(Problem.EASY.getProblemLevel())
+                        .and(QSolved.solved.problemSolved.eq(false)))
                 .fetch();
 
         Collections.shuffle(normalProblems);
@@ -38,5 +43,20 @@ public class CodingTestRepositoryImpl implements CodingTestCustomRepository {
         result.addAll(easyProblems.subList(0, 2));
 
         return result;
+    }
+
+
+    public List<CodingTest> findRandomProblemsByLevel(String level, int limit) {
+        QCodingTest ct = QCodingTest.codingTest;
+        QSolved s = QSolved.solved;
+        //TODO: Eager -> Lazy 이후 .fetchJoin()
+        return queryFactory
+                .select(ct)
+                .from(s)
+                .join(s.codingTest, ct)
+                .where(s.problemSolved.eq(false)
+                        .and(s.codingTest.problemLevel.eq(level)))
+                .limit(limit)
+                .fetch();
     }
 }

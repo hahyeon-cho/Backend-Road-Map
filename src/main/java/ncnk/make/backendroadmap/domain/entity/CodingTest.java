@@ -28,6 +28,8 @@ public class CodingTest extends BaseTimeEntity {
     private String problemTitle;
     private String problemSlug;
     private String problemLevel;
+
+    @Column(name = "problem_accuracy")
     private Double problemAccuracy;
     @Column(length = 10000)
     private String problemContents;

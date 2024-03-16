@@ -15,7 +15,7 @@ public class WebDriverPool {
     private final Semaphore semaphore;
     private final BlockingQueue<WebDriver> pool;
     private final ApplicationContext applicationContext;
-    private static final int poolSize = 5;
+    private static final int poolSize = 4;
 
     @Autowired
     public WebDriverPool(ApplicationContext applicationContext) {
@@ -54,7 +54,7 @@ public class WebDriverPool {
             semaphore.release();
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(20000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
