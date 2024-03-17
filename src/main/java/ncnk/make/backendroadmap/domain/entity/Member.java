@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
+import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 
 /**
  * 회원 테이블
@@ -33,6 +34,9 @@ public class Member extends BaseTimeEntity {
     private String github; //깃허브 주소
     private int level; //대분류 레벨
     private int point; //코딩테스트 점수
+    private int hard; // 상 문제
+    private int normal; // 중 문제
+    private int easy; // 하 문제
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "main_docs_id")
@@ -42,10 +46,9 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role; // 로그인 시 유저 권한
 
-
     //생성자
     private Member(String profile, String email, String name, String nickName, String github, int level, int point,
-                   Role role) {
+                   Role role, int hard, int normal, int easy) {
         this.profile = profile;
         this.email = email;
         this.name = name;
@@ -54,12 +57,15 @@ public class Member extends BaseTimeEntity {
         this.level = level;
         this.point = point;
         this.role = role;
+        this.hard = hard;
+        this.normal = normal;
+        this.easy = easy;
     }
 
     //정적 팩토리 메서드 방식을 적용한 생성자
     public static Member createMember(String profile, String email, String name, String nickName, String github,
-                                      int level, int point, Role role) {
-        return new Member(profile, email, name, nickName, github, level, point, role);
+                                      int level, int point, Role role, int hard, int normal, int easy) {
+        return new Member(profile, email, name, nickName, github, level, point, role, hard, normal, easy);
     }
 
     //회원 정보 업데이트
@@ -80,5 +86,17 @@ public class Member extends BaseTimeEntity {
     public void calculatePoint(String problemLevel) {
         Problem problem = Problem.getProblem(problemLevel);
         point += problem.getPoint();
+    }
+
+    public void updateSolvedProblemsCount(String problemLevel) {
+        if (problemLevel.equals(Problem.HARD.getProblemLevel())) {
+            this.hard += 1;
+        } else if (problemLevel.equals(Problem.NORMAL.getProblemLevel())) {
+            this.normal += 1;
+        } else if (problemLevel.equals(Problem.EASY.getProblemLevel())) {
+            this.easy += 1;
+        } else {
+            throw new ResourceNotFoundException();
+        }
     }
 }

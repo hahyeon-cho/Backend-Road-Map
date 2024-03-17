@@ -11,7 +11,7 @@ import jakarta.persistence.PersistenceContext;
 import java.util.Optional;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -92,7 +92,8 @@ class MemberServiceTest {
 
 
     private Member createMember() {
-        Member member = Member.createMember("profile", "email1", "name", "nickname", "github", 1, 0, Role.GUEST);
+        Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
+                1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }

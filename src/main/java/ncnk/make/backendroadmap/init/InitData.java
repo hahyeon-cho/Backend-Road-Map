@@ -67,7 +67,7 @@ public class InitData {
 
         public Member initMember() {
             Member member = Member.createMember("profile", "email", "name", "nickName", "github",
-                    Constant.initLevel, Constant.initPoint, Role.GUEST);
+                    Constant.initLevel, Constant.initPoint, Role.GUEST, 0, 0, 0);
             em.persist(member);
 
             for (int i = 0; i < 30; i++) {

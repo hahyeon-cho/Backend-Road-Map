@@ -35,6 +35,9 @@ public class SolvedService {
         // 푼 문제 풀이 여부 true로 변경
         solved.solveProblem();
 
+        //푼 문제 상/중/하 레벨에 따라 멤버 정보 업데이트
+        member.updateSolvedProblemsCount(codingTest.getProblemLevel());
+
         // 푼 문제에 대한 포인트 적립
         String problemLevel = solved.getCodingTest().getProblemLevel();
         solved.getMember().calculatePoint(problemLevel);

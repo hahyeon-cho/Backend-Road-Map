@@ -83,7 +83,8 @@ class DocsLikeApiControllerTest {
     }
 
     private Member createMember() {
-        Member member = Member.createMember("profile", "email1", "name", "nickname", "github", 1, 0, Role.GUEST);
+        Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
+                1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }
