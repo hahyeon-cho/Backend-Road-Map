@@ -49,8 +49,7 @@ public class Solved extends BaseTimeEntity {
         return new Solved(codingTest, member, problemSolved, problemPath);
     }
 
-
-    public void checkSolved() {
-        //TODO: 정답이 맞다면 problemSolved를 true로 바꾸는 로직
+    public void solveProblem() {
+        this.problemSolved = true;
     }
 }

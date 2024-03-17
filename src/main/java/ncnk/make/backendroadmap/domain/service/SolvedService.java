@@ -6,6 +6,7 @@ import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Solved;
+import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.Solved.SolvedRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,14 +26,27 @@ public class SolvedService {
 
     //코딩 테스트 풀이 여부에 따라 포인트 더하는 로직
     @Transactional
-    public void calculatePoint(Member member, CodingTest codingTest) {
-//        List<Solved> solvedByMemberAndCodingTest = solvedRepository.findSolvedByMemberAndCodingTest(member, codingTest);
-//        for (Solved solved : solvedByMemberAndCodingTest) {
-//            if (solved.getProblemSolved()) {
-//                member.calculatePoint(
-//                        codingTest.getProblemLevel()); //TODO: 리트코드 api의 레벨 정보가 hard/mid/easy 인지 상/중/하... 어떻게 들어오냐에 따라 변경해야함!
-//            }
-//        }
+    public void solvedProblem(CodingTest codingTest, Member member) {
+        // 푼 문제 검색
+
+        Solved solved = solvedRepository.findSolvedByCodingTestAndMember(codingTest, member)
+                .orElseThrow(() -> new ResourceNotFoundException());
+
+        // 푼 문제 풀이 여부 true로 변경
+        solved.solveProblem();
+
+        // 푼 문제에 대한 포인트 적립
+        String problemLevel = solved.getCodingTest().getProblemLevel();
+        solved.getMember().calculatePoint(problemLevel);
+    }
+
+    @Transactional
+    public void recordAttemptedProblem(CodingTest codingTest, Member member, boolean isCorrect) {
+        if (solvedRepository.existsByCodingTestAndMember(codingTest, member)) {
+            return;
+        }
+        Solved solved = Solved.createSolved(codingTest, member, isCorrect, "solvedService-recordAttemptedProblem");
+        solvedRepository.save(solved);
     }
 
     //마이페이지(MyTest) 검색 기능
