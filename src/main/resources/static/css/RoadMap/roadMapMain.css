@@ -14,9 +14,10 @@ header{
 }
 
 .roadMapTitle h1{
-    position: absolute;
     margin-left: 40px;
-    top: 28%;
+    vertical-align : bottom;
+    font-size: xx-large ;
+    font-weight: 900;
 }
 
 article{
@@ -32,17 +33,45 @@ article{
 }
 
 
-.MainCategory a {
-    color: white;
-    font-size:1.2rem;
-    text-decoration-line:none;
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
-    aspect-ratio: 16 / 9;
+.MainCategory-disabledLink{
+    color: #d0d0d0;
+    cursor: default;
 }
 
-.MainCategory :hover {
-    color: #96b1ff;
+
+.MainCategory a {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration-line: none;
 }
+
+
+.MainCategory-link {
+    /* 네온 빛 스타일 */
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+}
+.MainCategory-link:hover {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+    color: #9FBCE9;
+}
+
+.MainCategory-blinkingLink{
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+    color: #9FBCE9;
+    animation: blink 1s infinite;
+}
+.MainCategory-blinkingLink:hover {
+    color: #9FBCE9;
+}
+
+@keyframes blink {
+    0% { opacity: 0; }
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
 
 .subCategory a{
     color: #d0d0d0;

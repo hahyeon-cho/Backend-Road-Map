@@ -11,12 +11,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>RoadMap Detail</title>
     <style>
+        /*footer 스타일 변경*/
         footer{
             background-color: black;
             color: white;
-
         }
-
     </style>
 
     <!--스크롤 할 수 있게 해줌-->
@@ -26,30 +25,31 @@
 <header>
     <a class="roadMapTitle"><h1>Backand RodeMap</h1></a>
 </header>
-<!--대분류-->
+
 <article>
+    <!--대분류-->
     <div class="MainCategory">
         <a class="main-nvl">
-            <a th:if="${Level >= 1}" class="nav-link" href="#" data-id="1">Internet</a>
-            <a th:if="${Level >= 2}" class="nav-link" href="#" data-id="2">Basic FE</a>
-            <a th:if="${Level >= 3}" class="nav-link" href="#" data-id="3">OS</a>
-            <a th:if="${Level >= 4}" class="nav-link" href="#" data-id="4">Langugage</a>
-            <a th:if="${Level >= 5}" class="nav-link" href="#" data-id="5">Algorithm</a>
-            <a th:if="${Level >= 6}" class="nav-link" href="#" data-id="6">Using Git</a>
-            <a th:if="${Level >= 7}" class="nav-link" href="#" data-id="7">Github & GitLab</a>
-            <a th:if="${Level >= 8}" class="nav-link" href="#" data-id="8">Relational DB</a>
-            <a th:if="${Level >= 9}" class="nav-link" href="#" data-id="9">NoSQL DB</a>
-            <a th:if="${Level >= 10}" class="nav-link" href="#" data-id="10">DB Knowledge</a>
-            <a th:if="${Level >= 11}" class="nav-link" href="#" data-id="11">APIs</a>
-            <a th:if="${Level >= 12}" class="nav-link" href="#" data-id="12">Framework</a>
-            <a th:if="${Level >= 13}" class="nav-link" href="#" data-id="13">Caching</a>
-            <a th:if="${Level >= 14}" class="nav-link" href="#" data-id="14">Web Security</a>
-            <a th:if="${Level >= 15}" class="nav-link" href="#" data-id="15">Test</a>
-            <a th:if="${Level >= 16}" class="nav-link" href="#" data-id="16">CI/CD</a>
-            <a th:if="${Level >= 17}" class="nav-link" href="#" data-id="17">Design Pattern</a>
-            <a th:if="${Level >= 18}" class="nav-link" href="#" data-id="18">Search Engines</a>
-            <a th:if="${Level >= 19}" class="nav-link" href="#" data-id="19">Container</a>
-            <a th:if="${Level >= 20}" class="nav-link" href="#" data-id="20">Web server</a>
+            <a class="nav-link" href="#" data-id="1">Internet</a>
+            <a class="nav-link" href="#" data-id="2">Basic FE</a>
+            <a class="nav-link" href="#" data-id="3">OS</a>
+            <a class="nav-link" href="#" data-id="4">Langugage</a>
+            <a class="nav-link" href="#" data-id="5">Algorithm</a>
+            <a class="nav-link" href="#" data-id="6">Using Git</a>
+            <a class="nav-link" href="#" data-id="7">Github & GitLab</a>
+            <a class="nav-link" href="#" data-id="8">Relational DB</a>
+            <a class="nav-link" href="#" data-id="9">NoSQL DB</a>
+            <a class="nav-link" href="#" data-id="10">DB Knowledge</a>
+            <a class="nav-link" href="#" data-id="11">APIs</a>
+            <a class="nav-link" href="#" data-id="12">Framework</a>
+            <a class="nav-link" href="#" data-id="13">Caching</a>
+            <a class="nav-link" href="#" data-id="14">Web Security</a>
+            <a class="nav-link" href="#" data-id="15">Test</a>
+            <a class="nav-link" href="#" data-id="16">CI/CD</a>
+            <a class="nav-link" href="#" data-id="17">Design Pattern</a>
+            <a class="nav-link" href="#" data-id="18">Search Engines</a>
+            <a class="nav-link" href="#" data-id="19">Container</a>
+            <a class="nav-link" href="#" data-id="20">Web server</a>
         </a>
     </div>
     <!--소분류-->
@@ -75,15 +75,39 @@
         <a class ="sub19">#Docker</a>
         <a class ="sub20">#Web server/WAS #Nginx</a>
     </div>
-
-
 </article>
-<input type="hidden" id="myLevel" value="${Level}" />
+<!--footer.html 사용-->
+<div th:replace="footer :: footer"></div>
 
-<script>
+<script th:inline="javascript">
+    <!-- 레벨 조건에 맞는 대분류 설정 -->
+    $(document).ready(function() {
+        var level = [[${Level}]];
+        console.log("레벨 값:", level);
+
+        $('.MainCategory .nav-link').each(function() {
+            var categoryId = parseInt($(this).data('id'));
+
+            if (level < categoryId) {
+                $(this).addClass('MainCategory-disabledLink');
+                $(this).attr('href', '');
+                $(this).click(function (event){
+                    event.preventDefault();
+                });
+            } else if (level === categoryId){
+                $(this).addClass('MainCategory-blinkingLink');
+            }else{
+                $(this).addClass('MainCategory-link');
+
+            }
+
+        });
+    });
+
+
+
+
 
 </script>
-
-<div th:replace="footer :: footer"></div>
 </body>
 </html>
