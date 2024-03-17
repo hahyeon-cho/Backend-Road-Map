@@ -108,7 +108,7 @@ public class MemberApiController {
 
     // 마이페이지(MyTest)
 //     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
-//     속성값 diffuculty - Hard - Middle - Easy order - asc - desc problemSolved - true - false
+//     속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
 
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id,

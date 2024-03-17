@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.utils.wrapper;
+package ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper;
 
 import java.util.List;
 import lombok.Getter;

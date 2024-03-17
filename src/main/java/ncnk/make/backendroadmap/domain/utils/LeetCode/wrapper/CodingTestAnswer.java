@@ -1,9 +1,11 @@
-package ncnk.make.backendroadmap.domain.utils.wrapper;
+package ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class CodingTestAnswer {
     @NotBlank
     private String input;

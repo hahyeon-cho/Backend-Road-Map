@@ -1,5 +1,10 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,17 +13,23 @@ import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
+import ncnk.make.backendroadmap.domain.exception.JsonParsingException;
+import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.CodingTest.CodingTestRepository;
-import ncnk.make.backendroadmap.domain.utils.LeetCodeCrawling;
-import ncnk.make.backendroadmap.domain.utils.WebDriverPool;
-import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestProblem;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.LeetCodeCrawling;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.WebDriverPool;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -95,6 +106,30 @@ public class CodingTestService {
         return codingTestRepository.save(codingTest);
     }
 
+    /**
+     * 예상 입출력 중 첫 번째 예상 입력에 대한 예상 출력 값과 사용자가 웹 컴파일러를 통해 결과를 반환한 것을 비교한다. List<CodingTestAnswer>의 예상 출력 값이 사용자가 반환한 결과와
+     * 일치하면 문제 정답 처리!
+     */
+    @Transactional
+    public boolean evaluateCodingTest(String userCodeResult, List<CodingTestAnswer> codingTestAnswer) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // LinkedHashMap 객체를 JSON 문자열로 변환
+            String json = mapper.writeValueAsString(codingTestAnswer.get(0));
+            // JSON 문자열을 CodingTestAnswer 객체로 변환
+            CodingTestAnswer answer = mapper.readValue(json, CodingTestAnswer.class);
+            String output = answer.getOutput();
+
+            // URL에 특정 예약된 문자들이 퍼센트 인코딩(%로 시작하는 인코딩)을 사용하여 전송되어야 하는 경우
+            String decodedUserCodeResult = URLDecoder.decode(userCodeResult,
+                    StandardCharsets.UTF_8.name());
+
+            return CodingTest.evaluate(decodedUserCodeResult, output);
+        } catch (JsonProcessingException | UnsupportedEncodingException e) {
+            throw new JsonParsingException();
+        }
+    }
+
     public List<CodingTest> findRandomProblemsByLevelWorst() {
         return codingTestRepository.findCsProblems();
     }
@@ -110,5 +145,15 @@ public class CodingTestService {
         result.addAll(easyProblems);
 
         return result;
+    }
+
+    public CodingTest findCodingTestById(Long codingTestId) {
+        return codingTestRepository.findCodingTestByCodingTestId(codingTestId)
+                .orElseThrow(() -> new ResourceNotFoundException());
+    }
+
+    public Page<CodingTest> dynamicSearching(String problemLevel, String problemAccuracy, String status,
+                                             Pageable pageable) {
+        return codingTestRepository.dynamicSearching(problemLevel, problemAccuracy, status, pageable);
     }
 }

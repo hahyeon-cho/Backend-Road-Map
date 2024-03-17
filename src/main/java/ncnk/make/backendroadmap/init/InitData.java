@@ -22,7 +22,7 @@ import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.QuizRepository;
-import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -70,56 +70,56 @@ public class InitData {
                     Constant.initLevel, Constant.initPoint, Role.GUEST);
             em.persist(member);
 
-//            for (int i = 0; i < 30; i++) {
-//                if (i < 10) {
-//                    createInitHard(member);
-//                } else if (i >= 10 && i < 20) {
-//                    createInitMid(member);
-//                } else {
-//                    createInitEasy(member);
-//                }
-//            }
+            for (int i = 0; i < 30; i++) {
+                if (i < 10) {
+                    createInitHard(member);
+                } else if (i >= 10 && i < 20) {
+                    createInitMid(member);
+                } else {
+                    createInitEasy(member);
+                }
+            }
             return member;
         }
 
-//        private void createInitHard(Member member) {
-//            List<CodingTestAnswer> clist = new ArrayList<>();
-//            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
-//            clist.add(codingTestAnswer);
-//
-//            CodingTest codingTest = CodingTest.createCodingTest("HardName", "HardSlug", "Hard",
-//                    10.2, "Hard내용", null, clist , null);
-//            em.persist(codingTest);
-//
-//            Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
-//            em.persist(solved);
-//        }
-//
-//        private void createInitMid(Member member) {
-//            List<CodingTestAnswer> clist = new ArrayList<>();
-//            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
-//            clist.add(codingTestAnswer);
-//
-//            CodingTest codingTest = CodingTest.createCodingTest("MidiumName", "MidiumSlug", "Midium",
-//                    50.7, "Mid내용", null, clist, null);
-//            em.persist(codingTest);
-//
-//            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
-//            em.persist(solved);
-//        }
-//
-//        private void createInitEasy(Member member) {
-//            List<CodingTestAnswer> clist = new ArrayList<>();
-//            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
-//            clist.add(codingTestAnswer);
-//
-//            CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
-//                    80.9, "Easy내용", null, clist, null);
-//            em.persist(codingTest);
-//
-//            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
-//            em.persist(solved);
-//        }
+        private void createInitHard(Member member) {
+            List<CodingTestAnswer> clist = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            clist.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("HardName", "HardSlug", "Hard",
+                    10.2, "Hard내용", null, clist, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitMid(Member member) {
+            List<CodingTestAnswer> clist = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            clist.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("NormalName", "NormalSlug", "Normal",
+                    50.7, "Mid내용", null, clist, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitEasy(Member member) {
+            List<CodingTestAnswer> clist = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            clist.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
+                    80.9, "Easy내용", null, clist, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
 
 
         public List<MainCategory> initCategory(Member member) {
