@@ -83,7 +83,9 @@ public class MemberApiController {
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
                 memberResponseDto.getRoadMapResponseDto());
     }
 
@@ -119,7 +121,9 @@ public class MemberApiController {
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
                 memberResponseDto.getPracticeResponseDto());
     }
 
@@ -160,7 +164,9 @@ public class MemberApiController {
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
                 memberResponseDto.getTestResponseDto());
     }
 
@@ -174,6 +180,9 @@ public class MemberApiController {
         private String github;
         private int level;
         private int point;
+        private int hard;
+        private int normal;
+        private int easy;
         private T top5Ranking;
         private int pageSize;
         private T data;
