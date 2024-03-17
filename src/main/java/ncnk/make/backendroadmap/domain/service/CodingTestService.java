@@ -11,6 +11,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
+import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
 import ncnk.make.backendroadmap.domain.exception.JsonParsingException;
@@ -40,6 +41,7 @@ public class CodingTestService {
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
     private static final int COUNT = 20;
+    private final TraceTemplate template;
 
 
     @Async
@@ -113,21 +115,24 @@ public class CodingTestService {
     @Transactional
     public boolean evaluateCodingTest(String userCodeResult, List<CodingTestAnswer> codingTestAnswer) {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            // LinkedHashMap 객체를 JSON 문자열로 변환
-            String json = mapper.writeValueAsString(codingTestAnswer.get(0));
-            // JSON 문자열을 CodingTestAnswer 객체로 변환
-            CodingTestAnswer answer = mapper.readValue(json, CodingTestAnswer.class);
-            String output = answer.getOutput();
 
-            // URL에 특정 예약된 문자들이 퍼센트 인코딩(%로 시작하는 인코딩)을 사용하여 전송되어야 하는 경우
-            String decodedUserCodeResult = URLDecoder.decode(userCodeResult,
-                    StandardCharsets.UTF_8.name());
+        return template.execute("CodingTestService.evaluateCodingTest", () -> {
+            try {
+                // LinkedHashMap 객체를 JSON 문자열로 변환
+                String json = mapper.writeValueAsString(codingTestAnswer.get(0));
+                // JSON 문자열을 CodingTestAnswer 객체로 변환
+                CodingTestAnswer answer = mapper.readValue(json, CodingTestAnswer.class);
+                String output = answer.getOutput();
 
-            return CodingTest.evaluate(decodedUserCodeResult, output);
-        } catch (JsonProcessingException | UnsupportedEncodingException e) {
-            throw new JsonParsingException();
-        }
+                // URL에 특정 예약된 문자들이 퍼센트 인코딩(%로 시작하는 인코딩)을 사용하여 전송되어야 하는 경우
+                String decodedUserCodeResult = URLDecoder.decode(userCodeResult,
+                        StandardCharsets.UTF_8.name());
+
+                return CodingTest.evaluate(decodedUserCodeResult, output);
+            } catch (JsonProcessingException | UnsupportedEncodingException e) {
+                throw new JsonParsingException();
+            }
+        });
     }
 
     public List<CodingTest> findRandomProblemsByLevelWorst() {

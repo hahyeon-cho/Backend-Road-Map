@@ -31,7 +31,7 @@ public class DocsLikeService {
 
     //토글 형식의 좋아요 버튼 (좋아요가 있다면 -1, 없다면 +1)
     @Transactional
-    public void toggleSubCategoryLike(Member member, SubCategory subCategory) {
+    public Optional<DocsLike> toggleSubCategoryLike(Member member, SubCategory subCategory) {
         Optional<DocsLike> optionalLike = docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory);
 
         if (optionalLike.isPresent()) {
@@ -40,13 +40,14 @@ public class DocsLikeService {
                 subCategoryRepository.subLikeCount(subCategory); //소분류 누적 좋아요 개수 --
                 return null;
             });
+            return Optional.empty();
         } else {
-            template.execute("DocsLikeService.toggleSubCategoryLike.add()", () -> {
+            return Optional.of(template.execute("DocsLikeService.toggleSubCategoryLike.add()", () -> {
                 DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
                 docsLikeRepository.save(docsLike);
                 subCategoryRepository.addLikeCount(subCategory); //소분류 누적 좋아요 개수 ++
-                return null;
-            });
+                return docsLike;
+            }));
         }
     }
 

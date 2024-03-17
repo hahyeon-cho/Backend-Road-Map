@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
@@ -30,12 +31,12 @@ public class PracticeCodeService {
 
     //웹 컴파일러 다운로드
     @Transactional
-    public void save(String fileName, String filePath, String extension, Member member) {
-        template.execute("PracticeCodeService.save()", () -> {
+    public Optional<PracticeCode> save(String fileName, String filePath, String extension, Member member) {
+        return Optional.ofNullable(template.execute("PracticeCodeService.save()", () -> {
             PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), extension,
                     member);
             practiceCodeRepository.save(practiceCode);
-            return null;
-        });
+            return practiceCode;
+        }));
     }
 }

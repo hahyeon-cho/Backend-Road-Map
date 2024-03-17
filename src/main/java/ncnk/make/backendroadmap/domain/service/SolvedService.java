@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
@@ -26,30 +27,36 @@ public class SolvedService {
 
     //코딩 테스트 풀이 여부에 따라 포인트 더하는 로직
     @Transactional
-    public void solvedProblem(CodingTest codingTest, Member member) {
-        // 푼 문제 검색
+    public Optional<Solved> solvedProblem(CodingTest codingTest, Member member) {
+        return Optional.ofNullable(template.execute("SolvedService.solvedProblem()", () -> {
+            // 푼 문제 검색
+            Solved solved = solvedRepository.findSolvedByCodingTestAndMember(codingTest, member)
+                    .orElseThrow(() -> new ResourceNotFoundException());
 
-        Solved solved = solvedRepository.findSolvedByCodingTestAndMember(codingTest, member)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            // 푼 문제 풀이 여부 true로 변경
+            solved.solveProblem();
 
-        // 푼 문제 풀이 여부 true로 변경
-        solved.solveProblem();
+            //푼 문제 상/중/하 레벨에 따라 멤버 정보 업데이트
+            member.updateSolvedProblemsCount(codingTest.getProblemLevel());
 
-        //푼 문제 상/중/하 레벨에 따라 멤버 정보 업데이트
-        member.updateSolvedProblemsCount(codingTest.getProblemLevel());
-
-        // 푼 문제에 대한 포인트 적립
-        String problemLevel = solved.getCodingTest().getProblemLevel();
-        solved.getMember().calculatePoint(problemLevel);
+            // 푼 문제에 대한 포인트 적립
+            String problemLevel = solved.getCodingTest().getProblemLevel();
+            solved.getMember().calculatePoint(problemLevel);
+            return solved;
+        }));
     }
 
     @Transactional
-    public void recordAttemptedProblem(CodingTest codingTest, Member member, boolean isCorrect) {
+    public Optional<Solved> recordAttemptedProblem(CodingTest codingTest, Member member, boolean isCorrect) {
         if (solvedRepository.existsByCodingTestAndMember(codingTest, member)) {
-            return;
+            return Optional.empty();
         }
-        Solved solved = Solved.createSolved(codingTest, member, isCorrect, "solvedService-recordAttemptedProblem");
-        solvedRepository.save(solved);
+        return Optional.ofNullable(template.execute("SolvedService.save()", () -> {
+            //TODO: problemPath 바꾸기
+            Solved solved = Solved.createSolved(codingTest, member, isCorrect, "solvedService-recordAttemptedProblem");
+            solvedRepository.save(solved);
+            return solved;
+        }));
     }
 
     //마이페이지(MyTest) 검색 기능
