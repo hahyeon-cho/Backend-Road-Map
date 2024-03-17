@@ -5,7 +5,7 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.security.auth.dto.OAuthAttributes;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

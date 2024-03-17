@@ -19,6 +19,7 @@ public class MemberResponseDto {
     private String github; //깃허브
     private int level; //대분류 레벨
     private int point; //알고리즘 포인트
+    private List<MemberRankingDto> memberRankingDtos;
     private List<MyRoadMapResponseDto> roadMapResponseDto; //마이페이지(MyRoadMap)
     private List<MyPracticeResponseDto> practiceResponseDto; //마이페이지(MyPractice)
     private List<MyTestResponseDto> testResponseDto; //마이페이지(MyTest)

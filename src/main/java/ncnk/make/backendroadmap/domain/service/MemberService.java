@@ -1,10 +1,11 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,10 @@ public class MemberService {
         log.info("Member 프로필 수정 성공");
 
         return updateMember.getMemberId();
+    }
+
+    public List<Member> findTop5Point() {
+        return memberRepository.Top5Point();
     }
 
     //회원 PK 이용해 회원 정보 조회
