@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
-import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 
 /**
  * 코딩 테스트 테이블 - 리트코드 API 반환값에 따라 변동사항 있을 수 있음!
@@ -68,5 +68,13 @@ public class CodingTest extends BaseTimeEntity {
 
     public static CodingTest createCodingTest(String problemContents) {
         return new CodingTest(problemContents);
+    }
+
+    // 코딩 테스트 사용자 결과와 기대 출력 값 비교하는 메서드
+    public static boolean evaluate(String userCodeResult, String codingTestAnswer) {
+        if (!userCodeResult.equals(codingTestAnswer)) {
+            return false;
+        }
+        return true;
     }
 }
