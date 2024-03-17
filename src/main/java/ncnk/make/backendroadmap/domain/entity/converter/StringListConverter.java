@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
-public class StringListConverter implements AttributeConverter<List<String>, String> {
+public class StringListConverter implements AttributeConverter<List<Map<String, String>>, String> {
 
     private static final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -15,7 +16,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 
     // DB 테이블에 들어갈 때 적용됨
     @Override
-    public String convertToDatabaseColumn(List<String> attribute) {
+    public String convertToDatabaseColumn(List<Map<String, String>> attribute) {
         try {
             // Object to JSON in String
             return mapper.writeValueAsString(attribute);
@@ -26,7 +27,7 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 
     // DB 테이블의 데이터를 Object 에 매핑시킬 때 적용됨
     @Override
-    public List<String> convertToEntityAttribute(String dbData) {
+    public List<Map<String, String>> convertToEntityAttribute(String dbData) {
         try {
             // JSON from String to Object
             return mapper.readValue(dbData, List.class);
