@@ -1,7 +1,20 @@
+@font-face {
+    font-family: 'GasoekOne-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/GasoekOne-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'JalnanGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 *{
     margin: 0;
     padding: 0;
-    /*스크롤 제거*/
+
     -ms-overflow-style: none;
 }
 ::-webkit-scrollbar {
@@ -14,10 +27,11 @@ header{
 }
 
 .roadMapTitle h1{
-    margin-left: 40px;
+    margin-left: 60px;
     vertical-align : bottom;
-    font-size: xx-large ;
-    font-weight: 900;
+    font-family: 'JalnanGothic';
+    font-size: 60px;
+
 }
 
 article{
@@ -32,22 +46,17 @@ article{
     background-size : 85% 85%;
 }
 
-
-.MainCategory-disabledLink{
-    color: #d0d0d0;
-    cursor: default;
-}
-
-
 .MainCategory a {
     color: #ffffff;
     font-size: 1.2rem;
     text-decoration-line: none;
 }
-
+.MainCategory-disabledLink{
+    color: #4b4b4b;
+    cursor: default;
+}
 
 .MainCategory-link {
-    /* 네온 빛 스타일 */
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
 }
 .MainCategory-link:hover {
@@ -71,10 +80,9 @@ article{
     100% { opacity: 0; }
 }
 
-
-
 .subCategory a{
-    color: #d0d0d0;
+    color: #bdbdbd;
     font-size: small;
     white-space:pre-wrap;
 }
+
