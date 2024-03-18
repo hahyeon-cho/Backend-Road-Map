@@ -16,7 +16,7 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <a class="nav-link" href="#" data-id="1">Internet</a>
+                    <a class="nav-link 1" href="#" data-id="1">Internet</a>
                     <a class="nav-link" href="#" data-id="2">Basic FE</a>
                     <a class="nav-link" href="#" data-id="3">OS</a>
                     <a class="nav-link" href="#" data-id="4">Langugage</a>
@@ -46,6 +46,23 @@
             <div class="container-fluid px-4" id="subcategory">
                 <section class="page-section portfolio" id="portfolio">
                     <div class="container">
+                        <button popovertarget="mydiv">도서추천</button>
+                        <div popover id="mydiv">
+                            <h2>도서 판매량 TOP3</h2>
+                            <hr>
+                            <div id="bookItems">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                            <button popovertarget="mydiv" popovertargetaction="hide">Close</button>
+                        </div>
+                        <button popovertarget="mydiv1">Quiz</button>
+                        <div popover id="mydiv1">
+                            <div id="quiz">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
                         <div class="row justify-content-center" id="portfolioItems"></div>
                     </div>
                 </section>
@@ -66,42 +83,82 @@
     </div>
 </div>
 <script>
+    //뒤로가기시 이전 대분류로 이동하게 함
     $(document).ready(function() {
-        $('.nav-link').click(function(e) {
-            e.preventDefault();
-            var categoryId = $(this).data('id');
-            var apiUrl = 'http://localhost:8080/api/roadmap/sub/' + categoryId;
+        window.onpopstate = function (event) {
+            var urlParams = new URLSearchParams(window.location.search);
+            var dataId = urlParams.get('dataId');
+            if (dataId !== null) {
+                fetchData(dataId);
+            }
+        };
+        //대분류 선택
+        $(document).ready(function () {
+            $('.nav-link').click(function (e) {
+                e.preventDefault();
+                var dataId = $(this).data('id');
+                var newUrl = window.location.origin + '/roadmap/subcategory?dataId=' + dataId;
+                history.pushState({}, '', newUrl);
+                fetchData(dataId);
+            });
 
-            $.getJSON(apiUrl, function(data) {
-                $('#portfolioItems').empty();
-                data.subCategory.forEach(function(subCategory, index) {
-                    var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
-                    html += '<div style="margin:20px; background-color: gray; padding: 20px;">';
-                    html += '<h2>' + subCategory.subDocsTitle + '</h2>';
-                    html += '<p>' + subCategory.subDescription + '</p>';
-                    html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
-                    html += '</div>';
-                    html += '</div>';
-                    var $portfolioItem = $(html);
+            function fetchData(dataId) {
+                // AJAX
+                $.getJSON('http://localhost:8080/api/roadmap/sub/' + dataId, function (data) {
 
-                    $portfolioItem.click(function() {
-                        var index = $(this).data('index');
+                    console.log(data);
+                    $('#portfolioItems').empty();
+                    data.subCategory.forEach(function (subCategory, index) {
+                        var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
+                        html += '<div style="margin:20px; background-color: gray; padding: 20px;">';
+                        html += '<h2>' + subCategory.subDocsTitle + '</h2>';
+                        html += '<p>' + subCategory.subDescription + '</p>';
+                        html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
+                        html += '</div>';
+                        html += '</div>';
+                        var $portfolioItem = $(html);
 
-                        // 데이터 주소에서 HTML 파일 가져오기
-                        $.get(data.url, function(htmlData) {
-                            console.log(data.url);
-                            // 가져온 데이터에서 해당 인덱스 값을 가진 div 찾기
-                            var selectedContent = $(htmlData).find('div.'+index).html();
-                            // 모달 창 내용에 해당 div의 HTML 내용 삽입
-                            $('#portfolioModalContent').html(selectedContent);
+                        $portfolioItem.click(function () {
+                            var index = $(this).data('index');
+
+                            // html 출력
+                            $.get(data.url, function (htmlData) {
+                                console.log(data.url);
+                                var selectedContent = $(htmlData).find('div.' + index).html();
+                                $('#portfolioModalContent').html(selectedContent);
+                            });
+
+                            $('#portfolioModal').modal('show');
                         });
 
-                        $('#portfolioModal').modal('show');
+                        $('#portfolioItems').append($portfolioItem);
                     });
 
-                    $('#portfolioItems').append($portfolioItem);
+                    //도서추천
+                    $('#bookItems').empty();
+                    data.recommendBookDtos.forEach(function (book, index) {
+                        var html = '<div>';
+                        html += '<h4>' + book.bookTitle + '</h4>';
+                        html += '<p>' + book.bookAuthor + '</p>';
+                        html += '<img src="' + book.bookImage + '" alt="' + book.bookTitle + '">';
+                        html += '<p>' + book.publisher + '</p>';
+                        html += '</div>';
+                        var $bookItems = $(html);
+
+                        $('#bookItems').append($bookItems);
+                    });
+
                 });
-            });
+
+
+            }
+            //roadMapMain에서 대분류 클릭 정보 받아옴
+            var urlParams = new URLSearchParams(window.location.search);
+            var dataId = urlParams.get('dataId');
+            if (dataId !== null) {
+                fetchData(dataId);
+            }
+
         });
     });
 
