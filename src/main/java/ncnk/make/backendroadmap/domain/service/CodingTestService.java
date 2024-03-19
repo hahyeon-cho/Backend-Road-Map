@@ -23,8 +23,7 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -68,11 +67,13 @@ public class CodingTestService {
 
     @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
     //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
+    @Profile("!test")
     public void scrapeAllProblemsOnSchedule() {
         scrapeAllProblems();
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //    @Profile("!test")
+//    @EventListener(ApplicationReadyEvent.class)
     public void scrapeAllProblemsAtStart() {
         scrapeAllProblems();
     }
@@ -139,6 +140,7 @@ public class CodingTestService {
         return codingTestRepository.findCsProblems();
     }
 
+    // 알고리즘 문제는 사용자가 풀지 않은 문제 중 하/하/중 3문제를 랜덤으로 뽑는다.
     public List<CodingTest> findRandomProblemsByLevel() {
         List<CodingTest> normalProblems = codingTestRepository.findRandomProblemsByLevel(
                 Problem.NORMAL.getProblemLevel(), 1);
@@ -152,11 +154,13 @@ public class CodingTestService {
         return result;
     }
 
+    // 코딩 테스트 PK 값으로 알고리즘 문제 찾기
     public CodingTest findCodingTestById(Long codingTestId) {
         return codingTestRepository.findCodingTestByCodingTestId(codingTestId)
                 .orElseThrow(() -> new ResourceNotFoundException());
     }
 
+    // 문제 리스트에서 정렬 기능
     public Page<CodingTest> dynamicSearching(String problemLevel, String problemAccuracy, String status,
                                              Pageable pageable) {
         return codingTestRepository.dynamicSearching(problemLevel, problemAccuracy, status, pageable);
