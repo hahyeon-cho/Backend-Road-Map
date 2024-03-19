@@ -8,6 +8,8 @@ import static org.mockito.Mockito.when;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
@@ -60,6 +62,26 @@ class MemberServiceTest {
                 () -> assertThat(findUpdateMember.get().getName()).isEqualTo(name),
                 () -> assertThat(findUpdateMember.get().getGithub()).isEqualTo(gitHub)
         );
+    }
+
+    @DisplayName("멤버 포인트: 탑 5 찾기")
+    @Test
+    void findTop5PointTest() {
+        // given
+        List<Member> expectedTop5Members = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Member member = Member.createMember("profile" + i, "email" + i, "name" + i, "nickname" + i, "github" + i,
+                    1, 10 - i, Role.GUEST, 0, 0, 0);
+            expectedTop5Members.add(member);
+        }
+
+        when(memberRepository.Top5Point()).thenReturn(expectedTop5Members);
+
+        // when
+        List<Member> top5Point = memberService.findTop5Point();
+
+        // then
+        assertThat(top5Point).isEqualTo(expectedTop5Members);
     }
 
     @DisplayName("유저 PK 값으로 유저 찾기")

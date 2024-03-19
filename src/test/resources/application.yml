@@ -7,6 +7,12 @@ spring:
     active: test
     include: personal
 
+  task:
+    scheduling:
+      enabled: false
+    execution:
+      enabled: false
+
   session:
     store-type: jdbc
     jdbc:

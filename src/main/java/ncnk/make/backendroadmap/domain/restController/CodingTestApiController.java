@@ -33,10 +33,11 @@ public class CodingTestApiController {
     // http://localhost:8080/api/codingtest?page=0&size=100&problemLevel=&problemAccuracy=&status=unsolved
     //     속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
     @GetMapping("")
-    public CodingTestPage getProblemPage(@RequestParam(value = "problemLevel", required = false) String problemLevel,
-                                         @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
-                                         @RequestParam(value = "status", required = false) String status,
-                                         @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+    public CodingTestPage getProblemListPage(
+            @RequestParam(value = "problemLevel", required = false) String problemLevel,
+            @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
+            @RequestParam(value = "status", required = false) String status,
+            @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
 
         List<CodingTest> codingTests = codingTestService.dynamicSearching(problemLevel, problemAccuracy, status,
                 pageable).getContent();
@@ -53,7 +54,7 @@ public class CodingTestApiController {
 
     // 알고리즘 문제 풀기 페이지
     @GetMapping("/{id}")
-    public ProblemPage getProblemPage(@PathVariable Long id) {
+    public ProblemPage problemPage(@PathVariable Long id) {
         CodingTest codingTest = codingTestService.findCodingTestById(id);
         CodingTestResponseDto codingTestResponse = CodingTestResponseDto.createCodingTestResponse(codingTest);
         return new ProblemPage(codingTestResponse);

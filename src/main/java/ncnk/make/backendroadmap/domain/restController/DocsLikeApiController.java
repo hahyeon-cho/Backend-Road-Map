@@ -1,7 +1,9 @@
 package ncnk.make.backendroadmap.domain.restController;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
@@ -45,17 +47,18 @@ public class DocsLikeApiController {
         SubCategory subCategory = subCategoryService.findSubCategoryById(id); //소분류 PK값을 통해 소분류 찾기
         Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
 
-        template.execute("DocsLikeApiController.toggleDocsLike()", () -> {
+        Result result = template.execute("DocsLikeApiController.toggleDocsLike()", () -> {
             docsLikeService.toggleSubCategoryLike(member, subCategory);
             DocsLikeResponseDto docsLikeResponseDto = DocsLikeResponseDto.createDocsLikeResponseDto(member,
                     subCategory);
-            return new Result(docsLikeResponseDto); //TimeTrace Log와 함께 dto 반환
+            return new Result(docsLikeResponseDto, "성공적으로 처리되었습니다."); //TimeTrace Log와 함께 dto 반환
         });
-        return ResponseEntity.ok().body(new Result("성공적으로 처리되었습니다."));
+        return ResponseEntity.ok().body(new Result(result));
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
+    @JsonInclude(Include.NON_NULL)
     static class Result<T> {
         private T docsLikeResponseDto;
         private String message;

@@ -3,6 +3,7 @@ package ncnk.make.backendroadmap.domain.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
@@ -19,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-
+    private final TraceTemplate template;
+    
     //회원 프로필 수정
     @Transactional
     public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {

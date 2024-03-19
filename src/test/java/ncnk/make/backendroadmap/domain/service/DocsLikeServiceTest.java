@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ class DocsLikeServiceTest {
     @PersistenceContext
     EntityManager em;
 
-    @Autowired
+    @InjectMocks
     private DocsLikeService docsLikeService; // 실제 객체에 모의 객체 주입
 
     @Mock
@@ -62,6 +63,7 @@ class DocsLikeServiceTest {
     private MainCategory mainCategory;
     private SubCategory subCategory;
     private DocsLike docsLike;
+
 
     @BeforeEach
     void setUp() {
