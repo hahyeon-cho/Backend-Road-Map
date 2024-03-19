@@ -21,12 +21,8 @@ import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
-import ncnk.make.backendroadmap.domain.service.CodingTestService;
-import ncnk.make.backendroadmap.domain.service.DocsLikeService;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
-import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
-import ncnk.make.backendroadmap.domain.service.SolvedService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,18 +56,6 @@ class MemberApiControllerTest {
 
     @Autowired
     private MemberService memberService;
-
-    @Autowired
-    private DocsLikeService docsLikeService;
-
-    @Autowired
-    private PracticeCodeService practiceCodeService;
-
-    @Autowired
-    private CodingTestService codingTestService;
-
-    @Autowired
-    private SolvedService solvedService;
 
     private MockHttpSession session;
 
@@ -147,9 +131,6 @@ class MemberApiControllerTest {
         Solved solved = Solved.createSolved(codingTest, member, false, "problemPath");
         List<Solved> solveds = new ArrayList<>();
         solveds.add(solved);
-
-        Page<Solved> solvedPage = new PageImpl<>(solveds);
-        List<Solved> collect = solvedPage.get().collect(Collectors.toList());
 
         mockMvc.perform(get("/api/member/test/{id}", member.getMemberId())
                         .param("difficulty", "Hard")
