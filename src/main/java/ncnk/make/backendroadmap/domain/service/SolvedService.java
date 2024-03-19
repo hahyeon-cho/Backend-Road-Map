@@ -46,6 +46,7 @@ public class SolvedService {
         }));
     }
 
+    // 한번 시도한 문제의 경우 solved 테이블에 컬럼을 추가한다.
     @Transactional
     public Optional<Solved> recordAttemptedProblem(CodingTest codingTest, Member member, boolean isCorrect) {
         if (solvedRepository.existsByCodingTestAndMember(codingTest, member)) {
