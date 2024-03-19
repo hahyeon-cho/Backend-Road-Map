@@ -1,15 +1,12 @@
 package ncnk.make.backendroadmap.domain.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
 import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
 import org.springframework.data.domain.Page;
@@ -49,19 +46,6 @@ public class DocsLikeService {
                 return docsLike;
             }));
         }
-    }
-
-    //회원 정보와 소분류 정보 이용해 소분류 좋아요 정보 조회
-    public DocsLike findDocsLikeByMemberAndSubCategory(Member member, SubCategory subCategory) {
-        return docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory)
-                .orElseThrow(() -> new ResourceNotFoundException());
-    }
-
-    //회원 정보 이용해 소분류 좋아요 정보 조회(List로 반환)
-    public List<SubCategory> findSubCategoriesByMember(Member member) {
-        return docsLikeRepository.findDocsLikesByMember(member).stream()
-                .map(DocsLike::getSubCategory)
-                .collect(Collectors.toList());
     }
 
     //회원 정보 이용해 소분류 좋아요 정보 조회(Page로 반환)
