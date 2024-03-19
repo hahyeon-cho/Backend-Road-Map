@@ -96,12 +96,12 @@ public class InitData {
         }
 
         private void createInitMid(Member member) {
-            List<CodingTestAnswer> clist = new ArrayList<>();
+            List<CodingTestAnswer> codingTestAnswers = new ArrayList<>();
             CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
-            clist.add(codingTestAnswer);
+            codingTestAnswers.add(codingTestAnswer);
 
             CodingTest codingTest = CodingTest.createCodingTest("NormalName", "NormalSlug", "Normal",
-                    50.7, "Mid내용", null, clist, null);
+                    50.7, "Mid내용", null, codingTestAnswers, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
