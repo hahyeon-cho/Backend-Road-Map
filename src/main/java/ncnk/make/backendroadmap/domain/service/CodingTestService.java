@@ -23,11 +23,9 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,9 +63,9 @@ public class CodingTestService {
         }
     }
 
-    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
+    //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
     //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
-    @Profile("!test")
+//    @Profile("!test")
     public void scrapeAllProblemsOnSchedule() {
         scrapeAllProblems();
     }
