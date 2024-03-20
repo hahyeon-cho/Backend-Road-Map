@@ -22,7 +22,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final UploadService uploadService;
 
-    @Value("${image.user.path}")
+    @Value("${img.path}")
     private String userImage;
 
     /**

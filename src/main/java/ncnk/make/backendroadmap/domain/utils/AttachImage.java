@@ -10,6 +10,8 @@ public class AttachImage {
     private String fileName;
     private String uploadPath;
     private String savedName;
+    // 메소드 추가하자.
+
 
     public AttachImage(Long id, String fileName, String uploadPath, String savedName) {
         this.id = id;

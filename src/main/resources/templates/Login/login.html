@@ -1,44 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon"
+          type="image/png"
+          href="http://example.com/myicon.png">
     <meta charset="UTF-8">
     <title>메인 화면</title>
-
     <link type="text/css" rel="stylesheet" href="/css/login.css">
+    <link href="/css/nav.css" rel="stylesheet" />
 </head>
-
 <body>
-<div class="container">
-    <div class='header' th:if="${userName}">
-        Logged in as : <span id="user" th:text="${userName}"></span>
-        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+
+<!-- 네비게이션 바 -->
+<div th:fragment="nav">
+    <div class="main-container">
+        <div class="mainNav">
+            <div class="maintitle">
+                <a class="navbar-brand" aria-current="page"  href="/" >
+                    <img src="/img/navlogo.jpg" alt="nav"></a>
+                <div class="navbar-menu" id="menu">
+                    <ul class="navbar-nav">
+                        <li class="nav-rm"><a class="nav-link" href="/roadmap">RoadMap</a></li>
+                        <li class="nav-pt"><a class="nav-link" href="/practice">Practice</a></li>
+                        <li class="nav-ct"><a class="nav-link" href="/codingtest">Coding Test</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav">
+                <a href="/login">Login</a>
+            </div>
+        </div>
+        <header id="main-header"></header>
     </div>
+</div>
+
+<!-- 로그인 화면 -->
+<div class="container">
+
     <div class="black">
         <img src="/img/logo.jpg" alt="logo Login" />
     </div>
     <div class="cacaca">
-        <div>
-            <button
-                    class="w-100 btn btn-dark btn-lg"
-                    onclick="location.href='loginHome.html'"
-                    th:onclick="|location.href='@{/login}'|" type="button">
-                로그인
-            </button>
+        <div class="Login">
+            Login
         </div>
+        <div class="bar-1"></div>
         <div class="row">
-            <div class='button-container' th:unless="${userName}">
-                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/google'">
-                    <img class='sns-img' width='250' height='50' src="/img/google.png" alt="Google Login"/>
+            <div class="button-container" th:unless="${userName}">
+                <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/google'">
+                    <img class="sns-img" width="250" height="50" src="/img/google.png" alt="Google Login"/>
                 </button>
-                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/naver'">
-                    <img class='sns-img' width='250' height='50' src="/img/naver.jpeg" alt="naver Login" /> </button>
-                <button class='sns-btn' type="button" onclick="location.href='/oauth2/authorization/kakao'">
-                    <img class='sns-img' width='250' height='50' src="/img/kakao.jpeg" alt="kakao Login" /> </button>
-
+<!--                <div th:unless="${userName}">-->
+<!--                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
+<!--                    <img class="sns-img" width="250" height="50" src="/img/google.png" alt="Google Login"/>-->
+            <div class="button-container" th:unless="${userName}">
+                <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/naver'">
+                    <img class="sns-img" width="250" height="50" src="../../img/naver.jpeg" alt="Naver Login"/>
+                </button>
+                <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/kakao'">
+                    <img class="sns-img" width="250" height="50" src="/img/kakao.jpeg" alt="Kakao Login"/>
+                </button>
             </div>
         </div>
     </div>
-
+</div>
 </div>
 </body>
 </html>

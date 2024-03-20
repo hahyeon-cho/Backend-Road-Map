@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,11 +25,11 @@ import java.util.UUID;
 /**
  * 반복되는 코드 리팩토링 필요
  */
-@Service
+@Component
 @Slf4j
 public class UploadService {
 
-    @Value("${imag.path}")
+    @Value("${img.path}")
     private String userImage;
 
     public AttachImage upload(String path, MultipartFile uploadFile, String folderName){
@@ -88,6 +89,9 @@ public class UploadService {
         /* 이미지 파일 체크 */
         File checkfile = new File(uploadFile.getOriginalFilename());
         String type = null;
+
+
+
 
         try {
             type = Files.probeContentType(checkfile.toPath());

@@ -32,3 +32,4 @@ public class MemberUpdateController {
         return "redirect:/form/myPage/{memberId}";
     }
 }
+
