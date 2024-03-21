@@ -6,7 +6,7 @@ import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequest
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.DuplicateResourceException;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.utils.UploadService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,13 +32,6 @@ public class MemberService {
 
     @Transactional
     public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {
-        List<String> findNickNames = memberRepository.findNickNameByNickName(member.getNickName());
-        for (String findNickName : findNickNames) {
-            if (findNickName.equals(updateRequestDto.getNickName())) {
-                throw new DuplicateResourceException("[ERROR] 닉네임이 중복됩니다.");
-            }
-        }
-
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),
                 updateRequestDto.getNickName(),
                 updateRequestDto.getGithub());
@@ -48,9 +41,20 @@ public class MemberService {
         return updateMember.getMemberId();
     }
 
+    public List<Member> findTop5Point() {
+        return memberRepository.top5Point();
+    }
+
+
     public Member findMemberById(Long id) {
         Member member = memberRepository.findMemberByMemberId(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
         return member;
+    }
+
+    //이메일 이용해 회원 정보 조회
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findMemberByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException());
     }
 }
