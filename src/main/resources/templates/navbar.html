@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/nav.css" rel="stylesheet" />
+
+    <title>Title</title>
+
+</head>
+<body>
+
+<!--mainHome 외 네이게이션바-->
+<div th:fragment="nav">
+
+
+    <div class ="main-container">
+        <div class ="mainNav">
+            <div class="maintitle">
+                <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
+                <div class="navbar-menu" id="menu">
+                    <ul class="navbar-nav">
+                        <li class="nav-rm"><a class="nav-link" href="/roadmap">RoadMap</a></li>
+                        <li class="nav-pt"><a class="nav-link" href="/practice">Practice</a></li>
+                        <li class="nav-ct"><a class="nav-link" href="/codingtest">Coding Test</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav">
+
+                <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+                <div class="logoutbtn"><a  href="/logout">Logout</a></div>
+
+            </div>
+        </div>
+
+        <header id="main-header"></header>
+
+    </div>
+</div>
+</body>
+</html>

@@ -2,32 +2,50 @@ package ncnk.make.backendroadmap.init;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.api.Book.BookApi;
-import ncnk.make.backendroadmap.domain.entity.*;
-import ncnk.make.backendroadmap.domain.repository.QuizRepository;
-import org.apache.poi.ss.usermodel.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.api.Book.BookApi;
+import ncnk.make.backendroadmap.domain.constant.Constant;
+import ncnk.make.backendroadmap.domain.entity.CodingTest;
+import ncnk.make.backendroadmap.domain.entity.DocsLike;
+import ncnk.make.backendroadmap.domain.entity.Main;
+import ncnk.make.backendroadmap.domain.entity.MainCategory;
+import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.entity.Quiz;
+import ncnk.make.backendroadmap.domain.entity.Role;
+import ncnk.make.backendroadmap.domain.entity.Solved;
+import ncnk.make.backendroadmap.domain.entity.Sub;
+import ncnk.make.backendroadmap.domain.entity.SubCategory;
+import ncnk.make.backendroadmap.domain.entity.*;
+import ncnk.make.backendroadmap.domain.repository.QuizRepository;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
 public class InitData {
     private final InitService initService;
+    private static final Long initLikeCount = 0L;
 
     @PostConstruct
     public void init() {
-//        Member member = initService.initMember();
-//        List<MainCategory> mainCategories = initService.initCategory(member);
-//        initService.initQuiz(mainCategories);
+        Member member = initService.initMember();
+        List<MainCategory> mainCategories = initService.initCategory(member);
+        initService.initQuiz(mainCategories);
 //        initService.insertBook();
     }
 
@@ -50,11 +68,61 @@ public class InitData {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "nickName" , "github", 1, Role.GUEST);
+            Member member = Member.createMember("profile", "email", "name", "nickName", "github",
+                    Constant.initLevel, Constant.initPoint, Role.GUEST, 0, 0, 0);
             em.persist(member);
 
+            for (int i = 0; i < 30; i++) {
+                if (i < 10) {
+                    createInitHard(member);
+                } else if (i >= 10 && i < 20) {
+                    createInitMid(member);
+                } else {
+                    createInitEasy(member);
+                }
+            }
             return member;
         }
+
+        private void createInitHard(Member member) {
+            List<CodingTestAnswer> clist = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            clist.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("HardName", "HardSlug", "Hard",
+                    10.2, "Hard내용", null, clist, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitMid(Member member) {
+            List<CodingTestAnswer> codingTestAnswers = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            codingTestAnswers.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("NormalName", "NormalSlug", "Normal",
+                    50.7, "Mid내용", null, codingTestAnswers, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
+        private void createInitEasy(Member member) {
+            List<CodingTestAnswer> clist = new ArrayList<>();
+            CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer("input", "output");
+            clist.add(codingTestAnswer);
+
+            CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
+                    80.9, "Easy내용", null, clist, null);
+            em.persist(codingTest);
+
+            Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
+            em.persist(solved);
+        }
+
 
         public List<MainCategory> initCategory(Member member) {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
@@ -67,8 +135,8 @@ public class InitData {
                 List<Sub> orderedSubDocsInCategory = Sub.getOrderedSubDocsInCategory(mainCategory.getMainDocsOrder());
 
                 for (Sub sub : orderedSubDocsInCategory) {
-                    SubCategory subCategory = SubCategory.createSubCategory(sub, 0L,
-                            mainCategory); //TODO : constant likeCount
+                    SubCategory subCategory = SubCategory.createSubCategory(sub, initLikeCount, sub.getSubDescription(),
+                            mainCategory);
                     em.persist(subCategory);
 
                     DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);

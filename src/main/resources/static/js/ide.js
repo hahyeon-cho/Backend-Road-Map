@@ -1,6 +1,4 @@
-import config from "../config/config.js";
-
-const API_KEY = config.API_KEY;
+import API_KEY from '../config/config.js';
 
 const AUTH_HEADERS = API_KEY ? {
     "X-RapidAPI-Key": API_KEY
@@ -172,35 +170,63 @@ function handleResult(data) {
 
 function importSource() {
     // import.js 파일에 있는 readLocalFile 함수 호출
-    readLocalFile();
+    readLocalFile(sourceEditor);
 }
 
+document.querySelector('.import').addEventListener('click', importSource);
 
 function downloadSource() {
+    var userId = document.getElementById('userId').value;
     var value = parseInt($selectLanguage.val());
-    download(sourceEditor.getValue(), fileNames[value], "text/plain");
+    var sourceCode = sourceEditor.getValue();
+
+    var inputFileName = prompt("파일 이름을 입력해주세요:");
+
+    // sourceCode 값이 없는 경우 확인
+    if (!sourceCode) {
+        alert("데이터가 없어 저장에 실패했습니다.");
+        return;
+    }
+
+    // 사용자가 파일 이름을 입력하지 않은 경우 확인
+    if (!inputFileName) {
+        alert("파일 이름을 입력해주세요.");
+        return;
+    }
+
+    var extension = fileNames[value].split('.')[1]; //확장자 추출
+    var fileName = inputFileName + "." + extension;
+
+    var file = new File([sourceCode], fileName, {type: "text/plain"});
+
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", fileName);
+    formData.append("extension", extension);
+
+    $.ajax({
+        url: "http://localhost:8080/upload/" + userId,
+        method: "POST",
+        data: formData,
+        processData: false,  // 필수 옵션
+        contentType: false,  // 필수 옵션
+        success: function (response) {
+            if (response === "success") {
+                console.log(response)
+                window.location.href = "/practice";
+            } else {
+                console.log(response)
+                alert(response);
+            }
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR)
+            alert(jqXHR.responseText);
+        }
+    });
 }
 
-// function downloadSource() {
-//     var value = parseInt($selectLanguage.val());
-//     var sourceCode = sourceEditor.getValue();
-//     var fileName = fileNames[value];
-//
-//     $.ajax({
-//         url: "/generate/file",
-//         method: "POST",
-//         data: {
-//             sourceCode: sourceCode,
-//             fileName: fileName
-//         },
-//         success: function (response) {
-//             // 서버로부터 받은 응답을 통해 파일 다운로드 URL을 알게 되었으므로,
-//             // 이 URL로 사용자를 리다이렉트하거나 새 창을 열어 파일 다운로드를 진행
-//             window.location.href = response;
-//         }
-//     });
-// }
-
+document.querySelector('.download').addEventListener('click', downloadSource);
 
 function run() {
     if (sourceEditor.getValue().trim() === "") {

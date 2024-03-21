@@ -9,6 +9,18 @@ spring:
 
   session:
     store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  #    timeout: 30m # 세션 생성 후 30분 동안 유효, 이후에 자동 만료
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+    database-platform: org.hibernate.dialect.H2Dialect
 
   h2:
     console:
@@ -20,15 +32,6 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
-        use_sql_comments: true
-    database-platform: org.hibernate.dialect.H2Dialect
-
 server:
   port: 8080
   servlet:
@@ -37,6 +40,10 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
+  devtools:
+    restart:
+      enabled: false
 
 logging:
   level:

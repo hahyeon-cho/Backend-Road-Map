@@ -1,22 +1,32 @@
 package ncnk.make.backendroadmap.domain.restController.dto.Like;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.entity.Sub;
+import ncnk.make.backendroadmap.domain.entity.SubCategory;
+
+/**
+ * 소분류 좋아요 Dto
+ */
 
 @Getter
+@Slf4j
 public class DocsLikeResponseDto {
-    @NotBlank
-    private Long memberId;
+    private String nickName; //닉네임
+    private String email; //이메일
+    private Sub subDocsTitle; //소분류 제목
+    private Long likeCount; //누적 좋아요 개수
 
-    @NotBlank
-    private Long subDocsId;
+    private DocsLikeResponseDto(Member member, SubCategory subCategory) {
+        this.nickName = member.getNickName();
+        this.email = member.getEmail();
+        this.subDocsTitle = subCategory.getSubDocsTitle();
+        this.likeCount = subCategory.getLikeCount();
 
-    private DocsLikeResponseDto(Long memberId, Long subDocsId) {
-        this.memberId = memberId;
-        this.subDocsId = subDocsId;
     }
 
-    public static DocsLikeResponseDto createSubCategoryDto(Long memberId, Long subDocsId) {
-        return new DocsLikeResponseDto(memberId, subDocsId);
+    public static DocsLikeResponseDto createDocsLikeResponseDto(Member member, SubCategory subCategory) {
+        return new DocsLikeResponseDto(member, subCategory);
     }
 }

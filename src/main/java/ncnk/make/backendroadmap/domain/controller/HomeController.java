@@ -8,30 +8,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * 홈 Controller
+ */
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
 
-    //    @GetMapping("/home")
-//    public String home(@RequestParam String path) {
-//        if (path.equals("RoadMap")) {
-//            return "category/roadMap";
-//        }
-//        if (path.equals("Practice")) {
-//            return "category/practice";
-//        }
-//        if (path.equals("Coding Test")) {
-//            return "category/codingTest";
-//        }
-//        throw new UndefinedAddressException();
-//    }
     @GetMapping("/")
+    public String mainhomepage(@LoginUser SessionUser user, Model model){
+        //로그인한 사용자만 home.html에 접속가능
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+            model.addAttribute("userPicture", user.getPicture());
+        }
+        return "mainHome";
+    }
+
+    @GetMapping("/home")
     public String homeLoginV3ArgumentResolver(@LoginUser SessionUser user, Model model) {
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
         //TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
         return "home";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage(@LoginUser SessionUser user, Model model) {
+
+       return "myPage/myPage";
     }
 }

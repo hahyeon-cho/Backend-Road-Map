@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.security.auth.dto.OAuthAttributes;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,7 +36,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 oAuth2User.getAttributes());
 
         Member member = saveOrUpdate(attributes);
-        httpSession.setAttribute("user", new SessionUser(member));
+        httpSession.setAttribute("member", new SessionUser(member));
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),

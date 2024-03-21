@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 
+/**
+ * 소분류 테이블
+ */
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -22,25 +25,30 @@ public class SubCategory extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "sub_docs_id")
-    private Long subDocsId;
+    private Long subDocsId; //PK
 
     @Enumerated(EnumType.STRING)
-    private Sub subDocsTitle;
+    private Sub subDocsTitle; //소분류 정보
 
-    private Long likeCount;
+    private Long likeCount; //누적 좋아요 개수
 
+    private String subDescription; //소분류 한줄 설명
 
     @ManyToOne
     @JoinColumn(name = "main_docs_id")
-    private MainCategory mainCategory;
+    private MainCategory mainCategory; //대분류 FK
 
-    private SubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
+    //생성자
+    private SubCategory(Sub subDocsTitle, Long likeCount, String subDescription, MainCategory mainCategory) {
         this.subDocsTitle = subDocsTitle;
         this.likeCount = likeCount;
+        this.subDescription = subDescription;
         this.mainCategory = mainCategory;
     }
 
-    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, MainCategory mainCategory) {
-        return new SubCategory(subDocsTitle, likeCount, mainCategory);
+    //정적 팩토리 메서드 방식을 적용한 생성자
+    public static SubCategory createSubCategory(Sub subDocsTitle, Long likeCount, String subDescription,
+                                                MainCategory mainCategory) {
+        return new SubCategory(subDocsTitle, likeCount, subDescription, mainCategory);
     }
 }

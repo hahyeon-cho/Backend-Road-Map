@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap</title>
+    <link rel="stylesheet" href="/css/RoadMap/roadMapsub.css">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+<div id="layoutSidenav">
+    <!-- mainCategory 선택 -->
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="#" data-id="1">Internet</a>
+                    <a class="nav-link" href="#" data-id="2">Basic FE</a>
+                    <a class="nav-link" href="#" data-id="3">OS</a>
+                    <a class="nav-link" href="#" data-id="4">Langugage</a>
+                    <a class="nav-link" href="#" data-id="5">Algorithm</a>
+                    <a class="nav-link" href="#" data-id="6">Using Git</a>
+                    <a class="nav-link" href="#" data-id="7">Github & GitLab</a>
+                    <a class="nav-link" href="#" data-id="8">Relational DB</a>
+                    <a class="nav-link" href="#" data-id="9">NoSQL DB</a>
+                    <a class="nav-link" href="#" data-id="10">DB Knowledge</a>
+                    <a class="nav-link" href="#" data-id="11">APIs</a>
+                    <a class="nav-link" href="#" data-id="12">Framework</a>
+                    <a class="nav-link" href="#" data-id="13">Caching</a>
+                    <a class="nav-link" href="#" data-id="14">Web Security</a>
+                    <a class="nav-link" href="#" data-id="15">Test</a>
+                    <a class="nav-link" href="#" data-id="16">CI/CD</a>
+                    <a class="nav-link" href="#" data-id="17">Design Pattern</a>
+                    <a class="nav-link" href="#" data-id="18">Search Engines</a>
+                    <a class="nav-link" href="#" data-id="19">Container</a>
+                    <a class="nav-link" href="#" data-id="20">Web server</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- subCategory 박스 -->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4" id="subcategory">
+                <section class="page-section portfolio" id="portfolio">
+                    <div class="container">
+                        <button popovertarget="mydiv">도서추천</button>
+                        <div popover id="mydiv">
+                            <h2>도서 판매량 TOP3</h2>
+                            <hr>
+                            <div id="bookItems">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                            <button popovertarget="mydiv" popovertargetaction="hide">Close</button>
+                        </div>
+                        <button popovertarget="mydiv1">Quiz</button>
+                        <div popover id="mydiv1">
+                            <div id="quiz">
+                                <p>메인 카테고리 선택하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row justify-content-center" id="portfolioItems"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- subCategory Modal창 -->
+<div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body text-center pb-5" id="portfolioModalContent">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.nav-link').click(function(e) {
+            e.preventDefault();
+            var categoryId = $(this).data('id');
+            var apiUrl = 'http://localhost:8080/api/roadmap/sub/' + categoryId;
+
+            //ajax
+            $.getJSON(apiUrl, function(data) {
+                //subCategory 박스
+                $('#portfolioItems').empty();
+                data.subCategory.forEach(function(subCategory, index) {
+                    var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
+                    html += '<div style="margin:20px; background-color: gray; padding: 20px;">';
+                    html += '<h2>' + subCategory.subDocsTitle + '</h2>';
+                    html += '<p>' + subCategory.subDescription + '</p>';
+                    html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    var $portfolioItem = $(html);
+
+                    $portfolioItem.click(function() {
+                        var index = $(this).data('index');
+
+                        // 설명 html 출력
+                        $.get(data.url, function(htmlData) {
+                            console.log(data.url);
+                            var selectedContent = $(htmlData).find('div.'+index).html();
+                            $('#portfolioModalContent').html(selectedContent);
+                        });
+
+                        $('#portfolioModal').modal('show');
+                    });
+
+                    $('#portfolioItems').append($portfolioItem);
+                });
+
+                //도서추천
+                $('#bookItems').empty();
+                data.recommendBookDtos.forEach(function(book, index) {
+                    var html = '<div>';
+                    html += '<h4>' + book.bookTitle + '</h4>';
+                    html += '<p>' + book.bookAuthor + '</p>';
+                    html += '<img src="' + book.bookImage + '" alt="' + book.bookTitle + '">';
+                    html += '<p>' + book.publisher + '</p>';
+                    html += '</div>';
+                    var $bookItems = $(html);
+
+                    $('#bookItems').append($bookItems);
+                });
+
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>
