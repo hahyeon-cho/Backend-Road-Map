@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 /**
  * 퀴즈 테이블
  */
+import java.util.Objects;
+
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

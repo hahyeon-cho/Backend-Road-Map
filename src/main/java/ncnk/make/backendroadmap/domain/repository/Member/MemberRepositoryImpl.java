@@ -17,7 +17,7 @@ public class MemberRepositoryImpl implements MemberCustomRepository {
 
     // 포인트 랭킹 Top 5
     @Override
-    public List<Member> Top5Point() {
+    public List<Member> top5Point() {
         return queryFactory
                 .selectFrom(QMember.member)
                 .orderBy(QMember.member.point.desc(), QMember.member.createdDate.desc())

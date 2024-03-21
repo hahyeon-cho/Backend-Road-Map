@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.entity;
 
+import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -70,9 +71,9 @@ public class Member extends BaseTimeEntity {
     }
 
     //회원 정보 업데이트
-    public Member updateMember(String profile, String name, String github) {
+    public Member updateMember(String profile, String nickName, String github) {
         this.profile = profile;
-        this.name = name;
+        this.nickName = nickName;
         this.github = github;
 
         return this;
