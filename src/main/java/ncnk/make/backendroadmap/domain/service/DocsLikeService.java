@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 소분류 좋아요 Service (BIZ 로직)
  */
+
 @Service
 @Transactional(readOnly = true)
 @Slf4j

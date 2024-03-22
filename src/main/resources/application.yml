@@ -72,7 +72,15 @@ management:
   tomcat:
     mbeanregistry:
       enabled: true
-
+      
+thymeleaf:
+  prefix=classpath: templates/
+  suffix: .html
+  check-template-location: true
+  cache: false
+  mvc:
+    static-path-pattern: "/static/**"
+    
 ---
 spring:
   datasource:

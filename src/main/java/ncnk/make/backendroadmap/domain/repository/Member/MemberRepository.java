@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.repository.Member;
 
+import java.util.List;
 import java.util.Optional;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
     Optional<Member> findMemberByEmail(String email); //이메일 정보를 통해 회원 검색
 
     Optional<Member> findMemberByMemberId(Long id); //회원 PK를 통해 회원 검색
+
+    Optional<Member> findMemberByNickName(String nickName);
 }

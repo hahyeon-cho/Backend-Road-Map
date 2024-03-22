@@ -4,17 +4,18 @@ import io.micrometer.core.annotation.Timed;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
+import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.exception.DuplicateResourceException;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateRequestDto;
+import ncnk.make.backendroadmap.domain.utils.UploadService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 회원 Service (BIZ 로직)
- */
+import java.util.List;
+
 @Transactional(readOnly = true)
 @Service
 @Slf4j
@@ -24,11 +25,20 @@ public class MemberService {
     private final TraceTemplate template;
 
     //회원 프로필 수정
+    private final UploadService uploadService;
+
+    @Value("${img.path}")
+    private String userImage;
+
+    /**
+     * Controller -> PostMapping(/edit)
+     * 구글 로그인 직후 사용자 정보가 변경되는 페이지에서 확인 버튼을 누르는 순간 작동되는 메서드
+     **/
     @Timed("MemberService.updateProfile")
     @Transactional
     public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),
-                updateRequestDto.getName(),
+                updateRequestDto.getNickName(),
                 updateRequestDto.getGithub());
 
         log.info("Member 프로필 수정 성공");
@@ -37,13 +47,14 @@ public class MemberService {
     }
 
     public List<Member> findTop5Point() {
-        return memberRepository.Top5Point();
+        return memberRepository.top5Point();
     }
 
-    //회원 PK 이용해 회원 정보 조회
+
     public Member findMemberById(Long id) {
-        return memberRepository.findMemberByMemberId(id)
+        Member member = memberRepository.findMemberByMemberId(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
+        return member;
     }
 
     //이메일 이용해 회원 정보 조회

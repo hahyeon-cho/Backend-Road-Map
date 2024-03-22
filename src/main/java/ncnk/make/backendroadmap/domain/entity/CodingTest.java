@@ -1,17 +1,21 @@
 package ncnk.make.backendroadmap.domain.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import jakarta.persistence.Convert;
+import lombok.AccessLevel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
+import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 

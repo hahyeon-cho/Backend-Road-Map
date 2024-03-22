@@ -1,6 +1,5 @@
 package ncnk.make.backendroadmap.domain.restController.dto.Member;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import ncnk.make.backendroadmap.domain.entity.Member;
@@ -8,6 +7,8 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 /**
  * 회원 정보 Dto
  */
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class MemberResponseDto {
     private String name; //이름
     private String nickName; //닉네임
     private String github; //깃허브
+    private String profileImage;
     private int level; //대분류 레벨
     private int point; //알고리즘 포인트
     private int hard; // 상 문제
@@ -38,6 +40,7 @@ public class MemberResponseDto {
         this.hard = member.getHard();
         this.normal = member.getNormal();
         this.easy = member.getEasy();
+        this.profileImage = member.getProfile();
     }
 
     public static MemberResponseDto createMemberResponseDto(Member member) {

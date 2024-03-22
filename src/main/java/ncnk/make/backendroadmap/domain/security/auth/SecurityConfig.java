@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile");
+                .requestMatchers("/login","/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile");
     }
 
     @Bean
@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .headers(header -> header
                         .frameOptions(frameOptions -> frameOptions.disable()))
+
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()

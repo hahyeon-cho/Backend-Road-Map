@@ -11,10 +11,11 @@ import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -75,7 +76,7 @@ class MemberServiceTest {
             expectedTop5Members.add(member);
         }
 
-        when(memberRepository.Top5Point()).thenReturn(expectedTop5Members);
+        when(memberRepository.top5Point()).thenReturn(expectedTop5Members);
 
         // when
         List<Member> top5Point = memberService.findTop5Point();
