@@ -1,5 +1,7 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import io.micrometer.core.annotation.Timed;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
@@ -20,6 +22,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final TraceTemplate template;
+
+    //회원 프로필 수정
     private final UploadService uploadService;
 
     @Value("${img.path}")
@@ -29,7 +34,7 @@ public class MemberService {
      * Controller -> PostMapping(/edit)
      * 구글 로그인 직후 사용자 정보가 변경되는 페이지에서 확인 버튼을 누르는 순간 작동되는 메서드
      **/
-
+    @Timed("MemberService.updateProfile")
     @Transactional
     public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),

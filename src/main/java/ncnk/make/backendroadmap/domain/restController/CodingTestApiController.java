@@ -32,6 +32,7 @@ public class CodingTestApiController {
     // 문제 리스트 페이지
     // http://localhost:8080/api/codingtest?page=0&size=100&problemLevel=&problemAccuracy=&status=unsolved
     //     속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
+    // TODO: 풀었다, 안풀었다, 손 안댄 문제
     @GetMapping("")
     public CodingTestPage getProblemListPage(
             @RequestParam(value = "problemLevel", required = false) String problemLevel,
