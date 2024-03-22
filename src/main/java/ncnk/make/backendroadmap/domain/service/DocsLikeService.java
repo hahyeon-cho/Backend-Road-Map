@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import io.micrometer.core.annotation.Timed;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class DocsLikeService {
     private final TraceTemplate template;
 
     //토글 형식의 좋아요 버튼 (좋아요가 있다면 -1, 없다면 +1)
+    @Timed("DocsLikeService.toggleSubCategoryLike")
     @Transactional
     public Optional<DocsLike> toggleSubCategoryLike(Member member, SubCategory subCategory) {
         Optional<DocsLike> optionalLike = docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory);

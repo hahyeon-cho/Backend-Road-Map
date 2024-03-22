@@ -2,6 +2,8 @@ package ncnk.make.backendroadmap.domain.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +42,8 @@ public class CodingTestService {
     private static final int COUNT = 20;
     private final TraceTemplate template;
 
-
+    @Timed("CodingTestService.scrapeAndSaveProblemAsync")
+    @Counted("Counted.CodingTest.scrapeAndSaveProblemAsync")
     @Async
     public void scrapeAndSaveProblemAsync(JSONObject problem) {
         WebDriver driver = null;
@@ -111,6 +114,7 @@ public class CodingTestService {
      * 예상 입출력 중 첫 번째 예상 입력에 대한 예상 출력 값과 사용자가 웹 컴파일러를 통해 결과를 반환한 것을 비교한다. List<CodingTestAnswer>의 예상 출력 값이 사용자가 반환한 결과와
      * 일치하면 문제 정답 처리!
      */
+    @Timed("CodingTestService.evaluateCodingTest")
     @Transactional
     public boolean evaluateCodingTest(String userCodeResult, List<CodingTestAnswer> codingTestAnswer) {
         ObjectMapper mapper = new ObjectMapper();
