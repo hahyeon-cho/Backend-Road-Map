@@ -8,6 +8,7 @@ public class ProblemPageResponseDto {
     private String problemTitle;
     private String problemLevel;
     private Double problemAccuracy;
+    private String isSolved;
 
     private ProblemPageResponseDto(CodingTest codingTest) {
         this.problemTitle = codingTest.getProblemTitle();
