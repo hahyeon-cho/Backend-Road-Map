@@ -52,6 +52,27 @@ logging:
       springframework:
         core.LocalVariableTableParameterNameDiscoverer: ERROR
 
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8080
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
 ---
 spring:
   datasource:
@@ -63,6 +84,7 @@ spring:
   config:
     activate:
       on-profile: prod
+      include: personal
 
   jpa:
     database: mysql
