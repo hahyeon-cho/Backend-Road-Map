@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/nav.css">
 
+    <link rel="icon" href="/images/favicon.svg">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>RoadMap Detail</title>
     <style>
+        /*footer 스타일 변경*/
         footer{
             background-color: black;
             color: white;
-
         }
-
     </style>
 
     <!--스크롤 할 수 있게 해줌-->
@@ -24,61 +24,102 @@
 <!--navber.html 사용 -->
 <div th:replace="~{navbar::nav}"></div>
 <header>
-    <a class="roadMapTitle"><h1>Backand RodeMap</h1></a>
+    <a class="roadMapTitle"><h1>Backend RoadMap</h1></a>
 </header>
-<!--대분류-->
-<article>
-    <div class="MainCategory">
-        <a class="main-nvl">
-            <a class="nav-link-Internet" href="#" data-id="1">Internet</a>
-            <a class="nav-link-FE" href="#" data-id="2">Basic FE</a>
-            <a class="nav-link-OS" href="#" data-id="3">OS</a>
-            <a class="nav-link-Langugage" href="#" data-id="4">Langugage</a>
-            <a class="nav-link-Alogorithm" href="#" data-id="5">Algorithm</a>
-            <a class="nav-link-UsingGit" href="#" data-id="6">Using Git</a>
-            <a class="nav-link-Github" href="#" data-id="7">Github & GitLab</a>
-            <a class="nav-link-RDB" href="#" data-id="8">Relational DB</a>
-            <a class="nav-link-SQLDB" href="#" data-id="9">NoSQL DB</a>
-            <a class="nav-link-DBK" href="#" data-id="10">DB Knowledge</a>
-            <a class="nav-link-API" href="#" data-id="11">APIs</a>
-            <a class="nav-link-Framework" href="#" data-id="12">Framework</a>
-            <a class="nav-link-Caching" href="#" data-id="13">Caching</a>
-            <a class="nav-link-WebSecurity" href="#" data-id="14">Web Security</a>
-            <a class="nav-link-Test" href="#" data-id="15">Test</a>
-            <a class="nav-link-CI/CD" href="#" data-id="16">CI/CD</a>
-            <a class="nav-link_DesignPattern" href="#" data-id="17">Design Pattern</a>
-            <a class="nav-link-SearchEngines" href="#" data-id="18">Search Engines</a>
-            <a class="nav-link-Container" href="#" data-id="19">Container</a>
-            <a class="nav-link-WevServer" href="#" data-id="20">Web server</a>
-        </a>
-    </div>
-    <!--소분류-->
-    <div class="subCategory">
-        <a class ="sub1">#IP #TCP/UDP #PORT #DNS #HTTP #Cookie #Cache</a>
-        <a class ="sub2">#HTML #CSS #JS</a>
-        <a class ="sub3">#OS work #Process 관리 #Theads&Concurrentcy #Basic Termain Commands #Memory 관리 #IPC #I/O 관리 #기본 네트워크 개념</a>
-        <a class ="sub4">#Java #C#(posix Basic) #Python #PHP #Ruby #Go #Rust #JS  </a>
-        <a class ="sub5">#Bubble Sort #Selection Sort #Insertion Sort #Quick Sort #Merge Sort #Heap Sort #Radix Sort #Counting Sort #Binary Search #Hash Table #DFS & BFS #LIS(최장 증가 수열) #LCA(최소 공통 조상) #DP(동적 계획법 #Dijkstra(다익스트라) #BitMask(비트마스크)</a>
-        <a class ="sub6">#Git 사용법</a>
-        <a class ="sub7">#GitHub #Gitlab</a>
-        <a class ="sub8">#PostgreSQL #MySQL #Oracle</a>
-        <a class ="sub9">#DynamoDB</a>
-        <a class ="sub10">#Transaction #ACID #ORM #N + 1</a>
-        <a class ="sub11">#Authentication #REST #JSON API #SOAP</a>
-        <a class ="sub12">#Spring #Django</a>
-        <a class ="sub13">#CDN #Server Side (Redis, Memcached) #Client Side</a>
-        <a class ="sub14">#HTTPS #CORS #SSL/TLS</a>
-        <a class ="sub15">#Integration Test #Unit Test #Functional Test</a>
-        <a class ="sub16">#젠킨스</a>
-        <a class ="sub17">#Design Pattern #GOF Design Pattern #Domain Driven Design #Test Driven Design #SOLID</a>
-        <a class ="sub18">#Elastic search</a>
-        <a class ="sub19">#Docker</a>
-        <a class ="sub20">#Web server/WAS #Nginx</a>
-    </div>
 
+<article>
+    <div class="backendRoadMap"  style="text-align : center;">
+        <img src="/images/roadmapMain.svg">  <!--대분류-->
+        <div class="MainCategory">
+            <a class="main-nvl">
+                <a class="nav-link Internet" href="#" data-id="1">Internet</a>
+                <a class="nav-link BasicFE" href="#" data-id="2">Basic FE</a>
+                <a class="nav-link OS" href="#" data-id="3">OS</a>
+                <a class="nav-link Language" href="#" data-id="4">Language</a>
+                <a class="nav-link Algorithm" href="#" data-id="5">Algorithm</a>
+                <a class="nav-link UsingGit" href="#" data-id="6">Using Git</a>
+                <a class="nav-link GithubGitLab" href="#" data-id="7">Github & GitLab</a>
+                <a class="nav-link RelationalDB" href="#" data-id="8">Relational DB</a>
+                <a class="nav-link NoSQLDB" href="#" data-id="9">NoSQL DB</a>
+                <a class="nav-link DBKnowledge" href="#" data-id="10">DB Knowledge</a>
+                <a class="nav-link APIs" href="#" data-id="11">APIs</a>
+                <a class="nav-link Framework" href="#" data-id="12">Framework</a>
+                <a class="nav-link Caching" href="#" data-id="13">Caching</a>
+                <a class="nav-link WebSecurity" href="#" data-id="14">Web Security</a>
+                <a class="nav-link Test" href="#" data-id="15">Test</a>
+                <a class="nav-link CI/CD" href="#" data-id="16">CI/CD</a>
+                <a class="nav-link DesignPattern" href="#" data-id="17">Design Pattern</a>
+                <a class="nav-link SearchEngines" href="#" data-id="18">Search Engines</a>
+                <a class="nav-link Container" href="#" data-id="19">Container</a>
+                <a class="nav-link WebServer" href="#" data-id="20">Web server</a>
+            </a>
+        </div>
+        <!--소분류-->
+        <div class="subCategory">
+            <a class ="sub1">#IP #TCP/UDP #PORT #DNS #HTTP #Cookie #Cache</a>
+            <a class ="sub2">#HTML #CSS #JS</a>
+            <a class ="sub3">#OS work #Process 관리 #Theads&Concurrentcy #Basic Termain Commands #Memory 관리 #IPC #I/O 관리 #기본 네트워크 개념</a>
+            <a class ="sub4">#Java #C#(posix Basic) #Python #PHP #Ruby #Go #Rust #JS  </a>
+            <a class ="sub5">#Bubble Sort #Selection Sort #Insertion Sort #Quick Sort #Merge Sort #Heap Sort #Radix Sort #Counting Sort #Binary Search #Hash Table #DFS & BFS #LIS(최장 증가 수열) #LCA(최소 공통 조상) #DP(동적 계획법 #Dijkstra(다익스트라) #BitMask(비트마스크)</a>
+            <a class ="sub6">#Git 사용법</a>
+            <a class ="sub7">#GitHub #Gitlab</a>
+            <a class ="sub8">#PostgreSQL #MySQL #Oracle</a>
+            <a class ="sub9">#DynamoDB</a>
+            <a class ="sub10">#Transaction #ACID #ORM #N + 1</a>
+            <a class ="sub11">#Authentication #REST #JSON API #SOAP</a>
+            <a class ="sub12">#Spring #Django</a>
+            <a class ="sub13">#CDN #Server Side (Redis, Memcached) #Client Side</a>
+            <a class ="sub14">#HTTPS #CORS #SSL/TLS</a>
+            <a class ="sub15">#Integration Test #Unit Test #Functional Test</a>
+            <a class ="sub16">#젠킨스</a>
+            <a class ="sub17">#Design Pattern #GOF Design Pattern #Domain Driven Design #Test Driven Design #SOLID</a>
+            <a class ="sub18">#Elastic search</a>
+            <a class ="sub19">#Docker</a>
+            <a class ="sub20">#Web server/WAS #Nginx</a>
+        </div>
+    </div>
 
 </article>
-
+<!--footer.html 사용-->
 <div th:replace="footer :: footer"></div>
+
+<script th:inline="javascript">
+    // 레벨 조건에 맞는 대분류 설정
+    $(document).ready(function() {
+        var level = [[${Level}]];
+        console.log("level:", level);
+
+        $('.MainCategory .nav-link').each(function() {
+            var dataId = parseInt($(this).data('id'));
+
+            if (level < dataId) {
+                $(this).addClass('MainCategory-disabledLink');
+                $(this).attr('href', '');
+                $(this).click(function (event){
+                    event.preventDefault();
+                });
+                // $(this).css('color', '#bebebe');
+            } else if (level === dataId){
+                $(this).addClass('MainCategory-blinkingLink');
+            }else{
+                $(this).addClass('MainCategory-link');
+
+            }
+
+        });
+
+
+    // roadMapsub에 선택한 dataId 전달
+        $('.nav-link').click(function(e) {
+            console.log("level:", level)
+            e.preventDefault();
+            var dataId = $(this).data('id');
+            if (level >= dataId) {
+                window.location.href = 'roadmap/subcategory?dataId=' + dataId;
+            }
+        });
+    });
+
+</script>
 </body>
 </html>
