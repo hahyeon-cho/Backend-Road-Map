@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String mainhomepage(@LoginUser SessionUser user, Model model){
+    public String mainhomepage(@LoginUser SessionUser user, Model model) {
         //로그인한 사용자만 home.html에 접속가능
         if (user != null) {
             model.addAttribute("userName", user.getName());
@@ -32,12 +32,12 @@ public class HomeController {
             model.addAttribute("userName", user.getName());
         }
         //TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
-        return "home";
+        return "Login/login";
     }
 
     @GetMapping("/myPage")
     public String myPage(@LoginUser SessionUser user, Model model) {
 
-       return "myPage/myPage";
+        return "myPage/myPage";
     }
 }

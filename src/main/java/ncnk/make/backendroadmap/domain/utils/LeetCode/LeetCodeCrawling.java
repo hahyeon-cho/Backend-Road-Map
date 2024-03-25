@@ -82,8 +82,8 @@ public class LeetCodeCrawling {
                     break;
             }
 
-            Elements preData = contentsElement.select("pre");
-            List<CodingTestAnswer> exlist = getExamples(preData);
+            Elements exampleData = contentsElement.select("div.example-block");
+            List<CodingTestAnswer> exlist = getExamples(exampleData);
             List<String> topics = getTopics(driver);
 
             CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
