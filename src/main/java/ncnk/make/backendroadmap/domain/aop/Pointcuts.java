@@ -1,27 +1,38 @@
 package ncnk.make.backendroadmap.domain.aop;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+@Aspect
 public class Pointcuts {
 
+    //CodingTestService
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.CodingTestService.evaluateCodingTest(..))")
+    public void evaluateCodingTest() {
+    }
+
+
     //DocsLikeService
-    @Pointcut("execution(public void ncnk.make.backendroadmap.domain.service.DocsLikeService.toggleSubCategoryLike(ncnk.make.backendroadmap.domain.entity.Member,ncnk.make.backendroadmap.domain.entity.SubCategory))")
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.DocsLikeService.toggleSubCategoryLike(..))")
     public void toggleSubCategoryLike() {
     }
 
     //MemberService
-    @Pointcut("execution(public void ncnk.make.backendroadmap.domain.service.MemberService.updateProfile(ncnk.make.backendroadmap.domain.entity.Member,ncnk.make.backendroadmap.domain.restController.dto.Member.MemberUpdateRequestDto))")
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.MemberService.updateProfile(..))")
     public void memberUpdate() {
     }
 
     //PracticeCodeService
-    @Pointcut("execution(public void ncnk.make.backendroadmap.domain.service.PracticeCodeService.save(String, String, String, ncnk.make.backendroadmap.domain.entity.Member))")
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.PracticeCodeService.save(..))")
     public void saveWebCompiler() {
     }
 
     //SolvedService
-    @Pointcut("execution(public void ncnk.make.backendroadmap.domain.service.SolvedService.calculatePoint(ncnk.make.backendroadmap.domain.entity.Member, ncnk.make.backendroadmap.domain.entity.CodingTest))")
-    public void calculateMemberPoint() {
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.SolvedService.recordAttemptedProblem(..))")
+    public void recordAttemptedProblem() {
     }
 
+    @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.SolvedService.solvedProblem(..))")
+    public void solvedProblem() {
+    }
 }

@@ -60,7 +60,7 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
 
     //검색 정보 중 "난이도(상/중/하)"가 있으면 적용, 없으면 무시
     private BooleanExpression searchByDifficulty(String difficulty) {
-        if (difficulty == null) {
+        if (difficulty == null || difficulty.isEmpty()) {
             return null;
         }
         return QSolved.solved.codingTest.problemLevel.contains(difficulty);
@@ -68,7 +68,7 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
 
     //검색 정보 중 "정렬 기준(오름/내림차순)"가 있으면 적용, 없으면 오름차순 적용
     private OrderSpecifier<Double> orderByAccuracy(String order) {
-        if ("desc".equalsIgnoreCase(order)) {
+        if ("desc" .equalsIgnoreCase(order)) {
             return QSolved.solved.codingTest.problemAccuracy.desc();
         }
         return QSolved.solved.codingTest.problemAccuracy.asc();

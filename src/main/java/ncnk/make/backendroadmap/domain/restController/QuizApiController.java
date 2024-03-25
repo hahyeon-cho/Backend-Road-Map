@@ -1,6 +1,7 @@
 package ncnk.make.backendroadmap.domain.restController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +16,7 @@ import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizResponseDto;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.QuizService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 퀴즈 RestController (json)
@@ -38,8 +36,9 @@ public class QuizApiController {
     public Quizzes quizzes(@PathVariable Long mainCategoryId) {
         if (mainCategoryId == Main.ALGORITHM.getMainDocsOrder()) {
             List<AlgorithmResponseDto> algorithmResponseDtos = new ArrayList<>();
-            List<CodingTest> randomProblemsByLevelH2Db = codingTestService.findRandomProblemsByLevelH2Db();
-            for (CodingTest codingTest : randomProblemsByLevelH2Db) {
+            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevel();
+
+            for (CodingTest codingTest : randomProblemsByLevel) {
                 AlgorithmResponseDto algorithmResponseDto = AlgorithmResponseDto.createAlgorithmResponseDto(codingTest);
                 algorithmResponseDtos.add(algorithmResponseDto);
             }
@@ -48,8 +47,14 @@ public class QuizApiController {
 
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId); //대분류 PK값을 통해 대분류 찾기
         List<Quiz> quizzes = quizService.getQuizzes(mainCategory); //대분류에 해당하는 퀴즈 List 얻기
-        List<QuizResponseDto> quizResponseDtos = new ArrayList<>();
 
+        // 리스트 섞음
+        Collections.shuffle(quizzes);
+
+        // 섞인 리스트에서 처음 3개 데이터 선택
+        quizzes = quizzes.subList(0, Math.min(quizzes.size(), 3));
+
+        List<QuizResponseDto> quizResponseDtos = new ArrayList<>();
         log.info("Quiz Page");
         for (Quiz quiz : quizzes) {
             QuizResponseDto quizResponseDto = QuizResponseDto.createQuizResponseDto(quiz);

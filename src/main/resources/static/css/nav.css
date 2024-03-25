@@ -32,6 +32,11 @@
     margin-right: 45px;
 }
 
+.nav-link {
+    font-size: 16px; /* 텍스트 크기 조절 */
+    margin-right: 110px; /* 간격 조절 */
+}
+
 .navbar-nav a:link{
     color:white;
 }
@@ -76,6 +81,10 @@
     margin-right: 10px;
 }
 .logoutbtn a:hover {
+
+
+}
+.nav a:hover {
     background: #ffc01f;
     color: #fff;
     box-shadow: 0 0 5px #ffc01f, 0 0 25px #ffc01f, 0 0 50px #ffc01f,
@@ -84,6 +93,11 @@
 .profile a img{
     width: 35px;
     height: 35px;
+
+}
+.nav img{
+    width: 55px;
+    height: 30px;
     margin-right: 10px;
     border-radius: 70%;
     overflow: hidden;
@@ -96,4 +110,10 @@
 }
 #main-container {
     min-height: calc(100% - 120px);
+}
+
+
+.navbar-brand img {
+    width: 220px; /* 이미지 너비 조절 */
+    height: auto; /* 이미지 높이 자동 조절 */
 }

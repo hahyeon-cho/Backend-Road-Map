@@ -13,6 +13,7 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
+import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberRankingDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyPracticeResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyRoadMapResponseDto;
@@ -72,10 +73,20 @@ public class MemberApiController {
             memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto); //MyRoadMap에 필요한 Fit한 데이터를 만들어서 dto로 Set
         }
 
+        List<Member> findTop5Point = memberService.findTop5Point();
+        List<MemberRankingDto> memberRankingDtos = new ArrayList<>();
+        for (Member top5Member : findTop5Point) {
+            memberRankingDtos.add(MemberRankingDto.createMemberRankingDto(top5Member));
+        }
+        memberResponseDto.setMemberRankingDtos(memberRankingDtos);
+
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getRoadMapResponseDto());
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getRoadMapResponseDto());
     }
 
     // 마이페이지(MyPractice)
@@ -100,15 +111,25 @@ public class MemberApiController {
             memberResponseDto.setPracticeResponseDto(myPracticeResponseDto);
         }
 
+        List<Member> findTop5Point = memberService.findTop5Point();
+        List<MemberRankingDto> memberRankingDtos = new ArrayList<>();
+        for (Member top5Member : findTop5Point) {
+            memberRankingDtos.add(MemberRankingDto.createMemberRankingDto(top5Member));
+        }
+        memberResponseDto.setMemberRankingDtos(memberRankingDtos);
+
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getPracticeResponseDto());
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getPracticeResponseDto());
     }
 
     // 마이페이지(MyTest)
 //     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
-//     속성값 diffuculty - Hard - Middle - Easy order - asc - desc problemSolved - true - false
+//     속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
 
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id,
@@ -133,10 +154,20 @@ public class MemberApiController {
             memberResponseDto.setTestResponseDto(myTestResponseDto);
         }
 
+        List<Member> findTop5Point = memberService.findTop5Point();
+        List<MemberRankingDto> memberRankingDtos = new ArrayList<>();
+        for (Member top5Member : findTop5Point) {
+            memberRankingDtos.add(MemberRankingDto.createMemberRankingDto(top5Member));
+        }
+        memberResponseDto.setMemberRankingDtos(memberRankingDtos);
+
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
                 memberResponseDto.getName(), memberResponseDto.getNickName(),
                 memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), pageable.getPageSize(), memberResponseDto.getTestResponseDto());
+                memberResponseDto.getPoint(), memberResponseDto.getHard(),
+                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+                memberResponseDto.getTestResponseDto());
     }
 
     @AllArgsConstructor
@@ -149,6 +180,10 @@ public class MemberApiController {
         private String github;
         private int level;
         private int point;
+        private int hard;
+        private int normal;
+        private int easy;
+        private T top5Ranking;
         private int pageSize;
         private T data;
     }

@@ -83,8 +83,9 @@
     </div>
 </div>
 <script>
-    //뒤로가기시 이전 대분류로 이동하게 함
+   
     $(document).ready(function() {
+
         window.onpopstate = function (event) {
             var urlParams = new URLSearchParams(window.location.search);
             var dataId = urlParams.get('dataId');
@@ -106,7 +107,6 @@
                 // AJAX
                 $.getJSON('http://localhost:8080/api/roadmap/sub/' + dataId, function (data) {
 
-                    console.log(data);
                     $('#portfolioItems').empty();
                     data.subCategory.forEach(function (subCategory, index) {
                         var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
@@ -129,6 +129,7 @@
                             });
 
                             $('#portfolioModal').modal('show');
+
                         });
 
                         $('#portfolioItems').append($portfolioItem);
@@ -149,6 +150,7 @@
                     });
 
                 });
+
 
 
             }

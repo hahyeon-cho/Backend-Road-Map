@@ -1,18 +1,23 @@
 package ncnk.make.backendroadmap.domain.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import jakarta.persistence.Convert;
+import lombok.AccessLevel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
 import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
-import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
+
+import java.util.ArrayList;
+import java.util.List;
+import ncnk.make.backendroadmap.domain.entity.converter.StringListConverter;
+import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 
 /**
  * 코딩 테스트 테이블 - 리트코드 API 반환값에 따라 변동사항 있을 수 있음!
@@ -22,12 +27,14 @@ import ncnk.make.backendroadmap.domain.utils.wrapper.CodingTestAnswer;
 @Getter
 public class CodingTest extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codingTest_id")
     private Long codingTestId;
     private String problemTitle;
     private String problemSlug;
     private String problemLevel;
+
+    @Column(name = "problem_accuracy")
     private Double problemAccuracy;
     @Column(length = 10000)
     private String problemContents;
@@ -64,7 +71,15 @@ public class CodingTest extends BaseTimeEntity {
         this.problemContents = problemContents;
     }
 
-    public static CodingTest createAlgorithmTest(String problemContents) {
+    public static CodingTest createCodingTest(String problemContents) {
         return new CodingTest(problemContents);
+    }
+
+    // 코딩 테스트 사용자 결과와 기대 출력 값 비교하는 메서드
+    public static boolean evaluate(String userCodeResult, String codingTestAnswer) {
+        if (!userCodeResult.equals(codingTestAnswer)) {
+            return false;
+        }
+        return true;
     }
 }
