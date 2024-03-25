@@ -38,7 +38,6 @@ public class LeetCodeCrawling {
     public Optional<CodingTestProblem> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver)
             throws JSONException {
         String slug = problem.getJSONObject("stat").getString("question__title_slug");
-        log.info("slug ={}", slug);
         try {
             List<String> imagePaths = new ArrayList<>();
             long acs = problem.getJSONObject("stat").getLong("total_acs");
@@ -46,17 +45,14 @@ public class LeetCodeCrawling {
             double correctRate = calCorrectRate(acs, submitted);
             driver.get(PROBLEMS_BASE_URL + slug);
 
-            log.info("--------Before--------driver.getTitle() ={}", driver.getCurrentUrl());
             new WebDriverWait(driver, Duration.ofSeconds(20))
                     .until(ExpectedConditions.presenceOfElementLocated(
                             By.cssSelector("[data-track-load='description_content']")));
 
-            log.info("driver.getTitle() ={}", driver.getCurrentUrl());
             Document doc = Jsoup.parse(driver.getPageSource());
             Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
 
             String contents = contentsElement.outerHtml();
-            log.info("contents ={}", contents);
 
             Elements imgElements = contentsElement.select("img");
             if (!imgElements.isEmpty()) {
@@ -89,14 +85,10 @@ public class LeetCodeCrawling {
             Elements preData = contentsElement.select("pre");
             List<CodingTestAnswer> exlist = getExamples(preData);
             List<String> topics = getTopics(driver);
-            for (String topic : topics) {
-                log.info("topic: {}", topic);
-            }
 
             CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
                     problem.getJSONObject("stat").getString("question__title"), slug, level, correctRate, contents,
                     imagePaths, exlist, topics);
-            log.info("-------problemInfo---------- = {}", problemInfo.getProblemAccuracy());
             return Optional.of(problemInfo);
         } catch (Exception e) {
             return Optional.empty();
