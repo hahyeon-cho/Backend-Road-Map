@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+
 @RequestMapping("/roadmap")
 public class RoadMapController {
 
@@ -34,6 +35,7 @@ public class RoadMapController {
         Member member = memberService.findMemberByEmail(sessionUser.getEmail()); // 회원 검색
         model.addAttribute("userID", member.getMemberId());
         model.addAttribute("userPicture", user.getPicture());
+        model.addAttribute("Level", member.getLevel());
         return "roadMap/roadMapMain";
     }
 
