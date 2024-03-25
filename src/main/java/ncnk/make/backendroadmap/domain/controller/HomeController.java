@@ -32,7 +32,7 @@ public class HomeController {
             model.addAttribute("userName", user.getName());
         }
         //TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
-        return "home";
+        return "Login/login";
     }
 
     @GetMapping("/myPage")
