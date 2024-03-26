@@ -2,7 +2,6 @@ package ncnk.make.backendroadmap.domain.security.auth;
 
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
-import ncnk.make.backendroadmap.domain.entity.Role;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +27,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/login","/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile");
+                .requestMatchers("/login", "/", "/css/**", "/images/**", "/img/**", "/js/**", "/h2-console/**",
+                        "/profile", "/error", "/home/**");
     }
 
     @Bean
@@ -40,15 +40,15 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.disable()))
 
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/", "/login/*", "/logout/*").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .dispatcherTypeMatchers(DispatcherType.INCLUDE).permitAll()
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
-                        .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .requestMatchers("/actuator/**").permitAll()
+//                        .requestMatchers("/**").hasRole(Role.GUEST.name())
 //                                .requestMatchers("/   admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
-//                        .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
+//                        .anyRequest().permitAll())
 //                .formLogin((formLogin) ->
 //                        formLogin
 //                                .loginPage("/login/login")
@@ -65,7 +65,7 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)));
         return http.build();
     }
-    
+
     @Bean
     public SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests.anyRequest().permitAll());
