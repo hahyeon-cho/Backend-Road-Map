@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * 코딩 테스트 페이지
@@ -41,14 +41,13 @@ public class CodingTestController {
     // Body 값에 userCodeResult 줘야함! ex: output
     @PostMapping("/{id}")
     public ResponseEntity<?> submitButton(@PathVariable Long id,
-                                          @SessionAttribute(name = "member", required = false) SessionUser sessionUser,
+                                          @LoginUser SessionUser user,
                                           @RequestBody String userCodeResult) {
-
-        if (sessionUser == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
 
-        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
+        Member member = memberService.findMemberByEmail(user.getEmail()); //로그인한 사용자 정보 얻기
 
         CodingTest codingTest = codingTestService.findCodingTestById(id);
         boolean isCorrect = codingTestService.evaluateCodingTest(userCodeResult, codingTest.getProblemInputOutput());

@@ -7,8 +7,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
+import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
 import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.CodingTestResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.ProblemPageResponseDto;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
+import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -34,11 +37,12 @@ public class CodingTestApiController {
     //     속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
     // TODO: 풀었다, 안풀었다, 손 안댄 문제
     @GetMapping("")
-    public CodingTestPage getProblemListPage(
-            @RequestParam(value = "problemLevel", required = false) String problemLevel,
-            @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
-            @RequestParam(value = "status", required = false) String status,
-            @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+    public CodingTestPage getProblemListPage(@LoginUser SessionUser user,
+                                             @RequestParam(value = "problemLevel", required = false) String problemLevel,
+                                             @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
+                                             @RequestParam(value = "status", required = false) String status,
+                                             @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        loginValidate(user);
 
         List<CodingTest> codingTests = codingTestService.dynamicSearching(problemLevel, problemAccuracy, status,
                 pageable).getContent();
@@ -55,15 +59,24 @@ public class CodingTestApiController {
 
     // 알고리즘 문제 풀기 페이지
     @GetMapping("/{id}")
-    public ProblemPage problemPage(@PathVariable Long id) {
+    public ProblemPage problemPage(@PathVariable Long id, @LoginUser SessionUser user) {
+        loginValidate(user);
+
         CodingTest codingTest = codingTestService.findCodingTestById(id);
         CodingTestResponseDto codingTestResponse = CodingTestResponseDto.createCodingTestResponse(codingTest);
         return new ProblemPage(codingTestResponse);
     }
 
+    private static void loginValidate(SessionUser user) {
+        if (user == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
+    }
+
     @AllArgsConstructor
     @Getter
     static class CodingTestPage<T> {
+
         private int pageSize;
         private T data;
     }

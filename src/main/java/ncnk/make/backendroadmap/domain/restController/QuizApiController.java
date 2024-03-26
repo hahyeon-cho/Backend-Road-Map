@@ -18,6 +18,7 @@ import ncnk.make.backendroadmap.domain.restController.DocsLikeApiController.Resu
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.AlgorithmResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizAnswerDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizPageDto;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * 퀴즈 RestController (json)
@@ -87,9 +87,9 @@ public class QuizApiController {
 
     //퀴즈 채점 버튼
     @PostMapping("/grade")
-    public ResponseEntity<?> gradeQuizzes(@SessionAttribute(name = "member", required = false) SessionUser sessionUser,
+    public ResponseEntity<?> gradeQuizzes(@LoginUser SessionUser user,
                                           HttpSession session, @RequestBody List<String> userAnswers) {
-        if (sessionUser == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Result("로그인이 필요합니다."));
         }
 
@@ -109,7 +109,7 @@ public class QuizApiController {
                 }
 
                 boolean passed = quizService.gradeQuiz(quizAnswer, userAnswers);
-                Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
+                Member member = memberService.findMemberByEmail(user.getEmail()); //로그인한 사용자 정보 얻기
                 if (passed) {
                     memberService.updateLevel(member);
                 }

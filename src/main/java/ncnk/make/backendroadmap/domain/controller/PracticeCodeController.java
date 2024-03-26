@@ -25,9 +25,7 @@ public class PracticeCodeController {
     @GetMapping()
     public String webCompiler(@LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가
-        if (user == null) {
-            throw new SessionNullPointException("[ERROR] SessionUser is null");
-        }
+        loginValidate(user);
 
         Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
         model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
@@ -38,12 +36,16 @@ public class PracticeCodeController {
 
     @GetMapping("/ide")
     public String wevCompilerIde(@LoginUser SessionUser user, Model model) {
-        if (user == null) {
-            throw new SessionNullPointException("[ERROR] SessionUser is null");
-        }
+        loginValidate(user);
 
         Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
         model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
         return "ide";
+    }
+
+    private static void loginValidate(SessionUser user) {
+        if (user == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
     }
 }
