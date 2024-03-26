@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * 웹 컴파일러 Controller
@@ -24,24 +23,27 @@ public class PracticeCodeController {
     private final MemberService memberService;
 
     @GetMapping()
-    public String webCompiler(@LoginUser SessionUser user, Model model,
-                              @SessionAttribute(name = "member", required = false) SessionUser sessionUser) {
-
+    public String webCompiler(@LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가
-        if (sessionUser == null) {
+        if (user == null) {
             throw new SessionNullPointException("[ERROR] SessionUser is null");
         }
-        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //회원 찾기
+
+        Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
         model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
         model.addAttribute("userPicture", user.getPicture());
 
         return "navi/practice";
     }
+
     @GetMapping("/ide")
-    public String wevCompilerIde() {
-    //ide.html로 반환
+    public String wevCompilerIde(@LoginUser SessionUser user, Model model) {
+        if (user == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
+
+        Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
+        model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
         return "ide";
     }
-
-
 }

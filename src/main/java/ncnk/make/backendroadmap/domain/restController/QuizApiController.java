@@ -12,13 +12,18 @@ import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
+import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
+import ncnk.make.backendroadmap.domain.restController.DocsLikeApiController.Result;
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.AlgorithmResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizAnswerDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizPageDto;
+import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
+import ncnk.make.backendroadmap.domain.service.MemberService;
 import ncnk.make.backendroadmap.domain.service.QuizService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * 퀴즈 RestController (json)
@@ -39,10 +45,14 @@ public class QuizApiController {
     private final QuizService quizService;
     private final MainCategoryService mainCategoryService;
     private final CodingTestService codingTestService;
+    private final MemberService memberService;
+
 
     //퀴즈 풀기 페이지
     @GetMapping("/{mainCategoryId}")
     public Quizzes quizzes(@PathVariable Long mainCategoryId, HttpSession session) {
+        session.removeAttribute("quizSubmitted");
+
         if (mainCategoryId == Main.ALGORITHM.getMainDocsOrder()) {
             List<AlgorithmResponseDto> algorithmResponseDtos = new ArrayList<>();
             List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevel();
@@ -77,20 +87,37 @@ public class QuizApiController {
 
     //퀴즈 채점 버튼
     @PostMapping("/grade")
-    public ResponseEntity<?> gradeQuizzes(HttpSession session, @RequestBody List<String> userAnswers) {
-        try {
-            List<QuizPageDto> quizResponseDtos = (List<QuizPageDto>) session.getAttribute("quizzes");
+    public ResponseEntity<?> gradeQuizzes(@SessionAttribute(name = "member", required = false) SessionUser sessionUser,
+                                          HttpSession session, @RequestBody List<String> userAnswers) {
+        if (sessionUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Result("로그인이 필요합니다."));
+        }
 
-            List<String> quizAnswer = new ArrayList<>();
-            for (QuizPageDto quizPageDto : quizResponseDtos) {
-                Quiz quiz = quizService.getQuiz(quizPageDto.getQuizContext(), quizPageDto.getQuizAnswer());
-                quizAnswer.add(quiz.getQuizAnswer());
+        if (Boolean.TRUE.equals(session.getAttribute("quizSubmitted"))) {
+            return ResponseEntity.badRequest().body("이미 퀴즈를 제출하셨습니다.");
+        } else {
+            // 퀴즈 채점 로직 실행
+            session.setAttribute("quizSubmitted", Boolean.TRUE);
+
+            try {
+                List<QuizPageDto> quizResponseDtos = (List<QuizPageDto>) session.getAttribute("quizzes");
+
+                List<String> quizAnswer = new ArrayList<>();
+                for (QuizPageDto quizPageDto : quizResponseDtos) {
+                    Quiz quiz = quizService.getQuiz(quizPageDto.getQuizContext(), quizPageDto.getQuizAnswer());
+                    quizAnswer.add(quiz.getQuizAnswer());
+                }
+
+                boolean passed = quizService.gradeQuiz(quizAnswer, userAnswers);
+                Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
+                if (passed) {
+                    memberService.updateLevel(member);
+                }
+
+                return ResponseEntity.ok().body(Map.of("passed", passed));
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
             }
-
-            boolean passed = quizService.gradeQuiz(quizAnswer, userAnswers);
-            return ResponseEntity.ok().body(Map.of("passed", passed));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
