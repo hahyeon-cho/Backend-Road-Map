@@ -1,10 +1,7 @@
 /*footer css*/
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-
+footer{
+    background-color: black;
+    color: white;
 }
 .f-text {
     margin-left: auto;

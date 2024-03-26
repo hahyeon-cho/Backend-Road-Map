@@ -174,15 +174,6 @@ body {
 }
 
 
-.overlay-box .bar-2 {
-    position: absolute;
-    top: 660px;
-    left: 38%;
-    width: 3px; /* 높이 설정 */
-    height: 25px; /* 길이 설정 */
-    background-color: rgb(255, 255, 255); /* 배경색 설정 */
-}
-
 /* 이미지1 컨테이너의 스타일링 */
 .overlay-box .image1-container {
     position: absolute; /* 절대 위치 설정 */
