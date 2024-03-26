@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.restController.dto.Quiz;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
@@ -10,18 +11,18 @@ import ncnk.make.backendroadmap.domain.entity.Quiz;
 
 @Getter
 @Setter
-public class QuizResponseDto {
+public class QuizPageDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String quizContext; //퀴즈 내용
     private String quizAnswer; //퀴즈 정답
-    private String quizExplain; //퀴즈 설명
 
-    private QuizResponseDto(Quiz quiz) {
+    private QuizPageDto(Quiz quiz) {
         this.quizContext = quiz.getQuizContext();
         this.quizAnswer = quiz.getQuizAnswer();
-        this.quizExplain = quiz.getQuizExplain();
     }
 
-    public static QuizResponseDto createQuizResponseDto(Quiz quiz) {
-        return new QuizResponseDto(quiz);
+    public static QuizPageDto createQuizResponseDto(Quiz quiz) {
+        return new QuizPageDto(quiz);
     }
 }
