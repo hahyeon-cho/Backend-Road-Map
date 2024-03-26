@@ -10,6 +10,7 @@ import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.restController.dto.Like.DocsLikeResponseDto;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * 소분류 좋아요 RestController (json)
@@ -37,15 +37,14 @@ public class DocsLikeApiController {
 
     //토글 형식의 좋아요
     @PostMapping("/{id}")
-    public ResponseEntity<Result> toggleDocsLike(@PathVariable("id") Long id,
-                                                 @SessionAttribute(name = "member", required = false) SessionUser sessionUser) {
+    public ResponseEntity<Result> toggleDocsLike(@PathVariable("id") Long id, @LoginUser SessionUser user) {
         //로그인 하지 않은 사용자의 경우 예외 발생
-        if (sessionUser == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Result("로그인이 필요합니다."));
         }
 
         SubCategory subCategory = subCategoryService.findSubCategoryById(id); //소분류 PK값을 통해 소분류 찾기
-        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); //로그인한 사용자 정보 얻기
+        Member member = memberService.findMemberByEmail(user.getEmail()); //로그인한 사용자 정보 얻기
 
         Result result = template.execute("DocsLikeApiController.toggleDocsLike()", () -> {
             docsLikeService.toggleSubCategoryLike(member, subCategory);
