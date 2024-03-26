@@ -37,6 +37,7 @@ public class MemberService {
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),
                 updateRequestDto.getNickName(),
                 updateRequestDto.getGithub());
+                updateRequestDto.getProfile();
 
         log.info("Member 프로필 수정 성공");
 

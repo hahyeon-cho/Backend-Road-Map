@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,23 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/member")
-public class MemberUpdateController {
+public class MemberController {
     private final MemberService memberService;
+
+    @GetMapping("/myPage/{id}")
+    public String myPage(@PathVariable Long memberId,
+                         @SessionAttribute(name = "member", required = false) SessionUser sessionUser,
+                         Model model) {
+        //로그인 하지 않은 사용자 접근 불가
+        if (sessionUser == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
+
+        Member member = memberService.findMemberById(memberId); //회원 조회
+        model.addAttribute("member", member); // 회원 정보를 model에 담고
+
+        return "myPage/myPage";
+    }
 
     @GetMapping("/edit/{memberId}")
     public String updateProfile(@PathVariable Long memberId,

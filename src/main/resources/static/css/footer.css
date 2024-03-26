@@ -1,10 +1,7 @@
 /*footer css*/
-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    width: 100%;
+footer{
+    background-color: black;
+    color: white;
 }
 .f-text {
     margin-left: auto;
@@ -19,5 +16,5 @@ footer {
     vertical-align: middle;
 }
 .f-loge img{
-    width: 20px;
+    width: 30px;
 }

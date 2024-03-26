@@ -39,7 +39,7 @@ body {
 }
 
 .button-container {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,4 +56,14 @@ body {
 .sns-img {
     border-radius: 8px;
 }
+
+.Login {
+    font-size: 20px; /* 글자 크기 */
+    font-weight: bold; /* 굵은 글씨체 */
+    color: black; /* 주황색 */
+
+}
+
+.bar-1
+
 

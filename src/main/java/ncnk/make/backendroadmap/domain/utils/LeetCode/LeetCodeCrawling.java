@@ -54,7 +54,7 @@ public class LeetCodeCrawling {
 
             String contents = contentsElement.outerHtml();
 
-            Elements imgElements = contentsElement.select("img");
+            Elements imgElements = contentsElement.select("static/img");
             if (!imgElements.isEmpty()) {
                 String imgDir = "src/main/resources/images/algorithm/" + slug;
                 for (Element img : imgElements) {

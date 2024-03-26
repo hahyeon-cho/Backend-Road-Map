@@ -25,19 +25,4 @@ public class HomeController {
         }
         return "mainHome";
     }
-
-    @GetMapping("/home")
-    public String homeLoginV3ArgumentResolver(@LoginUser SessionUser user, Model model) {
-        if (user != null) {
-            model.addAttribute("userName", user.getName());
-        }
-        //TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
-        return "Login/login";
-    }
-
-    @GetMapping("/myPage")
-    public String myPage(@LoginUser SessionUser user, Model model) {
-
-        return "myPage/myPage";
-    }
 }
