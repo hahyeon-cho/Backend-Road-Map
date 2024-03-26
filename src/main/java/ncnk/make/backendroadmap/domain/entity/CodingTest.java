@@ -3,6 +3,10 @@ package ncnk.make.backendroadmap.domain.entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Convert;
 import lombok.AccessLevel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -23,7 +27,7 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 @Getter
 public class CodingTest extends BaseTimeEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codingTest_id")
     private Long codingTestId;
     private String problemTitle;
