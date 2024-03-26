@@ -1,5 +1,7 @@
 package ncnk.make.backendroadmap.domain.service;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,8 @@ public class SolvedService {
     private final TraceTemplate template;
 
     //코딩 테스트 풀이 여부에 따라 포인트 더하는 로직
+    @Timed("SolvedService.solvedProblem")
+    @Counted("Counted.solved.solvedProblem")
     @Transactional
     public Optional<Solved> solvedProblem(CodingTest codingTest, Member member) {
         return Optional.ofNullable(template.execute("SolvedService.solvedProblem()", () -> {
@@ -47,6 +51,8 @@ public class SolvedService {
     }
 
     // 한번 시도한 문제의 경우 solved 테이블에 컬럼을 추가한다.
+    @Timed("SolvedService.recordAttemptedProblem")
+    @Counted("Counted.solved.recordAttemptedProblem")
     @Transactional
     public Optional<Solved> recordAttemptedProblem(CodingTest codingTest, Member member, boolean isCorrect) {
         if (solvedRepository.existsByCodingTestAndMember(codingTest, member)) {

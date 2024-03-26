@@ -15,6 +15,7 @@
 }
 .navbar-brand img {
     width:110px;
+    height: auto;
 }
 
 .navbar-brand{
@@ -113,7 +114,3 @@
 }
 
 
-.navbar-brand img {
-    width: 220px; /* 이미지 너비 조절 */
-    height: auto; /* 이미지 높이 자동 조절 */
-}
