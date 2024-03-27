@@ -9,7 +9,6 @@ import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Solved;
-import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.Solved.SolvedRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +33,7 @@ public class SolvedService {
     public Optional<Solved> solvedProblem(CodingTest codingTest, Member member) {
         return Optional.ofNullable(template.execute("SolvedService.solvedProblem()", () -> {
             // 푼 문제 검색
-            Solved solved = solvedRepository.findSolvedByCodingTestAndMember(codingTest, member)
-                    .orElseThrow(() -> new ResourceNotFoundException());
+            Solved solved = findSolvedByCodingTestAndMember(codingTest, member);
 
             // 푼 문제 풀이 여부 true로 변경
             solved.solveProblem();
@@ -51,6 +49,7 @@ public class SolvedService {
     }
 
     // 한번 시도한 문제의 경우 solved 테이블에 컬럼을 추가한다.
+
     @Timed("SolvedService.recordAttemptedProblem")
     @Counted("Counted.solved.recordAttemptedProblem")
     @Transactional
@@ -65,9 +64,14 @@ public class SolvedService {
             return solved;
         }));
     }
-
     //마이페이지(MyTest) 검색 기능
+
     public Page<Solved> dynamicSearching(String difficulty, String order, Boolean problemSolved, Pageable pageable) {
         return solvedRepository.dynamicSearching(difficulty, order, problemSolved, pageable);
+    }
+
+    public Solved findSolvedByCodingTestAndMember(CodingTest codingTest, Member member) {
+        return solvedRepository.findSolvedByCodingTestAndMember(codingTest, member)
+                .orElse(null);
     }
 }

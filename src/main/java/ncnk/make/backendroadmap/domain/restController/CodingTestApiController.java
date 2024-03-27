@@ -7,12 +7,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
+import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
 import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.CodingTestResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.ProblemPageResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
+import ncnk.make.backendroadmap.domain.service.MemberService;
+import ncnk.make.backendroadmap.domain.service.SolvedService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -31,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/codingtest")
 public class CodingTestApiController {
     private final CodingTestService codingTestService;
+    private final SolvedService solvedService;
+    private final MemberService memberService;
 
     // 문제 리스트 페이지
     // http://localhost:8080/api/codingtest?page=0&size=100&problemLevel=&problemAccuracy=&status=unsolved
@@ -44,6 +50,8 @@ public class CodingTestApiController {
                                              @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
         loginValidate(user);
 
+        Member member = memberService.findMemberByEmail(user.getEmail());
+
         List<CodingTest> codingTests = codingTestService.dynamicSearching(problemLevel, problemAccuracy, status,
                 pageable).getContent();
 
@@ -51,7 +59,8 @@ public class CodingTestApiController {
 
         if (!codingTests.isEmpty()) {
             for (CodingTest codingTest : codingTests) {
-                codingTestResponseDtos.add(ProblemPageResponseDto.createCodingTestResponse(codingTest));
+                Solved solved = solvedService.findSolvedByCodingTestAndMember(codingTest, member);
+                codingTestResponseDtos.add(ProblemPageResponseDto.createCodingTestResponse(codingTest, solved));
             }
         }
         return new CodingTestPage(pageable.getPageSize(), codingTestResponseDtos);

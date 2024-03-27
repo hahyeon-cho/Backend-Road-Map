@@ -69,7 +69,7 @@ public class CodingTestService {
             driver = webDriverPool.getDriver();
             Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
                     problem, driver);
-
+            log.warn("scrapeAndSaveProblemAsync = {}", problemOptional.get().getProblemSlug());
             if (problemOptional.isPresent()) {
                 saveProblem(problemOptional);
             }
