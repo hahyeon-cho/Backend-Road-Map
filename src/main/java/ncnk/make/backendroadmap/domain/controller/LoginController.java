@@ -28,17 +28,22 @@ public class LoginController {
             model.addAttribute("userName", user.getName());
         }
         //TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
+
         return "Login/login";
     }
 
 
     @PostMapping("/logout")
     public String Logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        // 세션삭제 부분
+//        request.removeAttribute("member");
+        HttpSession session = request.getSession(false);
+        // session이 null이 아니라는건 기존에 세션이 존재했었다는 뜻이므로
+        // 세션이 null이 아니라면 session.invalidate()로 세션 삭제해주기.
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/form/myPage/{memberId}";// myPage로 Redirect
+        return "/mainHome" ;
     }
 }
 

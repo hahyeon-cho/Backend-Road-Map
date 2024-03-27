@@ -8,6 +8,8 @@ body {
     align-items: center;
 }
 
+
+
 .overlay-box {
     width: 1400px; /* 네모박스의 너비 */
     height: 800px; /* 네모박스의 높이 */
@@ -183,11 +185,3 @@ body {
     height: auto; /* 이미지1 컨테이너의 높이 자동 설정 */
 }
 
-/* 이미지1 컨테이너의 스타일링 */
-.overlay-box .image2-container {
-    position: absolute; /* 절대 위치 설정 */
-    top: 4px; /* 위에서 565px 만큼 떨어지도록 설정 */
-    left: -70%; /* 왼쪽으로 26%만큼 떨어지도록 설정 */
-    width: 50px; /* 이미지1 컨테이너의 너비 설정 */
-    height: auto; /* 이미지1 컨테이너의 높이 자동 설정 */
-}
