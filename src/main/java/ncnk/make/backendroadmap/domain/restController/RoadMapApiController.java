@@ -70,7 +70,6 @@ public class RoadMapApiController {
 
         List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
         String mainDocsUrl = mainCategory.getMainDocsUrl(); //대분류 URL
-        log.info("RoadMap Detail Page");
         for (Sub sub : subCategoriesByMainCategory) {
             categoryResponseDtos.add(
                     SubCategoryResponseDto.createSubCategoryResponseDto(

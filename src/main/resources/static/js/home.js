@@ -11,3 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
 $(function (){
    $("#footer").load("footer.html");
 });
+
+
+

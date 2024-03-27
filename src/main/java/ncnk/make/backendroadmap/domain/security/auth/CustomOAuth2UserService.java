@@ -5,7 +5,7 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.repository.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
 import ncnk.make.backendroadmap.domain.security.auth.dto.OAuthAttributes;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,7 +47,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         //TODO 사용자로부터 github 주소, 닉네임, 프로필 사진을 추가로 받는 로직을 추가한다.
 
         Member member = memberRepository.findMemberByEmail(attributes.getEmail())
-                .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "금쪽이 GITHUB"))
+                .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "GITHUB"))
                 .orElse(attributes.toEntity());
 
         return memberRepository.save(member);

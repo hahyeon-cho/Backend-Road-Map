@@ -31,7 +31,7 @@ public class OAuthAttributes {
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
                                      Map<String, Object> attributes) {
-        if ("naver".equals(registrationId)) {
+        if ("naver" .equals(registrationId)) {
             return ofNaver("id", attributes);
         }
         return ofGoogle(userNameAttributeName, attributes);
@@ -58,6 +58,6 @@ public class OAuthAttributes {
 
     public Member toEntity() {
         return Member.createMember(picture, email, name, "nickName", "git", Constant.initLevel, Constant.initPoint,
-                Role.GUEST);
+                Role.GUEST, 0, 0, 0);
     }
 }

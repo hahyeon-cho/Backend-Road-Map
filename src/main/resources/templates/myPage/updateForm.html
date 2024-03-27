@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background with Overlaying Box</title>
+    <!-- CSS 파일 연결 -->
+    <link href="/css/Login/updateForm.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
 </head>
 <body>
 
+<div th:replace="~{navbar::nav}"></div>
+
+<div class="container">
+    <div class="overlay-box">
+        <div class="profile-edit">프로필 수정</div> <!-- 상단 중앙에 세미볼드체로 표현된 "프로필 수정" 텍스트 출력 -->
+        <div class="profile-image">
+            <img src="/img/mypic.jpg" alt="프로필 사진"> <!-- 150x150 크기의 플레이스홀더 이미지 -->
+        </div>
+        <div class="profile-info">
+            확장자: png, jpg, jpeg / 용량: 1MB 이하
+        </div>
+        <div class="profile-nickname">
+            닉네임
+        </div>
+        <div class="profile-nickname-info">
+            한글, 영문(대소문자), 숫자 조합 / 2~18자 이하
+        </div>
+
+        <div class="text-box">
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId()})}" method="post">
+                <input type="text" name="nickname" placeholder="Edit Nickname">
+            </form>
+        </div>
+
+        <div class="down-git">
+            <div class="image1-container"> <!-- 사진첨부 -->
+                <img src="/img/git.png" alt="git 사진" style="width: 50px; height: auto;">
+            </div>
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
+                <input type="text" name="github" placeholder="Edit GitHub info">
+            </form>
+        </div>
+
+        <div class="final-box">
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
+                <button type="submit">변경</button>
+            </form>
+        </div>
+
+        <div class="bar-1"></div>
+    </div>
+</div>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>

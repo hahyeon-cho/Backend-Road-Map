@@ -14,7 +14,6 @@
     padding: 15px 10px;
 }
 
-
 .navbar-brand{
     margin-left: 10px;
     margin-right: 100px;
@@ -79,6 +78,10 @@
     margin-right: 10px;
 }
 .logoutbtn a:hover {
+
+
+}
+.nav a:hover {
     background: #ffc01f;
     color: #fff;
     box-shadow: 0 0 5px #ffc01f, 0 0 25px #ffc01f, 0 0 50px #ffc01f,
@@ -111,3 +114,4 @@
     width: 110px;
     height: auto;
 }
+

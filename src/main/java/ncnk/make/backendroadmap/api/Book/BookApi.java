@@ -1,5 +1,7 @@
 package ncnk.make.backendroadmap.api.Book;
 
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -21,6 +23,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Slf4j
 @Component
@@ -37,9 +46,10 @@ public class BookApi {
     //    @Scheduled(cron = "0 0 0 1 * ?") //매달 1일 0시 0분 0초
 //    @Scheduled(cron = "0 * * * * ?") // 매분 0초
 //    @Scheduled(cron = "0/20 * * * * ?") // 20초
+    @Counted("Counted.BookApi.callAladinApi")
+    @Timed("BookApi.callAladinApi")
     @Transactional
     public void callAladinApi() {
-        log.info("call callAladinApi!!!");
         List<SearchQuery> searchQueries = SearchQuery.getSearchQueries();
         for (SearchQuery searchQuery : searchQueries) {
             try {
