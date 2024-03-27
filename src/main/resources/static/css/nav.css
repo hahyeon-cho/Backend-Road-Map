@@ -13,10 +13,6 @@
     align-items: center;
     padding: 15px 10px;
 }
-.navbar-brand img {
-    width:110px;
-    height: auto;
-}
 
 .navbar-brand{
     margin-left: 10px;
@@ -113,4 +109,9 @@
     min-height: calc(100% - 120px);
 }
 
+
+.navbar-brand img {
+    width: 110px;
+    height: auto;
+}
 
