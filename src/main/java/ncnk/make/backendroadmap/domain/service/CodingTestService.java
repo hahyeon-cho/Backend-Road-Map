@@ -2,6 +2,15 @@ package ncnk.make.backendroadmap.domain.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.core.annotation.Counted;
+import io.micrometer.core.annotation.Timed;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
@@ -17,18 +26,14 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,10 +43,25 @@ public class CodingTestService {
     private final LeetCodeApi leetCodeApi;
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
-    private static final int COUNT = 20;
+    private static final AtomicInteger COUNT = new AtomicInteger(20);
+    ;
     private final TraceTemplate template;
 
+    //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
+    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
+    @Profile("!test")
+    public void scrapeAllProblemsOnSchedule() {
+        scrapeAllProblems();
+    }
 
+    @Profile("!test")
+    @EventListener(ApplicationReadyEvent.class)
+    public void scrapeAllProblemsAtStart() {
+        scrapeAllProblems();
+    }
+
+    @Timed("CodingTestService.scrapeAndSaveProblemAsync")
+    @Counted("Counted.CodingTest.scrapeAndSaveProblemAsync")
     @Async
     public void scrapeAndSaveProblemAsync(JSONObject problem) {
         WebDriver driver = null;
@@ -49,7 +69,7 @@ public class CodingTestService {
             driver = webDriverPool.getDriver();
             Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
                     problem, driver);
-            log.info("problemOptional: {}", problemOptional.get().getProblemSlug());
+
             if (problemOptional.isPresent()) {
                 saveProblem(problemOptional);
             }
@@ -64,29 +84,16 @@ public class CodingTestService {
         }
     }
 
-    //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
-    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
-//    @Profile("!test")
-    public void scrapeAllProblemsOnSchedule() {
-        scrapeAllProblems();
-    }
-
-    //    @Profile("!test")
-//    @EventListener(ApplicationReadyEvent.class)
-    public void scrapeAllProblemsAtStart() {
-        scrapeAllProblems();
-    }
-
     private void scrapeAllProblems() {
         try {
             List<JSONObject> problems = leetCodeApi.getLeetCodeProblemList();
-            int temp = 0;
+            AtomicInteger temp = new AtomicInteger(0);
             for (JSONObject problem : problems) {
-                if (temp < COUNT) {
+                if (temp.get() < COUNT.get()) {
                     log.info("--------Before scrapeAndSaveProblemAsync------");
                     scrapeAndSaveProblemAsync(problem);
                     log.info("--------After scrapeAndSaveProblemAsync------");
-                    temp++;
+                    temp.incrementAndGet();
                 }
             }
         } catch (Exception e) {
@@ -112,6 +119,7 @@ public class CodingTestService {
      * 예상 입출력 중 첫 번째 예상 입력에 대한 예상 출력 값과 사용자가 웹 컴파일러를 통해 결과를 반환한 것을 비교한다. List<CodingTestAnswer>의 예상 출력 값이 사용자가 반환한 결과와
      * 일치하면 문제 정답 처리!
      */
+    @Timed("CodingTestService.evaluateCodingTest")
     @Transactional
     public boolean evaluateCodingTest(String userCodeResult, List<CodingTestAnswer> codingTestAnswer) {
         ObjectMapper mapper = new ObjectMapper();

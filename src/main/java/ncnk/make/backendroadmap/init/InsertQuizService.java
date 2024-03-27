@@ -2,8 +2,7 @@ package ncnk.make.backendroadmap.init;
 
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
-import ncnk.make.backendroadmap.domain.repository.QuizRepository;
-import org.springframework.stereotype.Component;
+import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
 import org.springframework.stereotype.Service;
 
 @Service
