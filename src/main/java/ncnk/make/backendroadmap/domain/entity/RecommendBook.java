@@ -2,6 +2,7 @@ package ncnk.make.backendroadmap.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class RecommendBook extends BaseTimeEntity {
 
     private String publisher; // 출판사
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory; //대분류 FK
 
