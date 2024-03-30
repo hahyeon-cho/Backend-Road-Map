@@ -23,8 +23,10 @@ function submitUserCode(userCodeResult) {
         type: "POST",
         contentType: "text/plain",
         data: userCodeResult,
+        dataType: 'json',
         success: function(response) {
-            showModal(response.result);
+            var resultMessage = response.result === "correct" ? "정답입니다." : "틀렸습니다.";
+            showModal(resultMessage);
         },
         error: function(xhr, status, error) {
             console.error("제출 실패:", error);
@@ -36,7 +38,7 @@ function submitUserCode(userCodeResult) {
 
 function showModal(result) {
     $("#result-modal #result-modal-title").text("채점 결과");
-    $("#result-modal #result-modal-body").text(`결과: ${result}`);
+    $("#result-modal #result-modal-body").text(result);
 
     $("#result-modal").modal("show");
 }
