@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
-public class InitData {
+public class InitDataH2DB {
     private final InitService initService;
     private static final Long initLikeCount = 0L;
 
@@ -53,7 +53,6 @@ public class InitData {
     @Slf4j
     static class InitService {
         private final EntityManager em;
-
         @Value("${excel.file.path}")
         private String excelFilePath;
         private final QuizRepository quizRepository;
@@ -141,7 +140,6 @@ public class InitData {
                     em.persist(docsLike);
                 }
             }
-
             return mainCategories;
         }
 
@@ -179,26 +177,6 @@ public class InitData {
                     String quizAnswer = getStringCellValue(row.getCell(2));
                     String quizExplain = getStringCellValue(row.getCell(3));
                     MainCategory category = null;
-                    //TODO: 리트코드 API가 추가된 후 Insert하는 비즈니스 로직을 작성한다. 그리고 엑셀에서 대분류 5(Algorithm) CS 문제는 삭제한다.
-//                    if (quizAnswer.contains("|")) {
-//                        String[] parts = quizAnswer.split("\\|");
-//                        String problemInput = parts[0].trim();
-//                        String problemOutput = parts[1].trim();
-//                        for (MainCategory mainCategory : mainCategories) {
-//                            if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
-//                                category = mainCategory.getMainCategory(mainDoc);
-//                                break;
-//                            }
-//                        }
-//                        if (category != null) {
-//                            CodingTest.createAlgorithmTest(quizContext, problemInput, problemOutput,
-//                                    quizExplain, category);
-//                            if (!quizs.getQuizs().contains(quiz)) {
-//                                quizs.getQuizs().add(quiz);
-//                            }
-//                        }
-//                    }
-//                    if (!quizAnswer.contains("|")) {
                     for (MainCategory mainCategory : mainCategories) {
                         if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
                             category = mainCategory.getMainCategory(mainDoc);
@@ -211,7 +189,6 @@ public class InitData {
                             quizs.getQuizs().add(quiz);
                         }
                     }
-//                    }
                 }
             }
             return quizs;

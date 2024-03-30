@@ -3,6 +3,7 @@ package ncnk.make.backendroadmap.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,11 +26,11 @@ public class Solved extends BaseTimeEntity {
     @Column(name = "solved_id")
     private Long solvedId; //PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codingTest_id")
     private CodingTest codingTest; //코딩 테스트 FK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; //회원 FK
 

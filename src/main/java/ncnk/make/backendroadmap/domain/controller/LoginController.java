@@ -33,7 +33,7 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/form/myPage/{memberId}";// myPage로 Redirect
+        return "redirect:/mainHome";
     }
 }
 

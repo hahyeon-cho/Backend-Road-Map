@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface MainCategoryRepository extends JpaRepository<MainCategory, Long> {
     Optional<MainCategory> findMainCategoriesByMainDocsId(Long id); //대분류 PK를 통해 대분류 정보 반환
-
-    Optional<MainCategory> findMainCategoryByMainDocsTitle(String title); //대분류 제목를 통해 대분류 정보 반환
-
+    
     Optional<MainCategory> findMainCategoryByMainDocsTitle(Main main);  //대분류 정보를 통해 대분류 정보 반환
 }
