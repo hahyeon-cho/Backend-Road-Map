@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.restController;
 
+import io.micrometer.core.annotation.Timed;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,15 +48,16 @@ public class QuizApiController {
     private final CodingTestService codingTestService;
     private final MemberService memberService;
 
-
     //퀴즈 풀기 페이지
+    @Timed("QuizApiController.quizzes")
     @GetMapping("/{mainCategoryId}")
     public Quizzes quizzes(@PathVariable Long mainCategoryId, HttpSession session) {
         session.removeAttribute("quizSubmitted");
 
         if (mainCategoryId == Main.ALGORITHM.getMainDocsOrder()) {
             List<AlgorithmResponseDto> algorithmResponseDtos = new ArrayList<>();
-            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevel();
+//            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevel();
+            List<CodingTest> randomProblemsByLevel = codingTestService.findRandomProblemsByLevelWorst();
 
             for (CodingTest codingTest : randomProblemsByLevel) {
                 AlgorithmResponseDto algorithmResponseDto = AlgorithmResponseDto.createAlgorithmResponseDto(codingTest);
@@ -86,6 +88,7 @@ public class QuizApiController {
     }
 
     //퀴즈 채점 버튼
+    @Timed("QuizApiController.gradeQuizzes")
     @PostMapping("/grade")
     public ResponseEntity<?> gradeQuizzes(@LoginUser SessionUser user,
                                           HttpSession session, @RequestBody List<String> userAnswers) {
@@ -122,6 +125,7 @@ public class QuizApiController {
     }
 
     //퀴즈 해설 페이지
+    @Timed("QuizApiController.quizExplain")
     @GetMapping("/explain")
     public QuizExplain quizExplain(HttpSession session) {
         List<QuizPageDto> quizResponseDtos = (List<QuizPageDto>) session.getAttribute("quizzes");

@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.restController;
 
+import io.micrometer.core.annotation.Timed;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,7 @@ public class CodingTestApiController {
     // http://localhost:8080/api/codingtest?page=0&size=100&problemLevel=&problemAccuracy=&status=unsolved
     //     속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
     // TODO: 풀었다, 안풀었다, 손 안댄 문제
+    @Timed("CodingTestApiController.getProblemListPage")
     @GetMapping("")
     public CodingTestPage getProblemListPage(@LoginUser SessionUser user,
                                              @RequestParam(value = "problemLevel", required = false) String problemLevel,
@@ -67,6 +69,7 @@ public class CodingTestApiController {
     }
 
     // 알고리즘 문제 풀기 페이지
+    @Timed("CodingTestApiController.problemPage")
     @GetMapping("/{id}")
     public ProblemPage problemPage(@PathVariable Long id, @LoginUser SessionUser user) {
         loginValidate(user);
