@@ -7,7 +7,7 @@
 }
 
 .level-hard {
-    color: #FF9292;
+    color: #fd8a8a;
 }
 
 html {
@@ -37,8 +37,16 @@ body {
 .problem-info {
     display: inline-block;
     background-color: #5a5a5a;
-    padding: 2px 14px;
+    padding:0 14px;
     margin-right: 5px;
+    height: 25px;
+    line-height: 25px;
+}
+
+#topicDisplay{
+    border: none;
+    outline: none;
+    color: #fefefe;
 }
 
 .top-btn {
@@ -73,4 +81,29 @@ body {
     height: 100%;
     overflow: auto;
     background-color: #262626;
+}
+
+#problem-description {
+    font-size: 1.05rem;
+    color: #EEEEEE;
+    line-height: 2rem;
+}
+
+#problem-description code {
+    background-color: #cbcbcb;
+    border-color: #0000000d;
+    border-radius: 2px;
+    border-width: 1px;
+    color: #424649;
+    font-family: Menlo, sans-serif;
+    font-size: .75rem;
+    line-height: 1rem;
+    padding: .125rem 0.25rem;
+    margin: 0 .2rem;
+    white-space: pre-wrap;
+}
+
+strong {
+    font-weight: 1200;
+    margin: 0 0.25rem;
 }

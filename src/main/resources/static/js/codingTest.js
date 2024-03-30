@@ -5,3 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+$(document).ready(function() {
+    $('#problems-list-table').DataTable({
+        "lengthChange": false,
+        "pageLength": 10
+    });
+});
