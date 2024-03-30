@@ -1,3 +1,18 @@
+$(document).ready(function() {
+    var topics = $('#topicDisplay').data('data-tooltip');
+
+    $('#topicDisplay').popup({
+        on: 'click',
+        content: `${topics}`
+    });
+
+
+    $('.example .teal.button').popup({
+        on: 'click',
+    });
+
+});
+
 document.getElementById('submit-btn').addEventListener('click', function() {
     $('#run-btn').click();
 
