@@ -1,50 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${problemTitle}">Coding Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${problemTitle}">Coding Test</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 
-  <!-- ide -->
+    <!-- ide -->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/goldenlayout.min.js" integrity="sha256-NhJAZDfGgv4PiB+GVlSrPdh3uc75XXYSM4su8hgTchI=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-base.css" integrity="sha256-oIDR18yKFZtfjCJfDsJYpTBv1S9QmxYopeqw2dO96xM=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-dark-theme.css" integrity="sha256-ygw8PvSDJJUGLf6Q9KIQsYR3mOmiQNlDaxMLDOx9xL0=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/goldenlayout.min.js"
+            integrity="sha256-NhJAZDfGgv4PiB+GVlSrPdh3uc75XXYSM4su8hgTchI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-base.css"
+          integrity="sha256-oIDR18yKFZtfjCJfDsJYpTBv1S9QmxYopeqw2dO96xM=" crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-dark-theme.css"
+          integrity="sha256-ygw8PvSDJJUGLf6Q9KIQsYR3mOmiQNlDaxMLDOx9xL0=" crossorigin="anonymous"/>
 
-  <script>
-    var require = {
-      paths: {
-        "vs": "/vendor/monaco-editor-0.44.0/min/vs"
-      }
-    };
-  </script>
-  <script src="/vendor/monaco-editor-0.44.0/min/vs/loader.js"></script>
-  <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.nls.js"></script>
-  <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.js"></script>
+    <script>
+        var require = {
+            paths: {
+                "vs": "/vendor/monaco-editor-0.44.0/min/vs"
+            }
+        };
+    </script>
+    <script src="/vendor/monaco-editor-0.44.0/min/vs/loader.js"></script>
+    <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.nls.js"></script>
+    <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.js"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+            integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
 
-  <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
 
-  <script type="text/javascript" src="/subfunction/readLocalFile.js"></script>
+    <script type="text/javascript" src="/subfunction/readLocalFile.js"></script>
 
-  <script type="module" src = "/config/config.js"></script>
-  <script type="module" src="/js/ide.js"></script>
+    <script type="module" src="/config/config.js"></script>
+    <script type="module" src="/js/ide.js"></script>
 
-  <link type="text/css" rel="stylesheet" href="/css/Ide/ide.css">
+    <link type="text/css" rel="stylesheet" href="/css/Ide/ide.css">
 
-  <!-- etc -->
-  <link type="text/css" rel="stylesheet" href="/css/nav.css">
-  <link type="text/css" rel="stylesheet" href="/css/codingTestProblem.css" >
-  <script type="module" src="/js/levelBoxStyle.js"></script>
-  <script type="module" src="/js/codingTest.js"></script>
+    <!-- etc -->
+    <link type="text/css" rel="stylesheet" href="/css/nav.css">
+    <link type="text/css" rel="stylesheet" href="/css/codingTestProblem.css">
+    <script type="module" src="/js/levelBoxStyle.js"></script>
+    <script type="module" src="/js/codingTestProblem.js"></script>
 
 
 </head>
@@ -54,220 +61,102 @@
 <div th:replace="~{navbar::nav}"></div>
 
 <div class="h-full p-2 text-white ">
-  <div class="d-flex justify-content-between align-items-center mb-1">
-    <div class="d-flex align-items-center">
-      <div class="fw-bold rounded-pill problem-info" id="levelDisplay" th:text="${problemLevel}"> Level </div>
-      <div class="rounded-pill problem-info" th:if="${problemTopic}" th:text="${problemTopic}"> Topic </div>
+    <div class="d-flex justify-content-between align-items-center mb-1">
+        <div class="d-flex align-items-center">
+            <div class="fw-bold rounded-pill problem-info" id="levelDisplay" th:text="${problemLevel}"> Level</div>
+            <div class="rounded-pill problem-info" th:if="${problemTopic}" th:text="${problemTopic}"> Topic</div>
+        </div>
+        <div class="d-inline-block" role="group">
+            <!-- th:onclick 추가 필요 -->
+            <button type="button" class="btn top-btn" id="run-btn">Run</button>
+            <button type="button" class="btn top-btn" id="submit-btn">Submit</button>
+        </div>
     </div>
-    <div class="d-inline-block" role="group">
-      <!-- th:onclick 추가 필요 -->
-      <button type="button" class="btn top-btn" id="run-btn">Run</button>
-      <button type="button" class="btn top-btn" id="submit-btn">Submit</button>
-    </div>
-  </div>
 
-  <div class="container-fluid" id="container-box">
-    <div class="row h-full justify-content-between">
-      <div class="col h-full p-3 me-1 rounded-3 content-box">
-        <h2 th:text="${problemTitle}">Problem Title</h2>
-        <p th:text="${problemDescription}">Problem Description</p>
-      </div>
-
-      <!-- IDE -->
-      <div class="col h-full p-3 ms-1 rounded-3 content-box">
-        <div id="site-navigation" class="ui small inverted menu">
-          <div class="left menu">
-            <div class="hidden">
-                <div class="import"></div>
-                <div class="download"></div>
-            </div>
-            <input id="command-line-arguments" type="text" placeholder="Command line arguments"/>
-            <div class="item borderless">
-              <select id="select-language" class="ui dropdown">
-                <option value="" selected>Select Language</option>
-                <option value="62" mode="java">Java (OpenJDK 13.0.1)</option>
-                <option value="1004" mode="java">Java (OpenJDK 14.0.1)</option>
-                <option value="1005" mode="java">Java Test (OpenJDK 14.0.1, JUnit Platform Console Standalone 1.6.2)</option>
-                <option value="63" mode="javascript">JavaScript (Node.js 12.14.0)</option>
-                <option value="1008" mode="python">MPI (OpenRTE 3.1.3) with Python (3.7.3)</option>
-                <option value="1009" mode="python">Nim (stable)</option> <!-- Replacement mode. Help needed. -->
-                <option value="70" mode="python">Python (2.7.17)</option>
-                <option value="71" mode="python">Python (3.8.1)</option>
-                <option value="1010" mode="python">Python for ML (3.7.3)</option>
-                <option value="82" mode="sql">SQL (SQLite 3.27.2)</option>
-
-              </select>
-            </div>
-
-            <div id="navigation-message" class="item borderless">
-              <span class="navigation-message-text"></span>
-            </div>
-          </div>
-        </div><!DOCTYPE html>
-        <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title th:text="${problemTitle}">Coding Test</title>
-
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-                integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-
-          <!-- ide -->
-
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/goldenlayout.min.js" integrity="sha256-NhJAZDfGgv4PiB+GVlSrPdh3uc75XXYSM4su8hgTchI=" crossorigin="anonymous"></script>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-base.css" integrity="sha256-oIDR18yKFZtfjCJfDsJYpTBv1S9QmxYopeqw2dO96xM=" crossorigin="anonymous" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/golden-layout/1.5.9/css/goldenlayout-dark-theme.css" integrity="sha256-ygw8PvSDJJUGLf6Q9KIQsYR3mOmiQNlDaxMLDOx9xL0=" crossorigin="anonymous" />
-
-          <script>
-            var require = {
-              paths: {
-                "vs": "/vendor/monaco-editor-0.44.0/min/vs"
-              }
-            };
-          </script>
-          <script src="/vendor/monaco-editor-0.44.0/min/vs/loader.js"></script>
-          <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.nls.js"></script>
-          <script src="/vendor/monaco-editor-0.44.0/min/vs/editor/editor.main.js"></script>
-
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
-
-          <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
-
-          <script type="text/javascript" src="/subfunction/readLocalFile.js"></script>
-
-          <script type="module" src = "/config/config.js"></script>
-          <script type="module" src="/js/ide.js"></script>
-
-          <link type="text/css" rel="stylesheet" href="/css/Ide/ide.css">
-
-          <!-- etc -->
-          <link type="text/css" rel="stylesheet" href="/css/nav.css">
-          <link type="text/css" rel="stylesheet" href="/css/codingTestProblem.css" >
-          <script type="module" src="/js/levelBoxStyle.js"></script>
-          <script type="module" src="/js/codingTest.js"></script>
-
-
-        </head>
-        <body>
-
-        <!-- <div th:include="navbar :: nav"></div> -->
-        <div th:replace="~{navbar::nav}"></div>
-
-        <div class="h-full p-2 text-white ">
-          <div class="d-flex justify-content-between align-items-center mb-1">
-            <div class="d-flex align-items-center">
-              <div class="fw-bold rounded-pill problem-info" id="levelDisplay" th:text="${problemLevel}"> Level </div>
-              <div class="rounded-pill problem-info" th:if="${problemTopic}" th:text="${problemTopic}"> Topic </div>
-            </div>
-            <div class="d-inline-block" role="group">
-              <!-- th:onclick 추가 필요 -->
-              <button type="button" class="btn top-btn" id="run-btn">Run</button>
-              <button type="button" class="btn top-btn" id="submit-btn">Submit</button>
-            </div>
-          </div>
-
-          <div class="container-fluid" id="container-box">
-            <div class="row h-full justify-content-between">
-              <div class="col h-full p-3 me-1 rounded-3 content-box">
+    <div class="container-fluid" id="container-box">
+        <div class="row h-full justify-content-between">
+            <div class="col h-full p-3 me-1 rounded-3 content-box problem-id" th:data-id="${problemId}">
                 <h2 th:text="${problemTitle}">Problem Title</h2>
                 <p th:text="${problemDescription}">Problem Description</p>
-              </div>
+            </div>
 
-              <!-- IDE -->
-              <div class="col h-full p-3 ms-1 rounded-3 content-box">
+            <!-- IDE -->
+            <div class="col h-full p-3 ms-1 rounded-3 content-box">
                 <div id="site-navigation" class="ui small inverted menu">
-                  <div class="left menu">
-                    <div class="hidden">
-                      <div class="import"></div>
-                      <div class="download"></div>
-                    </div>
-                    <input id="command-line-arguments" type="text" placeholder="Command line arguments"/>
-                    <div class="item borderless">
-                      <select id="select-language" class="ui dropdown">
-                        <option value="" selected>Select Language</option>
-                        <option value="62" mode="java">Java (OpenJDK 13.0.1)</option>
-                        <option value="1004" mode="java">Java (OpenJDK 14.0.1)</option>
-                        <option value="1005" mode="java">Java Test (OpenJDK 14.0.1, JUnit Platform Console Standalone 1.6.2)</option>
-                        <option value="63" mode="javascript">JavaScript (Node.js 12.14.0)</option>
-                        <option value="1008" mode="python">MPI (OpenRTE 3.1.3) with Python (3.7.3)</option>
-                        <option value="1009" mode="python">Nim (stable)</option> <!-- Replacement mode. Help needed. -->
-                        <option value="70" mode="python">Python (2.7.17)</option>
-                        <option value="71" mode="python">Python (3.8.1)</option>
-                        <option value="1010" mode="python">Python for ML (3.7.3)</option>
-                        <option value="82" mode="sql">SQL (SQLite 3.27.2)</option>
+                    <div class="left menu">
+                        <div class="hidden">
+                            <div class="import"></div>
+                            <div class="download"></div>
+                        </div>
+                        <input id="command-line-arguments" type="text" placeholder="Command line arguments"/>
+                        <div class="item borderless">
+                            <select id="select-language" class="ui dropdown">
+                                <option value="" selected>Select Language</option>
+                                <option value="62" mode="java">Java (OpenJDK 13.0.1)</option>
+                                <option value="1004" mode="java">Java (OpenJDK 14.0.1)</option>
+                                <option value="1005" mode="java">Java Test (OpenJDK 14.0.1, JUnit Platform Console
+                                    Standalone 1.6.2)
+                                </option>
+                                <option value="63" mode="javascript">JavaScript (Node.js 12.14.0)</option>
+                                <option value="1008" mode="python">MPI (OpenRTE 3.1.3) with Python (3.7.3)</option>
+                                <option value="1009" mode="python">Nim (stable)</option>
+                                <!-- Replacement mode. Help needed. -->
+                                <option value="70" mode="python">Python (2.7.17)</option>
+                                <option value="71" mode="python">Python (3.8.1)</option>
+                                <option value="1010" mode="python">Python for ML (3.7.3)</option>
+                                <option value="82" mode="sql">SQL (SQLite 3.27.2)</option>
 
-                      </select>
-                    </div>
+                            </select>
+                        </div>
 
-                    <div id="navigation-message" class="item borderless">
-                      <span class="navigation-message-text"></span>
+                        <div id="navigation-message" class="item borderless">
+                            <span class="navigation-message-text"></span>
+                        </div>
                     </div>
-                  </div>
                 </div>
 
                 <div id="site-content"></div>
 
                 <div class="modal" id="site-modal" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header header">
+                                <i class="close icon"><span style="width: 50px" class="ms-3" id="title"></span></i>
+                            </div>
 
-                      <div class="modal-header header">
-                        <i class="close icon"><span class="ms-3" id="title"></span></i>
-                      </div>
+                            <div class="modal-body scrolling content"></div>
 
-                      <div class="modal-body scrolling content"></div>
-
-                      <div class="modal-footer actions">
-                        <div class="ui small labeled icon cancel button">
-                          <i class="remove icon"></i>
-                          Close (ESC)
+                            <div class="modal-footer actions">
+                                <div class="ui small labeled icon cancel button">
+                                    <i class="remove icon"></i>
+                                    Close (ESC)
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
 
-              </div>
-            </div>
 
-          </div>
-        </div>
-
-
-        </body>
-        </html>
-
-        <div id="site-content"></div>
-
-        <div class="modal" id="site-modal" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-              <div class="modal-header header">
-                <i class="close icon"><span class="ms-3" id="title"></span></i>
-              </div>
-
-              <div class="modal-body scrolling content"></div>
-
-              <div class="modal-footer actions">
-                <div class="ui small labeled icon cancel button">
-                  <i class="remove icon"></i>
-                  Close (ESC)
+                <div class="modal" tabindex="-1" id="result-modal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" id="result-modal-content">
+                            <div class="modal-header" id="result-modal-header">
+                                <h5 class="modal-title" id="result-modal-title">Modal title</h5>
+                            </div>
+                            <div class="modal-body" id="result-modal-body">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                            <div class="modal-footer" id="result-modal-footer">
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
             </div>
-          </div>
         </div>
 
-      </div>
     </div>
-
-  </div>
 </div>
 
 
