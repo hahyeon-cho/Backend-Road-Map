@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Test</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+/*.block-color-default {*/
+/*	color: inherit;*/
+/*	fill: inherit;*/
+/*}*/
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+/*.select-value-color-pageGlass { background-color: undefined; }*/
+/*.select-value-color-washGlass { background-color: undefined; }*/
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	/*width: 16;*/
+	/*height: 16;*/
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bd982a24-e943-4c80-a1c5-d4cac1233f59" class="page sans"><header><h1 class="page-title">Test</h1><p class="page-description"></p></header><div class="page-body"><p id="9d092d02-1427-4597-8524-638bb3fba6dd" class="">
+</p><h2 id="fba44811-ffb5-404d-9f2e-155e698e975d" class="">Test Code 란?</h2><ul id="6000550e-856d-4549-9557-e9924da2a34c" class="bulleted-list"><li style="list-style-type:disc">Test Code를 통해 software의 기능과 동작의 결함을 사전에 발견하고 수정함으로써, 실제 사용자가 소프트웨어를 사용하는 중에 문제가 발생하는 것을 방지할 수 있다.</li></ul><ul id="89b8d913-c24c-4102-8c5a-01f227c1df37" class="bulleted-list"><li style="list-style-type:disc">클래스간의 결합도와 의존성을 테스트 할 수 있다.</li></ul><ul id="9f2c1678-af68-4f55-8baa-240a13370923" class="bulleted-list"><li style="list-style-type:disc">개발자간 협업을 원활하게 하고 유지 보수에 필요한 문서화 작업을 줄일 수 있다.</li></ul><p id="9538db03-f5c7-4bb1-937b-43e674fa9099" class="">
+</p><p id="d83626f1-d549-492a-bbba-eb2d7c794aef" class="">
+</p><p id="4b157e38-c591-4390-939d-d754b6177640" class="">
+</p><figure id="f65b6a7e-6b6c-4728-bc04-cc36b28f2035" class="image"><a href="DataSet/Test/Untitled.png"><img style="width:576px" src="DataSet/Test/Untitled.png"/></a></figure><p id="d29e2113-b30f-45f6-a6eb-fea474a75bff" class="">                  &lt;출처 : <a href="https://www.geeksforgeeks.org/software-engineering-sdlc-v-model/">https://www.geeksforgeeks.org/software-engineering-sdlc-v-model/</a>&gt;</p><p id="303c44b3-d192-40c4-bebc-3d74d2823a8d" class="">
+</p><p id="a2c1d01d-402c-49b4-91e5-c22ca55a681a" class="">
+</p><p id="77550c46-fa07-4b8e-b730-46f30ff27e99" class="">
+</p>
+    <div class="0">
+        <h2 id="da6d47c5-6bf7-4b34-880e-24f6e76d8ccc" class="">Integration Test</h2><ul id="3260246b-0c87-4109-baf5-ecafa0aeb321" class="bulleted-list"><li style="list-style-type:disc">서로 다른 모듈 간의 상호작용을 테스트하는 과정</li></ul><ul id="efc11ca8-9460-467c-9c3f-839ae84207c8" class="bulleted-list"><li style="list-style-type:disc">모듈 간 인터페이스 테스트, 시스템 레벨 테스트 등의 방법으로 수행</li></ul><p id="41073c4f-e3ab-4da6-a293-07c3b6004ea7" class="">
+        </p><p id="0bd99579-be7a-4629-9ca4-cfdba94aef0f" class="">
+        </p>
+    </div>
+
+    <div class="1">
+        <h2 id="4172d102-7806-4ebb-8cbd-7feb9107ff7d" class="">Unit Test</h2><ul id="e1838e97-9b91-4b88-b1d7-01cd4b6aa2eb" class="bulleted-list"><li style="list-style-type:disc">개별적인 코드 단위(메서드)가 의도한 대로 동작하는지 확인하는 과정</li></ul><ul id="5c24c31f-2e5b-43f1-904e-63e729f52044" class="bulleted-list"><li style="list-style-type:disc">각각의 코드 단위가 정확한 입력값과 출력값을 반환하는지 확인</li></ul><p id="1fd19977-6dea-4726-8a28-01f95467c28f" class="">
+        </p><p id="6bc89cde-e22a-41ff-b7fb-4330ee20b018" class=""></p>
+    </div>
+
+    <div class="2">
+        <h2 id="a6fb7c89-eef5-4abf-9021-0fdb93f9665b" class="">Functional Test</h2><ul id="e1e3575b-a2b4-43ec-9e56-86efb3413c3d" class="bulleted-list"><li style="list-style-type:disc">어떤 어플리케이션이 제대로 동작하는지 완전한 기능을 테스트하는 것</li></ul><p id="a73813de-c69b-4346-b6c0-be5ebf30f401" class="">
+        </p><p id="229ffc30-80a4-4fd9-a8e3-f1e81a333733" class="">
+        </p><p id="f903da50-67cc-4acc-bf61-a4189ce5e3c4" class="">
+        </p><p id="5c7ad904-d115-4364-951b-2ecb23409635" class="">
+        </p><h3 id="7302085b-47e1-44dd-b683-29aa148732ae" class="">테스트 코드 작성의 이점</h3><ol type="1" id="c9b37a65-9a2e-4c2c-b142-78ae7d88a916" class="numbered-list" start="1"><li><strong>어떤 애플리케이션을 만드는지 정확한 인지</strong> : 테스트 코드 작성을 통해 요구사항 기능을 정리하고 코너 케이스 (Corner case)를 찾고 문서화 가능</li></ol><ol type="1" id="d5750484-a48b-4ab2-8344-02ca4d3cd4a6" class="numbered-list" start="2"><li><strong>리팩토링 진행시 부담 덜기 </strong>: 코드 수정 후에도 기능이 정상적으로 작동하는지 검증할 수 있으므로 개발자의 불안감 감소</li></ol><ol type="1" id="3f4a384a-f6e6-4ecc-b579-cbf1da101dd3" class="numbered-list" start="3"><li><strong>결합도와 의존성이 낮은 코드 지향</strong> : 의존성이 높은 부분을 찾고 개선함으로써 프로젝트 코드 품질 향상</li></ol><p id="0631b360-3fcc-4d66-97e4-986999559eab" class="">
+        </p><p id="f417984f-546f-4939-b59a-fc1e766bbe58" class="">
+        </p><p id="4503f739-c159-492d-8c27-c0c5f4d66c45" class="">
+        </p><p id="85822e8a-e02b-4a8a-94f3-8aeff224bbf6" class="">
+        </p><h3 id="63b92957-2d5d-402e-a95f-36d7ed1bc1db" class="">Test 작성에 자주 사용하는 라이브러리</h3><ol type="1" id="8a22ffb1-6168-4752-bd2f-767b2e2a550a" class="numbered-list" start="1"><li><strong>AssertJ </strong>: 자바 테스트를 돕기 위해 메서드 체이닝을 통해 읽기 쉬운 테스트 코드 작성 가능<ul id="a438632d-6f8e-43e7-a67e-74007f985836" class="bulleted-list"><li style="list-style-type:disc">참고 :<a href="https://assertj.github.io/doc/"> https://assertj.github.io/doc/</a></li></ul></li></ol><p id="ca73f172-de91-4fe0-b7fc-b714bc6786ec" class="">
+        </p><p id="2ec9ad5c-6a6d-4ec1-9ee5-b29a723e5c51" class="">
+        </p><ol type="1" id="d95ec477-8fb1-4f8e-baf9-8bf405df53d4" class="numbered-list" start="2"><li><strong>Junit </strong>: 자바 프로젝트를 위한 단위 테스트 프레임워크<ul id="ac2550c7-7614-4579-bb6b-237bf9e05f8e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://junit.org/junit5/">https://junit.org/junit5/</a> </li></ul></li></ol><p id="a20408a1-826d-4957-acab-2cf041a97384" class="">
+        </p><p id="6c2d26fa-8ea8-42e0-a906-4c1a8352c789" class="">
+        </p><ol type="1" id="daebcbf1-c150-4736-b236-8bd3d4cc40d5" class="numbered-list" start="3"><li><strong>Mokito </strong>: 자바 오픈소스 테스트 프레임워크, 실제 객체를 모방한 가짜 객체 (Mock 객체)를 생성하여 편리한 테스트가 가능 <ul id="4a7a397f-e2de-4dfb-9da5-f82da16bfbe2" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://site.mockito.org/">https://site.mockito.org/</a></li></ul><ul id="08c86f76-4560-4775-b56f-cb0a10b46d05" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://www.nextree.io/mockito/">https://www.nextree.io/mockito/</a></li></ul></li></ol><p id="c439e963-4bcc-4a2c-aa09-ec24f04345bf" class="">
+        </p><p id="1fbf2bc0-7064-4872-9d89-08da3b090f11" class="">
+        </p><p id="75ce99c7-a7e1-453a-ab2d-74b98485abfe" class="">
+        </p><p id="7593eb7f-9ea7-4068-b1b2-36fe218e77aa" class="">
+        </p><ul id="19ff6b83-dde7-434c-a486-8af583efb7a6" class="bulleted-list"><li style="list-style-type:disc">출처 : <a href="https://yozm.wishket.com/magazine/detail/1964/">https://yozm.wishket.com/magazine/detail/1964/</a></li></ul><ul id="bdb69878-f3b0-4f07-824a-d68fa7fef21e" class="bulleted-list"><li style="list-style-type:disc">참고 : <a href="https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/">https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/</a></li></ul><p id="63d2ca32-bb5c-4e43-baa4-4fafe2faf92c" class="">
+        </p>
+    </div>
+</div>
+</article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

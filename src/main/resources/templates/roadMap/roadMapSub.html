@@ -1,69 +1,131 @@
+<!--메인 페이지-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Roadmap</title>
     <link rel="stylesheet" href="/css/RoadMap/roadMapsub.css">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <!--파비콘-->
+    <link rel="icon" href="/images/favicon.svg">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/login.js"></script>
+
 </head>
-<body class="sb-nav-fixed">
+<body>
+<script src="/js/home.js"></script>
+<!--메인페이지 네비게이션 바-->
+<div class ="main-container">
+    <div class ="mainNav">
+        <div class="maintitle">
+            <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
+        </div>
+        <div class="nav">
+            <!--로그인 전 -->
+            <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+            <div class="logoutbtn">
+                <a th:unless="${userName != null}" href="/login">Login</a>
+                <a th:if="${userName != null}" href="/logout">Logout</a>
+            </div>
+            <!--로그인 후 userpicture, 로그인버튼 -> 로그인으로 변경-->
+        </div>
+    </div>
+</div>
+<div style="background:black; display: flex; justify-content: space-between;">
+    <div id="maincategory-name" style="margin-left: 20px;">
+        <h1 id="categoryTitle" style="color:white; font-weight:1000; font-size:400%">Internet</h1>
+        <h4 style="color:#9FBCE9"><I>Backend RoadMap</I></h4>
+    </div>
+    <div style="margin-right: 20px;">
+        <div class="container">
+            <button id="bookButton" popovertarget="mydiv" style="background:black; border:none">
+                <img src="/images/lamp.svg" style="background:black; border:none">
+            </button>
+            <script>
+                $(document).ready(function() {
+                    $('#bookButton').click(function() {
+                        var currentImage = $(this).find('img').attr('src');
+                        var newImage = currentImage === '/images/lamp.svg' ? '/images/aladdin.svg' : '/images/lamp.svg';
+                        $(this).find('img').attr('src', newImage);
+                    });
+
+                    $('#mydiv button').click(function() {
+                        $('#bookButton img').attr('src', '/images/lamp.svg');
+                    });
+                });
+            </script>
+            <div popover="" id="mydiv" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:68%; transform: translate(0, -50%); max-width: 500px;">
+                <h2>도서 판매량 TOP3</h2>
+                <hr>
+                <div id="bookItems">
+                    <p>메인 카테고리 선택하세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--서브 카테고리 페이지-->
 <div id="layoutSidenav">
     <!-- mainCategory 선택 -->
-    <div id="layoutSidenav_nav">
+    <div id="layoutSidenav_nav line-stamp">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <a class="nav-link 1" href="#" data-id="1">Internet</a>
-                    <a class="nav-link" href="#" data-id="2">Basic FE</a>
-                    <a class="nav-link" href="#" data-id="3">OS</a>
-                    <a class="nav-link" href="#" data-id="4">Langugage</a>
-                    <a class="nav-link" href="#" data-id="5">Algorithm</a>
-                    <a class="nav-link" href="#" data-id="6">Using Git</a>
-                    <a class="nav-link" href="#" data-id="7">Github & GitLab</a>
-                    <a class="nav-link" href="#" data-id="8">Relational DB</a>
-                    <a class="nav-link" href="#" data-id="9">NoSQL DB</a>
-                    <a class="nav-link" href="#" data-id="10">DB Knowledge</a>
-                    <a class="nav-link" href="#" data-id="11">APIs</a>
-                    <a class="nav-link" href="#" data-id="12">Framework</a>
-                    <a class="nav-link" href="#" data-id="13">Caching</a>
-                    <a class="nav-link" href="#" data-id="14">Web Security</a>
-                    <a class="nav-link" href="#" data-id="15">Test</a>
-                    <a class="nav-link" href="#" data-id="16">CI/CD</a>
-                    <a class="nav-link" href="#" data-id="17">Design Pattern</a>
-                    <a class="nav-link" href="#" data-id="18">Search Engines</a>
-                    <a class="nav-link" href="#" data-id="19">Container</a>
-                    <a class="nav-link" href="#" data-id="20">Web server</a>
+            <div class="sb-sidenav-menu category">
+                <div class="nav" style="background-color: black">
+                    <div class="container">
+                        <div class="wrapper" style="background-color: black">
+                            <ul class="sessions">
+                                <li><a class="nav-link" href="#" data-id="1">Internet</a></li>
+                                <li><a class="nav-link" href="#" data-id="2">Basic FE</a></li>
+                                <li><a class="nav-link" href="#" data-id="3">OS</a></li>
+                                <li><a class="nav-link" href="#" data-id="4">Langugage</a></li>
+                                <li><a class="nav-link" href="#" data-id="5">Algorithm</a></li>
+                                <li><a class="nav-link" href="#" data-id="6">Using Git</a></li>
+                                <li><a class="nav-link" href="#" data-id="7">Github & GitLab</a></li>
+                                <li><a class="nav-link" href="#" data-id="8">Relational DB</a></li>
+                                <li><a class="nav-link" href="#" data-id="9">NoSQL DB</a></li>
+                                <li><a class="nav-link" href="#" data-id="10">DB Knowledge</a></li>
+                                <li><a class="nav-link" href="#" data-id="11">APIs</a></li>
+                                <li><a class="nav-link" href="#" data-id="12">Framework</a></li>
+                                <li><a class="nav-link" href="#" data-id="13">Caching</a></li>
+                                <li><a class="nav-link" href="#" data-id="14">Web Security</a></li>
+                                <li><a class="nav-link" href="#" data-id="15">Test</a></li>
+                                <li><a class="nav-link" href="#" data-id="16">CI/CD</a></li>
+                                <li><a class="nav-link" href="#" data-id="17">Design Pattern</a></li>
+                                <li><a class="nav-link" href="#" data-id="18">Search Engines</a></li>
+                                <li><a class="nav-link" href="#" data-id="19">Container</a></li>
+                                <li><a class="nav-link" href="#" data-id="20">Web server</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </div>
     <!-- subCategory 박스 -->
-    <div id="layoutSidenav_content">
+    <div id="layoutSidenav_content" style="background-color: #C0C0C0;">
         <main>
-            <div class="container-fluid px-4" id="subcategory">
-                <section class="page-section portfolio" id="portfolio">
-                    <div class="container">
-                        <button popovertarget="mydiv">도서추천</button>
-                        <div popover id="mydiv">
-                            <h2>도서 판매량 TOP3</h2>
-                            <hr>
-                            <div id="bookItems">
-                                <p>메인 카테고리 선택하세요.</p>
-                            </div>
-                            <button popovertarget="mydiv" popovertargetaction="hide">Close</button>
-                        </div>
-                        <button popovertarget="mydiv1">Quiz</button>
-                        <div popover id="mydiv1">
-                            <div id="quiz">
-                                <p>메인 카테고리 선택하세요.</p>
-                            </div>
-                        </div>
+            <div class="container-fluid px-4" id="subcategory" style="background-color:transparent;">
+                <button popovertarget="mydiv1">Quiz</button>
+                <div popover="" id="mydiv1">
+                    <div id="quiz">
+                        <p>메인 카테고리 선택하세요.</p>
                     </div>
+                </div>
+                <section class="page-section portfolio" id="portfolio" style="background-color:transparent;">
+
                     <div class="container">
-                        <div class="row justify-content-center" id="portfolioItems"></div>
+                        <div class="row justify-content-center" id="portfolioItems">
+
+                        </div>
                     </div>
                 </section>
             </div>
@@ -75,96 +137,123 @@
 <div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-header border-0">
+                <!-- 좋아요 버튼 -->
+                <div id='heart' class='button'></div>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <hr>
             <div class="modal-body text-center pb-5" id="portfolioModalContent">
-
             </div>
         </div>
     </div>
 </div>
+
 <script>
-   
     $(document).ready(function() {
+        $('.nav-link').click(function(e) {
+            e.preventDefault();
+            var categoryId = $(this).data('id');
+            var categoryTitle = $(this).text(); // 클릭한 카테고리의 텍스트 가져오기
+            var apiUrl = 'http://localhost:8080/api/roadmap/sub/' + categoryId;
 
-        window.onpopstate = function (event) {
-            var urlParams = new URLSearchParams(window.location.search);
-            var dataId = urlParams.get('dataId');
-            if (dataId !== null) {
-                fetchData(dataId);
-            }
-        };
-        //대분류 선택
-        $(document).ready(function () {
-            $('.nav-link').click(function (e) {
-                e.preventDefault();
-                var dataId = $(this).data('id');
-                var newUrl = window.location.origin + '/roadmap/subcategory?dataId=' + dataId;
-                history.pushState({}, '', newUrl);
-                fetchData(dataId);
-            });
+            $('#categoryTitle').text(categoryTitle);
 
-            function fetchData(dataId) {
-                // AJAX
-                $.getJSON('http://localhost:8080/api/roadmap/sub/' + dataId, function (data) {
+            // ajax
+            $.getJSON(apiUrl, function(data) {
+                // subCategory 박스
+                $('#portfolioItems').empty();
+                data.subCategory.forEach(function(subCategory, index) {
+                    var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
+                    html += '<div style="margin:20px; background-color: white; border: 2px solid #D9D9D9; border-radius: 10px; padding: 20px;">';
+                    html += '<h2>' + subCategory.subDocsTitle + '</h2>';
+                    html += '<p>' + subCategory.subDescription + '</p><hr>';
+                    html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    var $portfolioItem = $(html);
 
-                    $('#portfolioItems').empty();
-                    data.subCategory.forEach(function (subCategory, index) {
-                        var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
-                        html += '<div style="margin:20px; background-color: gray; padding: 20px;">';
-                        html += '<h2>' + subCategory.subDocsTitle + '</h2>';
-                        html += '<p>' + subCategory.subDescription + '</p>';
-                        html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
-                        html += '</div>';
-                        html += '</div>';
-                        var $portfolioItem = $(html);
+                    $portfolioItem.click(function() {
+                        var index = $(this).data('index');
 
-                        $portfolioItem.click(function () {
-                            var index = $(this).data('index');
-
-                            // html 출력
-                            $.get(data.url, function (htmlData) {
-                                console.log(data.url);
-                                var selectedContent = $(htmlData).find('div.' + index).html();
-                                $('#portfolioModalContent').html(selectedContent);
-                            });
-
-                            $('#portfolioModal').modal('show');
-
+                        // 설명 html 출력
+                        $.get(data.url, function(htmlData) {
+                            console.log(data.url);
+                            var selectedContent = $(htmlData).find('div.' + index).html();
+                            $('#portfolioModalContent').html(selectedContent);
                         });
 
-                        $('#portfolioItems').append($portfolioItem);
+                        // console.log(index);
+                        $(document).ready(function() {
+                            // 좋아요 버튼 클릭 이벤트
+                            $('#heart').click(function() {
+                                // 좋아요 토글 요청 보내기
+                                toggleLike(index);
+                                // 좋아요 상태 변경
+                                $(this).toggleClass('clicked');
+                            });
+
+                            // 좋아요 토글 함수
+                            function toggleLike(subCategoryId) {
+                                // 백엔드로 좋아요 토글 요청 보내기
+                                $.ajax({
+                                    url: '/api/like/' + index+1,
+                                    type: 'POST',
+                                    success: function(response) {
+                                        console.log(response);
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error(xhr.responseText);
+                                    }
+                                });
+                            }
+                        });
+
+                        $('#portfolioModal').modal('show');
+
                     });
 
-                    //도서추천
-                    $('#bookItems').empty();
-                    data.recommendBookDtos.forEach(function (book, index) {
-                        var html = '<div>';
-                        html += '<h4>' + book.bookTitle + '</h4>';
-                        html += '<p>' + book.bookAuthor + '</p>';
-                        html += '<img src="' + book.bookImage + '" alt="' + book.bookTitle + '">';
-                        html += '<p>' + book.publisher + '</p>';
-                        html += '</div>';
-                        var $bookItems = $(html);
-
-                        $('#bookItems').append($bookItems);
-                    });
+                    $('#portfolioItems').append($portfolioItem);
 
                 });
 
+                // 도서추천
+                $('#bookItems').empty();
+                data.recommendBookDtos.forEach(function(book, index) {
+                    var html = '<div style="width:450px;">';
+                    html += '<div class="book1">';
+                    html += '<div class="book2"><img width="100px"; height="150" src="' + book.bookImage + '" alt="' + book.bookTitle + '"></div>';
+                    html += '<div class="book2" style="width:250px; text-align: left; padding-left:10px; font-weight: bold ;">';
+                    html += '<p>' + book.bookTitle + '</p>';
+                    html += '<p>' + book.bookAuthor + '</p>';
+                    html += '<p>' + book.publisher + '</p></div></div>';
+                    html += '</div>';
+                    var $bookItems = $(html);
 
+                    $('#bookItems').append($bookItems);
+                });
 
-            }
-            //roadMapMain에서 대분류 클릭 정보 받아옴
-            var urlParams = new URLSearchParams(window.location.search);
-            var dataId = urlParams.get('dataId');
-            if (dataId !== null) {
-                fetchData(dataId);
-            }
-
+                // 퀴즈
+                // $('#quiz').empty();
+                // data.recommendBookDtos.forEach(function(book, index) {
+                //     var html = '<div style="width:450px;">';
+                //     html += '<div class="book1">';
+                //     html += '<div class="book2"><img width="100px"; height="150" src="' + book.bookImage + '" alt="' + book.bookTitle + '"></div>';
+                //     html += '<div class="book2" style="width:250px; text-align: left; padding-left:10px; font-weight: bold ;">';
+                //     html += '<p>' + book.bookTitle + '</p>';
+                //     html += '<p>' + book.bookAuthor + '</p>';
+                //     html += '<p>' + book.publisher + '</p></div></div>';
+                //     html += '</div>';
+                //     var $quiz = $(html);
+                //
+                //     $('#quiz').append($quiz);
+                // });
+            });
         });
     });
 
-</script>
 
+
+</script>
 </body>
 </html>

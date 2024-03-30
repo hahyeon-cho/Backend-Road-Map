@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
+import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,9 +37,12 @@ public class FileDownloadController {
     private String fileDir;
 
     @PostMapping("/upload/{id}")
-    public ResponseEntity<?> uploadFile(@PathVariable Long id, @RequestParam("file") MultipartFile file,
+    public ResponseEntity<?> uploadFile(@PathVariable Long id, @LoginUser SessionUser user,
+                                        @RequestParam("file") MultipartFile file,
                                         @RequestParam("fileName") String fileName,
                                         @RequestParam("extension") String extension) {
+        loginValidate(user);
+
         // 파일이 비어있는지 확인
         if (file.isEmpty()) {
             return new ResponseEntity<>("파일을 선택해주세요", HttpStatus.BAD_REQUEST);
@@ -66,5 +72,11 @@ public class FileDownloadController {
             log.error("Error uploading web-compiler: {}", e.getMessage());
         }
         return null;
+    }
+
+    private static void loginValidate(SessionUser user) {
+        if (user == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
     }
 }

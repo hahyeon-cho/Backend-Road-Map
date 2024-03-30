@@ -26,9 +26,7 @@ public class QuizService {
         if (quizAnswers.size() != userAnswers.size()) {
             throw new IllegalArgumentException("제출 답변 개수 다릅니다.");
         }
-
         AtomicInteger correctCount = new AtomicInteger(0);
-
         for (int i = 0; i < quizAnswers.size(); i++) {
             String userAnswer = userAnswers.get(i);
             String quizAnswer = quizAnswers.get(i);
@@ -37,7 +35,6 @@ public class QuizService {
                 correctCount.incrementAndGet();
             }
         }
-
         return correctCount.get() > (quizAnswers.size() / 2);
     }
 

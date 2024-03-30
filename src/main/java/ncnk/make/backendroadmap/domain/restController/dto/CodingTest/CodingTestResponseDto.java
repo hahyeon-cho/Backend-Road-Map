@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
@@ -19,7 +20,7 @@ public class CodingTestResponseDto {
     private Double problemAccuracy;
     private String problemContents;
     private List<String> problemImages;
-    private String problemInputOutput;
+    private List<String> problemInput;
     private List<String> problemTopics;
 
     private CodingTestResponseDto(CodingTest codingTest) {
@@ -29,7 +30,7 @@ public class CodingTestResponseDto {
         this.problemAccuracy = codingTest.getProblemAccuracy();
         this.problemContents = codingTest.getProblemContents();
         this.problemImages = codingTest.getProblemImages();
-        this.problemInputOutput = selectInputOutput(codingTest);
+        this.problemInput = selectInputOutput(codingTest);
         this.problemTopics = codingTest.getProblemTopics();
     }
 
@@ -38,8 +39,10 @@ public class CodingTestResponseDto {
     }
 
     // 예상 입출력은 1개만 주어진다.
-    public String selectInputOutput(CodingTest codingTest) {
+    public List<String> selectInputOutput(CodingTest codingTest) {
         ObjectMapper mapper = new ObjectMapper();
+        List<String> expectInputOutput = new CopyOnWriteArrayList<>();
+
         try {
             // LinkedHashMap 객체를 JSON 문자열로 변환
             String json = mapper.writeValueAsString(codingTest.getProblemInputOutput());
@@ -49,11 +52,14 @@ public class CodingTestResponseDto {
 
             // 예상 입출력 중 첫 번째의 출력값을 반환
             if (!answers.isEmpty()) {
+                String input = answers.get(0).getInput();
                 String output = answers.get(0).getOutput();
-                return output;
+                expectInputOutput.add(input);
+                expectInputOutput.add(output);
+                return expectInputOutput;
             } else {
                 log.error("Empty input/output list");
-                return "";
+                throw new JsonParsingException();
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage());

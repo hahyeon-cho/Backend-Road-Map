@@ -10,7 +10,7 @@ import java.util.List;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
-import ncnk.make.backendroadmap.domain.repository.QuizRepository;
+import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

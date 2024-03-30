@@ -37,11 +37,15 @@ public class MemberService {
         Member updateMember = member.updateMember(updateRequestDto.getProfile(),
                 updateRequestDto.getNickName(),
                 updateRequestDto.getGithub());
-                updateRequestDto.getProfile();
+        updateRequestDto.getProfile();
 
         log.info("Member 프로필 수정 성공");
 
         return updateMember.getMemberId();
+    }
+
+    public void updateLevel(Member member) {
+        member.updateLevel();
     }
 
     public List<Member> findTop5Point() {
@@ -58,6 +62,6 @@ public class MemberService {
     //이메일 이용해 회원 정보 조회
     public Member findMemberByEmail(String email) {
         return memberRepository.findMemberByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .orElseThrow( () -> new ResourceNotFoundException() );
     }
 }
