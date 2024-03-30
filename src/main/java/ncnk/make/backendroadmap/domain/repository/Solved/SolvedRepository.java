@@ -13,4 +13,6 @@ public interface SolvedRepository extends JpaRepository<Solved, Long>, SolvedCus
     Optional<Solved> findSolvedByCodingTestAndMember(CodingTest codingTest, Member member); //문제 풀이 PK를 통해 해당 풀이 여부 검색
 
     boolean existsByCodingTestAndMember(CodingTest codingTest, Member member);
+
+//    Optional<Solved> findSolvedByCodingTestAndMember(CodingTest codingTest, Member member);
 }

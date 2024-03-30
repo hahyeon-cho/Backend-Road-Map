@@ -6,33 +6,14 @@
           href="http://example.com/myicon.png">
     <meta charset="UTF-8">
     <title>메인 화면</title>
-    <link type="text/css" rel="stylesheet" href="/css/login.css">
-    <link href="/css/nav.css" rel="stylesheet" />
-</head>
+    <link href="/css/Login/login.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css"></head>
 <body>
 
 <!-- 네비게이션 바 -->
-<div th:fragment="nav">
-    <div class="main-container">
-        <div class="mainNav">
-            <div class="maintitle">
-                <a class="navbar-brand" aria-current="page"  href="/" >
-                    <img src="/img/navlogo.jpg" alt="nav"></a>
-                <div class="navbar-menu" id="menu">
-                    <ul class="navbar-nav">
-                        <li class="nav-rm"><a class="nav-link" href="/roadmap">RoadMap</a></li>
-                        <li class="nav-pt"><a class="nav-link" href="/practice">Practice</a></li>
-                        <li class="nav-ct"><a class="nav-link" href="/codingtest">Coding Test</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="nav">
-                <a href="/login">Login</a>
-            </div>
-        </div>
-        <header id="main-header"></header>
-    </div>
-</div>
+<div th:replace="~{navbar::nav}"></div>
+
 
 <!-- 로그인 화면 -->
 <div class="container">
@@ -45,18 +26,18 @@
             Login
         </div>
         <div class="bar-1"></div>
+            ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
         <div class="row">
             <div class="button-container" th:unless="${userName}">
                 <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/google'">
                     <img class="sns-img" width="250" height="50" src="/img/google.png" alt="Google Login"/>
                 </button>
-<!--                <div th:unless="${userName}">-->
-<!--                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
-<!--                    <img class="sns-img" width="250" height="50" src="/img/google.png" alt="Google Login"/>-->
             <div class="button-container" th:unless="${userName}">
                 <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/naver'">
-                    <img class="sns-img" width="250" height="50" src="../../img/naver.jpeg" alt="Naver Login"/>
+                    <img class="sns-img" width="250" height="50" src="/img/naver.jpeg" alt="Naver Login"/>
                 </button>
+                <div class="button-container" th:unless="${userName}">
                 <button class="sns-btn" type="button" onclick="location.href='/oauth2/authorization/kakao'">
                     <img class="sns-img" width="250" height="50" src="/img/kakao.jpeg" alt="Kakao Login"/>
                 </button>
@@ -65,5 +46,10 @@
     </div>
 </div>
 </div>
+</div>
+
+
+<div th:replace="footer :: footer"></div>
+
 </body>
 </html>

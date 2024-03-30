@@ -38,7 +38,6 @@ public class LeetCodeCrawling {
     public Optional<CodingTestProblem> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver)
             throws JSONException {
         String slug = problem.getJSONObject("stat").getString("question__title_slug");
-        log.info("slug ={}", slug);
         try {
             List<String> imagePaths = new ArrayList<>();
             long acs = problem.getJSONObject("stat").getLong("total_acs");
@@ -46,19 +45,17 @@ public class LeetCodeCrawling {
             double correctRate = calCorrectRate(acs, submitted);
             driver.get(PROBLEMS_BASE_URL + slug);
 
-            log.info("--------Before--------driver.getTitle() ={}", driver.getCurrentUrl());
             new WebDriverWait(driver, Duration.ofSeconds(20))
                     .until(ExpectedConditions.presenceOfElementLocated(
                             By.cssSelector("[data-track-load='description_content']")));
 
-            log.info("driver.getTitle() ={}", driver.getCurrentUrl());
             Document doc = Jsoup.parse(driver.getPageSource());
             Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
 
             String contents = contentsElement.outerHtml();
-            log.info("contents ={}", contents);
+            log.warn("contents: {}", contents); //TODO
 
-            Elements imgElements = contentsElement.select("img");
+            Elements imgElements = contentsElement.select("static/img");
             if (!imgElements.isEmpty()) {
                 String imgDir = "src/main/resources/images/algorithm/" + slug;
                 for (Element img : imgElements) {
@@ -85,18 +82,16 @@ public class LeetCodeCrawling {
                     level = "Easy";
                     break;
             }
-
-            Elements preData = contentsElement.select("pre");
-            List<CodingTestAnswer> exlist = getExamples(preData);
+            log.warn("level: {}", level); //TODO
+            Elements exampleData = contentsElement.select("div.example-block");
+            List<CodingTestAnswer> exlist = getExamples(exampleData);
             List<String> topics = getTopics(driver);
-            for (String topic : topics) {
-                log.info("topic: {}", topic);
+            for (String topic : topics) { //TODO
+                log.warn("topic: {}", topic);
             }
-
             CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
                     problem.getJSONObject("stat").getString("question__title"), slug, level, correctRate, contents,
                     imagePaths, exlist, topics);
-            log.info("-------problemInfo---------- = {}", problemInfo.getProblemAccuracy());
             return Optional.of(problemInfo);
         } catch (Exception e) {
             return Optional.empty();

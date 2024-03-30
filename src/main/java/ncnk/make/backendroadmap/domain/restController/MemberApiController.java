@@ -13,11 +13,14 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
+import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberRankingDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyPracticeResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyRoadMapResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.Member.MyTestResponseDto;
+import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
+import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import ncnk.make.backendroadmap.domain.service.PracticeCodeService;
@@ -51,8 +54,11 @@ public class MemberApiController {
     // 마이페이지(MyRoadMap)
     //    http://localhost:8080/member/roadmap/1?page=2&size=5
     @GetMapping("/roadmap/{id}")
-    public MyPage myRoad(@PathVariable Long id,
+    public MyPage myRoad(@PathVariable Long id, @LoginUser SessionUser user,
                          @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+
+        loginValidate(user);
+
         Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기 TODO: @Session 추가
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
 
@@ -91,8 +97,10 @@ public class MemberApiController {
 
     // 마이페이지(MyPractice)
     @GetMapping("/practice/{id}")
-    public MyPage myPractice(@PathVariable Long id,
+    public MyPage myPractice(@PathVariable Long id, @LoginUser SessionUser user,
                              @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        loginValidate(user);
+
         Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기 TODO: @Session 추가
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
 
@@ -130,14 +138,16 @@ public class MemberApiController {
     // 마이페이지(MyTest)
 //     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
 //     속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
-
     @GetMapping("/test/{id}")
-    public MyPage myTest(@PathVariable Long id,
+    public MyPage myTest(@PathVariable Long id, @LoginUser SessionUser user,
                          @RequestParam(value = "difficulty", required = false) String difficulty,
                          @RequestParam(value = "order", required = false) String order,
                          @RequestParam(value = "problemSolved", required = false) Boolean problemSolved,
                          @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
-        Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기 TODO: @Session 추가
+
+        loginValidate(user);
+
+        Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기
         MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
 
         //회원이 검색한 코딩테스트 찾기 (정렬: 난이도, 오름/내림차순, 풀이 여부)
@@ -168,6 +178,12 @@ public class MemberApiController {
                 memberResponseDto.getNormal(), memberResponseDto.getEasy(),
                 memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
                 memberResponseDto.getTestResponseDto());
+    }
+
+    private static void loginValidate(SessionUser user) {
+        if (user == null) {
+            throw new SessionNullPointException("[ERROR] SessionUser is null");
+        }
     }
 
     @AllArgsConstructor

@@ -213,7 +213,7 @@ function downloadSource() {
         success: function (response) {
             if (response === "success") {
                 console.log(response)
-                window.location.href = "/practice";
+                window.location.href = "/practice/ide";
             } else {
                 console.log(response)
                 alert(response);

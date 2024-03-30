@@ -33,56 +33,268 @@ header{
     font-size: 60px;
 
 }
-
-article{
+.roadmap-container{
     background-color: black;
-    background-repeat : no-repeat;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    background-image:url("../../images/roadmapMain.svg");
-    background-position:center;
-    background-size : 85% 85%;
+    color:white;
+    height: 100%;
 }
 
-.MainCategory a {
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+
+
+.mainCategory {
+    height: 1500px;
+    position: relative;
+    background-position: 130px 200px;
+    background-size: 1300px;
+    width: 100vw;
+}
+.mainCategory>a {
+    position: absolute;
+}
+.mainCategory>ul{
+    position: absolute;
+}
+.subCategory li{
+    color: #bdbdbd;
+    font-size: small;
+    white-space:pre-wrap;
+}
+.Internet {
+    top: 230px;
+    left: 500px;
+}
+.sub1{
+    position: absolute;
+    top: 545px;
+    left: 455px;
+}
+.BasicFE{
+    top: 230px;
+    left: 710px;
+}
+.sub2{
+    position: absolute;
+    top:545px;
+    left: 695px;
+}
+.OS{
+    top : 230px;
+    left: 930px;
+}
+.sub3{
+    position: absolute;
+    top:545px;
+    left: 855px;
+}
+.Language{
+    top: 290px;
+    left:1230px;
+}
+.sub4{
+    position: absolute;
+    top:605px;
+    left: 1200px;
+}
+.Algorithm {
+    top: 490px;
+    left: 930px;
+}
+.sub5{
+    position: absolute;
+    top: 805px;
+    left: 885px;
+}
+.UsingGit {
+    top: 490px;
+    left: 710px;
+}
+.sub6{
+    position: absolute;
+    top: 805px;
+    left: 717px;
+}
+.GithubGitLab {
+    top: 490px;
+    left: 450px;
+}
+.sub7{
+    position: absolute;
+    top:805px;
+    left: 473px;
+}
+.RelationalDB {
+    top: 570px;
+    left: 180px;
+}
+.sub8{
+    position: absolute;
+    top: 885px;
+    left: 164px;
+}
+.NoSQLDB {
+    top: 790px;
+    left: 350px;
+}
+.sub9{
+    position: absolute;
+    top: 1105px;
+    left: 358px;
+}
+.DBKnowledge {
+    top: 790px;
+    left: 580px;
+}
+.sub10{
+    position: absolute;
+    top:1105px;
+    left: 542px;
+}
+.APIs {
+    top: 790px;
+    left: 830px;
+}
+.sub11{
+    position: absolute;
+    top: 1105px;
+    left: 787px;
+}
+.Framework {
+    top: 790px;
+    left: 1008px;
+}
+.sub12{
+    position: absolute;
+    top: 1105px;
+    left: 1010px;
+}
+.Caching {
+    position: relative;
+    top: 840px;
+    left: 1300px;
+}
+.sub13{
+    position: absolute;
+    top: 1155px;
+    left: 1272px;
+}
+.WebSecurity {
+    position: relative;
+    top: 1040px;
+    left: 1010px;
+}
+.sub14{
+    position: absolute;
+    top: 1360px;
+    left: 995px;
+}
+.Test {
+    position: relative;
+    top: 1040px;
+    left: 830px;
+}
+.sub15{
+    position: absolute;
+    top: 1360px;
+    left: 783px;
+}
+.CICD {
+    position: relative;
+    top: 1040px;
+    left: 590px;
+}
+.sub16{
+    position: absolute;
+    top: 1360px;
+    left: 593px;
+}
+.DesignPattern {
+    position: relative;
+    top: 1040px;
+    left: 300px;
+}
+.sub17{
+    position: absolute;
+    top: 1360px;
+    left: 260px;
+}
+.SearchEngines{
+    top: 1310px;
+    left: 300px;
+}
+.sub18{
+    position: absolute;
+    top: 1630px;
+    left: 322px;
+}
+.Container{
+    top: 1310px;
+    left: 560px;
+}
+.sub19{
+    position: absolute;
+    top: 1630px;
+    left: 574px;
+}
+.WebServer{
+    top: 1310px;
+    left: 790px;
+}
+.sub20{
+    position: absolute;
+    top: 1630px;
+    left: 765px;
+}
+.mainCategory a {
     color: #ffffff;
     font-size: 1.2rem;
     text-decoration-line: none;
 }
 .MainCategory-disabledLink{
-    color: #4b4b4b;
+    color: #a8a8a8;
     cursor: default;
 }
 
 .MainCategory-link {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
 }
 .MainCategory-link:hover {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
-    color: #9FBCE9;
+   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+   color: #9FBCE9;
 }
 
 .MainCategory-blinkingLink{
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
-    color: #9FBCE9;
-    animation: blink 1s infinite;
+   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+   color: #9FBCE9;
+   animation: blink 1s infinite;
 }
 .MainCategory-blinkingLink:hover {
-    color: #9FBCE9;
+   color: #9FBCE9;
 }
 
 @keyframes blink {
-    0% { opacity: 0; }
-    25% { opacity: 1; }
-    75% { opacity: 1; }
-    100% { opacity: 0; }
+   0% { opacity: 0; }
+   25% { opacity: 1; }
+   75% { opacity: 1; }
+   100% { opacity: 0; }
 }
 
-.subCategory a{
-    color: #bdbdbd;
-    font-size: small;
-    white-space:pre-wrap;
+
+.border {
+   border-width: 100px;
+   border-color: #e10000;
+   border-style: solid;
+   width: 100px;
+   height: 100px;
 }
+
+
+
+
+
 

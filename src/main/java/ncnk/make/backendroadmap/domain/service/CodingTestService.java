@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
@@ -25,18 +26,14 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -46,8 +43,22 @@ public class CodingTestService {
     private final LeetCodeApi leetCodeApi;
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
-    private static final int COUNT = 20;
+    private static final AtomicInteger COUNT = new AtomicInteger(20);
+    ;
     private final TraceTemplate template;
+
+    //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
+    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
+    @Profile("!test")
+    public void scrapeAllProblemsOnSchedule() {
+        scrapeAllProblems();
+    }
+
+    @Profile("!test")
+    @EventListener(ApplicationReadyEvent.class)
+    public void scrapeAllProblemsAtStart() {
+        scrapeAllProblems();
+    }
 
     @Timed("CodingTestService.scrapeAndSaveProblemAsync")
     @Counted("Counted.CodingTest.scrapeAndSaveProblemAsync")
@@ -58,7 +69,7 @@ public class CodingTestService {
             driver = webDriverPool.getDriver();
             Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
                     problem, driver);
-            log.info("problemOptional: {}", problemOptional.get().getProblemSlug());
+            log.warn("scrapeAndSaveProblemAsync = {}", problemOptional.get().getProblemSlug());
             if (problemOptional.isPresent()) {
                 saveProblem(problemOptional);
             }
@@ -73,29 +84,16 @@ public class CodingTestService {
         }
     }
 
-    //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
-    //    @Scheduled(cron = "0 0 3 1 * ?")  // 매월 1일 새벽 3시
-//    @Profile("!test")
-    public void scrapeAllProblemsOnSchedule() {
-        scrapeAllProblems();
-    }
-
-    //    @Profile("!test")
-//    @EventListener(ApplicationReadyEvent.class)
-    public void scrapeAllProblemsAtStart() {
-        scrapeAllProblems();
-    }
-
     private void scrapeAllProblems() {
         try {
             List<JSONObject> problems = leetCodeApi.getLeetCodeProblemList();
-            int temp = 0;
+            AtomicInteger temp = new AtomicInteger(0);
             for (JSONObject problem : problems) {
-                if (temp < COUNT) {
+                if (temp.get() < COUNT.get()) {
                     log.info("--------Before scrapeAndSaveProblemAsync------");
                     scrapeAndSaveProblemAsync(problem);
                     log.info("--------After scrapeAndSaveProblemAsync------");
-                    temp++;
+                    temp.incrementAndGet();
                 }
             }
         } catch (Exception e) {

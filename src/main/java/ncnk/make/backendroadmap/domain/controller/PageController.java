@@ -2,12 +2,12 @@ package ncnk.make.backendroadmap.domain.controller;
 
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
+import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 
 /**
  * 소분류 페이지 Controller
@@ -16,7 +16,6 @@ import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 @RequestMapping("/roadmap/sub")
 @RequiredArgsConstructor // 롬복을 사용하여 생성자 주입을 자동으로 생성
 public class PageController {
-
     private final MainCategoryService mainCategoryService;
 
     //id값으로 url 변경

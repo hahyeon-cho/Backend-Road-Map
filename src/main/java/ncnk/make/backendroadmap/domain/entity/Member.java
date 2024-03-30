@@ -1,6 +1,5 @@
 package ncnk.make.backendroadmap.domain.entity;
 
-import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -88,6 +87,11 @@ public class Member extends BaseTimeEntity {
     public void calculatePoint(String problemLevel) {
         Problem problem = Problem.getProblem(problemLevel);
         point += problem.getPoint();
+    }
+
+    // 멤버 대분류 레벨업
+    public void updateLevel() {
+        this.level += 1;
     }
 
     public void updateSolvedProblemsCount(String problemLevel) {

@@ -5,36 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background with Overlaying Box</title>
     <!-- CSS 파일 연결 -->
-    <link rel="stylesheet" type="text/css" href="/static/css/updateForm.css">
-    <link href="/css/nav.css" rel="stylesheet" />
+    <link href="/css/Login/updateForm.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
 </head>
 <body>
 
-<!-- 네비게이션 바 -->
-<div th:fragment="nav">
-    <div class="main-container">
-        <form action="/member/edit/{memberId}" method="post">
-            <div class="mainNav">
-                <div class="maintitle">
-                    <a class="navbar-brand" aria-current="page" href="/">
-                        <img src="/img/navlogo.jpg" alt="nav">
-                    </a>
-                    <div class="navbar-menu" id="menu">
-                        <ul class="navbar-nav">
-                            <li class="nav-rm"><a class="nav-link" href="/roadmap">RoadMap</a></li>
-                            <li class="nav-pt"><a class="nav-link" href="/practice">Practice</a></li>
-                            <li class="nav-ct"><a class="nav-link" href="/codingtest">Coding Test</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="nav">
-                    <a href="/logout">Logout</a>
-                </div>
-            </div>
-            <header id="main-header"></header>
-        </form> <!-- form 요소 닫기 -->
-    </div>
-</div>
+<div th:replace="~{navbar::nav}"></div>
 
 <div class="container">
     <div class="overlay-box">
@@ -53,7 +31,7 @@
         </div>
 
         <div class="text-box">
-            <form th:action="@{/member/edit/{memberId}(memberId=${member.id})}" method="post">
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId()})}" method="post">
                 <input type="text" name="nickname" placeholder="Edit Nickname">
             </form>
         </div>
@@ -62,13 +40,13 @@
             <div class="image1-container"> <!-- 사진첨부 -->
                 <img src="/img/git.png" alt="git 사진" style="width: 50px; height: auto;">
             </div>
-            <form th:action="@{/member/edit/{memberId}(memberId=${member.id})}" method="post">
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
                 <input type="text" name="github" placeholder="Edit GitHub info">
             </form>
         </div>
 
         <div class="final-box">
-            <form th:action="@{/member/edit/{memberId}(memberId=${member.id})}" method="post">
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
                 <button type="submit">변경</button>
             </form>
         </div>
@@ -76,6 +54,6 @@
         <div class="bar-1"></div>
     </div>
 </div>
-
+<div th:replace="footer :: footer"></div>
 </body>
 </html>
