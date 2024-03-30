@@ -24,7 +24,6 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
     /**
      * 가져온 데이터를 Page 객체로 변환해 반환하도록 코드를 수정 -> 대용량 데이터에 부적합!
      */
-
 //    @Override
 //    public Page<Solved> dynamicSearching(String difficulty, String order, Boolean problemSolved,
 //                                         Pageable pageable) {
@@ -68,7 +67,7 @@ public class SolvedRepositoryImpl implements SolvedCustomRepository {
 
     //검색 정보 중 "정렬 기준(오름/내림차순)"가 있으면 적용, 없으면 오름차순 적용
     private OrderSpecifier<Double> orderByAccuracy(String order) {
-        if ("desc" .equalsIgnoreCase(order)) {
+        if ("desc".equalsIgnoreCase(order)) {
             return QSolved.solved.codingTest.problemAccuracy.desc();
         }
         return QSolved.solved.codingTest.problemAccuracy.asc();
