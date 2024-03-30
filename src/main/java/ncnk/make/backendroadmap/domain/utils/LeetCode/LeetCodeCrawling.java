@@ -53,7 +53,7 @@ public class LeetCodeCrawling {
             Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
 
             String contents = contentsElement.outerHtml();
-            log.warn("contents: {}", contents); //TODO
+//            log.warn("contents: {}", contents); //TODO
 
             Elements imgElements = contentsElement.select("static/img");
             if (!imgElements.isEmpty()) {
@@ -82,13 +82,13 @@ public class LeetCodeCrawling {
                     level = "Easy";
                     break;
             }
-            log.warn("level: {}", level); //TODO
+//            log.warn("level: {}", level); //TODO
             Elements exampleData = contentsElement.select("div.example-block");
             List<CodingTestAnswer> exlist = getExamples(exampleData);
             List<String> topics = getTopics(driver);
-            for (String topic : topics) { //TODO
-                log.warn("topic: {}", topic);
-            }
+//            for (String topic : topics) { //TODO
+//                log.warn("topic: {}", topic);
+//            }
             CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
                     problem.getJSONObject("stat").getString("question__title"), slug, level, correctRate, contents,
                     imagePaths, exlist, topics);
