@@ -37,35 +37,11 @@ public class LeetCodeCrawling {
 
     public Optional<CodingTestProblem> scrapeLeetCodeProblemContents(JSONObject problem, WebDriver driver)
             throws JSONException {
-        String slug = problem.getJSONObject("stat").getString("question__title_slug");
         try {
-            List<String> imagePaths = new ArrayList<>();
+            String slug = problem.getJSONObject("stat").getString("question__title_slug");
             long acs = problem.getJSONObject("stat").getLong("total_acs");
             long submitted = problem.getJSONObject("stat").getLong("total_submitted");
             double correctRate = calCorrectRate(acs, submitted);
-            driver.get(PROBLEMS_BASE_URL + slug);
-
-            new WebDriverWait(driver, Duration.ofSeconds(20))
-                    .until(ExpectedConditions.presenceOfElementLocated(
-                            By.cssSelector("[data-track-load='description_content']")));
-
-            Document doc = Jsoup.parse(driver.getPageSource());
-            Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
-
-            String contents = contentsElement.outerHtml();
-            log.warn("contents: {}", contents); //TODO
-
-            Elements imgElements = contentsElement.select("static/img");
-            if (!imgElements.isEmpty()) {
-                String imgDir = "src/main/resources/images/algorithm/" + slug;
-                for (Element img : imgElements) {
-                    String imgUrl = img.attr("src");
-
-                    String imgPath = changeImgPath(imgUrl, imgDir, slug, imgElements.indexOf(img));
-                    img.attr("src", imgPath);
-                    imagePaths.add(imgPath);
-                }
-            }
 
             String level;
             switch (problem.getJSONObject("difficulty").getInt("level")) {
@@ -82,18 +58,41 @@ public class LeetCodeCrawling {
                     level = "Easy";
                     break;
             }
-            log.warn("level: {}", level); //TODO
+
+            driver.get(PROBLEMS_BASE_URL + slug);
+            new WebDriverWait(driver, Duration.ofSeconds(30))
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                            By.cssSelector("[data-track-load='description_content']")));
+
+            Document doc = Jsoup.parse(driver.getPageSource());
+            Element contentsElement = doc.selectFirst("[data-track-load='description_content']");
+
+            String contents = contentsElement.outerHtml();
+
+            List<String> imagePaths = new ArrayList<>();
+            Elements imgElements = contentsElement.select("img");
+            if (!imgElements.isEmpty()) {
+                String imgDir = "src/main/resources/images/algorithm/" + slug;
+                for (Element img : imgElements) {
+                    String imgUrl = img.attr("src");
+
+                    String imgPath = changeImgPath(imgUrl, imgDir, slug, imgElements.indexOf(img));
+                    img.attr("src", imgPath);
+                    imagePaths.add(imgPath);
+                }
+            }
+
             Elements exampleData = contentsElement.select("div.example-block");
+            if (exampleData.isEmpty()) { exampleData = contentsElement.select("pre"); }
             List<CodingTestAnswer> exlist = getExamples(exampleData);
             List<String> topics = getTopics(driver);
-            for (String topic : topics) { //TODO
-                log.warn("topic: {}", topic);
-            }
+
             CodingTestProblem problemInfo = CodingTestProblem.createProblemInfo(
                     problem.getJSONObject("stat").getString("question__title"), slug, level, correctRate, contents,
                     imagePaths, exlist, topics);
             return Optional.of(problemInfo);
         } catch (Exception e) {
+            log.error("==========스크랩 도중 에러 발생==========", e.getMessage());
             return Optional.empty();
         }
     }
@@ -127,23 +126,25 @@ public class LeetCodeCrawling {
         }
     }
 
-    private List<CodingTestAnswer> getExamples(Elements preData) {
+    private List<CodingTestAnswer> getExamples(Elements exampleData) {
         List<CodingTestAnswer> exlist = new ArrayList<>();
+        Pattern pattern = Pattern.compile("Input:\\s*(.*?)\\s*Output:\\s*(.*?)(?:\\s*Explanation:|$)", Pattern.DOTALL);
 
-        for (Element pre : preData) {
-            String preText = pre.text().trim();
-            Pattern pattern = Pattern.compile("Input:(.*?)Output:(.*?)Explanation:(.*)", Pattern.DOTALL);
-            Matcher matcher = pattern.matcher(preText);
+        for (Element example : exampleData) {
+            String exampleText = example.text().trim();
+            Matcher matcher = pattern.matcher(exampleText);
 
-            if (matcher.find()) {
-                CodingTestAnswer ex = CodingTestAnswer.createCodingTestAnswer(matcher.group(1).trim(),
-                        matcher.group(2).trim());
+            while (matcher.find()) {
+                String input = matcher.group(1).trim().replace("\"", "");
+                String output = matcher.group(2).trim().replace("\"", "");
+                CodingTestAnswer ex = CodingTestAnswer.createCodingTestAnswer(input, output);
                 exlist.add(ex);
             }
         }
 
         return exlist;
     }
+
 
     private List<String> getTopics(WebDriver driver) {
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(
