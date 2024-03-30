@@ -20,15 +20,9 @@ import ncnk.make.backendroadmap.domain.repository.RecommendBookRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -43,9 +37,9 @@ public class BookApi {
     @Value("${book.api}")
     String apiKey;
 
-    //    @Scheduled(cron = "0 0 0 1 * ?") //매달 1일 0시 0분 0초
-//    @Scheduled(cron = "0 * * * * ?") // 매분 0초
+    //    @Scheduled(cron = "0 * * * * ?") // 매분 0초
 //    @Scheduled(cron = "0/20 * * * * ?") // 20초
+    @Scheduled(cron = "0 0 0 1 * ?") //매달 1일 0시 0분 0초
     @Counted("Counted.BookApi.callAladinApi")
     @Timed("BookApi.callAladinApi")
     @Transactional
@@ -58,7 +52,7 @@ public class BookApi {
                 String urlString = String.format(
                         "%s?QueryType=Title&Query=%s&MaxResults=3&output=js&version=20131101&ttbkey=%s&CategoryId=%d",
                         apiUrl, encodedQuery, apiKey, searchQuery.getField());
-
+                log.info("urlString: {}", urlString); //TODO
                 URL url = new URL(urlString);
 
                 // HTTP 연결 설정
@@ -73,7 +67,6 @@ public class BookApi {
                     responseBuilder.append(line);
                 }
                 reader.close();
-
                 // 응답 데이터 처리
                 String response = responseBuilder.toString();
                 // JSON 파싱
@@ -103,5 +96,4 @@ public class BookApi {
             }
         }
     }
-
 }
