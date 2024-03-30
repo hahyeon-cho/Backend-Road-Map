@@ -139,18 +139,30 @@
         };
 
         $(document).ready(function () {
+            //roadMapMain 에서 roadMapsub로 넘어왔을때 대분류 제목 변경
+            var urlParams = new URLSearchParams(window.location.search);
+            var dataId = urlParams.get('dataId');
+            if (dataId !== null) {
+                var categoryTitle = $('.nav-link[data-id="' + dataId + '"]').text();
+                $('#categoryTitle').text(categoryTitle);
+            }
+
+
             $('.nav-link').click(function (e) {
                 e.preventDefault();
                 var dataId = $(this).data('id');
-                var categoryTitle = $(this).text(); // 클릭한 카테고리의 텍스트 가져오기
+                //sub내에서 대분류 이동시 대분류 제목 변경
+                var categoryTitle = $(this).text(); // 클릭한 대분류 카테고리의 텍스트 가져오기
                 var newUrl = window.location.origin + '/roadmap/subcategory?dataId=' + dataId;
                 history.pushState({}, '', newUrl);
                 fetchData(dataId);
 
                 //대분류 제목
                 $('#categoryTitle').text(categoryTitle);
+
+                //뒤로가기시 로드맵메인페이지로 이동함
                 window.onpopstate = function(event) {
-                    window.location.href = '/main.html';
+                    window.location.href = '/roadmap';
                 }
             });
 
