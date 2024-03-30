@@ -10,26 +10,13 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
+<div th:replace="~{navbar::nav}"></div>
 <script src="/js/home.js"></script>
-<!--메인페이지 네비게이션 바-->
-<div class ="main-container">
-    <div class ="mainNav">
-        <div class="maintitle">
-            <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
-        </div>
-        <div class="nav">
-            <!--로그인 전 -->
-            <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
-            <div class="logoutbtn">
-                <a th:unless="${userName != null}" href="/login">Login</a>
-                <a th:if="${userName != null}" href="/logout">Logout</a>
-            </div>
-            <!--로그인 후 userpicture, 로그인버튼 -> 로그인으로 변경-->
-        </div>
-    </div>
-</div>
+
 <div style="background:black; display: flex; justify-content: space-between;">
     <div id="maincategory-name" style="margin-left: 20px;">
         <h1 id="categoryTitle" style="color:white; font-weight:1000; font-size:400%">Internet</h1>
@@ -140,7 +127,7 @@
         </div>
     </div>
 </div>
-
+<div th:replace="footer :: footer"></div>
 <script>
     //선택한 대분류 정보 가져옴
     $(document).ready(function() {
@@ -150,16 +137,23 @@
                 fetchData(dataId);
 
         };
+
         $(document).ready(function () {
             $('.nav-link').click(function (e) {
                 e.preventDefault();
                 var dataId = $(this).data('id');
+                var categoryTitle = $(this).text(); // 클릭한 카테고리의 텍스트 가져오기
                 var newUrl = window.location.origin + '/roadmap/subcategory?dataId=' + dataId;
                 history.pushState({}, '', newUrl);
                 fetchData(dataId);
+
+                //대분류 제목
+                $('#categoryTitle').text(categoryTitle);
+                window.onpopstate = function(event) {
+                    window.location.href = '/main.html';
+                }
             });
 
-            $('#categoryTitle').text(categoryTitle);
 
             // ajax
             function fetchData(dataId) {
