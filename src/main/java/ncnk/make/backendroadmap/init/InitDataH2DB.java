@@ -1,7 +1,11 @@
 package ncnk.make.backendroadmap.init;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +16,20 @@ import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Member;
+import ncnk.make.backendroadmap.domain.entity.Quiz;
 import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,10 +39,11 @@ public class InitDataH2DB {
     private final InitService initService;
     private static final Long initLikeCount = 0L;
 
-    //    @PostConstruct
+    @PostConstruct
     public void init() {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
+        initService.initQuiz(mainCategories);
 //        initService.insertBook();
     }
 
@@ -40,6 +53,8 @@ public class InitDataH2DB {
     @Slf4j
     static class InitService {
         private final EntityManager em;
+        @Value("${excel.file.path}")
+        private String excelFilePath;
         private final QuizRepository quizRepository;
         private final InsertQuizService insertQuizService;
 
@@ -128,63 +143,62 @@ public class InitDataH2DB {
             return mainCategories;
         }
 
-//        public void initQuiz(List<MainCategory> mainCategories) {
-//            log.info("excelPath = {}", excelFilePath);
-//            try {
-//                Quizs quizs = readQuizFromExcel(new File(excelFilePath), mainCategories);
-//
-//                // 읽은 데이터 DB에 삽입
-//                for (Quiz quiz : quizs.getQuizs()) {
-//                    insertQuizService.insertQuiz(quiz);
-//                }
-//
-//                List<Quiz> insertQuiz = quizRepository.findAll();
-//                log.info("=========================");
-//                log.info("insertedQuiz.size: {}", insertQuiz.size());
-//                log.info("=========================");
-//            } catch (IOException e) {
-//                log.error("Error reading Excel file: ", e.getMessage());
-//                e.printStackTrace();
-//            }
-//        }
+        public void initQuiz(List<MainCategory> mainCategories) {
+            log.info("excelPath = {}", excelFilePath);
+            try {
+                Quizs quizs = readQuizFromExcel(new File(excelFilePath), mainCategories);
 
-//        private Quizs readQuizFromExcel(File file, List<MainCategory> mainCategories) throws IOException {
-//            Quizs quizs = new Quizs();
-//            try (Workbook workbook = WorkbookFactory.create(file)) {
-//                Sheet sheet = workbook.getSheetAt(0);
-//                Iterator<Row> rowIterator = sheet.rowIterator();
-//                rowIterator.next(); // 컬럼명 스킵
-//                log.info("Read Excel Start");
-//                while (rowIterator.hasNext()) {
-//                    Row row = rowIterator.next();
-//                    String mainDoc = getStringCellValue(row.getCell(0));
-//                    String quizContext = getStringCellValue(row.getCell(1));
-//                    String quizAnswer = getStringCellValue(row.getCell(2));
-//                    String quizExplain = getStringCellValue(row.getCell(3));
-//                    MainCategory category = null;
-//                    for (MainCategory mainCategory : mainCategories) {
-//                        if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
-//                            category = mainCategory.getMainCategory(mainDoc);
-//                            break;
-//                        }
-//                    }
-//                    if (category != null) {
-//                        Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
-//                        if (!quizs.getQuizs().contains(quiz)) {
-//                            quizs.getQuizs().add(quiz);
-//                        }
-//                    }
-//                }
-//            }
-//            return quizs;
-//        }
-//
-//        private static String getStringCellValue(Cell cell) {
-//            if (cell == null) {
-//                return "";
-//            }
-//            return cell.getCellType() == CellType.STRING ? cell.getStringCellValue() : "";
-//        }
-//    }
+                // 읽은 데이터 DB에 삽입
+                for (Quiz quiz : quizs.getQuizs()) {
+                    insertQuizService.insertQuiz(quiz);
+                }
+
+                List<Quiz> insertQuiz = quizRepository.findAll();
+                log.info("=========================");
+                log.info("insertedQuiz.size: {}", insertQuiz.size());
+                log.info("=========================");
+            } catch (IOException e) {
+                log.error("Error reading Excel file: ", e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        private Quizs readQuizFromExcel(File file, List<MainCategory> mainCategories) throws IOException {
+            Quizs quizs = new Quizs();
+            try (Workbook workbook = WorkbookFactory.create(file)) {
+                Sheet sheet = workbook.getSheetAt(0);
+                Iterator<Row> rowIterator = sheet.rowIterator();
+                rowIterator.next(); // 컬럼명 스킵
+                log.info("Read Excel Start");
+                while (rowIterator.hasNext()) {
+                    Row row = rowIterator.next();
+                    String mainDoc = getStringCellValue(row.getCell(0));
+                    String quizContext = getStringCellValue(row.getCell(1));
+                    String quizAnswer = getStringCellValue(row.getCell(2));
+                    String quizExplain = getStringCellValue(row.getCell(3));
+                    MainCategory category = null;
+                    for (MainCategory mainCategory : mainCategories) {
+                        if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
+                            category = mainCategory.getMainCategory(mainDoc);
+                            break;
+                        }
+                    }
+                    if (category != null) {
+                        Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
+                        if (!quizs.getQuizs().contains(quiz)) {
+                            quizs.getQuizs().add(quiz);
+                        }
+                    }
+                }
+            }
+            return quizs;
+        }
+
+        private static String getStringCellValue(Cell cell) {
+            if (cell == null) {
+                return "";
+            }
+            return cell.getCellType() == CellType.STRING ? cell.getStringCellValue() : "";
+        }
     }
 }
