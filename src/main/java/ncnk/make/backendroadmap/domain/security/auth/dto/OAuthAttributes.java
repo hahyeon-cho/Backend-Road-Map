@@ -58,7 +58,7 @@ public class OAuthAttributes {
     }
 
     public Member toEntity() {
-        return Member.createMember(picture, email, name, "nickName", "git", Constant.initLevel, Constant.initPoint,
+        return Member.createMember(picture, email, name, name, "GitHub Address", Constant.initLevel, Constant.initPoint,
                 Role.GUEST, 0, 0, 0);
     }
 }
