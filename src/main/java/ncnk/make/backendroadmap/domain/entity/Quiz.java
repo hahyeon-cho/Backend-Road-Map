@@ -2,21 +2,16 @@ package ncnk.make.backendroadmap.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
-
-/**
- * 퀴즈 테이블
- */
-import java.util.Objects;
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +28,7 @@ public class Quiz extends BaseTimeEntity {
     @Column(length = 1000)
     private String quizExplain; //해설
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_docs_id")
     private MainCategory mainCategory; //대분류 FK
 
