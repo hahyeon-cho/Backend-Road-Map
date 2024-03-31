@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.ui.Model;
+
+import java.util.List;
 
 /**
  * 코딩 테스트 페이지
@@ -32,10 +36,27 @@ public class CodingTestController {
 
     // 문제 리스트 페이지
     @GetMapping("")
-    public String codingTest() {
+    public String codingTest(Model model) {
         //TODO: templates/codingTest/codingTest.html 연결하기
+        List<CodingTest> problems = codingTestService.findAllProblems();
+        model.addAttribute("problems", problems);
         return "/codingTest/codingTest";
     }
+
+    @GetMapping("/{id}")
+    public String problemDetail(@PathVariable("id") Long codingTestId, Model model) {
+        CodingTest problem = codingTestService.findCodingTestById(codingTestId);
+        model.addAttribute("problemId", problem.getCodingTestId());
+        model.addAttribute("problemTitle", problem.getProblemTitle());
+        model.addAttribute("problemDescription", problem.getProblemContents());
+        model.addAttribute("problemLevel", problem.getProblemLevel());
+        if(problem.getProblemTopics() != null) {
+            model.addAttribute("problemTopic", String.join(", ", problem.getProblemTopics()));
+        }
+        return "/codingTest/codingTestProblem";
+    }
+
+
 
     // 제출 버튼
     // Body 값에 userCodeResult 줘야함! ex: output

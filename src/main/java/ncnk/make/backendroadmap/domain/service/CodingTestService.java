@@ -32,8 +32,16 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -44,7 +52,6 @@ public class CodingTestService {
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
     private static final AtomicInteger COUNT = new AtomicInteger(20);
-    ;
     private final TraceTemplate template;
 
     //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
@@ -90,9 +97,7 @@ public class CodingTestService {
             AtomicInteger temp = new AtomicInteger(0);
             for (JSONObject problem : problems) {
                 if (temp.get() < COUNT.get()) {
-                    log.info("--------Before scrapeAndSaveProblemAsync------");
                     scrapeAndSaveProblemAsync(problem);
-                    log.info("--------After scrapeAndSaveProblemAsync------");
                     temp.incrementAndGet();
                 }
             }
@@ -159,6 +164,10 @@ public class CodingTestService {
         result.addAll(easyProblems);
 
         return result;
+    }
+
+    public List<CodingTest> findAllProblems() {
+        return codingTestRepository.findAll();
     }
 
     // 코딩 테스트 PK 값으로 알고리즘 문제 찾기
