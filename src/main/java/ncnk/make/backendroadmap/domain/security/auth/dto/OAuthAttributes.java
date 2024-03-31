@@ -31,7 +31,7 @@ public class OAuthAttributes {
     public static OAuthAttributes of(String registrationId,
                                      String userNameAttributeName,
                                      Map<String, Object> attributes) {
-        if ("naver" .equals(registrationId)) {
+        if ("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
         return ofGoogle(userNameAttributeName, attributes);
@@ -43,7 +43,8 @@ public class OAuthAttributes {
 
         String name = (String) response.get("name");
         String email = (String) response.get("email");
-        String picture = (String) response.get("picture");
+//        String picture = (String) response.get("picture");
+        String picture = "/img/naver.png";
 
         return createOAuthAttributes(response, userNameAttributeName, name, email, picture);
     }
@@ -57,7 +58,7 @@ public class OAuthAttributes {
     }
 
     public Member toEntity() {
-        return Member.createMember(picture, email, name, "nickName", "git", Constant.initLevel, Constant.initPoint,
+        return Member.createMember(picture, email, name, name, "GitHub Address", Constant.initLevel, Constant.initPoint,
                 Role.GUEST, 0, 0, 0);
     }
 }

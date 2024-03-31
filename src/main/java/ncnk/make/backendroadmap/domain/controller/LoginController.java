@@ -38,7 +38,9 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
+     feature/server/create-login-html-56
         return "/mainHome" ;
+        
     }
 }
 

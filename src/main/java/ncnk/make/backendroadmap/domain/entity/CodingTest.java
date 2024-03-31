@@ -39,9 +39,11 @@ public class CodingTest extends BaseTimeEntity {
     @Column(length = 10000)
     private String problemContents;
     @Convert(converter = StringListConverter.class)
+    @Column(length = 500)
     private List<String> problemImages = new ArrayList<>();
 
     @Convert(converter = StringListConverter.class)
+    @Column(length = 500)
     private List<CodingTestAnswer> problemInputOutput;
     @Convert(converter = StringListConverter.class)
     private List<String> problemTopics = new ArrayList<>();

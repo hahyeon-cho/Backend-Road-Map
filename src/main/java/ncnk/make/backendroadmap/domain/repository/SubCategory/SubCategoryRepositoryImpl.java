@@ -24,7 +24,7 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
     public List<SubCategory> addLikeCount(SubCategory subCategory) {
         queryFactory.update(QSubCategory.subCategory)
                 .set(QSubCategory.subCategory.likeCount, QSubCategory.subCategory.likeCount.add(1))
-                .where(QSubCategory.subCategory.eq(subCategory))
+                .where(QSubCategory.subCategory.subDocsId.eq(subCategory.getSubDocsId()))
                 .execute();
 
         em.flush();
@@ -40,7 +40,7 @@ public class SubCategoryRepositoryImpl implements SubCategoryCustomRepository {
     public List<SubCategory> subLikeCount(SubCategory subCategory) {
         queryFactory.update(QSubCategory.subCategory)
                 .set(QSubCategory.subCategory.likeCount, QSubCategory.subCategory.likeCount.subtract(1))
-                .where(QSubCategory.subCategory.eq(subCategory))
+                .where(QSubCategory.subCategory.subDocsId.eq(subCategory.getSubDocsId()))
                 .execute();
 
         em.flush();

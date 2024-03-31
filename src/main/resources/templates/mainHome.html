@@ -23,7 +23,11 @@
         </div>
         <div class="nav">
             <!--로그인 전 -->
-            <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+            <div class="profile">
+                <a href="/myPage">
+                    <img th:if="${userPicture != null}" th:src="@{${userPicture}}" alt="Profile Image" style="width: 40px; height: auto;">
+                </a>
+            </div>
             <div class="logoutbtn">
                 <a th:unless="${userName != null}" href="/login">Login</a>
                 <a th:if="${userName != null}" href="/logout">Logout</a>

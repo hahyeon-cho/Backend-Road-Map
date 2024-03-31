@@ -1,13 +1,14 @@
 /*footer css*/
-footer{
-    background-color: black;
-    color: white;
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
 }
 .f-text {
     margin-left: auto;
-
 }
-
 .f-loge{
     margin-right: 15px;
     margin-left: 10px;
@@ -17,5 +18,5 @@ footer{
 }
 
 .f-loge img{
-    width: 30px;
+    width: 20px;
 }
