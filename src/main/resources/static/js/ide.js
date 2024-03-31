@@ -1297,3 +1297,7 @@ var competitiveProgrammingCompilerOptions = "-O3 --std=c++17 -Wall -Wextra -Wold
 var compilerOptions = {
     54: competitiveProgrammingCompilerOptions
 }
+
+window.getStdoutEditor = function() {
+    return stdoutEditor;
+};
