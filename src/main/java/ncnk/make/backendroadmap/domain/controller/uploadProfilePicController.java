@@ -26,8 +26,7 @@ public class uploadProfilePicController {
 
         System.out.println("fileUpload IN");
         // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
-        String uploadPath = "/Users/hayoung_p/Desktop/2차 프로젝트/img/";
-        // 마지막에 / 있어야함
+        String uploadPath = "/Users/hayoung_p/Desktop/2차 프로젝트/img/";햣
 
         // 2. 원본 파일 이름 알아오기
         String originalFileName = file.getOriginalFilename();
@@ -44,8 +43,10 @@ public class uploadProfilePicController {
         file.transferTo(newFile);
 
         // Model 설정 : 뷰 페이지에서 원본 파일 이름 출력
+
         model.addAttribute("originalFileName", originalFileName);
 
         return "myPage/updateForm";
     }
 }
+
