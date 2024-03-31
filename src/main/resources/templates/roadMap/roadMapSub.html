@@ -30,7 +30,7 @@
     </div>
     <div style="margin-right: 20px;">
         <div class="container">
-            <button id="quizkButton" popovertarget="mydiv1" style="background:black; border:none">
+            <button id="quizButton" popovertarget="mydiv1" style="background:black; border:none">
                 <img src="/images/quiz.png" style="background:black; border:none; height:100px;">
             </button>
             <div popover="" id="mydiv1" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:20%; transform: translate(0, -50%); max-width: 1200px;">
@@ -56,7 +56,7 @@
                     });
                 });
             </script>
-            <div popover="" id="mydiv" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:68%; transform: translate(0, -50%); max-width: 500px;">
+            <div popover="" id="mydiv" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:60%; transform: translate(0, -50%); max-width: 500px;">
                 <h2>도서 판매량 TOP3</h2>
                 <hr>
                 <div id="bookItems">
@@ -155,6 +155,21 @@
             </div>
             <hr>
             <div class="modal-body text-center pb-5" id="portfolioModalContent">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="quizModalBody"></div>
+            <div class="modal-footer">
+<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>-->
+                <button type="button" id="quizModalNextButton" class="btn btn-warning">확인</button>
             </div>
         </div>
     </div>
@@ -263,7 +278,7 @@
                 // 도서추천
                 $('#bookItems').empty();
                 data.recommendBookDtos.forEach(function(book, index) {
-                    var html = '<div style="width:450px;">';
+                    var html = '<div style="width:700px;">';
                     html += '<div class="book1">';
                     html += '<div class="book2"><img width="100px"; height="150" src="' + book.bookImage + '" alt="' + book.bookTitle + '"></div>';
                     html += '<div class="book2" style="width:250px; text-align: left; padding-left:10px; font-weight: bold ;">';
@@ -279,9 +294,9 @@
             });
 
             $(document).ready(function() {
-                $('#quizkButton').click(function() {
+                $('#quizButton').click(function() {
                     // AJAX를 사용하여 JSON 데이터 가져오기
-                    $.getJSON('/api/quiz/' + categoryId, function(data) {
+                    $.getJSON('/api/quiz/' + dataId, function(data) {
                         var quizHtml = '<div>';
                         data.quizzes.forEach(function(quiz, index) {
                             var quiznum=index+1;
@@ -322,29 +337,47 @@
                         contentType: 'application/json',
                         data: JSON.stringify(userAnswers),
                         success: function(response) {
-                            // 채점 결과 처리
                             if (response.passed) {
-                                $('#mydiv1').html('<p>퀴즈 통과</p>');
-                            } else {
-                                $('#mydiv1').html('<p>퀴즈 실패</p>');
-                            }
+                                // 퀴즈 통과 모달
+                                $('#quizModalTitle').text('퀴즈 통과');
+                                $('#quizModalBody').text('퀴즈 통과. 다음 단계로 이동.');
+                                $('#quizModal').modal('show');
 
-                            // 퀴즈 설명 로드
-                            $.getJSON('/api/quiz/explain', function(data) {
-                                data.quizAnswerDtos.forEach(function(quizAnswer, index) {
-                                    var quizDescriptionHtml = '<div class="quizDescription" id="quizDescription' + (index+1) + '">' + quizAnswer.explanation + '</div>';
-                                    $('#quiz' + (index+1)).append(quizDescriptionHtml);
+                                // 다음 step으로 이동하는 버튼 클릭 이벤트 처리
+                                $('#quizModalNextButton').click(function() {
+                                    var urlParams = new URLSearchParams(window.location.search);
+                                    var dataId = parseInt(urlParams.get('dataId'));
+                                    var nextDataId = dataId + 1;
+                                    var nextUrl = window.location.origin + '/roadmap/subcategory?dataId=' + nextDataId;
+                                    window.location.href = nextUrl;
                                 });
-                            });
+                            } else {
+                                // 퀴즈 실패 모달
+                                $('#quizModalTitle').text('퀴즈 실패');
+                                $('#quizModalBody').text('퀴즈 실패. 다시 시도.');
+                                $('#quizModal').modal('show');
+
+                                // 다시 시도하는 버튼 클릭 이벤트 처리
+                                $('#quizModalNextButton').click(function() {
+                                    location.reload();
+                                });
+                            }
                         },
-
-
-
                         error: function(xhr, status, error) {
                             console.error(xhr.responseText);
-                            alert('퀴즈 제출 중 오류 발생');
+                            // 오류 메시지 모달
+                            $('#quizModalTitle').text('오류 발생');
+                            $('#quizModalBody').text('퀴즈 제출 중 오류가 발생했습니다.');
+                            $('#quizModal').modal('show');
+
+                            // 새로고침 버튼 클릭 이벤트 처리
+                            $('#quizModalNextButton').click(function() {
+                                location.reload();
+                            });
                         }
+
                     });
+
                 });
             });
 
@@ -354,10 +387,10 @@
             var dataId = urlParams.get('dataId');
             if (dataId !== null) {
                 fetchData(dataId);
+            }
 
         });
-    });
-
+        });
 
 
 </script>
