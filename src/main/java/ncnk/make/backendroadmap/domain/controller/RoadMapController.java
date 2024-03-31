@@ -41,7 +41,12 @@ public class RoadMapController {
     }
 
     @GetMapping("/subcategory")
-    public String roadMapSub() {
+    public String roadMapSub(@LoginUser SessionUser user, Model model) {
+        loginValidate(user);
+        Member member = memberService.findMemberByEmail(user.getEmail()); // 회원 검색
+        model.addAttribute("userID", member.getMemberId());
+        model.addAttribute("userPicture", user.getPicture());
+        model.addAttribute("Level", member.getLevel());
         return "roadMap/roadMapSub";
     }
 }

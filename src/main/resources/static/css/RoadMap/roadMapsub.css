@@ -11,6 +11,73 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
+.mainCategory a {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration-line: none;
+}
+.MainCategory-disabledLink{
+    color: #a8a8a8;
+    cursor: default;
+}
+
+.MainCategory-link {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+}
+.MainCategory-link:hover {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+    color: #9FBCE9;
+}
+
+.MainCategory-blinkingLink{
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
+    color: #9FBCE9;
+    animation: blink 1s infinite;
+}
+.MainCategory-blinkingLink:hover {
+    color: #9FBCE9;
+}
+
+@keyframes blink {
+    0% { opacity: 0; }
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+
+.border {
+    border-width: 100px;
+    border-color: #e10000;
+    border-style: solid;
+    width: 100px;
+    height: 100px;
+}
+
+
+
+.leftQuiz {
+    float: left;
+    width: 30%; /* 왼쪽에 위치하는 퀴즈 영역의 너비 */
+    background-color: lightblue; /* 배경색 지정 */
+    margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.middleQuiz {
+    float: left;
+    width: 30%; /* 중간에 위치하는 퀴즈 영역의 너비 */
+    background-color: lightgreen; /* 배경색 지정 */
+    margin: 0 10px; /* 왼쪽, 오른쪽 여백 */
+}
+
+.rightQuiz {
+    float: left;
+    width: 30%; /* 오른쪽에 위치하는 퀴즈 영역의 너비 */
+    background-color: lightcoral; /* 배경색 지정 */
+    margin-left: 10px; /* 왼쪽 여백 */
+}
+
+
 #heart {
     position: relative;
     width: 50px;
@@ -121,10 +188,17 @@ li{
 }
 
 #mydiv {
-    height: 70%; weight: 150px;
+    height: 70%; width: 300px;
     text-align:center;
     background-color:#D9D9D9;
     opacity: 0.9;
+    font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#mydiv1 {
+    height: 70%; width: 1200px;
+    text-align:center;
+    background-color:white;
     font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 

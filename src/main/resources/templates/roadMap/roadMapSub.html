@@ -30,6 +30,16 @@
     </div>
     <div style="margin-right: 20px;">
         <div class="container">
+            <button id="quizkButton" popovertarget="mydiv1" style="background:black; border:none">
+                <img src="/images/quiz.png" style="background:black; border:none; height:100px;">
+            </button>
+            <div popover="" id="mydiv1" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:20%; transform: translate(0, -50%); max-width: 1200px;">
+                <h2>Quiz 풀기</h2>
+                <hr>
+                <div id="quiz">
+                    <p>메인 카테고리 선택하세요.</p>
+                </div>
+            </div>
             <button id="bookButton" popovertarget="mydiv" style="background:black; border:none">
                 <img src="/images/lamp.svg" style="background:black; border:none">
             </button>
@@ -68,28 +78,50 @@
                     <div class="container">
                         <div class="wrapper" style="background-color: black">
                             <ul class="sessions">
-                                <li><a class="nav-link" href="#" data-id="1">Internet</a></li>
-                                <li><a class="nav-link" href="#" data-id="2">Basic FE</a></li>
-                                <li><a class="nav-link" href="#" data-id="3">OS</a></li>
-                                <li><a class="nav-link" href="#" data-id="4">Langugage</a></li>
-                                <li><a class="nav-link" href="#" data-id="5">Algorithm</a></li>
-                                <li><a class="nav-link" href="#" data-id="6">Using Git</a></li>
-                                <li><a class="nav-link" href="#" data-id="7">Github & GitLab</a></li>
-                                <li><a class="nav-link" href="#" data-id="8">Relational DB</a></li>
-                                <li><a class="nav-link" href="#" data-id="9">NoSQL DB</a></li>
-                                <li><a class="nav-link" href="#" data-id="10">DB Knowledge</a></li>
-                                <li><a class="nav-link" href="#" data-id="11">APIs</a></li>
-                                <li><a class="nav-link" href="#" data-id="12">Framework</a></li>
-                                <li><a class="nav-link" href="#" data-id="13">Caching</a></li>
-                                <li><a class="nav-link" href="#" data-id="14">Web Security</a></li>
-                                <li><a class="nav-link" href="#" data-id="15">Test</a></li>
-                                <li><a class="nav-link" href="#" data-id="16">CI/CD</a></li>
-                                <li><a class="nav-link" href="#" data-id="17">Design Pattern</a></li>
-                                <li><a class="nav-link" href="#" data-id="18">Search Engines</a></li>
-                                <li><a class="nav-link" href="#" data-id="19">Container</a></li>
-                                <li><a class="nav-link" href="#" data-id="20">Web server</a></li>
+                                <li><a class="nav-link Internet" href="#" data-id="1">Internet</a></li>
+                                <li><a class="nav-link Basic FE" href="#" data-id="2">Basic FE</a></li>
+                                <li><a class="nav-link OS" href="#" data-id="3">OS</a></li>
+                                <li><a class="nav-link Language" href="#" data-id="4">Langugage</a></li>
+                                <li><a class="nav-link Algorithm" href="#" data-id="5">Algorithm</a></li>
+                                <li><a class="nav-link Using Git" href="#" data-id="6">Using Git</a></li>
+                                <li><a class="nav-link GithubGitLab" href="#" data-id="7">Github & GitLab</a></li>
+                                <li><a class="nav-link RelationalDB" href="#" data-id="8">Relational DB</a></li>
+                                <li><a class="nav-link NoSQLDB" href="#" data-id="9">NoSQL DB</a></li>
+                                <li><a class="nav-link DBKnowledge" href="#" data-id="10">DB Knowledge</a></li>
+                                <li><a class="nav-link APIs" href="#" data-id="11">APIs</a></li>
+                                <li><a class="nav-link Framework" href="#" data-id="12">Framework</a></li>
+                                <li><a class="nav-link Caching" href="#" data-id="13">Caching</a></li>
+                                <li><a class="nav-link WebSecurity" href="#" data-id="14">Web Security</a></li>
+                                <li><a class="nav-link Test" href="#" data-id="15">Test</a></li>
+                                <li><a class="nav-link CICD" href="#" data-id="16">CI/CD</a></li>
+                                <li><a class="nav-link DesignPattern" href="#" data-id="17">Design Pattern</a></li>
+                                <li><a class="nav-link SearchEngines" href="#" data-id="18">Search Engines</a></li>
+                                <li><a class="nav-link Container" href="#" data-id="19">Container</a></li>
+                                <li><a class="nav-link WebServer" href="#" data-id="20">Web server</a></li>
                             </ul>
                         </div>
+                        <script>
+                            $(document).ready(function() {
+                                var level = [[${Level}]];
+
+                                $('.nav-link').each(function() {
+                                    var dataId = parseInt($(this).data('id'));
+
+                                    if (level < dataId) {
+                                        $(this).addClass('MainCategory-disabledLink');
+                                        $(this).attr('href', '');
+                                        $(this).click(function (event){
+                                            event.preventDefault();
+                                        });
+                                    } else if (level === dataId){
+                                        $(this).addClass('MainCategory-blinkingLink');
+                                    } else {
+                                        $(this).addClass('MainCategory-link');
+                                    }
+                                });
+                            });
+
+                        </script>
                     </div>
                 </div>
             </div>
@@ -99,12 +131,6 @@
     <div id="layoutSidenav_content" style="background-color: #C0C0C0;">
         <main>
             <div class="container-fluid px-4" id="subcategory" style="background-color:transparent;">
-                <button popovertarget="mydiv1">Quiz</button>
-                <div popover="" id="mydiv1">
-                    <div id="quiz">
-                        <p>메인 카테고리 선택하세요.</p>
-                    </div>
-                </div>
                 <section class="page-section portfolio" id="portfolio" style="background-color:transparent;">
 
                     <div class="container">
@@ -135,7 +161,6 @@
 </div>
 <div th:replace="footer :: footer"></div>
 <script>
-    //선택한 대분류 정보 가져옴
     $(document).ready(function() {
         window.onpopstate = function (event) {
             var urlParams = new URLSearchParams(window.location.search);
@@ -251,21 +276,76 @@
                     $('#bookItems').append($bookItems);
                 });
 
-                // 퀴즈
-                // $('#quiz').empty();
-                // data.recommendBookDtos.forEach(function(book, index) {
-                //     var html = '<div style="width:450px;">';
-                //     html += '<div class="book1">';
-                //     html += '<div class="book2"><img width="100px"; height="150" src="' + book.bookImage + '" alt="' + book.bookTitle + '"></div>';
-                //     html += '<div class="book2" style="width:250px; text-align: left; padding-left:10px; font-weight: bold ;">';
-                //     html += '<p>' + book.bookTitle + '</p>';
-                //     html += '<p>' + book.bookAuthor + '</p>';
-                //     html += '<p>' + book.publisher + '</p></div></div>';
-                //     html += '</div>';
-                //     var $quiz = $(html);
-                //
-                //     $('#quiz').append($quiz);
-                // });
+            });
+
+            $(document).ready(function() {
+                $('#quizkButton').click(function() {
+                    // AJAX를 사용하여 JSON 데이터 가져오기
+                    $.getJSON('/api/quiz/' + categoryId, function(data) {
+                        var quizHtml = '<div>';
+                        data.quizzes.forEach(function(quiz, index) {
+                            var quiznum=index+1;
+                            quizHtml += '<div>';
+                            quizHtml += '<br><h4>' + "Q"+quiznum + ")" + '</h4>';
+                            quizHtml += '<p>' + quiz.quizContext + '</p>';
+                            // O, X 라디오 버튼 추가
+                            quizHtml += '<label><input type="radio" name="quiz' + index + '" value="O"> O&nbsp;&nbsp; </label>';
+                            quizHtml += '<label><input type="radio" name="quiz' + index + '" value="X"> X</label></br>';
+                            quizHtml += '</div>';
+                        });
+                        quizHtml += '<br></div>';
+
+                        // 제출 버튼
+                        quizHtml += '<div style="margin-top: 10px;"><button id="submitQuizButton" style="background-color: black; color: white; border: none; padding: 10px 20px;">SUBMIT</button><br></div>';
+
+                        // 팝오버 내용 업데이트
+                        $('#mydiv1 #quiz').html(quizHtml);
+
+                        // 팝오버 열기
+                        $('#mydiv1').show();
+                    });
+                });
+
+                // 제출 버튼 클릭 이벤트
+                $(document).on('click', '#submitQuizButton', function() {
+                    var userAnswers = [];
+
+                    // 각 퀴즈의 답안을 가져와서 배열에 저장
+                    $('input[type="radio"]:checked').each(function() {
+                        userAnswers.push($(this).val());
+                    });
+
+                    // AJAX를 사용하여 서버에 답안 제출
+                    $.ajax({
+                        url: '/api/quiz/grade',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userAnswers),
+                        success: function(response) {
+                            // 채점 결과 처리
+                            if (response.passed) {
+                                $('#mydiv1').html('<p>퀴즈 통과</p>');
+                            } else {
+                                $('#mydiv1').html('<p>퀴즈 실패</p>');
+                            }
+
+                            // 퀴즈 설명 로드
+                            $.getJSON('/api/quiz/explain', function(data) {
+                                data.quizAnswerDtos.forEach(function(quizAnswer, index) {
+                                    var quizDescriptionHtml = '<div class="quizDescription" id="quizDescription' + (index+1) + '">' + quizAnswer.explanation + '</div>';
+                                    $('#quiz' + (index+1)).append(quizDescriptionHtml);
+                                });
+                            });
+                        },
+
+
+
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                            alert('퀴즈 제출 중 오류 발생');
+                        }
+                    });
+                });
             });
 
         }
