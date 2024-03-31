@@ -82,24 +82,10 @@ public class LeetCodeCrawling {
                 }
             }
 
-            String level;
-            switch (problem.getJSONObject("difficulty").getInt("level")) {
-                case 1:
-                    level = "Easy";
-                    break;
-                case 2:
-                    level = "Normal";
-                    break;
-                case 3:
-                    level = "Hard";
-                    break;
-                default:
-                    level = "Easy";
-                    break;
-            }
-          
             Elements exampleData = contentsElement.select("div.example-block");
-            if (exampleData.isEmpty()) { exampleData = contentsElement.select("pre"); }
+            if (exampleData.isEmpty()) {
+                exampleData = contentsElement.select("pre");
+            }
             List<CodingTestAnswer> exlist = getExamples(exampleData);
             List<String> topics = getTopics(driver);
 
