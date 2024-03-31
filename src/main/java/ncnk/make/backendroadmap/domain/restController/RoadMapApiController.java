@@ -1,6 +1,7 @@
 package ncnk.make.backendroadmap.domain.restController;
 
 
+import io.micrometer.core.annotation.Timed;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -37,9 +38,9 @@ public class RoadMapApiController {
     private final RecommendBookService recommendBookService;
 
     //로드맵 페이지
+    @Timed("RoadMapApiController.mainCategory")
     @GetMapping("/category")
     public RoadMap mainCategory() {
-
         List<RoadMapResponseDto> roadMapResponseDtos = new ArrayList<>();
         for (int i = 0; i < Main.getMaximumOrder(); i++) { //대분류를 순서대로 반복시켜서 dto에 담기
             Main mainDocsTitle = Main.getEnumByMainDocsOrder(i + 1); //대분류 정보
@@ -55,6 +56,7 @@ public class RoadMapApiController {
     }
 
     //소분류 페이지
+    @Timed("RoadMapApiController.subCategory")
     @GetMapping("/sub/{mainCategoryId}")
     public Detail subCategory(@PathVariable Long mainCategoryId) {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId); //대분류 PK값을 통해 대분류 찾기

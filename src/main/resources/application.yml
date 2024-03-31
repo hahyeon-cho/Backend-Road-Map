@@ -20,6 +20,7 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+        default_batch_fetch_size: 500
     database-platform: org.hibernate.dialect.H2Dialect
 
   h2:
@@ -43,7 +44,7 @@ server:
 
   devtools:
     restart:
-      enabled: false
+      enabled: true
 
 logging:
   level:
@@ -72,7 +73,7 @@ management:
   tomcat:
     mbeanregistry:
       enabled: true
-      
+
 thymeleaf:
   prefix=classpath: templates/
   suffix: .html
@@ -80,7 +81,7 @@ thymeleaf:
   cache: false
   mvc:
     static-path-pattern: "/static/**"
-    
+
 ---
 spring:
   datasource:
@@ -94,6 +95,11 @@ spring:
       on-profile: prod
       include: personal
 
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: embedded
+
   jpa:
     database: mysql
     generate-ddl: true
@@ -103,6 +109,22 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
+        format_sql: true
+        default_batch_fetch_size: 500
+        use_sql_comments: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  devtools:
+    restart:
+      enabled: true
 
 data:
   web:
@@ -114,3 +136,32 @@ logging:
   level:
     org:
       hibernate.SQL: debug
+
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8080
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
+thymeleaf:
+  prefix=classpath: templates/
+  suffix: .html
+  check-template-location: true
+  cache: false
+  mvc:
+    static-path-pattern: "/static/**"
