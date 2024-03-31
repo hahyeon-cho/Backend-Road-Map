@@ -124,18 +124,17 @@
 
                                     if (level < dataId) {
                                         $(this).addClass('MainCategory-disabledLink');
-                                        $(this).attr('href', ''); // 링크 비활성화
-                                        $(this).click(function(event) {
-                                            event.preventDefault(); // 기본 동작 방지
+                                        $(this).attr('href', '');
+                                        $(this).click(function (event){
+                                            event.preventDefault();
                                         });
-                                    } else if (level === dataId) {
-                                        $(this).addClass('MainCategory-blinkingLink'); // 원하는 스타일 추가
+                                    } else if (level === dataId){
+                                        $(this).addClass('MainCategory-blinkingLink');
                                     } else {
-                                        $(this).addClass('MainCategory-link'); // 원하는 스타일 추가
+                                        $(this).addClass('MainCategory-link');
                                     }
                                 });
                             });
-
 
                         </script>
                     </div>
