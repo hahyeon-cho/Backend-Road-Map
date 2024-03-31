@@ -24,11 +24,22 @@
     <img src="/images/practiceFile.svg">
     <a class="button" href="practice/ide">New Project</a>
     <img src="/images/practicePlus.svg">
-    <a class="button" href="#">Import</a>
+    <label style="cursor:pointer" for="fileImport" class="button">Import</label>
+    <input type="file" id="fileImport" style="display: none;" >
 
   </div>
 </div>
 <div th:replace="footer :: footer"></div>
+<script>
+  // function uploadFile() {
+  //   const fileInput = document.getElementById('fileInput');
+  //   const file = fileInput.files[0];
+  //
+  //   if (file) {
+  //     const reader = new FileReader();
+  //   }
+  // }
+</script>
 
 </body>
 </html>
