@@ -58,12 +58,18 @@ body {
 }
 
 .Login {
-    font-size: 20px; /* 글자 크기 */
+    font-size: 24px; /* 글자 크기 */
     font-weight: bold; /* 굵은 글씨체 */
-    color: black; /* 주황색 */
+    /* 주황색 */
+    color: #000000;
+    text-shadow: 0 0 5px #ffc01f,
+    0 0 55px #ffc01f,
+    0 0 70px #ffc01f,
+    0 0 190px #ffc01f,
+    0 0 250px #ffc01f,
+    0 0 300px #ffc01f;
 
 }
 
-.bar-1
 
 

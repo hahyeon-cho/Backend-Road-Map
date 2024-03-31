@@ -28,7 +28,7 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class UploadService {
-
+///Users/hayoung_p/Desktop 경로
     @Value("${img.path}")
     private String userImage;
 
@@ -89,9 +89,6 @@ public class UploadService {
         /* 이미지 파일 체크 */
         File checkfile = new File(uploadFile.getOriginalFilename());
         String type = null;
-
-
-
 
         try {
             type = Files.probeContentType(checkfile.toPath());

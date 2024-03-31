@@ -5,24 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background with Overlaying Box</title>
     <!-- CSS 파일 연결 -->
-    <link href="/css/Login/updateForm.css" rel="stylesheet" />
+    <link href="/css/Login/updateForm.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/nav.css">
-
 </head>
 <body>
-
 <div th:replace="~{navbar::nav}"></div>
-
 <div class="container">
     <div class="overlay-box">
-        <div class="profile-edit">프로필 수정</div> <!-- 상단 중앙에 세미볼드체로 표현된 "프로필 수정" 텍스트 출력 -->
+        <div class="profile-edit">프로필 수정</div>
         <div class="profile-image">
-            <img src="/img/mypic.jpg" alt="프로필 사진"> <!-- 150x150 크기의 플레이스홀더 이미지 -->
+            <img id="profileImage" src="/img/profile.png" alt="프로필 이미지" class="profile">
+            <form id="profilePicForm" th:action="@{/fileUpload}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="memberId" th:value="${member.memberId}">
+                <input type="file" name="uploadFile" accept="image/*"> <!-- 이미지 업로드 input -->
+                <button type="submit">프로필 사진 변경</button>
+            </form>
         </div>
         <div class="profile-info">
             확장자: png, jpg, jpeg / 용량: 1MB 이하
         </div>
+
         <div class="profile-nickname">
             닉네임
         </div>
@@ -37,7 +40,7 @@
         </div>
 
         <div class="down-git">
-            <div class="image1-container"> <!-- 사진첨부 -->
+            <div class="image1-container">
                 <img src="/img/git.png" alt="git 사진" style="width: 50px; height: auto;">
             </div>
             <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
@@ -55,5 +58,26 @@
     </div>
 </div>
 <div th:replace="footer :: footer"></div>
+
+<script>
+    function updateProfilePic() {
+        var form = document.getElementById('profilePicForm');
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 서버로부터 받은 새로운 이미지 URL을 사용하여 프로필 이미지를 업데이트합니다.
+                document.getElementById('profileImage').src = data.imageUrl;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
 </body>
 </html>

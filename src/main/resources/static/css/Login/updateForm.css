@@ -8,6 +8,8 @@ body {
     align-items: center;
 }
 
+
+
 .overlay-box {
     width: 1400px; /* 네모박스의 너비 */
     height: 800px; /* 네모박스의 높이 */
@@ -44,7 +46,7 @@ body {
 
 .overlay-box .profile-info {
     position: absolute; /* 절대 위치 설정 */
-    top: 350px; /* 위에서 370px 만큼 떨어지도록 설정 */
+    top: 380px; /* 위에서 370px 만큼 떨어지도록 설정 */
     left: 50%; /* 가로 중앙 정렬 */
     transform: translateX(-50%); /* 수평 방향으로 -50%만큼 이동하여 가운데 정렬 */
     font-size: 18px; /* 글자 크기 설정 */
@@ -183,11 +185,8 @@ body {
     height: auto; /* 이미지1 컨테이너의 높이 자동 설정 */
 }
 
-/* 이미지1 컨테이너의 스타일링 */
-.overlay-box .image2-container {
-    position: absolute; /* 절대 위치 설정 */
-    top: 4px; /* 위에서 565px 만큼 떨어지도록 설정 */
-    left: -70%; /* 왼쪽으로 26%만큼 떨어지도록 설정 */
-    width: 50px; /* 이미지1 컨테이너의 너비 설정 */
-    height: auto; /* 이미지1 컨테이너의 높이 자동 설정 */
+.profile {
+    width: 200px; /* 프로필 이미지의 너비 */
+    height: auto; /* 높이 자동으로 조절 */
+    margin-left: 70px; /* 이미지를 오른쪽으로 이동시키는 왼쪽 마진 값 */
 }

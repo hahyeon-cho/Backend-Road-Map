@@ -62,6 +62,6 @@ public class MemberService {
     //이메일 이용해 회원 정보 조회
     public Member findMemberByEmail(String email) {
         return memberRepository.findMemberByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException());
+                .orElseThrow( () -> new ResourceNotFoundException() );
     }
 }
