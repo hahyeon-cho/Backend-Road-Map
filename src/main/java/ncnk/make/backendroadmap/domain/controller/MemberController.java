@@ -27,12 +27,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/mypage/{memberId}")
-    public String myPage(@PathVariable Long memberId, @LoginUser SessionUser user, Model model) {
+    @GetMapping("/mypage")
+    public String myPage(@LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가
         loginValidate(user);
 
-        Member member = memberService.findMemberById(memberId); //회원 조회
+        Member member = memberService.findMemberByEmail(user.getEmail());
         model.addAttribute("member", member); // 회원 정보를 model에 담고
 
         return "myPage/myPage";
