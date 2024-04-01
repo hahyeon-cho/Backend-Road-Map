@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
+
 
 /**
  * 회원 업데이트 Controller
@@ -37,7 +39,7 @@ public class MemberController {
 
         return "myPage/myPage";
     }
-
+//주석
     @GetMapping("/edit/{memberId}")
     public String updateProfile(@PathVariable Long memberId, @LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가
