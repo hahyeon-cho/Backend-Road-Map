@@ -1,26 +1,19 @@
 package ncnk.make.backendroadmap.domain.utils;
 
-import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnails;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
-import ncnk.make.backendroadmap.domain.exception.ProfileNotFoundException;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import lombok.extern.slf4j.Slf4j;
+import ncnk.make.backendroadmap.domain.exception.ProfileNotFoundException;
+import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 반복되는 코드 리팩토링 필요
@@ -28,17 +21,19 @@ import java.util.UUID;
 @Component
 @Slf4j
 public class UploadService {
-///Users/hayoung_p/Desktop 경로
+    ///Users/hayoung_p/Desktop 경로
     @Value("${img.path}")
     private String userImage;
 
-    public AttachImage upload(String path, MultipartFile uploadFile, String folderName){
-        if (imageCheck(uploadFile)) return null;
+    public AttachImage upload(String path, MultipartFile uploadFile, String folderName) {
+        if (imageCheck(uploadFile)) {
+            return null;
+        }
 
         /* 폴더 생성 */
         File uploadPath = new File(path, folderName);
 
-        if(!uploadPath.exists()) {
+        if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         }
 
@@ -97,14 +92,14 @@ public class UploadService {
             e.printStackTrace();
         }
 
-        if(!type.startsWith("image")) {
+        if (!type.startsWith("image")) {
             return true;
         }
         return false;
     }
 
 
-    public byte[] getUserProfile(String folderName,String fileName) {
+    public byte[] getUserProfile(String folderName, String fileName) {
         File file = new File(userImage + "/" + folderName + "/" + fileName);
 
         byte[] result = null;
@@ -114,7 +109,7 @@ public class UploadService {
             header.add("Content-type", Files.probeContentType(file.toPath()));
             result = FileCopyUtils.copyToByteArray(file);
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new ProfileNotFoundException();
         }
         return result;

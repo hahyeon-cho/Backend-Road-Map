@@ -49,8 +49,9 @@
         </div>
 
         <div class="final-box">
-            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post">
-                <button type="submit">변경</button>
+            <form th:action="@{/member/edit/{memberId}(memberId=${member.getMemberId})}" method="post" enctype="multipart/form-data">
+            <input type="file" name="multipartFile" accept="image/*"/>
+            <button type="submit">변경</button>
             </form>
         </div>
 

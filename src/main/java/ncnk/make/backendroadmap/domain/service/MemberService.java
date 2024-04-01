@@ -9,10 +9,12 @@ import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequest
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
 import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
+import ncnk.make.backendroadmap.domain.utils.AttachImage;
 import ncnk.make.backendroadmap.domain.utils.UploadService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Transactional(readOnly = true)
 @Service
@@ -33,11 +35,13 @@ public class MemberService {
      **/
     @Timed("MemberService.updateProfile")
     @Transactional
-    public Long updateProfile(Member member, MemberUpdateRequestDto updateRequestDto) {
-        Member updateMember = member.updateMember(updateRequestDto.getProfile(),
+    public Long updateProfile(Member member, MultipartFile uploadFile, MemberUpdateRequestDto updateRequestDto) {
+        log.info("upload: {}", uploadFile.getOriginalFilename());
+        AttachImage upload = uploadService.upload(userImage, uploadFile, member.getNickName());
+
+        Member updateMember = member.updateMember(upload.getUploadPath(),
                 updateRequestDto.getNickName(),
                 updateRequestDto.getGithub());
-        updateRequestDto.getProfile();
 
         log.info("Member 프로필 수정 성공");
 
@@ -62,6 +66,6 @@ public class MemberService {
     //이메일 이용해 회원 정보 조회
     public Member findMemberByEmail(String email) {
         return memberRepository.findMemberByEmail(email)
-                .orElseThrow( () -> new ResourceNotFoundException() );
+                .orElseThrow(() -> new ResourceNotFoundException());
     }
 }
