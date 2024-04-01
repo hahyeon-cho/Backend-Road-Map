@@ -1,11 +1,14 @@
 /*footer css*/
 footer {
+    position: fixed; /* 화면 최 하단에 고정 */
+    bottom: 0; /* 하단에 위치 */
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 60px;
     width: 100%;
 }
+
 .f-text {
     margin-left: auto;
 

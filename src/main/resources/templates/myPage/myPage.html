@@ -18,25 +18,13 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
   <style>
     #problems-list-table {
-      margin-top: 20px;
+      margin-top: 50px; /* 수정된 부분 */
     }
   </style>
 </head>
 
 <body>
 <div th:replace="~{navbar::nav}"></div>
-
-<table class="table" id="problems-list-table">
-  <thead class="table-dark h-4">
-  <tr>
-    <th class="text-center" style="width: 5%">#</th>
-    <th class="px-3" style="width: 70%;">Title</th>
-    <th class="text-center" style="width: 12.5%">Acceptance</th>
-    <th class="text-center" style="width: 12.5%">Level</th>
-  </tr>
-  </thead>
-  </thead>
-
 
 <div class="container-md mx-5 my-4 px-5">
   <div class="row">
@@ -95,7 +83,7 @@
         <tr th:each="problem, loop : ${problems}">
           <td class="text-end" th:text="${loop.count}"></td>
           <td class="px-3">
-            <a th:href="@{/codingtest/{id}(id=${problem.codingTestId})}"
+            <a th:href="@{/codingtest/{id}(id=${problem.codingTestId})"
                th:text="${problem.problemTitle}"></a>
           </td>
           <td class="text-center .font-monospace" th:text="|${problem.problemAccuracy} %|"></td>
