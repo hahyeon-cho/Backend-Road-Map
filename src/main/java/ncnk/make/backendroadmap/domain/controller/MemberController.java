@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
  
-    @GetMapping("/myPage")
+    @GetMapping("/mypage")
     public String myPage(@LoginUser SessionUser user, Model model,@SessionAttribute(name = "member", required = false) SessionUser sessionUser
     ) {
        loginValidate(user);

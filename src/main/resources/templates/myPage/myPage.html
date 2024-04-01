@@ -1,116 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="kr">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Test</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
-  <script type="module" src="/js/codingTest.js"></script>
-  <!-- <script type="module" src="/js/levelBoxStyle.js"></script> -->
-  <link rel="stylesheet" href="/css/nav.css">
-  <link rel="stylesheet" href="/css/footer.css">
-  <link rel="stylesheet" href="/css/codingTest.css">
-
-
-</head>
-
-
-<body class="bg-silver">
-
-<div th:replace="~{navbar::nav}"></div>
-
-<div class="container-md mx-5 my-4 px-5">
-  <table class="table" id="problems-list-table">
-    <thead class="table-dark h-4">
-    <tr>
-      <th class="text-center" style="width: 5%">#</th>
-      <th class="px-3" style="width: 70%;">Title</th>
-      <th class="text-center" style="width: 12.5%">Acceptance</th>
-      <th class="text-center" style="width: 12.5%">difficulty</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr th:each="problem, loop : ${problems}">
-      <td class="text-end" th:text="${loop.count}"></td>
-      <td class="px-3">
-        <a th:href="@{/codingtest/{id}(id=${problem.codingTestId})}" th:text="${problem.problemTitle}"></a>
-      </td>
-      <td class="text-center .font-monospace" th:text="|${problem.problemAccuracy} %|"></td>
-      <td class="text-center">
-        <div class="rounded-pill problem-info" th:text="${problem.problemLevel}"> Level </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<div th:replace="footer :: footer"></div>
-
-<!-- <html lang="kr">
 <head>
   <meta charset="UTF-8">
   <title>NCNK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/nav.css">
-  <link rel ="stylesheet" href="/css/mypage.css">
+  <link rel="stylesheet" href="/css/mypage.css">
+  <link rel="stylesheet" href="/css/codingTest.css">
   <link rel="icon" href="/images/favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+  <style>
+    #problems-list-table {
+      margin-top: 50px; /* 수정된 부분 */
+    }
+  </style>
 </head>
+
 <body>
 <div th:replace="~{navbar::nav}"></div>
-<div class="container">
-  <div id="myProfile">
-    <div class="profileBox">
-      <!--      <div class="profileTop"></div>-->
-      <div class="profileTop">
-        <a class="setting" href="/myPage/updateForm"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></a>
-        <div class ="Profile"><img th:if="${Profile != null }" th:src="${Profile}" >
-        </div>
-        <div class ="myName">
-          <p class="nickname" ><span th:text="${NickName}"></span></p>
-          <div class="profileUsername">
-            <p class ="username" >USERNAME</p>
-            <span class="userName" th:text="${Name}"></span>
+
+<div class="container-md mx-5 my-4 px-5">
+  <div class="row">
+    <div class="col-md-5">
+      <div id="myProfile">
+        <div class="profileBox">
+          <div class="profileTop">
+            <a class="setting" href="/myPage/updateForm"><i class="fa-solid fa-gear"
+                                                            style="color: #ffffff;"></i></a>
+            <div class="Profile"><img th:if="${Profile != null }" th:src="${Profile}">
+            </div>
+            <div class="myName">
+              <p class="nickname"><span th:text="${NickName}"></span></p>
+              <div class="profileUsername">
+                <p class="username">USERNAME</p>
+                <span class="userName" th:text="${Name}"></span>
+              </div>
+            </div>
+            <div class="git-email">
+              <ul>
+                <p class="github"><i class="fa-brands fa-github"
+                                     style="color: #000000"></i><span th:text="${Github}"></span></p>
+                <p class="email"><i class="fa-regular fa-envelope"
+                                    style="color: #000000;"></i><span th:text="${Email}"></span></p>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class ="git-email">
-          <ul>
-            <p class="github"><i class="fa-brands fa-github" style="color: #000000"></i><span th:text="${Github}"></span></p>
-            <p class="email"><i class="fa-regular fa-envelope" style="color: #000000;"></i><span th:text="${Email}"></span></p>
-          </ul>
+        <div class="myPointTotal">
+          <div class="pointBox">
+            <div class="userPoint">
+              <p class="point">My Point <span th:text="${Point}"></span></p>
+            </div>
+            <hr class="divider">
+            <div class="Difficulty">
+              <p class="hard">상<br><span th:text="${hard}"></span></p>
+              <p class="normal">중<br><span th:text="${normal}"></span></p>
+              <p class="easy">하<br><span th:text="${easy}"></span></p>
+              <span></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class ="myPointTotal">
-      <div class="pointBox">
-      <div class="userPoint">
-        <p class="point">My Point  <span th:text="${Point}"></span></p>
-      </div>
-        <hr class="divider">
-      <div class ="Difficulty">
-        <p class="hard">상<br><span th:text="${hard}"></span></p>
-
-        <p class="normal">중<br><span th:text="${normal}"></span></p>
-
-        <p class="easy">하<br><span th:text="${easy}"></span></p>
-
-        <span></span>
-      </div>
-    </div>
+    <div class="col-md-7">
+      <table class="table" id="problems-list-table">
+        <thead class="table-dark h-4">
+        <tr>
+          <th class="text-center" style="width: 5%">#</th>
+          <th class="px-3" style="width: 70%;">Title</th>
+          <th class="text-center" style="width: 12.5%">Acceptance</th>
+          <th class="text-center" style="width: 12.5%">difficulty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="problem, loop : ${problems}">
+          <td class="text-end" th:text="${loop.count}"></td>
+          <td class="px-3">
+            <a th:href="@{/codingtest/{id}(id=${problem.codingTestId})"
+               th:text="${problem.problemTitle}"></a>
+          </td>
+          <td class="text-center .font-monospace" th:text="|${problem.problemAccuracy} %|"></td>
+          <td class="text-center">
+            <div class="rounded-pill problem-info" th:text="${problem.problemLevel}"> Level
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class ="myTest">
-    <p>오른쪽 요소들</p>
-  </div>
-</div> -->
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="module" src="/js/codingTest.js"></script>
 </body>
 
 </html>
