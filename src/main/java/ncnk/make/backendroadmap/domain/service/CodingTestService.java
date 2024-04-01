@@ -26,7 +26,9 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -52,7 +54,7 @@ public class CodingTestService {
     }
 
     @Profile("!test")
-//    @EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     public void scrapeAllProblemsAtStart() {
         scrapeAllProblems();
     }

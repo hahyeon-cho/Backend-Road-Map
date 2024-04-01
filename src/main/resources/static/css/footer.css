@@ -1,6 +1,6 @@
 /*footer css*/
 footer {
-    position: fixed; /* 화면 최 하단에 고정 */
+    /*position: fixed; !* 화면 최 하단에 고정 *!*/
     bottom: 0; /* 하단에 위치 */
     display: flex;
     justify-content: space-between;
@@ -14,7 +14,7 @@ footer {
 
 }
 
-.f-loge{
+.f-loge {
     margin-right: 15px;
     margin-left: 10px;
     margin-bottom: 5px;
@@ -22,6 +22,6 @@ footer {
     vertical-align: middle;
 }
 
-.f-loge img{
+.f-loge img {
     width: 20px;
 }

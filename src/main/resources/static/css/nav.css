@@ -1,12 +1,12 @@
-*{
+* {
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none;
 }
 
-.mainNav{
-    position: fixed;
+.mainNav {
+    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
@@ -18,18 +18,21 @@
     padding: 15px 10px;
 }
 
-.navbar-brand{
+.navbar-brand {
     margin-left: 10px;
     margin-right: 100px;
 
 }
-.maintitle{
+
+.maintitle {
     display: flex;
 }
-.navbar-nav{
+
+.navbar-nav {
     display: flex;
     flex-direction: row;
 }
+
 .navbar-nav li {
     margin-right: 45px;
 }
@@ -39,14 +42,16 @@
     margin-right: 110px; /* 간격 조절 */
 }
 
-.navbar-nav a:link{
-    color:white;
+.navbar-nav a:link {
+    color: white;
 }
-.navbar-nav a:visited{
-    color:white;
+
+.navbar-nav a:visited {
+    color: white;
 }
-.navbar-nav a:hover{
-    color:white;
+
+.navbar-nav a:hover {
+    color: white;
     text-shadow: 0 0 5px #ffc01f,
     0 0 25px #ffc01f,
     0 0 50px #ffc01f,
@@ -55,8 +60,9 @@
     0 0 200px #ffc01f;
 
 }
-.navbar-nav a:active{
-    color:white;
+
+.navbar-nav a:active {
+    color: white;
     text-shadow: 0 0 5px #ffc01f,
     0 0 25px #ffc01f,
     0 0 50px #ffc01f,
@@ -65,13 +71,13 @@
     0 0 200px #ffc01f;
 }
 
-.nav{
+.nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logoutbtn a{
+.logoutbtn a {
     padding: 8px 13px;
     color: #ffc01f;
     transition: 0.5s;
@@ -82,22 +88,26 @@
     font-weight: bold;
     margin-right: 10px;
 }
+
 .logoutbtn a:hover {
 
 
 }
+
 .nav a:hover {
     background: #ffc01f;
     color: #fff;
     box-shadow: 0 0 5px #ffc01f, 0 0 25px #ffc01f, 0 0 50px #ffc01f,
     0 0 100px #ffc01f;
 }
-.profile a img{
+
+.profile a img {
     width: 35px;
     height: 35px;
 
 }
-.nav img{
+
+.nav img {
     width: 55px;
     height: 30px;
     margin-right: 10px;
@@ -110,6 +120,7 @@
     padding: 20px;
     height: 100vh;
 }
+
 #main-container {
     min-height: calc(100% - 120px);
 }

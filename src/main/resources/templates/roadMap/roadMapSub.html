@@ -286,8 +286,9 @@
                                 // 좋아요 토글 함수
                                 function toggleLike(subCategoryId) {
                                     // 백엔드로 좋아요 토글 요청 보내기
+                                    var subheart=index+1;
                                     $.ajax({
-                                        url: '/api/like/' + index + 1,
+                                        url: '/api/like/' + subheart,
                                         type: 'POST',
                                         success: function(response) {
                                             console.log(response);

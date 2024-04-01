@@ -44,7 +44,7 @@ public class InitDataH2DB {
         Member member = initService.initMember();
         List<MainCategory> mainCategories = initService.initCategory(member);
         initService.initQuiz(mainCategories);
-//        initService.insertBook();
+        initService.insertBook();
     }
 
     @Component
