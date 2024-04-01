@@ -1,17 +1,16 @@
-# ️
-
 # ✏ README
 
 ## ◾목차
 
-- [개요](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
-- [UseCase Diagram](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
-- [Flow Chart](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
-- [Main Function](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
+- [개요]
+- [시스템 구성도]
+- [UseCase Diagram]
+- [Figma]
+- [Flow Chart]
+- [ERD]
+- [Main Function]
 
-- [시스템 구성도](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
-- [Figma](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
-- [ERD](https://www.notion.so/README-a31b4946f63f4c8a84152c55274b0b47?pvs=21)
+
 
 ---
 
@@ -25,7 +24,7 @@
 
 ## ◾시스템 구성도
 
-![SystemArchitecture](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/SystemArchitecture.png)
+![SystemArchitecture](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/SystemArchitecture.png)
 
 **기술 스택**
 
@@ -44,25 +43,25 @@
 
 ## ◾UseCase Diagram
 
-![UseCaseDiagram](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/UseCaseDiagram.png)
+![UseCaseDiagram](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/UseCaseDiagram.png)
 
 ---
 
 ## ◾Figma
 
-![Figma](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Figma.png)
+![Figma](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Figma.png)
 
 ---
 
 ## ◾Flow Chart
 
-![FlowChart](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/FlowChart.png)
+![FlowChart](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/FlowChart.png)
 
 ---
 
 ## ◾ERD
 
-![ERD](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/ERD.png)
+![ERD](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/ERD.png)
 
 ---
 
@@ -70,9 +69,9 @@
 
 **백엔드 공부 주제, 순서 등을 소개하는 로드맵**
 
-![Func1](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Func1.png)
+![Func1](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Func1.png)
 
-![Func1-1](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Func1-1.png)
+![Func1-1](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Func1-1.png)
 
 - ‘대분류 카테고리에 속하는 소분류 카테고리`의 주제 및 설명
 - 카테고리에 알맞은 책 추천 (Aladin API)
@@ -80,7 +79,7 @@
 
 ## ◾Function 2 : **Practice page**
 
-![Func2](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Func2.png)
+![Func2](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Func2.png)
 
 **언어별 코드 연습 기능**
 
@@ -90,9 +89,9 @@
 
 ## ◾Function 3 : **Coding Test page**
 
-![Func3](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Func3.png)
+![Func3](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Func3.png)
 
-![Func3-1](/Users/jaehyun/Documents/IdeaProjects/KaKaoCloud/Project/Second/BackEndRoadMap/readmeImg/Func3-1.png)
+![Func3-1](https://github.com/KCS-2nd-Project/Backend-Road-Map/blob/dev/server/readmeImg/Func3-1.png)
 
 **코딩 테스트 문제 가능**
 
