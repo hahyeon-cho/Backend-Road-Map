@@ -10,6 +10,7 @@ import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.*;
-
 
 /**
  * 회원 업데이트 Controller
@@ -28,18 +28,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-
-    @GetMapping("/mypage")
-    public String myPage(@LoginUser SessionUser user, Model model) {
-        //로그인 하지 않은 사용자 접근 불가
-        loginValidate(user);
-
-        Member member = memberService.findMemberByEmail(user.getEmail());
+ 
+    @GetMapping("/myPage")
+    public String myPage(@LoginUser SessionUser user, Model model,@SessionAttribute(name = "member", required = false) SessionUser sessionUser
+    ) {
+       loginValidate(user);
+  
+        model.addAttribute("userPicture", user.getPicture());
+        Member member = memberService.findMemberByEmail(sessionUser.getEmail()); // 회원 검색
+        model.addAttribute("memberID", member.getMemberId());
+        model.addAttribute("Profile", member.getProfile());
+        model.addAttribute("Email", member.getEmail());
+        model.addAttribute("Name", member.getName());
+        model.addAttribute("NickName",member.getNickName());
+        model.addAttribute("Github", member.getGithub());
+        model.addAttribute("Level", member.getLevel());
+        model.addAttribute("Point",member.getPoint());
+        model.addAttribute("hard",member.getHard());
+        model.addAttribute("normal",member.getNormal());
+        model.addAttribute("easy",member.getEasy());
+  
         model.addAttribute("member", member); // 회원 정보를 model에 담고
 
         return "myPage/myPage";
     }
-//주석
+
     @GetMapping("/edit/{memberId}")
     public String updateProfile(@PathVariable Long memberId, @LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가

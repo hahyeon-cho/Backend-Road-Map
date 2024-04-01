@@ -15,6 +15,12 @@
     --judge0-orange: #FFA94D;
     --judge0-theme: var(--judge0-blue);
 }
+*{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
 
 .ui[class*="left action"].input>.dropdown {
     border-radius: 0 .28571429rem .28571429rem 0;

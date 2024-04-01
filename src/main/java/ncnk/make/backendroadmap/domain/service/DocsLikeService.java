@@ -1,6 +1,7 @@
 package ncnk.make.backendroadmap.domain.service;
 
 import io.micrometer.core.annotation.Timed;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,5 +55,9 @@ public class DocsLikeService {
     //회원 정보 이용해 소분류 좋아요 정보 조회(Page로 반환)
     public Page<DocsLike> findAllByMember(Member member, Pageable pageable) {
         return docsLikeRepository.findAllByMember(member, pageable);
+    }
+
+    public List<DocsLike> findDocsLikesByMember(Member member) {
+        return docsLikeRepository.findDocsLikesByMember(member);
     }
 }
