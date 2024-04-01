@@ -12,6 +12,7 @@ import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.RecommendBook;
 import ncnk.make.backendroadmap.domain.entity.Sub;
+import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.restController.dto.RoadMap.RecommendBookDto;
 import ncnk.make.backendroadmap.domain.restController.dto.RoadMap.RoadMapResponseDto;
 import ncnk.make.backendroadmap.domain.restController.dto.RoadMap.SubCategoryResponseDto;
@@ -73,9 +74,11 @@ public class RoadMapApiController {
         List<SubCategoryResponseDto> categoryResponseDtos = new ArrayList<>();
         String mainDocsUrl = mainCategory.getMainDocsUrl(); //대분류 URL
         for (Sub sub : subCategoriesByMainCategory) {
+            SubCategory subCategory = subCategoryService.findSubCategoryBySubDocsTitle(sub);
             categoryResponseDtos.add(
                     SubCategoryResponseDto.createSubCategoryResponseDto(
-                            sub.getSubCategory(), sub.getSubDescription(), 0L)); //소분류 데이터 중 필요한 Fit한 데이터를 dto로 Set
+                            sub.getSubCategory(), sub.getSubDescription(),
+                            subCategory.getLikeCount())); //소분류 데이터 중 필요한 Fit한 데이터를 dto로 Set
         }
 
         return new Detail(categoryResponseDtos, mainDocsUrl, recommendBookDtos);
