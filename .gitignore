@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### API-Key ###
+config.js
+
+### Setting ###
+application-personal.properties

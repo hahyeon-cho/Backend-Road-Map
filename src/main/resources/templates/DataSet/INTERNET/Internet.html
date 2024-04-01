@@ -1,0 +1,839 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Internet</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+/*.block-color-default {*/
+/*	color: inherit;*/
+/*	fill: inherit;*/
+/*}*/
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+/*.select-value-color-pageGlass { background-color: undefined; }*/
+/*.select-value-color-washGlass { background-color: undefined; }*/
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	/*width: 16;*/
+	/*height: 16;*/
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+</style></head><body>
+
+
+<article id="ec866e01-b8d7-4764-9775-db1213f52aa2" class="page sans"><header><h1 class="page-title">Internet</h1><p class="page-description"></p></header><div class="page-body"><p id="2c3cccb5-a8b2-40eb-b182-fdee66b15683" class=""></p>
+
+    <div class="0">
+        <h2 id="c5fb2f58-3f5f-4709-b381-78bf905ec4d5" class="">IP : 인터넷 프로토콜 역할</h2><ul id="be7884c8-23ce-4072-ba9f-9e940fad5133" class="bulleted-list"><li style="list-style-type:disc">지정한 IP Address에 데이터 전달</li></ul><ul id="f0808278-cfd4-4e20-acea-49887ea3e873" class="bulleted-list"><li style="list-style-type:disc"><code>패킷</code> 단위로 데이터 전달</li></ul><p id="e05cb83c-866b-40a8-892e-137047224b47" class="">
+        </p><figure id="ba2f1470-a442-4a13-9542-7f8dd278cd6b" class="image"><a href="data:image/png;base64,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"><img style="width:300px" src="data:image/png;base64,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"/></a></figure><p id="a87da3e5-35af-4129-b39d-700d35ed6f2b" class="">
+        </p><p id="b8f25f9b-3d5b-4162-a1c3-128b98302414" class="">
+        </p><figure id="f5d2b3f6-8a78-4d92-bafc-2749ec38d475" class="image"></figure><p id="0d1d10a4-5cf3-4d86-b3cd-491e4af22c27" class="">
+        </p><p id="53fa979a-c8d3-4d81-84fd-a7e197e732b1" class="">IP 프로트콜 한계</p><ol type="1" id="de71c19a-099c-40b7-ae34-1fab01750ef4" class="numbered-list" start="1"><li>비연결성 : 연결 보장 불가</li></ol><ol type="1" id="3d868be7-035f-4036-9dd6-ac0c9cbe2e17" class="numbered-list" start="2"><li>비신뢰성 : 패킷 손실 / 순서 보장 X</li></ol><ol type="1" id="3636ba1c-915a-43e1-9698-8f136a009796" class="numbered-list" start="3"><li>프로그램 구분 불가능 : 같은 IP를 사용하는 서버의 프로그램이 2개라면?</li></ol><p id="202a184a-9316-469c-a6fa-33da94114540" class="">
+        </p><p id="123e3164-f7cc-419a-81b8-9e031a925abc" class="">
+        </p><p id="7372eb57-2f3e-4e00-9791-080cb690eb4d" class="">
+        </p><p id="c9ebc148-87f9-47a1-9328-3425f1e66644" class="">
+        </p>
+    </div>
+    <hr id="05f8d1ba-93f8-47d4-b08e-7f26a97586f4"/>
+
+    <div class="1">
+        <h2 id="7c0a5827-0ef3-494d-baad-6748e2e7f561" class="">TCP / UDP</h2><p id="7d4f9d94-60da-488c-922e-9c35cbad89da" class="">
+        </p><h3 id="223c1452-811b-4bf0-82d3-e2245dee4411" class="">TCP(Transmission Control Protocol)</h3><ul id="19c0da5f-3fdb-4d20-8240-a7e84ab1fd73" class="bulleted-list"><li style="list-style-type:disc">TCP 3 way handshake (Connect 과정)<ol type="1" id="ea6e8e95-2ce7-4d5e-988b-2f416fb3f45a" class="numbered-list" start="1"><li>SYN</li></ol><ol type="1" id="eeeaa81e-4b88-4928-a703-57f0c13f1553" class="numbered-list" start="2"><li>SYN + ACK</li></ol><ol type="1" id="096a8d48-e250-49fa-a382-1bdf1206ab59" class="numbered-list" start="3"><li>ACK</li></ol></li></ul><ul id="3a83d603-4531-4a01-912a-46611734b8bc" class="bulleted-list"><li style="list-style-type:disc">데이터 전달 보증</li></ul><ul id="f01e924a-c50e-4221-80f4-4dd49c27a35b" class="bulleted-list"><li style="list-style-type:disc">순서 보장</li></ul><ul id="022126cc-2c2d-4008-8eaa-f806fc6a0538" class="bulleted-list"><li style="list-style-type:disc">신뢰 가능한 프로토콜</li></ul><p id="b832f469-d1da-4dd3-8044-7a1adeec838b" class="">
+        </p><figure id="72e10baf-6fab-481a-b3b1-822ed865b934" class="image"><a href="/DataSet/Internet/TCP.png"><img style="width:300px" src="/DataSet/Internet/TCP.png"/></a></figure><p id="168cab87-3bfc-4950-8078-3f47ff1fd662" class="">
+        </p><p id="e127aca6-75dd-4ccf-af1c-9af9269a04ba" class="">
+        </p><h3 id="b3672418-abf2-4c43-b765-6db570785a61" class="">UDP (User Datagram Protocol)</h3><ul id="d5bad822-134d-450a-baea-1d206995f870" class="bulleted-list"><li style="list-style-type:disc">TCP 3 way handshake X</li></ul><ul id="9a03b745-d5c7-4a9e-b503-f740c665d447" class="bulleted-list"><li style="list-style-type:disc">데이터 전달 보증 X</li></ul><ul id="d0858d15-8c34-4558-a734-fc3df9ec5a14" class="bulleted-list"><li style="list-style-type:disc">순서 보장 X</li></ul><ul id="adc11711-704e-4830-9096-ad2e20408b85" class="bulleted-list"><li style="list-style-type:disc">데이터 전달 및 순서가 보장되지 않지만, 단순하고 빠름</li></ul><p id="d13ea65a-c23e-4104-9d3a-da5f9a820ee6" class="">
+        </p><p id="421f985d-af2f-44a7-a98f-a000fc61e42e" class="">
+        </p><p id="801531c4-1a7f-4124-9b9b-1d36b8f0f33f" class="">
+        </p><p id="11278e3c-1700-4fb9-b070-276c4b1c7ff3" class=""></p>
+    </div>
+    <hr id="b0a7bc86-fc34-4dd4-9cfc-a8f5899988d9"/>
+
+    <div class="2">
+        <h2 id="97a31b7f-7e03-49a7-be13-78c748a8d322" class="">PORT</h2><h3 id="dd2d69f0-87e5-44ff-b135-35ed71eedad4" class="">만약 한번에 둘 이상의 서버와 연결해야한다면, 패킷의 IP 주소만으로는 한계가 있다!</h3><p id="50a1db7d-56bf-416a-8109-34761ceffbc6" class="">
+        </p><p id="889ade0e-77f7-4f80-ba69-a372b3020b8e" class="">
+        </p><figure id="6e74d6be-6831-4a12-a382-8068fec0c53a" class="image"><a href="/DataSet/Internet/PORT.png"><img style="width:300px" src="/DataSet/Internet/PORT.png"/></a></figure><p id="c554431b-a17c-4a31-aac0-395b1a6d1cb0" class="">
+        </p><p id="534e8100-dad2-4a50-beb8-f3951cc6bafe" class="">
+        </p><p id="6901c4d2-41bf-4a13-8400-512d7facadb5" class="">
+        </p><p id="0b62a0d0-ab27-48b4-9507-bcf547254f87" class="">
+        </p><figure id="a1e77205-6b4b-46d6-bc3f-1defa979b33a" class="image"><a href="/DataSet/Internet/PORTex.png"><img style="width:300px" src="/DataSet/Internet/PORTex.png"/></a></figure><p id="8380be8b-ed0d-4e99-b946-053382a44520" class="">
+        </p><p id="4e72aa93-18b1-42ea-8302-5bbbc7c8dcf6" class="">
+        </p><p id="3ec77d87-0f29-49eb-87a4-14f03b81ac80" class="">
+        </p><ul id="b1ebc10f-ebb6-4862-9946-e762f3c8f822" class="bulleted-list"><li style="list-style-type:disc">0 ~ 65535 할당 가능</li></ul><ul id="541b475b-082f-4705-908d-6f0bfaf6aa06" class="bulleted-list"><li style="list-style-type:disc">0 ~ 1023: 잘 알려진 포트, 사용하지 않는 것이 좋음</li></ul><ul id="c5a01f7f-d8d4-4bf7-8472-f1423101869f" class="bulleted-list"><li style="list-style-type:disc">FTP - 20, 21</li></ul><ul id="98442361-19a6-41c3-a274-6eba72a75167" class="bulleted-list"><li style="list-style-type:disc">TELNET - 23</li></ul><ul id="117a6138-6bf8-4da1-910a-5bc8f68ae1e3" class="bulleted-list"><li style="list-style-type:disc">HTTP - 80</li></ul><ul id="8fd3a029-709e-4287-9eb2-39c17192da64" class="bulleted-list"><li style="list-style-type:disc">HTTPS - 443</li></ul><p id="24644322-9e2a-4967-a1c3-21464cd0512d" class="">
+        </p><p id="6533bbf4-c067-4a0d-88a3-19372911f55c" class="">
+        </p><p id="866d0928-bc98-43f1-bd7a-4983e4cced1d" class="">
+        </p>
+    </div>
+    <hr id="c0d567d0-0540-403c-bb79-51232c274331"/>
+
+    <div class="3">
+        <h2 id="f7ddef3e-e5b8-4fb5-8bc3-338e05a0cd2d" class="">DNS (Domain Name System)</h2><h3 id="defe383e-9363-4fb1-8895-a13d4a325025" class=""> IP 주소를 사람이 알기 쉬운 문자로 변환</h3><p id="4965ace3-af8c-4ecf-98b0-5449e60f6074" class="">
+        </p><ul id="11fef6dc-2618-42f4-816f-fe820a9cbd44" class="bulleted-list"><li style="list-style-type:disc">IP 주소는 외우기 어렵다.</li></ul><ul id="e23f85a1-dc94-4f8a-9a3f-258becd9cd5c" class="bulleted-list"><li style="list-style-type:disc">IP 주소는 변경 가능하다.</li></ul><p id="f14556d0-592b-421d-8436-d10afa07eabf" class="">
+        </p><p id="47939b0a-97c4-4b61-861b-34df3ef7feeb" class="">
+        </p><p id="be1d1314-c954-41f6-ae97-f1d53ecafad0" class="">
+        </p>
+    </div>
+        <hr id="591934e7-07ae-4958-9aff-c7ca2a3c49ee"/>
+
+    <div class="4">
+        <h2 id="9af55ff6-dcf7-419d-aa52-cdc886926143" class="">HTTP (Hyper Text Transfer Protocol)</h2><p id="7a27d2f6-3909-465a-a58b-439ae851c6cc" class="">
+        </p><ul id="ac25dc71-84b7-4c46-9138-e66e8b0dc434" class="bulleted-list"><li style="list-style-type:disc">HTML, TEXT</li></ul><ul id="7e9c514e-2a45-4960-a338-054cb25ce613" class="bulleted-list"><li style="list-style-type:disc">Image, 음성, 영상, 파일 전송</li></ul><ul id="9ce01426-4f15-4c8e-a875-6b333d6d0081" class="bulleted-list"><li style="list-style-type:disc">JSON, XML (API)</li></ul><p id="c6b1ae2c-0e8c-48e6-8954-13b57e83b3e1" class="">
+        </p><h3 id="90ea8ae1-fa4a-48db-bcf4-a1077b7a92f2" class="">특징</h3><ul id="ed717b88-1d8a-4350-8f54-49b431ff860e" class="bulleted-list"><li style="list-style-type:disc">클라이언트 서버 구조<ul id="b47df10a-66b6-4519-b7ff-839270066cc9" class="bulleted-list"><li style="list-style-type:circle">Request, Response 구조</li></ul><ul id="bee29945-61b3-46b5-ba35-790f17ca83d8" class="bulleted-list"><li style="list-style-type:circle">클라이언트는 서버에 요청을 보내고 응답을 대기</li></ul><ul id="cb64af0d-7e7a-4d9b-b870-5d60de2b9986" class="bulleted-list"><li style="list-style-type:circle">서버는 클라이언트에 결과를 반환</li></ul></li></ul><ul id="a35b7ba8-1db3-4e14-848a-12b4e941904c" class="bulleted-list"><li style="list-style-type:disc">Stateless : 무상태 프로트콜<ul id="f67553fe-9b01-4735-a67b-a2ca4a16634c" class="bulleted-list"><li style="list-style-type:circle">서버는 클라이언트의 상태 보존을 하지 않는다.</li></ul><ul id="cd0fa4d0-04c3-4d98-a807-afa05c450a3e" class="bulleted-list"><li style="list-style-type:circle">장점 : 스케일 아웃 (확장성 높음)</li></ul><ul id="32447382-7eff-4a9c-aecd-2bab92de8cbe" class="bulleted-list"><li style="list-style-type:circle">단점 : 클라이언트는 추가 데이터를 Request에 보내야 함</li></ul><ul id="34312ebc-f92e-4cbc-9531-e5036edc3dc5" class="bulleted-list"><li style="list-style-type:circle">Ex. Stateful 상태라면, 서버와 클라이언트 사이에 연결이 끊기는 경우 모든 내용 초기화</li></ul></li></ul><p id="78a5c0f2-1329-4ea2-bdec-6df9c0054279" class=""><strong>Stateless 정리</strong></p><ol type="1" id="71d6ac5e-c7aa-4a17-ac96-93d0a3e676a9" class="numbered-list" start="1"><li>상태 유지 : 클라이언트는 서버에 자신의 상태를 알려줘야 한다.</li></ol><ol type="1" id="ed150d8d-9950-4ef2-97a3-8083d7f78aa1" class="numbered-list" start="2"><li>무상태 : 무한한 서버 증설 가능</li></ol><p id="26fbcc27-412f-488a-ad47-ca312772ad6a" class="">
+        </p><p id="252e52bd-9320-49b2-b8af-bc670a9966fa" class="">
+        </p><p id="bc4b7203-fffb-473b-8b24-13bfe320c351" class="">
+        </p><figure id="cff63284-f808-42d4-b175-33747008d8e6" class="image"><a href="/DataSet/Internet/Untitled.png"><img style="width:300px" src="/DataSet/Internet/Untitled.png"/></a></figure><p id="43bc7a71-4973-42d2-ae3e-c382755eca89" class="">
+        </p><p id="69b5f491-c3df-45ef-9182-8b7f530c632e" class="">
+        </p><figure id="8afa8f78-9df5-484f-8cb6-ec5f864cda98" class="image"><a href="/DataSet/Internet/Untitled1.png"><img style="width:300px" src="/DataSet/Internet/Untitled1.png"/></a></figure><p id="bad6de36-2588-4ff4-a3a3-10b92d2f2577" class="">
+        </p><p id="f45c80bb-369c-4946-9c59-c16ccc12f7ff" class="">
+        </p><p id="6a6f21c5-b691-4cb1-a31d-663261c6a554" class="">
+        </p><h3 id="0d8c0201-4a4f-4ae7-8eb9-c288eae6ef5f" class="">Stateless 한계</h3><ul id="70ce19ec-5959-4a95-a21a-63f9419d2e79" class="bulleted-list"><li style="list-style-type:disc">`로그인`과 같은 상태 정보는 무상태로 할 수 없다.</li></ul><ul id="e41c3421-d478-49c1-8e52-14a28004f29c" class="bulleted-list"><li style="list-style-type:disc">해결법 : 쿠키 및 세션 등 이용<p id="334489a1-0364-44fd-a70b-53e2e34f097c" class="">→  최소한의 Stateful 이용</p><p id="b1cb9a81-4d00-4603-a028-422f29a72701" class="">
+        </p></li></ul><p id="190e13db-482c-4af5-a9fc-e873aedde790" class="">
+        </p><p id="b1db8d4c-6fdd-45e1-be01-30ccd2e26dac" class="">
+        </p><p id="e7a63e8e-25bb-47c3-b512-bb615d8a6577" class="">
+        </p><figure id="92e4758d-2403-4353-88c2-65a829044613" class="image"><a href="/DataSet/Internet/Untitled2.png"><img style="width:300px" src="DataSet/Internet/Untitled2.png"/></a><figcaption>Http Docs : <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Messages">https://developer.mozilla.org/ko/docs/Web/HTTP/Messages</a></figcaption></figure><p id="e766f9f9-8e2a-41bf-a1a8-cabe1fdb0b8e" class="">
+        </p><h3 id="b95efccb-b100-4a69-b1c5-f6ee836dd9dc" class="">Start Line</h3><p id="ee34419a-4961-4755-bc3d-667b11ef7a6d" class=""><strong>Requests</strong></p><ul id="1efde77c-fd4e-451b-99d2-a4a46e2a73dd" class="bulleted-list"><li style="list-style-type:disc">HTTP 메서드 : POST</li></ul><ul id="d807a5aa-72c3-4c51-b4fa-b5f77f901d69" class="bulleted-list"><li style="list-style-type:disc">HTTP Version : HTTP/1.1</li></ul><p id="f8eb495c-c148-4c12-b874-5493268467ed" class="">
+        </p><p id="dc3370de-b7e0-43b6-9c7f-4badd31d6b7a" class=""><strong>Responses</strong></p><ul id="1d425466-2eca-4218-956d-5df1e3d97b96" class="bulleted-list"><li style="list-style-type:disc">HTTP Version : HTTP/1.1</li></ul><ul id="2eb2d9cf-48a9-411c-a04d-af53beba100b" class="bulleted-list"><li style="list-style-type:disc">HTTP status code : 403</li></ul><ul id="ca97f026-a4fe-459d-8503-9409d4673c0f" class="bulleted-list"><li style="list-style-type:disc">이유 문구 : Forbidden</li></ul><p id="2e75bb59-df67-4d7f-bd53-085a09ba0f78" class="">
+        </p><p id="002f793f-111c-40db-80b9-00d77ab2555c" class="">
+        </p><h3 id="b24c4718-6c97-4c08-b0a4-be691059c9aa" class="">HTTP Header</h3><ul id="bdd15b13-6e52-45e2-8268-98b3fe4e8f99" class="bulleted-list"><li style="list-style-type:disc">HTTP 전송에 필요한 부가 정보들</li></ul><p id="4580f8bf-faec-48ab-b1a4-a7361cf0ca25" class="">
+        </p><h3 id="7f3de8f1-1e21-410e-bfcb-7d7935ecc5c7" class="">HTTP Body</h3><ul id="9b9379ae-b336-4642-9b43-902d2fe7d233" class="bulleted-list"><li style="list-style-type:disc">실제 전송 데이터</li></ul><ul id="aab394be-54b5-4225-b612-9ed36556e735" class="bulleted-list"><li style="list-style-type:disc">ex. HTML 문서, JSON …</li></ul><p id="d4437583-d02c-4b07-8a8d-9084aaf1ed7a" class="">
+        </p><h2 id="90833d59-196c-4386-8ef1-2520dc2fa411" class="">HTTP 메서드 종류</h2><ul id="dfb7ebf9-98f3-4196-b3d0-61cc24157e66" class="bulleted-list"><li style="list-style-type:disc">GET : 리소스 조회</li></ul><ul id="51202aec-f3df-44c4-a5d5-fac0607bbb76" class="bulleted-list"><li style="list-style-type:disc">POST : 요청 데이터 처리<ol type="1" id="6ff69aad-4718-4164-91c9-39b3207d81ec" class="numbered-list" start="1"><li>새 리소스 생성 (등록)</li></ol><ol type="1" id="54da9cc3-54f8-429e-9a11-2dd9b378dc34" class="numbered-list" start="2"><li>요청 데이터 처리</li></ol><ol type="1" id="d5a8569d-4c81-4be9-bf11-c16c750e02bb" class="numbered-list" start="3"><li>다른 메서드 사용하기 애매한 경우</li></ol></li></ul><ul id="a1bb42f0-85be-4c85-85f8-3aeb41b46544" class="bulleted-list"><li style="list-style-type:disc">PUT : 리소스 대체<ul id="5b3b68b1-8cfd-45f3-86c7-51e8f19385d8" class="bulleted-list"><li style="list-style-type:circle">리소스 있으면 대체, 없으면 생성</li></ul></li></ul><ul id="b79cba49-bed6-4bf7-93e0-9323cad22e08" class="bulleted-list"><li style="list-style-type:disc">PATCH : 리소스 부분 변경</li></ul><ul id="b4c7f1c6-cf92-4438-8d20-c4c5da006134" class="bulleted-list"><li style="list-style-type:disc">DELETE : 리소스 삭제</li></ul><p id="75464c58-752d-435b-9af6-b21b4b5b03df" class="">
+        </p><p id="ec3e795a-cd79-4e47-b11a-d75d7d870d8e" class="">
+        </p><p id="95b964a8-045c-4353-acd0-25091fad0d9b" class="">
+        </p><h2 id="5efb26ae-26a7-48d7-b0ed-b98d8b5ad0cd" class="">HTTP 메서드 속성</h2><ul id="8b7ebe82-8fe1-4df7-97cc-9192be469f07" class="bulleted-list"><li style="list-style-type:disc"><strong>안전한 메서드(Safe Methods)</strong><ul id="cf32defe-8be5-4de3-ab82-bff4dc7fa417" class="bulleted-list"><li style="list-style-type:circle">서버에 데이터를 변경하지 않는 요청 메서드</li></ul></li></ul><ul id="35f83bf3-9be1-4391-a27e-44a40abaf289" class="bulleted-list"><li style="list-style-type:disc"><strong>멱등성(Idempotent Methods)</strong><ul id="25937e68-29db-4755-9804-0cc5a6a4e7bb" class="bulleted-list"><li style="list-style-type:circle"><strong>연산을 여러 번 적용하더라도 결과가 달라지지 않는 성질</strong></li></ul></li></ul><ul id="9456d6ef-bb09-402d-8997-7927c7c74958" class="bulleted-list"><li style="list-style-type:disc"><strong>캐싱 가능(Cacheable Methods)</strong><ul id="d27ffae4-cc91-4889-a243-24d3d13390e1" class="bulleted-list"><li style="list-style-type:circle">응답 결과를 서버에 캐싱해서 사용해도 되는 메소드</li></ul></li></ul><p id="5ca2c90a-f225-43f2-9c36-e89de1cd5d8f" class="">
+        </p><p id="ea0138e3-5f46-4313-a726-fbdf167abf12" class="">
+        </p><figure id="59582b1d-4fa8-421e-b2a3-a115ceeac023" class="image"><a href="/DataSet/Internet/Untitled3.png"><img style="width:300px" src="/DataSet/Internet/Untitled3.png"/></a></figure><p id="4553a121-3331-4c62-be2e-44ac657862b4" class="">
+        </p><p id="e62befd7-0333-45e6-b572-0ba26f53b18f" class="">
+        </p><h3 id="5a561e25-e489-494b-b31b-af6949961580" class="">안전한 메서드 </h3><ul id="14838ba6-d396-4ddc-9938-23c3093a9d0b" class="bulleted-list"><li style="list-style-type:disc">GET</li></ul><ul id="9e74c896-a256-4a6c-8b92-2a3c39a43405" class="bulleted-list"><li style="list-style-type:disc">HEAD</li></ul><p id="d8fe2958-bfc8-4a45-87fd-b9d52ab359d1" class="">
+        </p><h3 id="406976fe-4704-4884-be97-1cf56f141f4a" class="">안전하지 않은 메서드</h3><ul id="12755d36-acc4-4176-bd58-63efb74d35cc" class="bulleted-list"><li style="list-style-type:disc">POST</li></ul><ul id="cf6ae813-548f-4672-9231-f88d92016a8e" class="bulleted-list"><li style="list-style-type:disc">PUT</li></ul><ul id="7971cec3-6919-43cc-a233-4fcfec44a5c7" class="bulleted-list"><li style="list-style-type:disc">DELETE</li></ul><ul id="01f65b7c-3249-4b2e-976f-4c3bb2ff85eb" class="bulleted-list"><li style="list-style-type:disc">PATCH</li></ul><p id="95ac1ba8-e0eb-43f8-9452-f0ee72f70765" class="">
+        </p><p id="86d0295f-41f5-40f0-b92b-f36ef8967838" class="">
+        </p><h3 id="1c6ed044-e7da-4736-9beb-f7065375a40a" class="">멱등한 메서드</h3><ul id="a1e4d137-430f-48eb-b3ea-f2a907a7e05d" class="bulleted-list"><li style="list-style-type:disc">GET</li></ul><ul id="1617f0ae-4779-429e-9843-2138002edc77" class="bulleted-list"><li style="list-style-type:disc">HEAD</li></ul><p id="f28c9287-8b11-4f55-a4f2-e82c80e02728" class="">
+        </p><h3 id="e9ccf7ee-99bf-450c-8a13-bf8f20740c75" class="">멱등하지만 안전하지 않은 메서드</h3><ul id="29fbd095-4da6-46f4-adbe-12592b3a6272" class="bulleted-list"><li style="list-style-type:disc">PUT</li></ul><ul id="cd311edf-8736-4907-aef9-e882ef0baf17" class="bulleted-list"><li style="list-style-type:disc">DELETE</li></ul><p id="a3dc524c-b28a-44fb-b43c-1afe089bd1c5" class="">
+        </p><h3 id="52e51c0e-c752-4e99-b939-f7e3c1de86b8" class="">멱등하지 않고 안전하지 않은 메서드</h3><ul id="de6897a3-aca8-4002-961a-46aab97eb8ba" class="bulleted-list"><li style="list-style-type:disc">POST</li></ul><ul id="e0efcf45-2601-43c4-8d4b-8be288c35322" class="bulleted-list"><li style="list-style-type:disc">PATCH</li></ul><p id="3aa553c8-3e46-481a-a2b4-ebbb937ab716" class="">
+        </p><p id="f924e340-1654-47b0-bd16-0e8f8ab82ce7" class="">
+        </p><h3 id="02764e22-b22f-404a-9518-c1d3844d9d1a" class="">캐싱</h3><ul id="ead217cc-f65d-47a7-9a15-8788fd600680" class="bulleted-list"><li style="list-style-type:disc">GET, HEAD, POST, PATCH가 가능하지만 일반적으로 GET, HEAD 정도만 캐시하여 사용</li></ul><p id="4cdcd276-7f57-4022-bdd4-8eb6b46df563" class="">
+        </p><p id="8952aeeb-5056-4208-b34d-49531bc3db48" class="">
+        </p><p id="5da7e690-8879-4865-b5f0-b850d749e2f8" class="">
+        </p><p id="14b5cb64-7989-40d2-a758-6c89bedb9a2f" class="">
+        </p><p id="c43a3617-1cb7-468d-875d-2d2b0d56b369" class="">출처 : <a href="https://velog.io/@younoah/http-attribute">https://velog.io/@younoah/http-attribute</a></p><p id="34978b0f-b815-4b37-85e2-7764132f67a1" class="">
+        </p><p id="f897c264-3005-4caa-898d-2a04880b451a" class="">
+        </p><h2 id="a76f9f11-c8c4-4e5b-a0d5-bdee1c8866f4" class="">HTTP 상태 코드</h2><ul id="a51ffea2-86b6-4f92-b79c-0993c518581d" class="bulleted-list"><li style="list-style-type:disc">2xx (Successful): 요청 정상 처리<ul id="53b6256c-9e98-498e-b160-26966bf8a009" class="bulleted-list"><li style="list-style-type:circle">200 OK : 요청 성공</li></ul><ul id="b444ae42-8198-4a38-9436-272a2446a351" class="bulleted-list"><li style="list-style-type:circle">201 Created : 요청 성공해서 새로운 리소스 생성</li></ul><ul id="e831c6c8-f598-43ba-bbc3-bdafc5a00d4f" class="bulleted-list"><li style="list-style-type:circle">202 Accepted : 요청은 접수됐지만 처리가 완료되지 않음</li></ul><ul id="7be10c76-ab4f-4563-9b31-b5b85b3ea328" class="bulleted-list"><li style="list-style-type:circle">204 No Content : 요청 성공, 응답 본문에 보낼 데이터 없음</li></ul></li></ul><ul id="68fc1058-332e-43ec-a848-330f409a3df2" class="bulleted-list"><li style="list-style-type:disc">3xx (Redirection): 요청을 완료하려면 추가 행동이 필요<ul id="abf957ec-1cf5-4e0d-9c01-25b8e5d948c2" class="bulleted-list"><li style="list-style-type:circle">301 Moved Permanently : 요청한 리소스의 URI가 변경되었음을 의미한다. 새로운 URI가 응답에서 <code>아마도</code> 주어질 수 있다 .</li></ul><ul id="83bb3362-cb75-46d0-9b4a-12bb71372d3c" class="bulleted-list"><li style="list-style-type:circle">308 Permanent Redirect : <code>301와 유사</code><br/>첫 요청에 <br/><code>POST</code>가 사용되었다면, 두번째 요청도 반드시 <code>POST</code>를 사용해야 한다.</li></ul><p id="d989afbf-0bdb-4e07-8ddf-214cc5cc4733" class="">
+        </p><ul id="a1021c70-2910-42cf-908c-0b6b66935d62" class="bulleted-list"><li style="list-style-type:circle">302 Found : 요청한 리소스의 URI가 일시적으로 변경되었음을 의미한다.</li></ul><ul id="7e437cc1-1645-4db2-a097-43cb6b0decea" class="bulleted-list"><li style="list-style-type:circle">303 See Other : <code>302와 유사</code><br/>리다이렉트 시 요청 메서드가 GET 으로 변경<br/></li></ul></li></ul><p id="b6e6eac9-712b-4b60-b342-582db647871d" class="">
+        </p><p id="d629f527-5f20-4b88-a010-bfd6b366a720" class="">
+        </p><h3 id="715ad55d-73e4-472e-b722-6ada1dab9a96" class="">PRG 패턴 (Post - Redirect - Get)</h3><ul id="9b32c368-cc90-46cd-9a05-982d539fb7ad" class="bulleted-list"><li style="list-style-type:disc">POST는 멱등성을 가지지 않는다.</li></ul><ul id="1bd74f5f-517c-4f66-a52b-512bc3e6060e" class="bulleted-list"><li style="list-style-type:disc">예를 들어, 인터넷으로 상품을 구매할 때, 새로고침을 한 경우 같은 상품을 여러 번 구매(POST)하게 된다.</li></ul><ul id="73a3f5e4-5896-4868-ab0c-3907b6a1703e" class="bulleted-list"><li style="list-style-type:disc">따라서 Redirect를 통해 Get 메서드로 변환하여 새로고침을 누르면 조회 기능이 가능하게끔 변경한다.</li></ul><p id="b5b7955a-b609-4e09-a69e-5d13170a4181" class="">
+        </p><p id="c2bba940-3f3f-4a57-b87b-fb7c8b22c35c" class="">
+        </p><figure id="2f10bf55-21a1-4709-be20-96010da89f38" class="image"><a href="DataSet/Internet/Untitled%204.png"><img style="width:641px" src="DataSet/Internet/Untitled%204.png"/></a></figure><p id="9e304a33-c6ef-45c3-aef4-bd535768dd0a" class="">
+        </p><p id="01c14f64-df90-471b-b146-50303a4c7df2" class="">
+        </p><p id="361f8d81-55b5-42db-b08c-4c69933b2014" class="">
+        </p><p id="dafc40ba-16e3-440d-b81c-0e41334129bb" class="">출처 : <a href="https://gofo-coding.tistory.com/entry/PRG-%ED%8C%A8%ED%84%B4-Post-%E2%86%92-Redirect-%E2%86%92-Get">https://gofo-coding.tistory.com/entry/PRG-패턴-Post-→-Redirect-→-Get</a></p><p id="45bdc688-ea96-4db4-bfa4-a4e09888e505" class="">
+        </p><p id="1419e8c2-ae0e-4111-9442-db75efc25a0f" class="">
+        </p><ul id="4d4a2e1c-b8bf-4995-8fda-2012c856755e" class="bulleted-list"><li style="list-style-type:disc">4xx (Client Error): 클라이언트의 잘못된 요청<ul id="611b81d1-623a-4a8f-b7d1-8d2cd50159e8" class="bulleted-list"><li style="list-style-type:circle">400 BadRequest : 잘못된 문법으로 인하여 서버가 요청을 이해할 수 없음을 의미한다.</li></ul><ul id="15b4daa1-fbd1-4f7f-a58d-9af8312a2555" class="bulleted-list"><li style="list-style-type:circle">401 Unauthorized : 클라이언트가 인증하지 않음. (로그인하지 않음)</li></ul><ul id="370e31ac-e28f-4d71-9809-adb5e43687e6" class="bulleted-list"><li style="list-style-type:circle">403 Forbidden : 접근 권한이 없음</li></ul><ul id="9671d8b4-91de-42cd-8687-c86a9242ef6b" class="bulleted-list"><li style="list-style-type:circle">404 Not Found : 서버가 요청받은 리소스를 찾을 수 없을 경우</li></ul></li></ul><p id="997cd668-8dd9-47bd-824c-61fbd40675b2" class="">
+        </p><ul id="7f077008-f495-43d1-b10a-35a77ebb345a" class="bulleted-list"><li style="list-style-type:disc">5xx (Server Error): 서버가 정상 요청을 처리하지 못함<ul id="865e5bb6-8807-4895-b4f2-e9e40cd8a0ae" class="bulleted-list"><li style="list-style-type:circle">500 Internal Server Error : 서버가 처리 방법을 모르는 상황이 발생</li></ul><ul id="53f93eaa-991c-48bf-8891-56e606e426bf" class="bulleted-list"><li style="list-style-type:circle">502 Bad Gateway : 서버가 요청을 처리하는 데 필요한 응답을 얻기 위해 게이트웨이로 작업하는 동안 잘못된 응답을 수신했음을 의미</li></ul><ul id="e880f626-1552-4138-bc07-fac4a6c35078" class="bulleted-list"><li style="list-style-type:circle">503 Service Unavailable : 유지보수를 위해 작동이 중단되거나 과부하가 걸렸을 때<ul id="74a33693-c811-49d8-9fc8-a7baebdd5e6d" class="bulleted-list"><li style="list-style-type:square"><code>Retry-After:</code> HTTP 헤더는 가능하면 서비스를 복구하기 전 예상 시간을 포함 가능</li></ul></li></ul></li></ul><p id="0bb3b4fc-e01a-4b65-8d3e-908aa1989ac2" class="">
+        </p><p id="b2ca2766-a2ea-43e8-9933-998e8104b7fe" class="">
+        </p><p id="beeeb25e-1c60-4cbb-9493-d8eafb7aba03" class="">출처 : <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Status">https://developer.mozilla.org/ko/docs/Web/HTTP/Status</a></p><p id="3068c9b9-8c8b-426d-8151-ec92abcaeb4d" class="">
+        </p><p id="85ab9565-e4d2-4229-a688-168a5dd4d0a1" class="">
+        </p>
+    </div>
+        <hr id="664b84bd-d0ca-4de9-bc0b-a5bb2c7cb008"/>
+
+    <div class="5">
+        <h2 id="81d47afc-07ae-40b0-a84e-2fe551dbb6fa" class="">Cookie : 클라이언트가 서버에서 받은 쿠키 저장, HTTP 요청시 서버로 전달</h2><p id="9e266894-7552-4f66-b49f-cba577cc5406" class="">
+        </p><h3 id="7dd027b3-c9fa-45c5-8a9c-c8d3d247e091" class="">Cookie의 LifeTime</h3><ul id="112c416c-7234-44e6-b27b-5da6bdd4f32c" class="bulleted-list"><li style="list-style-type:disc"><strong>세션 쿠키 :</strong>  현재 세션이 끝날 때 삭제됩니다. 즉, 브라우저 종료 전까지 유지</li></ul><ul id="8bf6306e-7e29-4d9b-871f-93eba704c5ec" class="bulleted-list"><li style="list-style-type:disc"><strong>영속 쿠키 : </strong><code>Expires</code> 속성에 명시된 날짜에 삭제되거나, <code>Max-Age</code> 속성에 명시된 기간 이후에 삭제됩니다.</li></ul><p id="8d47432c-4e8a-4eb2-863c-0c7d0f550dfc" class="">
+        </p><p id="ed4e08aa-5a92-46d0-9b71-701349c05a3a" class="">
+        </p><p id="32033903-350c-4e00-a2e6-4b0d2b6bb491" class="">ex. <code>Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT;</code></p><p id="3453793f-cd38-43bf-bd9a-5ae9c4f25d7e" class="">
+        </p><h3 id="c60516ef-39e6-442d-a532-5de8ddb2186d" class="">Cookie의 Scope</h3><p id="5508edaf-85a0-467a-ba81-3ad43135ab2c" class=""><code>Path</code>는 <code>Cookie</code> 헤더를 전송하기 위하여 요청되는 URL 내에 반드시 존재해야 하는 URL 경로</p><p id="332ab369-5001-4036-9b27-cd8851a4569f" class="">
+        </p><p id="1cd0e57c-c851-4d14-8990-0c588aebbdfc" class="">만약 <code>Path=/docs</code>이 설정되면, 다음의 경로들은 모두 매칭된다.</p><ul id="97ac3099-0545-42c1-a192-246dd7bed889" class="bulleted-list"><li style="list-style-type:disc"><code>/docs</code></li></ul><ul id="2a086b04-346a-471e-801d-d80b8bb63ed8" class="bulleted-list"><li style="list-style-type:disc"><code>/docs/Web/</code></li></ul><ul id="d860000b-1581-450e-9d9b-1ca8c9119f69" class="bulleted-list"><li style="list-style-type:disc"><code>/docs/Web/HTTP</code></li></ul><p id="35ef69e4-ca66-48ab-876a-025c8605de02" class="">
+        </p><p id="fbb5c1e7-9f1a-43de-890e-22bb44c46bcb" class="">
+        </p><h3 id="0c970125-68fb-479a-9edb-e3f560093325" class="">Cookie의 보안</h3><h3 id="45d6480c-13df-4259-b119-737c22a67bfa" class="">Secure</h3><ul id="82dd7b49-bba9-4452-868c-f1db20da11a6" class="bulleted-list"><li style="list-style-type:disc">http, https를 구분하지 않고 전송</li></ul><ul id="570ef91e-46a4-41c4-9e7e-ead32933e041" class="bulleted-list"><li style="list-style-type:disc">Secure 쿠키는 HTTPS 프로토콜 상에서 암호화된(encrypted ) 요청일 경우에만 전송 가능</li></ul><p id="c8c69ab8-ec15-4235-a948-7d8c986e2641" class="">
+        </p><h3 id="dd611d13-d86a-49ab-956b-96e9ded592fa" class=""> HttpOnly</h3><ul id="cd6211f9-eb80-4c56-bf24-26ac1c93e409" class="bulleted-list"><li style="list-style-type:disc">Cross-site 스크립팅 (<a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting">XSS (en-US)</a>) 공격 방지</li></ul><ul id="4e282af2-3e00-4e09-8d9c-d87d0352df5c" class="bulleted-list"><li style="list-style-type:disc"><code>HttpOnly</code> 플래그가 설정되지 않은 경우 기본의 쿠키들은 JavaScript로부터 접근 가능<br/><br/></li></ul><p id="8f1dea13-99cc-4535-8fb5-c5f6febc7d13" class="">
+        </p><p id="6b7ae166-2af3-4855-bcea-5c7bfa5bb345" class="">
+        </p><p id="272d5d04-5d16-42c3-80f4-1ba7ef232081" class="">출처 : <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies">https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies</a></p><p id="e1bda4e9-cbd7-47d3-99dd-b69b74eab26b" class="">
+        </p><p id="dd0252b3-a73f-4c9b-ae4b-0d7f52948809" class="">
+        </p>
+    </div>
+
+        <hr id="a508c44e-24c1-4c88-b33d-7b25e0d86ae1"/>
+
+
+    <div class="6">
+        <h2 id="730e9a56-1cd6-48ca-9ebc-4f76a884198b" class="">Cache</h2><ul id="669c6df1-3c69-405b-94e4-0e7794e75a01" class="bulleted-list"><li style="list-style-type:disc">이전에 가져온 리소스들을 재사용함으로써 네트워크 덜 사용</li></ul><ul id="07b55032-367b-406a-bd77-50dcccf1a3b1" class="bulleted-list"><li style="list-style-type:disc">Latency와 traffic을 줄여줌으로써 로딩 속도 향상</li></ul><p id="2c74a9f2-3423-42fc-a06b-dc19dcc391fd" class="">
+        </p><p id="3ba1d4a6-4b24-42df-af3e-c4a76542e74c" class="">
+        </p><figure id="1296420b-f44c-4193-9986-ab5cba36f0f4" class="image"><a href="DataSet/Internet/Untitled%205.png"><img style="width:551px" src="DataSet/Internet/Untitled%205.png"/></a></figure><p id="633114f4-04c4-42a2-84f7-0d686bf73aef" class="">
+        </p><p id="a4c0951d-48db-49e8-bdff-08f8d41e24a4" class="">
+        </p><p id="f40e7a2d-04bd-4eac-8fae-37b6a96df60e" class="">
+        </p><figure id="cd859460-38bd-48be-8a4c-00efd4817c6a" class="image"><a href="DataSet/Internet/Untitled%206.png"><img style="width:577px" src="DataSet/Internet/Untitled%206.png"/></a></figure><p id="5d91b078-36f7-4e66-b71b-c36c474bef9c" class="">
+        </p><p id="40f36d44-502a-4fff-a165-6a054e9e0849" class="">
+        </p><p id="f1777dd1-08e0-4169-9543-776548d16ca8" class="">
+        </p><figure id="00cc4fc1-f908-4a2c-8dea-be51cddcdce0" class="image"><a href="DataSet/Internet/Untitled%207.png"><img style="width:577px" src="DataSet/Internet/Untitled%207.png"/></a></figure><p id="fef8d852-2597-4295-bb47-f929ebc2299e" class="">
+        </p><p id="186a509a-4c5c-47fb-8871-156919716a98" class="">
+        </p><p id="6650377d-2e91-4239-8255-b378c320ce93" class="">
+        </p><h3 id="095f1256-61dd-41a7-ba66-a1fb508f5557" class="">캐시 시간 초과</h3><ul id="5bcbda08-6cb2-4436-a63c-2893ac6c3eff" class="bulleted-list"><li style="list-style-type:disc">캐시 유효 시간이 초과하면, 서버를 통해 데이터를 다시 조회하고 갱신한다.</li></ul><ul id="c0af533d-076a-43e5-8a8e-60b037ae0fe7" class="bulleted-list"><li style="list-style-type:disc">이때는 네트워크를 사용해야 한다.</li></ul><p id="f0129271-0f70-4764-9648-7784946ae49f" class="">
+        </p><p id="c66338ac-82e1-4401-a099-7286ec029435" class=""><code>Cache-Control: max-age=31536000</code></p><p id="dc97cb6c-117f-4036-81c3-d05ef3d57c03" class="">
+        </p><p id="d4274f04-8ed9-4683-a9ee-f59f79dfcd49" class="">
+        </p><h3 id="a6e74f38-caf2-4476-b4e8-686bc62b20c0" class="">캐시 검증</h3><p id="fe54d6af-512e-4691-806e-0b018a6df86d" class="">
+        </p><ol type="1" id="067e7482-b77a-483b-b16d-8de4f42396a3" class="numbered-list" start="1"><li>캐시 유효 시간이 초과해도, 서버의 데이터가 갱신되지 않으면 304 Not Modified (본문을 비워둔 상태로) 응답</li></ol><ol type="1" id="865d828f-2fb0-4c34-b581-9a88efd6b9ce" class="numbered-list" start="2"><li>클라이언트는 서버가 보낸 응답 헤더 정보로 캐시의 메타 정보를 갱신</li></ol><ol type="1" id="dbdad1d5-701a-4c7b-aa22-cee87f25a19f" class="numbered-list" start="3"><li>클라이언트는 캐시에 저장되어 있는 데이터 재활용</li></ol><p id="ceaf3bff-ace2-4c89-beb8-d9ff116602cd" class="">→ 결과적으로 네트워크 다운로드가 발생하지만 <strong>헤더 정보만 다운로드 가능</strong></p><p id="00b39389-1891-4457-aeb3-e4dd359d706d" class="">
+        </p><ul id="09cbbd3c-d8a7-41e8-9afb-3a131d10c6cf" class="bulleted-list"><li style="list-style-type:disc">If-Modified-Since: Last-Modified 사용</li></ul><ul id="4c69fac3-b1f1-4d8f-adca-53bd2af7d2ed" class="bulleted-list"><li style="list-style-type:disc">If-None-Match: ETag 사용<ul id="528e998a-da77-4386-bb57-85047db3f6c4" class="bulleted-list"><li style="list-style-type:circle">ETag : 특정 버전의 리소스를 식별하는 식별자, ETag가 같으면 유지, 다르면 다시 받기</li></ul></li></ul><ul id="4e23c053-fb17-4bbe-b5a6-20870f3e1cdc" class="bulleted-list"><li style="list-style-type:disc"> 조건이 만족하면 200 OK</li></ul><ul id="1d5af99a-43c4-4ba8-bd72-c8f8e8c6f4fc" class="bulleted-list"><li style="list-style-type:disc"> 조건이 만족하지 않으면 304 Not Modified</li></ul><p id="62ebfe53-4694-4382-99f2-e7218a3b01d4" class="">
+        </p><p id="942f2064-929b-4fb0-b49c-06a3159490e5" class="">
+        </p><h3 id="b2008ed8-62b8-444d-866c-5774647c6560" class=""><strong>캐싱 제어</strong></h3><ul id="21f48ea0-a5cc-43a8-ac0e-8124d721971d" class="bulleted-list"><li style="list-style-type:disc">Cache-Control: 캐시 제어<ul id="b9f2c286-82c2-4a43-8774-07717d0972c6" class="bulleted-list"><li style="list-style-type:circle"><strong>Cache-Control: no-cache </strong>: 캐시해도 되지만, 유효성 확인을 위해 원 서버로 요청을 보낸다.</li></ul><ul id="8ae502fb-fd0a-430f-a758-3819877fba8d" class="bulleted-list"><li style="list-style-type:circle"><strong>Cache-Control : no-store</strong> : 저장하면 안됨. 매번 요청을 서버에 전송하고 전체 응답을 다운로드한다.</li></ul><ul id="7d031679-92b9-4387-a9ae-ffbca54d4e22" class="bulleted-list"><li style="list-style-type:circle"><strong>Cache-Control: must-revalidate </strong>: 오래된 리소스를 사용하기 전, 상태 확인 &amp; 만료된 리소스 시 사용 금지</li></ul></li></ul><p id="fa2470bb-0fd8-4271-8d6d-c8f5c8680770" class="">
+        </p><p id="9509d555-f5ff-4d85-a5be-2e04eb4a075e" class="">
+        </p><figure id="5c47d004-ae73-4e99-b1c8-05cdac38fa37" class="image"><a href="DataSet/Internet/Untitled%208.png"><img style="width:932px" src="DataSet/Internet/Untitled%208.png"/></a></figure><p id="1f79309f-2559-4655-accc-e11542edafef" class="">
+        </p><p id="374aec01-17e9-4d36-9d5b-3af65283adcb" class="">
+        </p><figure id="6cad21d9-9141-4213-9c2d-727e836f8778" class="image"><a href="DataSet/Internet/Untitled%209.png"><img style="width:932px" src="DataSet/Internet/Untitled%209.png"/></a></figure><p id="ca52a298-a747-49f2-8d2b-629b3a43a94b" class="">
+        </p><p id="519043a4-3590-48f6-9219-17a820a947f6" class="">
+        </p><p id="2352b9aa-4787-41eb-8291-5f90e7d93216" class="">
+        </p><p id="43b4a16d-1f47-4c78-9c1c-e08222b32009" class="">
+    </p><p id="0868a738-12d3-4ac2-8142-4e5a24c6e9ea" class="">출처</p><p id="22c25b57-59a5-4f6a-ae89-9a8c0b969132" class=""><a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Caching">https://developer.mozilla.org/ko/docs/Web/HTTP/Caching</a></p><p id="581bfba6-b5e2-475c-95e5-eeecbe439335" class=""><a href="https://velog.io/@leemember/HTTP-%ED%94%84%EB%A1%9D%EC%8B%9C-%EC%BA%90%EC%8B%9C">https://velog.io/@leemember/HTTP-프록시-캐시</a></p></div></div>
+</article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

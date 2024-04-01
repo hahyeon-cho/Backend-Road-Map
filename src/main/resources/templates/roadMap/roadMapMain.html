@@ -1,0 +1,123 @@
+<!--로드맵 메인 페이지-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NCNK</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="/css/RoadMap/roadMapMain.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/nav.css">
+
+    <link rel="icon" href="/images/favicon.svg">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>RoadMap Detail</title>
+    <style>
+        /*footer 스타일 변경*/
+        footer{
+            background-color: black;
+            color: white;
+        }
+    </style>
+
+    <!--스크롤 할 수 있게 해줌-->
+<body style="overflow: scroll;" >
+<!--navber.html 사용 -->
+<div th:replace="~{navbar::nav}"></div>
+<header>
+    <a class="roadMapTitle"><h1>Backend RoadMap</h1></a>
+</header>
+
+
+<div class="roadmap-container">
+    <div class="mainCategory" ><img src="../../images/roadmapMain.svg" style="position: absolute; width: 1300px; top: 200px; left: 135px;">
+        <a class="nav-link Internet" href="#" data-id="1">Internet</a>
+        <a class="nav-link BasicFE" href="#" data-id="2">Basic FE</a>
+        <a class="nav-link OS" href="#" data-id="3">OS</a>
+        <a class="nav-link Language" href="#" data-id="4">Language</a>
+        <a class="nav-link Algorithm" href="#" data-id="5">Algorithm</a>
+        <a class="nav-link UsingGit" href="#" data-id="6">Using Git</a>
+        <a class="nav-link GithubGitLab" href="#" data-id="7">Github & GitLab</a>
+        <a class="nav-link RelationalDB" href="#" data-id="8">Relational DB</a>
+        <a class="nav-link NoSQLDB" href="#" data-id="9">NoSQL DB</a>
+        <a class="nav-link DBKnowledge" href="#" data-id="10">DB Knowledge</a>
+        <a class="nav-link APIs" href="#" data-id="11">APIs</a>
+        <a class="nav-link Framework" href="#" data-id="12">Framework</a>
+        <a class="nav-link Caching" href="#" data-id="13">Caching</a>
+        <a class="nav-link WebSecurity" href="#" data-id="14">Web Security</a>
+        <a class="nav-link Test" href="#" data-id="15">Test</a>
+        <a class="nav-link CICD" href="#" data-id="16">CI/CD</a>
+        <a class="nav-link DesignPattern" href="#" data-id="17">Design Pattern</a>
+        <a class="nav-link SearchEngines" href="#" data-id="18">Search Engines</a>
+        <a class="nav-link Container" href="#" data-id="19">Container</a>
+        <a class="nav-link WebServer" href="#" data-id="20">Web server</a>
+
+    </div>
+    <div class="subCategory">
+        <img src="../../images/backendRoadMapLogo.svg" style="position: absolute;  width: 350px; top:430px; left: 110px;">
+    <ul>
+        <li class ="sub1">#IP #TCP/UDP #PORT #DNS<br>#HTTP #Cookie #Cache</li>
+        <li class ="sub2">#HTML #CSS #JS</li>
+        <li class ="sub3">#OS work #Process 관리<br>#Theads&Concurrentcy<br>#Basic Termain Commands #Memory 관리<br>#IPC #I/O 관리 #기본 네트워크 개념</li>
+        <li class ="sub4">#Java #C#(posix Basic) #Python<br>#PHP #Ruby #Go #Rust #JS  </li>
+        <li class ="sub5">#Bubble Sort #Selection Sort<br>#Insertion Sort #Quick Sort #Merge Sort ...</li>
+        <li class ="sub6">#Git 사용법</li>
+        <li class ="sub7">#GitHub #Gitlab</li>
+        <li class ="sub8">#PostgreSQL #MySQL #Oracle</li>
+        <li class ="sub9">#DynamoDB</li>
+        <li class ="sub10">#Transaction #ACID #ORM #N + 1</li>
+        <li class ="sub11">#Authentication #REST<br>#JSON API #SOAP</li>
+        <li class ="sub12">#Spring #Django</li>
+        <li class ="sub13">#CDN #Client Side<br>#Server Side<br>(Redis, Memcached) </li>
+        <li class ="sub14">#HTTPS #CORS #SSL/TLS</li>
+        <li class ="sub15">#Integration Test<br>#Unit Test #Functional Test</li>
+        <li class ="sub16">#젠킨스</li>
+        <li class ="sub17">#Design Pattern #GOF Design Pattern<br>#Domain Driven Design<br>#Test Driven Design #SOLID</li>
+        <li class ="sub18">#Elastic search</li>
+        <li class ="sub19">#Docker</li>
+        <li class ="sub20">#Web server/WAS #Nginx</li>
+    </ul>
+    </div>
+    <img src="../../images/flag.png" style="position: absolute; width:55px; top:1494px; left: 1148px;  ">
+</div>
+
+<!--footer.html 사용-->
+<div th:replace="footer :: footer"></div>
+
+<script th:inline="javascript">
+    // 레벨 조건에 맞는 대분류 설정
+    $(document).ready(function() {
+        var level = [[${Level}]];
+
+        $('.nav-link').each(function() {
+            var dataId = parseInt($(this).data('id'));
+
+            if (level < dataId) {
+                $(this).addClass('MainCategory-disabledLink');
+                $(this).attr('href', '');
+                $(this).click(function (event){
+                    event.preventDefault();
+                });
+            } else if (level === dataId){
+                $(this).addClass('MainCategory-blinkingLink');
+            }else{
+                $(this).addClass('MainCategory-link');
+
+            }
+
+        });
+
+
+        // roadMapsub에 선택한 dataId 전달
+        $('.nav-link').click(function(e) {
+            e.preventDefault();
+            var dataId = $(this).data('id');
+            if (level >= dataId) {
+                window.location.href = 'roadmap/subcategory?dataId=' + dataId;
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

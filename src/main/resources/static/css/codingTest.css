@@ -1,0 +1,40 @@
+
+.level-easy {
+    color: #68E21C;
+}
+
+.level-normal {
+    color: #FFEA79;
+}
+
+.level-hard {
+    color: #fd8a8a;
+}
+
+.bg-white{
+    background: #fff;
+}
+
+.bg-silver{
+    background: #eee;
+}
+
+.table thead tr th {
+    font-size: 0.875em;
+}
+
+.table thead tr th {
+    border-bottom: 2px solid #e7ebee;
+}
+
+.table tbody tr td:first-child {
+    font-size: 1.125em;
+    font-weight: 300;
+}
+
+.table tbody tr td {
+    font-size: 0.875em;
+    vertical-align: middle;
+    border-top: 1px solid #e7ebee;
+    padding: 12px 8px;
+}

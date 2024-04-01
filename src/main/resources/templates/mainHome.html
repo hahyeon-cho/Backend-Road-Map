@@ -1,0 +1,56 @@
+<!--메인 페이지-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCNK</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <!--파비콘-->
+    <link rel="icon" href="/images/favicon.svg">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/login.js"></script>
+</head>
+<body>
+<script src="/js/home.js">
+</script>
+<!--메인페이지 네비게이션 바-->
+<div class ="main-container">
+    <div class ="mainNav">
+        <div class="maintitle">
+            <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
+        </div>
+        <div class="nav">
+            <!--로그인 전 -->
+            <div class="profile">
+                <a href="/member/mypage">
+                    <img th:if="${userPicture != null}" th:src="@{${userPicture}}" alt="Profile Image" style="width: 40px; height: auto;">
+                </a>
+            </div>
+            <div class="logoutbtn">
+                <a th:unless="${userName != null}" href="/login">Login</a>
+                <a th:if="${userName != null}" href="/logout">Logout</a>
+            </div>
+            <!--로그인 후 userpicture, 로그인버튼 -> 로그인으로 변경-->
+        </div>
+    </div>
+</div>
+    <header id="main-header">
+        <div class="backgrounImg"></div>
+    </header>
+</div>
+
+<section id="main-content">
+    <div class="mainButton">
+        <a href ="/roadmap"><img class="categoryImage" src="/images/homeRoadmap.svg"></a>
+        <a href ="/practice"><img class="categoryImage" src="/images/homePractice.svg"></a>
+        <a href ="/codingtest"><img class="categoryImage" src="/images/homeCodingtest.svg"></a>
+    </div>
+
+
+</section>
+<div th:replace="footer :: footer"></div>
+
+</body>
+</html>
