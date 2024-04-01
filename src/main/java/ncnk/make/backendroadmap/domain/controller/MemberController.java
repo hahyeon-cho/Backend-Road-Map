@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 회원 업데이트 Controller
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/myPage/{id}")
+    @GetMapping("/mypage/{memberId}")
     public String myPage(@PathVariable Long memberId, @LoginUser SessionUser user, Model model) {
         //로그인 하지 않은 사용자 접근 불가
         loginValidate(user);
@@ -48,13 +49,13 @@ public class MemberController {
     }
 
     @PostMapping("/edit/{memberId}")
-    public String update(@PathVariable Long memberId, @LoginUser SessionUser user,
+    public String update(@PathVariable Long memberId, @LoginUser SessionUser user, MultipartFile multipartFile,
                          @ModelAttribute MemberUpdateRequestDto updateRequestDto) {
         //로그인 하지 않은 사용자 접근 불가
         loginValidate(user);
 
         Member member = memberService.findMemberById(memberId); //회원 조회
-        memberService.updateProfile(member, updateRequestDto);// 회원 프로필 정보 업데이트 BIZ로직 실행
+        memberService.updateProfile(member, multipartFile, updateRequestDto);// 회원 프로필 정보 업데이트 BIZ로직 실행
 
         return "redirect:/form/myPage/{memberId}";// myPage로 Redirect
     }

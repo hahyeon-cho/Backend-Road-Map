@@ -1,5 +1,6 @@
 package ncnk.make.backendroadmap.domain.restController;
 
+import io.micrometer.core.annotation.Timed;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +54,7 @@ public class MemberApiController {
 
     // 마이페이지(MyRoadMap)
     //    http://localhost:8080/member/roadmap/1?page=2&size=5
+    @Timed("MemberApiController.myRoad")
     @GetMapping("/roadmap/{id}")
     public MyPage myRoad(@PathVariable Long id, @LoginUser SessionUser user,
                          @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
@@ -96,6 +98,7 @@ public class MemberApiController {
     }
 
     // 마이페이지(MyPractice)
+    @Timed("MemberApiController.myPractice")
     @GetMapping("/practice/{id}")
     public MyPage myPractice(@PathVariable Long id, @LoginUser SessionUser user,
                              @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
@@ -138,6 +141,7 @@ public class MemberApiController {
     // 마이페이지(MyTest)
 //     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
 //     속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
+    @Timed("MemberApiController.myTest")
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id, @LoginUser SessionUser user,
                          @RequestParam(value = "difficulty", required = false) String difficulty,

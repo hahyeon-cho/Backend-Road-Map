@@ -11,7 +11,6 @@ import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
@@ -46,14 +45,14 @@ class MemberServiceTest {
     void updateProfileTest(String profile, String name, String gitHub) {
         // given
         Member member = createMember();
-        MemberUpdateRequestDto memberUpdateRequest = MemberUpdateRequestDto.createMemberUpdateRequest(profile, name,
+        MemberUpdateRequestDto memberUpdateRequest = MemberUpdateRequestDto.createMemberUpdateRequest(name,
                 gitHub);
 
         when(memberRepository.save(any(Member.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(memberRepository.findById(anyLong())).thenReturn(Optional.of(member));
 
         // when
-        Long updateProfileId = memberService.updateProfile(member, memberUpdateRequest);
+        Long updateProfileId = memberService.updateProfile(member, null, memberUpdateRequest);
         Optional<Member> findUpdateMember = memberRepository.findById(updateProfileId);
 
         // then

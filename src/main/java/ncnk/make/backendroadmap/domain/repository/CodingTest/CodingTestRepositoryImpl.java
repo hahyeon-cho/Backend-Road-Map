@@ -14,8 +14,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
-import ncnk.make.backendroadmap.domain.entity.QCodingTest;
-import ncnk.make.backendroadmap.domain.entity.QSolved;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -33,14 +31,14 @@ public class CodingTestRepositoryImpl implements CodingTestCustomRepository {
     public List<CodingTest> findCsProblems() {
         List<CodingTest> normalProblems = queryFactory
                 .selectFrom(codingTest)
-                .join(codingTest, solved.codingTest)
+                .join(codingTest, solved.codingTest).fetchJoin()
                 .where(codingTest.problemLevel.eq(Problem.NORMAL.getProblemLevel())
                         .and(solved.problemSolved.eq(false)))
                 .fetch();
 
         List<CodingTest> easyProblems = queryFactory
                 .selectFrom(codingTest)
-                .join(codingTest, solved.codingTest)
+                .join(codingTest, solved.codingTest).fetchJoin()
                 .where(codingTest.problemLevel.eq(Problem.EASY.getProblemLevel())
                         .and(solved.problemSolved.eq(false)))
                 .fetch();
@@ -57,15 +55,12 @@ public class CodingTestRepositoryImpl implements CodingTestCustomRepository {
 
     @Override
     public List<CodingTest> findRandomProblemsByLevel(String level, int limit) {
-        QCodingTest ct = codingTest;
-        QSolved s = solved;
-        //TODO: Eager -> Lazy 이후 .fetchJoin()
         return queryFactory
-                .select(ct)
-                .from(s)
-                .join(s.codingTest, ct)
-                .where(s.problemSolved.eq(false)
-                        .and(s.codingTest.problemLevel.eq(level)))
+                .select(codingTest)
+                .from(solved)
+                .join(solved.codingTest, codingTest).fetchJoin()
+                .where(solved.problemSolved.eq(false)
+                        .and(solved.codingTest.problemLevel.eq(level)))
                 .limit(limit)
                 .fetch();
     }
@@ -97,7 +92,7 @@ public class CodingTestRepositoryImpl implements CodingTestCustomRepository {
 
     //검색 정보 중 "정렬 기준(오름/내림차순)"가 있으면 적용, 없으면 내림차순 적용
     private OrderSpecifier<Double> orderByProblemAccuracy(String order) {
-        if ("asc" .equalsIgnoreCase(order)) {
+        if ("asc".equalsIgnoreCase(order)) {
             return codingTest.problemAccuracy.asc();
         }
         return codingTest.problemAccuracy.desc();

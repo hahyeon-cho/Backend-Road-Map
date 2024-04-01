@@ -38,7 +38,7 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
-        return "/mainHome" ;
+        return "/mainHome";
     }
 }
 

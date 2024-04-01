@@ -26,9 +26,7 @@ import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
@@ -44,7 +42,6 @@ public class CodingTestService {
     private final LeetCodeCrawling leetcodeCrawling;
     private final WebDriverPool webDriverPool;
     private static final AtomicInteger COUNT = new AtomicInteger(20);
-    ;
     private final TraceTemplate template;
 
     //    @Scheduled(cron = "0 0 3 * * SUN") // 매주 일요일 새벽 3시
@@ -55,7 +52,7 @@ public class CodingTestService {
     }
 
     @Profile("!test")
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void scrapeAllProblemsAtStart() {
         scrapeAllProblems();
     }
@@ -90,9 +87,7 @@ public class CodingTestService {
             AtomicInteger temp = new AtomicInteger(0);
             for (JSONObject problem : problems) {
                 if (temp.get() < COUNT.get()) {
-                    log.info("--------Before scrapeAndSaveProblemAsync------");
                     scrapeAndSaveProblemAsync(problem);
-                    log.info("--------After scrapeAndSaveProblemAsync------");
                     temp.incrementAndGet();
                 }
             }
@@ -159,6 +154,10 @@ public class CodingTestService {
         result.addAll(easyProblems);
 
         return result;
+    }
+
+    public List<CodingTest> findAllProblems() {
+        return codingTestRepository.findAll();
     }
 
     // 코딩 테스트 PK 값으로 알고리즘 문제 찾기
