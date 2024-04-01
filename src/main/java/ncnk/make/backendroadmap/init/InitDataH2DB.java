@@ -37,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class InitDataH2DB {
     private final InitService initService;
-    private static final Long initLikeCount = 0L;
+    private static final Long initLikeCount = 1L;
 
     @PostConstruct
     public void init() {
