@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +18,7 @@ public class uploadProfilePicController {
         return "myPage/updateForm";
     }
 
+
     // 파일 업로드
     @PostMapping("/fileUpload")
     public String fileUpLoadView(@RequestParam("uploadFile") MultipartFile file, Model model)
@@ -26,7 +26,7 @@ public class uploadProfilePicController {
 
         System.out.println("fileUpload IN");
         // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
-        String uploadPath = "/Users/hayoung_p/Desktop/2차 프로젝트/img/";햣
+        String uploadPath = "/Users/hayoung_p/Desktop/Image/";
 
         // 2. 원본 파일 이름 알아오기
         String originalFileName = file.getOriginalFilename();
