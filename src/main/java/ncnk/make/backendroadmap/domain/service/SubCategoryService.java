@@ -39,4 +39,9 @@ public class SubCategoryService {
         return subCategoryRepository.findSubCategoryBySubDocsId(subCategoryId)
                 .orElseThrow(() -> new ResourceNotFoundException());
     }
+
+    public SubCategory findSubCategoryBySubDocsTitle(Sub subDocsTitle) {
+        return subCategoryRepository.findSubCategoryBySubDocsTitle(subDocsTitle)
+                .orElseThrow(() -> new ResourceNotFoundException());
+    }
 }

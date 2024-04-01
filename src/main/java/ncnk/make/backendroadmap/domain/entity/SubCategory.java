@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +34,6 @@ public class SubCategory extends BaseTimeEntity {
     private Long likeCount; //누적 좋아요 개수
 
     private String subDescription; //소분류 한줄 설명
-
-    @Version
-    private Long version;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_docs_id")
