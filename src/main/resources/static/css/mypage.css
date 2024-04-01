@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding: 0;
+
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+body{
+    background-color: #D8D8D8;
+    overflow-y: auto;
+}
+
+.container{
+    display: flex;
+    height: 100vh;
+}
+
+#myProfile {
+    flex: 0 0 20%;
+}
+.profileBox {
+    width: 85%;
+    height: 42%;
+    margin-top: 5%;
+    margin-left: 10%;
+    justify-content: center;
+    background-color: #CACACA;
+    transform-origin: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.fa-solid, .fas {
+    margin-left: 92%;
+    margin-top:2%;
+}
+.Profile{
+    text-align: center;
+}
+.Profile img {
+    width: 30%;
+    height: auto;
+    border-radius: 50%;
+    margin-top:5%;
+}
+.profileTop {
+    height: 25%;
+    width:100%;
+    background-color: #000000;
+    margin-left: 0%;
+    margin-top: 0%;
+}
+.myTest{
+    flex: 1;
+}
+.myName{
+    text-align:center;
+}
+.nickname {
+    color: #9FBCE9;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow:
+            -1px -1px 0 rgba(0, 0, 0, 0.5),
+            1px -1px 0 rgba(0, 0, 0, 0.5),
+            -1px  1px 0 rgba(0, 0, 0, 0.5),
+            1px  1px 0 rgba(0, 0, 0, 0.5),
+            0px 0px 2px rgba(0, 0, 0, 0.5);
+
+}
+
+.username{
+    margin-top:10%;
+    font-size:12px;
+
+}
+.userName{
+    font-size:18px;
+    font-weight: bold;
+}
+.profileUsername {
+    height: 25%;
+    width:50%;
+    background-color: #000000;
+    margin-left: 25%;
+    margin-top: 0%;
+    color:white;
+    font-size:15px;
+
+}
+.git-email{
+    margin-top:5%;
+}
+.git-email .github,
+.git-email .email {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left:5%;
+    margin-top:3%;
+}
+.pointBox {
+    display: flex;
+    width: 85%;
+    margin-top: 5%;
+    margin-left: 10%;
+    justify-content: center;
+    background-color: #A3A3A3;
+    transform-origin: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.point span{
+    font-size:25px;
+}
+.point{
+    margin-left:-60%;
+    margin-top:8%;
+}
+.divider{
+    margin-left:0%;
+}
+.userPoint{
+    font-size:15px;
+    font-weight: bold;
+    color:white;
+    text-align:center;
+}
+.Difficulty span{
+    font-size:20px;
+    font-weight: bold;
+}
+.Difficulty {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 6px;
+    margin-left:5%;
+    padding: 0 10px;
+}
+.Difficulty p{
+    margin:0;
+    margin: 0 8px;
+    margin-left:15%;
+}

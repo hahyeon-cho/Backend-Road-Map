@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>NCNK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel ="stylesheet" href="/css/mypage.css">
+  <link rel="icon" href="/images/favicon.svg">
 </head>
 <body>
-<h1>마이페이지</h1>
+<div th:replace="~{navbar::nav}"></div>
+<div class="container">
+  <div id="myProfile">
+    <div class="profileBox">
+      <!--      <div class="profileTop"></div>-->
+      <div class="profileTop">
+        <a class="setting" href="/myPage/updateForm"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></a>
+        <div class ="Profile"><img th:if="${Profile != null }" th:src="${Profile}" >
+        </div>
+        <div class ="myName">
+          <p class="nickname" ><span th:text="${NickName}"></span></p>
+          <div class="profileUsername">
+            <p class ="username" >USERNAME</p>
+            <span class="userName" th:text="${Name}"></span>
+          </div>
+        </div>
+        <div class ="git-email">
+          <ul>
+            <p class="github"><i class="fa-brands fa-github" style="color: #000000"></i><span th:text="${Github}"></span></p>
+            <p class="email"><i class="fa-regular fa-envelope" style="color: #000000;"></i><span th:text="${Email}"></span></p>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class ="myPointTotal">
+      <div class="pointBox">
+      <div class="userPoint">
+        <p class="point">My Point  <span th:text="${Point}"></span></p>
+      </div>
+        <hr class="divider">
+      <div class ="Difficulty">
+        <p class="hard">상<br><span th:text="${hard}"></span></p>
+
+        <p class="normal">중<br><span th:text="${normal}"></span></p>
+
+        <p class="easy">하<br><span th:text="${easy}"></span></p>
+
+        <span></span>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class ="myTest">
+    <p>오른쪽 요소들</p>
+  </div>
+</div>
 </body>
 </html>
