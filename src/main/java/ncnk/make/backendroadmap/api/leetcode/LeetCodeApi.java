@@ -1,22 +1,21 @@
 package ncnk.make.backendroadmap.api.leetcode;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-@Component
 @Slf4j
+@Component
 public class LeetCodeApi {
+
     private static final String LEETCODE_API_URL = "https://leetcode.com/api/problems/algorithms/";
     private static final String PAID_ONLY = "paid_only";
     private static final String STAT_STATUS_PAIRS = "stat_status_pairs";
@@ -24,9 +23,9 @@ public class LeetCodeApi {
     public List<JSONObject> getLeetCodeProblemList() throws IOException, JSONException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(LEETCODE_API_URL)
-                .addHeader("User-Agent", "Mozilla/5.0")
-                .build();
+            .url(LEETCODE_API_URL)
+            .addHeader("User-Agent", "Mozilla/5.0")
+            .build();
 
         Response response = client.newCall(request).execute();
 
