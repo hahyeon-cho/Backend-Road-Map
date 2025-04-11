@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TraceTemplate {
+
     private final LogTrace trace;
 
     public TraceTemplate(LogTrace trace) {
@@ -20,12 +21,11 @@ public class TraceTemplate {
         try {
             status = trace.begin(message);
 
-            //로직 호출
+            // 로직 호출
             T result = callback.call();
-
             trace.end(status);
-            return result;
 
+            return result;
         } catch (Exception e) {
             trace.exception(status, e);
             throw e;

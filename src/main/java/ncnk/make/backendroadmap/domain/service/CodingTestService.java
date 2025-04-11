@@ -19,7 +19,7 @@ import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
 import ncnk.make.backendroadmap.domain.exception.JsonParsingException;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
-import ncnk.make.backendroadmap.domain.repository.CodingTest.CodingTestRepository;
+import ncnk.make.backendroadmap.domain.repository.codingTest.CodingTestRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.LeetCodeCrawling;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.WebDriverPool;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
@@ -39,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 public class CodingTestService {
+
     private final CodingTestRepository codingTestRepository;
     private final LeetCodeApi leetCodeApi;
     private final LeetCodeCrawling leetcodeCrawling;
@@ -67,7 +68,7 @@ public class CodingTestService {
         try {
             driver = webDriverPool.getDriver();
             Optional<CodingTestProblem> problemOptional = leetcodeCrawling.scrapeLeetCodeProblemContents(
-                    problem, driver);
+                problem, driver);
             log.warn("scrapeAndSaveProblemAsync = {}", problemOptional.get().getProblemSlug());
             if (problemOptional.isPresent()) {
                 saveProblem(problemOptional);
@@ -100,14 +101,14 @@ public class CodingTestService {
 
     private CodingTest saveProblem(Optional<CodingTestProblem> codingTestProblem) {
         CodingTest codingTest = CodingTest.createCodingTest(
-                codingTestProblem.get().getProblemTitle(),
-                codingTestProblem.get().getProblemSlug(),
-                codingTestProblem.get().getProblemLevel(),
-                codingTestProblem.get().getProblemAccuracy(),
-                codingTestProblem.get().getProblemContents(),
-                codingTestProblem.get().getProblemImages(),
-                codingTestProblem.get().getExInputOutput(),
-                codingTestProblem.get().getProblemTopics()
+            codingTestProblem.get().getProblemTitle(),
+            codingTestProblem.get().getProblemSlug(),
+            codingTestProblem.get().getProblemLevel(),
+            codingTestProblem.get().getProblemAccuracy(),
+            codingTestProblem.get().getProblemContents(),
+            codingTestProblem.get().getProblemImages(),
+            codingTestProblem.get().getExInputOutput(),
+            codingTestProblem.get().getProblemTopics()
         );
         return codingTestRepository.save(codingTest);
     }
@@ -131,7 +132,7 @@ public class CodingTestService {
 
                 // URL에 특정 예약된 문자들이 퍼센트 인코딩(%로 시작하는 인코딩)을 사용하여 전송되어야 하는 경우
                 String decodedUserCodeResult = URLDecoder.decode(userCodeResult,
-                        StandardCharsets.UTF_8.name());
+                    StandardCharsets.UTF_8.name());
 
                 return CodingTest.evaluate(decodedUserCodeResult, output);
             } catch (JsonProcessingException | UnsupportedEncodingException e) {
@@ -147,9 +148,9 @@ public class CodingTestService {
     // 알고리즘 문제는 사용자가 풀지 않은 문제 중 하/하/중 3문제를 랜덤으로 뽑는다.
     public List<CodingTest> findRandomProblemsByLevel() {
         List<CodingTest> normalProblems = codingTestRepository.findRandomProblemsByLevel(
-                Problem.NORMAL.getProblemLevel(), 1);
+            Problem.NORMAL.getProblemLevel(), 1);
         List<CodingTest> easyProblems = codingTestRepository.findRandomProblemsByLevel(
-                Problem.EASY.getProblemLevel(), 2);
+            Problem.EASY.getProblemLevel(), 2);
 
         List<CodingTest> result = new ArrayList<>();
         result.addAll(normalProblems);
@@ -165,12 +166,12 @@ public class CodingTestService {
     // 코딩 테스트 PK 값으로 알고리즘 문제 찾기
     public CodingTest findCodingTestById(Long codingTestId) {
         return codingTestRepository.findCodingTestByCodingTestId(codingTestId)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            .orElseThrow(() -> new ResourceNotFoundException());
     }
 
     // 문제 리스트에서 정렬 기능
     public Page<CodingTest> dynamicSearching(String problemLevel, String problemAccuracy, String status,
-                                             Pageable pageable) {
+        Pageable pageable) {
         return codingTestRepository.dynamicSearching(problemLevel, problemAccuracy, status, pageable);
     }
 }

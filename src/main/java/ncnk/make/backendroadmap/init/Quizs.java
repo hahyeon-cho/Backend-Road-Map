@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class Quizs {
+
     List<Quiz> quizs = new ArrayList<>();
 
     List<CodingTest> codingTests = new ArrayList<>();

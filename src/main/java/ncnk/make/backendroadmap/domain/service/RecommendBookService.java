@@ -13,13 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
  * 책 추천 Service (BIZ 로직)
  */
 @Service
-@Transactional(readOnly = true)
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecommendBookService {
+
     private final RecommendBookRepository recommendBookRepository;
 
-    //대분류 정보 이용해 추천 책 List 반환
+    // 대분류 정보 이용해 추천 책 List 반환
     public List<RecommendBook> getRecommendBookList(MainCategory mainCategory) {
         return recommendBookRepository.findRecommendBooksByMainCategory(mainCategory);
     }

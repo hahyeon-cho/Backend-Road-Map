@@ -17,29 +17,29 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 웹 컴파일러 Service (BIZ 로직)
  */
-
 @Service
-@Transactional(readOnly = true)
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PracticeCodeService {
+
     private final PracticeCodeRepository practiceCodeRepository;
 
     private final TraceTemplate template;
 
-    //회원 정보를 이용해 웹 컴파일러 정보를 Page 반환
+    // 회원 정보를 이용해 웹 컴파일러 정보를 Page 반환
     public Page<PracticeCode> getPracticesByMember(Member member, Pageable pageable) {
         return practiceCodeRepository.findPracticeCodesByMember(member, pageable);
     }
 
-    //웹 컴파일러 다운로드
+    // 웹 컴파일러 다운로드
     @Timed("PracticeCodeService.save")
     @Counted("Counted.practice.save")
     @Transactional
     public Optional<PracticeCode> save(String fileName, String filePath, String extension, Member member) {
         return Optional.ofNullable(template.execute("PracticeCodeService.save()", () -> {
             PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, String.valueOf(filePath), extension,
-                    member);
+                member);
             practiceCodeRepository.save(practiceCode);
             return practiceCode;
         }));

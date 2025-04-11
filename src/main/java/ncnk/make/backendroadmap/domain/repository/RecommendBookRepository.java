@@ -9,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 책 추천 테이블 Repository (Spring-data-JPA 이용)
  */
 public interface RecommendBookRepository extends JpaRepository<RecommendBook, Long> {
-    List<RecommendBook> findRecommendBooksByMainCategory(MainCategory mainCategory); //대분류에 따른 추천 책 List 반환
+
+    // 대분류에 따른 추천 책 List 반환
+    List<RecommendBook> findRecommendBooksByMainCategory(MainCategory mainCategory);
 }

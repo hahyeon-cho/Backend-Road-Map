@@ -11,8 +11,8 @@ import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
-import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.CodingTestResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.CodingTest.ProblemPageResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.codingTest.CodingTestResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.codingTest.ProblemPageResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
@@ -30,32 +30,33 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 코딩 테스트 RestController (json)
  */
+@RestController
 @Slf4j
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("/api/codingtest")
 public class CodingTestApiController {
+
     private final CodingTestService codingTestService;
     private final SolvedService solvedService;
     private final MemberService memberService;
 
     // 문제 리스트 페이지
     // http://localhost:8080/api/codingtest?page=0&size=100&problemLevel=&problemAccuracy=&status=unsolved
-    //     속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
+    // 속성값 problemLevel: Hard/Middle/Easy problemAccuracy: asc/desc status: solved/unsolved/incorrect
     // TODO: 풀었다, 안풀었다, 손 안댄 문제
     @Timed("CodingTestApiController.getProblemListPage")
     @GetMapping("")
     public CodingTestPage getProblemListPage(@LoginUser SessionUser user,
-                                             @RequestParam(value = "problemLevel", required = false) String problemLevel,
-                                             @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
-                                             @RequestParam(value = "status", required = false) String status,
-                                             @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        @RequestParam(value = "problemLevel", required = false) String problemLevel,
+        @RequestParam(value = "problemAccuracy", required = false) String problemAccuracy,
+        @RequestParam(value = "status", required = false) String status,
+        @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
         loginValidate(user);
 
         Member member = memberService.findMemberByEmail(user.getEmail());
 
         List<CodingTest> codingTests = codingTestService.dynamicSearching(problemLevel, problemAccuracy, status,
-                pageable).getContent();
+            pageable).getContent();
 
         List<ProblemPageResponseDto> codingTestResponseDtos = new ArrayList<>();
 
@@ -96,6 +97,7 @@ public class CodingTestApiController {
     @AllArgsConstructor
     @Getter
     static class ProblemPage<T> {
+
         private T data;
     }
 }

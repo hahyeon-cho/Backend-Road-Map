@@ -11,10 +11,10 @@ import java.util.Map;
 public class StringListConverter implements AttributeConverter<List<Map<String, String>>, String> {
 
     private static final ObjectMapper mapper = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
 
-    // DB 테이블에 들어갈 때 적용됨
+    // DB 테이블에 들어갈 때 적용
     @Override
     public String convertToDatabaseColumn(List<Map<String, String>> attribute) {
         try {
@@ -25,7 +25,7 @@ public class StringListConverter implements AttributeConverter<List<Map<String, 
         }
     }
 
-    // DB 테이블의 데이터를 Object 에 매핑시킬 때 적용됨
+    // DB 테이블의 데이터를 Object 에 매핑시킬 때 적용
     @Override
     public List<Map<String, String>> convertToEntityAttribute(String dbData) {
         try {

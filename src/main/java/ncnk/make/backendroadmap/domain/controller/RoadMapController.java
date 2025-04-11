@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.domain.controller.dto.DocsLike.DocsLikeResponseDto;
+import ncnk.make.backendroadmap.domain.controller.dto.docsLike.DocsLikeResponseDto;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 로드맵 Controller
  */
 @Controller
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/roadmap")
 public class RoadMapController {
 

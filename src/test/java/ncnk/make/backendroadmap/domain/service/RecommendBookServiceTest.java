@@ -31,16 +31,16 @@ class RecommendBookServiceTest {
     @DisplayName("도서 추천 리스트 테스트")
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"INTERNET, http://localhost:8080/roadmap/sub/1", "BASIC_FE, http://localhost:8080/roadmap/sub/2",
-            "OS, http://localhost:8080/roadmap/sub/3", "LANGUAGE, http://localhost:8080/roadmap/sub/4",
-            "ALGORITHM, http://localhost:8080/roadmap/sub/5"})
+        "OS, http://localhost:8080/roadmap/sub/3", "LANGUAGE, http://localhost:8080/roadmap/sub/4",
+        "ALGORITHM, http://localhost:8080/roadmap/sub/5"})
     void getRecommendBookListTest(Main main, String url) {
-        //given
+        // given
         MainCategory mainCategory = MainCategory.createMainCategory(main, url);
 
-        //when
+        // when
         List<RecommendBook> recommendBookList = recommendBookService.getRecommendBookList(mainCategory);
 
-        //then
+        // then
         assertAll(() -> assertNotNull(recommendBookList));
     }
 }

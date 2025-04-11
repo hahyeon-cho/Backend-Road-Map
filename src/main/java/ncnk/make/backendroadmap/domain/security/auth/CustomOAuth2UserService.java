@@ -5,7 +5,7 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.Member;
-import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.member.MemberRepository;
 import ncnk.make.backendroadmap.domain.security.auth.dto.OAuthAttributes;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,10 +16,11 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
+
     private final MemberRepository memberRepository;
     private final HttpSession httpSession;
 
@@ -29,26 +30,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint()
-                .getUserNameAttributeName();
+            .getUserNameAttributeName();
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName,
-                oAuth2User.getAttributes());
+            oAuth2User.getAttributes());
 
         Member member = saveOrUpdate(attributes);
         httpSession.setAttribute("member", new SessionUser(member));
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
-                attributes.getAttributes(),
-                attributes.getNameAttributeKey());
+            Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
+            attributes.getAttributes(),
+            attributes.getNameAttributeKey());
     }
 
     private Member saveOrUpdate(OAuthAttributes attributes) {
-        //TODO 사용자로부터 github 주소, 닉네임, 프로필 사진을 추가로 받는 로직을 추가한다.
+        // TODO 사용자로부터 github 주소, 닉네임, 프로필 사진을 추가로 받는 로직을 추가한다.
 
         Member member = memberRepository.findMemberByEmail(attributes.getEmail())
-                .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "GITHUB"))
-                .orElse(attributes.toEntity());
+            .map(entity -> entity.updateMember(attributes.getPicture(), attributes.getName(), "GITHUB"))
+            .orElse(attributes.toEntity());
 
         return memberRepository.save(member);
     }

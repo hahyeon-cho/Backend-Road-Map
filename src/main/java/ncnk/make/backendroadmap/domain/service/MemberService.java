@@ -5,10 +5,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
-import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
+import ncnk.make.backendroadmap.domain.controller.dto.member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
-import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.member.MemberRepository;
 import ncnk.make.backendroadmap.domain.utils.AttachImage;
 import ncnk.make.backendroadmap.domain.utils.UploadService;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,15 +16,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-@Transactional(readOnly = true)
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
+
     private final MemberRepository memberRepository;
     private final TraceTemplate template;
 
-    //회원 프로필 수정
+    // 회원 프로필 수정
     private final UploadService uploadService;
 
     @Value("${img.path}")
@@ -47,8 +48,8 @@ public class MemberService {
         }
 
         Member updateMember = member.updateMember(upload.getUploadPath(),
-                updateRequestDto.getNickName(),
-                updateRequestDto.getGithub());
+            updateRequestDto.getNickName(),
+            updateRequestDto.getGithub());
 
         log.info("Member 프로필 수정 성공");
 
@@ -66,13 +67,13 @@ public class MemberService {
 
     public Member findMemberById(Long id) {
         Member member = memberRepository.findMemberByMemberId(id)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            .orElseThrow(() -> new ResourceNotFoundException());
         return member;
     }
 
-    //이메일 이용해 회원 정보 조회
+    // 이메일 이용해 회원 정보 조회
     public Member findMemberByEmail(String email) {
         return memberRepository.findMemberByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            .orElseThrow(() -> new ResourceNotFoundException());
     }
 }

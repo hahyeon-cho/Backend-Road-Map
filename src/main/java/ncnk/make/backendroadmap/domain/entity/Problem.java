@@ -15,7 +15,7 @@ public enum Problem {
     private final String problemLevel;
     private final int point;
 
-    //생성자
+    // 생성자
     Problem(String problemLevel, int point) {
         this.problemLevel = problemLevel;
         this.point = point;

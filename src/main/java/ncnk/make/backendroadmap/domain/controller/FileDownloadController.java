@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequiredArgsConstructor
 public class FileDownloadController {
+
     private final PracticeCodeService practiceCodeService;
     private final MemberService memberService;
     private final TraceTemplate template;
@@ -37,10 +38,13 @@ public class FileDownloadController {
     private String fileDir;
 
     @PostMapping("/upload/{id}")
-    public ResponseEntity<?> uploadFile(@PathVariable Long id, @LoginUser SessionUser user,
-                                        @RequestParam("file") MultipartFile file,
-                                        @RequestParam("fileName") String fileName,
-                                        @RequestParam("extension") String extension) {
+    public ResponseEntity<?> uploadFile(
+        @PathVariable Long id,
+        @LoginUser SessionUser user,
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("fileName") String fileName,
+        @RequestParam("extension") String extension
+    ) {
         loginValidate(user);
 
         // 파일이 비어있는지 확인

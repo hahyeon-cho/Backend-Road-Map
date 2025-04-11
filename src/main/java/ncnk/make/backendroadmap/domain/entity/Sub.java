@@ -13,7 +13,7 @@ import lombok.Getter;
 public enum Sub {
     IP("IP", 1, 1, "[Internet protocol]\n네트워크를 통해 데이터를 보내는 데 사용되는 프로토콜."),
     TCP_UDP("TCP/UDP", 1, 2,
-            "[Transmission Control Protocol]\n[User Datagram Protocol]\n네트워크를 통해 데이터를 전송하는 데 사용되는 전송 계층 프로토콜. TCP는 신뢰성 있는 전송을, UDP는 빠른 전송을 제공."),
+        "[Transmission Control Protocol]\n[User Datagram Protocol]\n네트워크를 통해 데이터를 전송하는 데 사용되는 전송 계층 프로토콜. TCP는 신뢰성 있는 전송을, UDP는 빠른 전송을 제공."),
     PORT("PORT", 1, 3, "통신을 위한 운영 체제의 포트."),
     DNS("DNS", 1, 4, "[Domain Name System]\n도메인 이름을 IP 주소로 변환하여 웹 사이트에 액세스하는 데 사용되는 시스템."),
     HTTP("HTTP", 1, 5, "[HyperText Transfer Protocol]\n웹에서 데이터를 전송하는 데 사용되는 프로토콜."),
@@ -97,7 +97,7 @@ public enum Sub {
     private final String subDescription;
 
 
-    //생성자
+    // 생성자
     Sub(String subCategory, int mainCategoryNumber, int subDocsOrder, String subDescription) {
         this.subCategory = subCategory;
         this.mainCategoryNumber = mainCategoryNumber;
@@ -105,11 +105,11 @@ public enum Sub {
         this.subDescription = subDescription;
     }
 
-    //대분류 카테고리와 일치하는 소분류 데이터를 List로 반환
+    // 대분류 카테고리와 일치하는 소분류 데이터를 List로 반환
     public static List<Sub> getOrderedSubDocsInCategory(int category) {
         return Arrays.stream(Sub.values())
-                .filter(sub -> sub.getMainCategoryNumber() == category)
-                .sorted(Comparator.comparingInt(Sub::getSubDocsOrder))
-                .collect(Collectors.toList());
+            .filter(sub -> sub.getMainCategoryNumber() == category)
+            .sorted(Comparator.comparingInt(Sub::getSubDocsOrder))
+            .collect(Collectors.toList());
     }
 }

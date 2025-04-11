@@ -8,16 +8,13 @@ import org.aspectj.lang.annotation.Aspect;
 /**
  * [웹 컴파일러 다운로드] 트랜잭션 AOP
  */
-@Slf4j
 @Aspect
+@Slf4j
 public class PracticeCodeAspect {
     @Around("ncnk.make.backendroadmap.domain.aop.Pointcuts.saveWebCompiler()")
     public Object downLoadWebCompiler(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
-            log.info("[웹 컴파일러 다운로드 트랜잭션 시작] {}", joinPoint.getSignature());
-            Object result = joinPoint.proceed();
-            log.info("[웹 컴파일러 다운로드 트랜잭션 커밋] {}", joinPoint.getSignature());
-            return result;
+            return joinPoint.proceed();
         } catch (Exception e) {
             log.info("[웹 컴파일러 다운로드 트랜잭션 롤백] {}", joinPoint.getSignature());
             log.error("[ERROR] 웹 컴파일러 다운로드 : {}", e.getMessage());

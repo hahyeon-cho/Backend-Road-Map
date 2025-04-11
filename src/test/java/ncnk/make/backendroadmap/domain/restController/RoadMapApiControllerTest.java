@@ -14,7 +14,7 @@ import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.RecommendBook;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.RoadMap.RoadMapResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.roadMap.RoadMapResponseDto;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.SubCategoryService;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +42,7 @@ class RoadMapApiControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    
+
     @Autowired
     private MainCategoryService mainCategoryService;
 
@@ -57,16 +57,16 @@ class RoadMapApiControllerTest {
         MainCategory findMainCategory = mainCategoryService.findMainCategoryById(id);
         List<Sub> subCategories = subCategoryService.getSubCategoriesByMainCategory(findMainCategory);
         RoadMapResponseDto roadMapResponseDto = RoadMapResponseDto.createRoadMapResponseDto(main, subCategories,
-                main.getUrl());
+            main.getUrl());
         List<RoadMapResponseDto> roadMapResponseDtos = Arrays.asList(roadMapResponseDto);
 
         // when & then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/roadmap/category"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(roadMapResponseDtos.size()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mainDocsTitle[%d].url", main.ordinal())
-                        .value(main.getUrl()));
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(roadMapResponseDtos.size()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.mainDocsTitle[%d].url", main.ordinal())
+                .value(main.getUrl()));
     }
 
     @DisplayName("대분류 카테고리 자세히 보기")
@@ -81,20 +81,20 @@ class RoadMapApiControllerTest {
 
         //when & then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/roadmap/sub/{mainCategoryId}", mainCategory.getMainDocsId()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].subDocsTitle")
-                        .value(subCategory.getSubDocsTitle().getSubCategory()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].subDescription")
-                        .value(subCategory.getSubDescription()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].likeCount")
-                        .value(subCategory.getLikeCount()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.url")
-                        .value(subCategory.getMainCategory().getMainDocsTitle().getUrl()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.recommendBookDtos[0].bookTitle")
-                        .value(recommendBook.getBookTitle()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.recommendBookDtos[0].bookAuthor")
-                        .value(recommendBook.getBookAuthor()));
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].subDocsTitle")
+                .value(subCategory.getSubDocsTitle().getSubCategory()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].subDescription")
+                .value(subCategory.getSubDescription()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.subCategory[0].likeCount")
+                .value(subCategory.getLikeCount()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.url")
+                .value(subCategory.getMainCategory().getMainDocsTitle().getUrl()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.recommendBookDtos[0].bookTitle")
+                .value(recommendBook.getBookTitle()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.recommendBookDtos[0].bookAuthor")
+                .value(recommendBook.getBookAuthor()));
     }
 
     static Stream<Arguments> subCategoryTestArguments() {
@@ -130,7 +130,7 @@ class RoadMapApiControllerTest {
 
     private RecommendBook createRecommend(MainCategory mainCategory) {
         RecommendBook recommendBook = RecommendBook.createRecommend("bookTitle", "bookAuthor", "bookImage", "publisher",
-                mainCategory);
+            mainCategory);
         em.persist(recommendBook);
         return recommendBook;
     }

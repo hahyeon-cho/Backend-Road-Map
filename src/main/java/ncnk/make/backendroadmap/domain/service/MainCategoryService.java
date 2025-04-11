@@ -12,15 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
  * 대분류 Service (BIZ 로직)
  */
 @Service
-@Transactional(readOnly = true)
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MainCategoryService {
+
     private final MainCategoryRepository mainCategoryRepository;
 
-    //대분류 PK 이용해 대분류 정보 조회
+    // 대분류 PK 이용해 대분류 정보 조회
     public MainCategory findMainCategoryById(Long id) {
         return mainCategoryRepository.findMainCategoriesByMainDocsId(id)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            .orElseThrow(() -> new ResourceNotFoundException());
     }
 }

@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional
 class CodingTestApiControllerTest {
+
     @PersistenceContext
     EntityManager em;
 
@@ -43,11 +44,11 @@ class CodingTestApiControllerTest {
     @Test
     void getProblemListPage() throws Exception {
         mockMvc.perform(get("/api/codingtest")
-                        .param("status", "unsolved"))
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.pageSize").value(5))
-                .andExpect(jsonPath("$.data").isArray());
+                .param("status", "unsolved"))
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.pageSize").value(5))
+            .andExpect(jsonPath("$.data").isArray());
     }
 
     @DisplayName("알고리즘 문제 풀기 페이지")
@@ -58,10 +59,10 @@ class CodingTestApiControllerTest {
 
         // when & then
         mockMvc.perform(get("/api/codingtest/{id}", codingTest.getCodingTestId()))
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.problemTitle").value(codingTest.getProblemTitle()))
-                .andExpect(jsonPath("$.data.problemLevel").value(codingTest.getProblemLevel()));
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.data.problemTitle").value(codingTest.getProblemTitle()))
+            .andExpect(jsonPath("$.data.problemLevel").value(codingTest.getProblemLevel()));
     }
 
     private CodingTest createEasyLevel() {
@@ -77,9 +78,9 @@ class CodingTestApiControllerTest {
             CodingTestAnswer codingTestAnswer = CodingTestAnswer.createCodingTestAnswer(input, output);
             codingTestAnswers.add(codingTestAnswer);
         }
-        
+
         CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
-                50.7, "EasyContents", null, codingTestAnswers, null);
+            50.7, "EasyContents", null, codingTestAnswers, null);
         em.persist(codingTest);
         return codingTest;
     }

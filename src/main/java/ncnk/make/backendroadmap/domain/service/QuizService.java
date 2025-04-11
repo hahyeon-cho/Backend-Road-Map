@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
-import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
+import ncnk.make.backendroadmap.domain.repository.quiz.QuizRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
  * 퀴즈 Service (BIZ 로직)
  */
 @Service
-@Transactional(readOnly = true)
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class QuizService {
+
     private final QuizRepository quizRepository;
 
     // 퀴즈 채점
@@ -38,13 +39,13 @@ public class QuizService {
         return correctCount.get() > (quizAnswers.size() / 2);
     }
 
-    //대분류 이용해 퀴즈 정보 조회
+    // 대분류 이용해 퀴즈 정보 조회
     public List<Quiz> getQuizzes(MainCategory mainCategory) {
         return quizRepository.findQuizzesByMainCategory(mainCategory);
     }
 
     public Quiz getQuiz(String context, String quizAnswers) {
         return quizRepository.findQuizByQuizContextAndQuizAnswer(context, quizAnswers)
-                .orElseThrow(() -> new ResourceNotFoundException());
+            .orElseThrow(() -> new ResourceNotFoundException());
     }
 }

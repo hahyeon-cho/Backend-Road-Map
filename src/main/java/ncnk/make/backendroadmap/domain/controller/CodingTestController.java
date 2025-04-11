@@ -25,10 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 코딩 테스트 페이지
  */
 @Controller
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/codingtest")
 public class CodingTestController {
+
     private final CodingTestService codingTestService;
     private final SolvedService solvedService;
     private final MemberService memberService;
@@ -37,9 +38,8 @@ public class CodingTestController {
     @GetMapping("")
     public String codingTest(@LoginUser SessionUser user, Model model) {
         loginValidate(user);
-//        Member member = memberService.findMemberByEmail(user.getEmail());
+        Member member = memberService.findMemberByEmail(user.getEmail());
 
-        //TODO: templates/codingTest/codingTest.html 연결하기
         List<CodingTest> problems = codingTestService.findAllProblems();
         model.addAttribute("userPicture", user.getPicture());
         model.addAttribute("problems", problems);
@@ -49,7 +49,7 @@ public class CodingTestController {
     @GetMapping("/{id}")
     public String problemDetail(@PathVariable("id") Long codingTestId, @LoginUser SessionUser user, Model model) {
         loginValidate(user);
-//        Member member = memberService.findMemberByEmail(user.getEmail());
+        Member member = memberService.findMemberByEmail(user.getEmail());
         model.addAttribute("userPicture", user.getPicture());
 
         CodingTest problem = codingTestService.findCodingTestById(codingTestId);
@@ -68,8 +68,8 @@ public class CodingTestController {
     // Body 값에 userCodeResult 줘야함! ex: output
     @PostMapping("/{id}")
     public ResponseEntity<?> submitButton(@PathVariable Long id,
-                                          @LoginUser SessionUser user,
-                                          @RequestBody String userCodeResult) {
+        @LoginUser SessionUser user,
+        @RequestBody String userCodeResult) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }

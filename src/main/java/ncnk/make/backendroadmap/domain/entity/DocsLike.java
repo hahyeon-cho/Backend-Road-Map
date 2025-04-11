@@ -19,26 +19,27 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class DocsLike {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
-    private Long likeId; //PK
+    private Long likeId; // PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sub_docs_id")
-    private SubCategory subCategory; //소분류 FK
+    private SubCategory subCategory; // 소분류 FK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member; //회원 Fk
+    private Member member; // 회원 Fk
 
-    //생성자
+    // 생성자
     private DocsLike(SubCategory subCategory, Member member) {
         this.subCategory = subCategory;
         this.member = member;
     }
 
-    //정적 팩토리 메서드 방식을 적용한 생성자
+    // 정적 팩토리 메서드 방식을 적용한 생성자
     public static DocsLike createDocsLike(SubCategory subCategory, Member member) {
         return new DocsLike(subCategory, member);
     }

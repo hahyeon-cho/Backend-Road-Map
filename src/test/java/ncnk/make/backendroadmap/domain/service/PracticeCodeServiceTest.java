@@ -46,23 +46,22 @@ class PracticeCodeServiceTest {
     @MockBean
     private PracticeCodeRepository practiceCodeRepository;
 
-
     @DisplayName("웹 컴파일러 저장")
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"testFile, /test/path, .java"})
     void saveTest(String fileName, String filePath, String extension) {
-        //given
+        // given
         Member member = createMember();
         PracticeCode practiceCode = PracticeCode.createPracticeCode(fileName, filePath, extension, member);
 
         when(practiceCodeRepository.findAll()).thenReturn(Collections.singletonList(practiceCode));
 
-        //when
+        // when
         practiceCodeService.save(fileName, filePath, extension, member);
 
-        //then
+        // then
         assertAll(() -> assertEquals(1, practiceCodeRepository.findAll().size()),
-                () -> verify(practiceCodeRepository).save(any(PracticeCode.class)));
+            () -> verify(practiceCodeRepository).save(any(PracticeCode.class)));
     }
 
     @DisplayName("마이페이지: MyTest")
@@ -76,21 +75,21 @@ class PracticeCodeServiceTest {
 
         PracticeCodeService practiceCodeService = mock(PracticeCodeService.class);
         when(practiceCodeService.getPracticesByMember(any(Member.class), any(Pageable.class))).thenReturn(
-                practiceCodePage);
+            practiceCodePage);
 
         // when
         Page<PracticeCode> result = practiceCodeService.getPracticesByMember(member, pageable);
 
         // then
         assertAll(() -> assertNotNull(result),
-                () -> assertThat(practiceCodeList.size()).isEqualTo(result.getContent().size()),
-                () -> verify(practiceCodeService).getPracticesByMember(member, pageable)); // 서비스 메서드가 예상대로 호출되었는지 검증
+            () -> assertThat(practiceCodeList.size()).isEqualTo(result.getContent().size()),
+            () -> verify(practiceCodeService).getPracticesByMember(member, pageable)); // 서비스 메서드가 예상대로 호출되었는지 검증
     }
 
 
     private Member createMember() {
         Member member = Member.createMember("profile", "email", "name", "nickname", "github",
-                1, 0, Role.GUEST, 0, 0, 0);
+            1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }

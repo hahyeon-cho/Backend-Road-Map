@@ -16,9 +16,9 @@ import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
 import ncnk.make.backendroadmap.domain.restController.DocsLikeApiController.Result;
-import ncnk.make.backendroadmap.domain.restController.dto.Quiz.AlgorithmResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizAnswerDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Quiz.QuizPageDto;
+import ncnk.make.backendroadmap.domain.restController.dto.quiz.AlgorithmResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.quiz.QuizAnswerDto;
+import ncnk.make.backendroadmap.domain.restController.dto.quiz.QuizPageDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
@@ -37,18 +37,18 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 퀴즈 RestController (json)
  */
-
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/quiz")
 public class QuizApiController {
+
     private final QuizService quizService;
     private final MainCategoryService mainCategoryService;
     private final CodingTestService codingTestService;
     private final MemberService memberService;
 
-    //퀴즈 풀기 페이지
+    // 퀴즈 풀기 페이지
     @Timed("QuizApiController.quizzes")
     @GetMapping("/{mainCategoryId}")
     public Quizzes quizzes(@PathVariable Long mainCategoryId, HttpSession session) {
@@ -66,8 +66,8 @@ public class QuizApiController {
             return new Quizzes(algorithmResponseDtos);
         }
 
-        MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId); //대분류 PK값을 통해 대분류 찾기
-        List<Quiz> quizzes = quizService.getQuizzes(mainCategory); //대분류에 해당하는 퀴즈 List 얻기
+        MainCategory mainCategory = mainCategoryService.findMainCategoryById(mainCategoryId); // 대분류 PK값을 통해 대분류 찾기
+        List<Quiz> quizzes = quizService.getQuizzes(mainCategory); // 대분류에 해당하는 퀴즈 List 얻기
 
         // 리스트 섞음
         Collections.shuffle(quizzes);
@@ -79,7 +79,7 @@ public class QuizApiController {
         log.info("Quiz Page");
         for (Quiz quiz : quizzes) {
             QuizPageDto quizResponseDto = QuizPageDto.createQuizResponseDto(quiz);
-            quizResponseDtos.add(quizResponseDto); //퀴즈 응답값 dto 만들기
+            quizResponseDtos.add(quizResponseDto); // 퀴즈 응답값 dto 만들기
         }
 
         session.setAttribute("quizzes", quizResponseDtos);
@@ -87,11 +87,11 @@ public class QuizApiController {
         return new Quizzes(quizResponseDtos);
     }
 
-    //퀴즈 채점 버튼
+    // 퀴즈 채점 버튼
     @Timed("QuizApiController.gradeQuizzes")
     @PostMapping("/grade")
     public ResponseEntity<?> gradeQuizzes(@LoginUser SessionUser user,
-                                          HttpSession session, @RequestBody List<String> userAnswers) {
+        HttpSession session, @RequestBody List<String> userAnswers) {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Result("로그인이 필요합니다."));
         }
@@ -99,7 +99,7 @@ public class QuizApiController {
         if (Boolean.TRUE.equals(session.getAttribute("quizSubmitted"))) {
             return ResponseEntity.badRequest().body("이미 퀴즈를 제출하셨습니다.");
         } else {
-            // 퀴즈 채점 로직 실행
+            //  퀴즈 채점 로직 실행
             session.setAttribute("quizSubmitted", Boolean.TRUE);
 
             try {
@@ -112,7 +112,7 @@ public class QuizApiController {
                 }
 
                 boolean passed = quizService.gradeQuiz(quizAnswer, userAnswers);
-                Member member = memberService.findMemberByEmail(user.getEmail()); //로그인한 사용자 정보 얻기
+                Member member = memberService.findMemberByEmail(user.getEmail()); // 로그인한 사용자 정보 얻기
                 if (passed) {
                     memberService.updateLevel(member);
                 }
@@ -124,7 +124,7 @@ public class QuizApiController {
         }
     }
 
-    //퀴즈 해설 페이지
+    // 퀴즈 해설 페이지
     @Timed("QuizApiController.quizExplain")
     @GetMapping("/explain")
     public QuizExplain quizExplain(HttpSession session) {
@@ -142,12 +142,14 @@ public class QuizApiController {
     @AllArgsConstructor
     @Getter
     static class Quizzes<T> {
+
         private List<QuizPageDto> quizzes;
     }
 
     @AllArgsConstructor
     @Getter
     static class QuizExplain<T> {
+
         private List<QuizAnswerDto> quizzes;
     }
 }

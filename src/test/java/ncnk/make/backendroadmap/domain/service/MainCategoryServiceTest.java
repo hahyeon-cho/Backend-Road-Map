@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @ActiveProfiles("test")
 class MainCategoryServiceTest {
+
     @PersistenceContext
     EntityManager em;
     @InjectMocks
@@ -35,21 +36,21 @@ class MainCategoryServiceTest {
     @Spy
     private MainCategory mainCategory;
 
-    //TODO: INIT Data 때문에 대분류 PK 값이 21부터 시작함...
+    // TODO: INIT Data 때문에 대분류 PK 값이 21부터 시작함...
     @DisplayName("대분류 PK 값으로 대분류 찾기")
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"21, INTERNET", "22, 'BASIC_FE'", "23, 'OS'", "24, 'LANGUAGE'", "25, 'ALGORITHM'"})
     void findMainCategoryByIdTest(Long id, Main mainDocsTitle) {
-        //given
+        // given
         MainCategory mainCategory = createMainCategory(mainDocsTitle);
 
         when(mainCategoryRepository.findMainCategoriesByMainDocsId(id)).thenReturn(Optional.of(mainCategory));
-        //when
+        // when
         MainCategory findMainCategory = mainCategoryService.findMainCategoryById(id);
 
-        //then
+        // then
         assertAll(() -> assertThat(findMainCategory.getMainDocsId()).isEqualTo(id),
-                () -> assertThat(findMainCategory.getMainDocsTitle()).isEqualTo(mainDocsTitle));
+            () -> assertThat(findMainCategory.getMainDocsTitle()).isEqualTo(mainDocsTitle));
     }
 
     private MainCategory createMainCategory(Main mainDocsTitle) {

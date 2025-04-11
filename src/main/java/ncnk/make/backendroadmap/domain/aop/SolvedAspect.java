@@ -15,10 +15,7 @@ public class SolvedAspect {
     @Around("execution(public void ncnk.make.backendroadmap.domain.aop.Pointcuts.recordAttemptedProblem())")
     public Object recordAttemptedProblem(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
-            log.info("[문제를 풀려고 한 경우 Solved 테이블 컬럼 추가] {}", joinPoint.getSignature());
-            Object result = joinPoint.proceed();
-            log.info("[문제를 풀려고 한 경우 Solved 테이블 컬럼 추가 트랜잭션 커밋] {}", joinPoint.getSignature());
-            return result;
+            return joinPoint.proceed();
         } catch (Exception e) {
             log.info("[문제를 풀려고 한 경우 Solved 테이블 컬럼 추가 트랜잭션 롤백] {}", joinPoint.getSignature());
             log.error("[ERROR] 문제를 풀려고 한 경우 Solved 테이블 컬럼 추가  : {}", e.getMessage());

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  * 홈 Controller
  */
 @Controller
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class HomeController {
 
     @GetMapping("/")
@@ -23,6 +23,7 @@ public class HomeController {
             model.addAttribute("userName", user.getName());
             model.addAttribute("userPicture", user.getPicture());
         }
+
         return "mainHome";
     }
 }

@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.api.Book.BookApi;
+import ncnk.make.backendroadmap.api.book.BookApi;
 import ncnk.make.backendroadmap.domain.constant.Constant;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
@@ -21,7 +21,7 @@ import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
+import ncnk.make.backendroadmap.domain.repository.quiz.QuizRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -36,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 public class InitDataH2DB {
+
     private final InitService initService;
     private static final Long initLikeCount = 1L;
 
@@ -52,6 +53,7 @@ public class InitDataH2DB {
     @RequiredArgsConstructor
     @Slf4j
     static class InitService {
+
         private final EntityManager em;
         @Value("${excel.file.path}")
         private String excelFilePath;
@@ -65,8 +67,12 @@ public class InitDataH2DB {
         }
 
         public Member initMember() {
-            Member member = Member.createMember("profile", "email", "name", "nickName", "github",
-                    Constant.initLevel, Constant.initPoint, Role.GUEST, 0, 0, 0);
+            Member member = Member.createMember(
+                "profile", "email", "name", "nickName", "github",
+                Constant.initLevel, Constant.initPoint,
+                Role.GUEST,
+                0, 0, 0
+            );
             em.persist(member);
 
             for (int i = 0; i < 30; i++) {
@@ -87,7 +93,7 @@ public class InitDataH2DB {
             clist.add(codingTestAnswer);
 
             CodingTest codingTest = CodingTest.createCodingTest("HardName", "HardSlug", "Hard",
-                    10.2, "Hard내용", null, clist, null);
+                10.2, "Hard내용", null, clist, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, true, "제출 경로");
@@ -100,7 +106,7 @@ public class InitDataH2DB {
             codingTestAnswers.add(codingTestAnswer);
 
             CodingTest codingTest = CodingTest.createCodingTest("NormalName", "NormalSlug", "Normal",
-                    50.7, "Mid내용", null, codingTestAnswers, null);
+                50.7, "Mid내용", null, codingTestAnswers, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
@@ -113,17 +119,17 @@ public class InitDataH2DB {
             clist.add(codingTestAnswer);
 
             CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
-                    80.9, "Easy내용", null, clist, null);
+                80.9, "Easy내용", null, clist, null);
             em.persist(codingTest);
 
             Solved solved = Solved.createSolved(codingTest, member, false, "제출 경로");
             em.persist(solved);
         }
 
-
         public List<MainCategory> initCategory(Member member) {
             List<Main> orderedMainDocs = Main.getOrderedMainDocs();
             List<MainCategory> mainCategories = new ArrayList<>();
+            
             for (Main orderedMainDoc : orderedMainDocs) {
                 MainCategory mainCategory = MainCategory.createMainCategory(orderedMainDoc, orderedMainDoc.getUrl());
                 mainCategories.add(mainCategory);
@@ -133,7 +139,7 @@ public class InitDataH2DB {
 
                 for (Sub sub : orderedSubDocsInCategory) {
                     SubCategory subCategory = SubCategory.createSubCategory(sub, initLikeCount, sub.getSubDescription(),
-                            mainCategory);
+                        mainCategory);
                     em.persist(subCategory);
 
                     DocsLike docsLike = DocsLike.createDocsLike(subCategory, member);
@@ -154,9 +160,7 @@ public class InitDataH2DB {
                 }
 
                 List<Quiz> insertQuiz = quizRepository.findAll();
-                log.info("=========================");
                 log.info("insertedQuiz.size: {}", insertQuiz.size());
-                log.info("=========================");
             } catch (IOException e) {
                 log.error("Error reading Excel file: ", e.getMessage());
                 e.printStackTrace();
@@ -177,12 +181,14 @@ public class InitDataH2DB {
                     String quizAnswer = getStringCellValue(row.getCell(2));
                     String quizExplain = getStringCellValue(row.getCell(3));
                     MainCategory category = null;
+
                     for (MainCategory mainCategory : mainCategories) {
                         if (mainCategory.getMainDocsTitle().equals((Main.getInstance(mainDoc)))) {
                             category = mainCategory.getMainCategory(mainDoc);
                             break;
                         }
                     }
+
                     if (category != null) {
                         Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
                         if (!quizs.getQuizs().contains(quiz)) {
@@ -191,6 +197,7 @@ public class InitDataH2DB {
                     }
                 }
             }
+
             return quizs;
         }
 

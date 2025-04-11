@@ -6,28 +6,27 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class Pointcuts {
 
-    //CodingTestService
+    // CodingTestService
     @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.CodingTestService.evaluateCodingTest(..))")
     public void evaluateCodingTest() {
     }
 
-
-    //DocsLikeService
+    // DocsLikeService
     @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.DocsLikeService.toggleSubCategoryLike(..))")
     public void toggleSubCategoryLike() {
     }
 
-    //MemberService
+    // MemberService
     @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.MemberService.updateProfile(..))")
     public void memberUpdate() {
     }
 
-    //PracticeCodeService
+    // PracticeCodeService
     @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.PracticeCodeService.save(..))")
     public void saveWebCompiler() {
     }
 
-    //SolvedService
+    // SolvedService
     @Pointcut("execution(public * ncnk.make.backendroadmap.domain.service.SolvedService.recordAttemptedProblem(..))")
     public void recordAttemptedProblem() {
     }

@@ -10,7 +10,7 @@ import java.util.List;
 import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
-import ncnk.make.backendroadmap.domain.repository.Quiz.QuizRepository;
+import ncnk.make.backendroadmap.domain.repository.quiz.QuizRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @ActiveProfiles("test")
 class QuizServiceTest {
+
     @Autowired
     QuizService quizService;
 
@@ -33,7 +34,7 @@ class QuizServiceTest {
     @DisplayName("대분류에 맞는 퀴즈 검색")
     @Test
     void getQuizzesTest() {
-        //given
+        // given
         MainCategory mainCategory = MainCategory.createMainCategory(Main.BASIC_FE, "url");
 
         Quiz quiz1 = Quiz.createQuiz("퀴즈 내용1", "퀴즈 정답1", "퀴즈 설명1", mainCategory);
@@ -43,11 +44,11 @@ class QuizServiceTest {
         List<Quiz> expectedQuizzes = Arrays.asList(quiz1, quiz2); // 예상되는 반환 값 설정
         when(quizRepository.findQuizzesByMainCategory(mainCategory)).thenReturn(expectedQuizzes);
 
-        //when
+        // when
         List<Quiz> quizzes = quizService.getQuizzes(mainCategory);
 
-        //then
+        // then
         assertAll(() -> assertEquals(quizzes.size(), 2),
-                () -> assertThat(quizzes).containsExactlyInAnyOrderElementsOf(expectedQuizzes));
+            () -> assertThat(quizzes).containsExactlyInAnyOrderElementsOf(expectedQuizzes));
     }
 }

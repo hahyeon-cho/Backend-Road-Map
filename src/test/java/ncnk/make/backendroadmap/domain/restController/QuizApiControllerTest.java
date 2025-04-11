@@ -49,14 +49,14 @@ class QuizApiControllerTest {
 
         // when & then
         mockMvc.perform(get("/api/quiz/{mainCategoryId}", mainCategory.getMainDocsId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes", hasSize(3)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizContext")
-                        .value(quizzes.get(0).getQuizContext()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizAnswer")
-                        .value(quizzes.get(0).getQuizAnswer()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizExplain")
-                        .value(quizzes.get(0).getQuizExplain()));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes", hasSize(3)))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizContext")
+                .value(quizzes.get(0).getQuizContext()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizAnswer")
+                .value(quizzes.get(0).getQuizAnswer()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.quizzes[0].quizExplain")
+                .value(quizzes.get(0).getQuizExplain()));
     }
 }

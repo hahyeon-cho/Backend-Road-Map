@@ -16,9 +16,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @SpringBootApplication
-@Import({CodingTestAspect.class, DocsLikeAspect.class, MemberAspect.class, PracticeCodeAspect.class,
-        SolvedAspect.class})
+@Import({
+    CodingTestAspect.class,
+    DocsLikeAspect.class,
+    MemberAspect.class,
+    PracticeCodeAspect.class,
+    SolvedAspect.class
+})
 public class BackEndRoadMapApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(BackEndRoadMapApplication.class, args);
     }

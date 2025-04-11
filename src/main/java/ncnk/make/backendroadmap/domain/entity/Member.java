@@ -21,36 +21,36 @@ import ncnk.make.backendroadmap.domain.exception.ResourceNotFoundException;
  * 회원 테이블
  */
 @Entity
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long memberId; //PK
-    private String profile; //프로필 사진 (저장 경로)
-    private String email; //이메일
-    private String name; //이름
-    private String nickName; //닉네임
-    private String github; //깃허브 주소
-    private int level; //대분류 레벨
-    private int point; //코딩테스트 점수
+    private Long memberId; // PK
+    private String profile; // 프로필 사진 (저장 경로)
+    private String email; // 이메일
+    private String name; // 이름
+    private String nickName; // 닉네임
+    private String github; // 깃허브 주소
+    private int level; // 대분류 레벨
+    private int point; // 코딩테스트 점수
     private int hard; // 상 문제
     private int normal; // 중 문제
     private int easy; // 하 문제
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "main_docs_id")
-    private MainCategory mainCategory; //대분류 FK
+    private MainCategory mainCategory; // 대분류 FK
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role; // 로그인 시 유저 권한
 
-    //생성자
+    // 생성자
     private Member(String profile, String email, String name, String nickName, String github, int level, int point,
-                   Role role, int hard, int normal, int easy) {
+        Role role, int hard, int normal, int easy) {
         this.profile = profile;
         this.email = email;
         this.name = name;
@@ -64,13 +64,13 @@ public class Member extends BaseTimeEntity {
         this.easy = easy;
     }
 
-    //정적 팩토리 메서드 방식을 적용한 생성자
+    // 정적 팩토리 메서드 방식을 적용한 생성자
     public static Member createMember(String profile, String email, String name, String nickName, String github,
-                                      int level, int point, Role role, int hard, int normal, int easy) {
+        int level, int point, Role role, int hard, int normal, int easy) {
         return new Member(profile, email, name, nickName, github, level, point, role, hard, normal, easy);
     }
 
-    //회원 정보 업데이트
+    // 회원 정보 업데이트
     public Member updateMember(String profile, String nickName, String github) {
         this.profile = profile;
         this.nickName = nickName;
@@ -79,7 +79,7 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
-    //Role Getter
+    // Role Getter
     public String getRoleKey() {
         return this.role.getKey();
     }

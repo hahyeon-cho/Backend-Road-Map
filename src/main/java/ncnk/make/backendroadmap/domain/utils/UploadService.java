@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 @Slf4j
 public class UploadService {
-    ///Users/hayoung_p/Desktop 경로
+
     @Value("${img.path}")
     private String userImage;
 
@@ -56,13 +56,14 @@ public class UploadService {
         try {
             uploadFile.transferTo(saveFile);
 
-            /* 방법 2 */ // 라이브러리 사용
+            /* 방법 2 */
+            // 라이브러리 사용
             File thumbnailFile = new File(uploadPath, attachImage.getSavedName());
             BufferedImage bo_image = ImageIO.read(saveFile);
 
-            //비율
+            // 비율
             double ratio = 3;
-            //넓이 높이
+            // 넓이 높이
             int width = (int) (bo_image.getWidth() / ratio);
             int height = (int) (bo_image.getHeight() / ratio);
 

@@ -8,6 +8,7 @@ import ncnk.make.backendroadmap.domain.entity.Member;
 @Getter
 @Setter
 public class SessionUser implements Serializable {
+
     private final String name;
     private final String email;
     private String picture;

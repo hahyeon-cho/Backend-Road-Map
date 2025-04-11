@@ -20,7 +20,7 @@ import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
-import ncnk.make.backendroadmap.domain.repository.SubCategory.SubCategoryRepository;
+import ncnk.make.backendroadmap.domain.repository.subCategory.SubCategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ActiveProfiles("test")
 @Slf4j
 class DocsLikeServiceTest {
+
     @PersistenceContext
     EntityManager em;
 
@@ -77,22 +78,22 @@ class DocsLikeServiceTest {
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @ValueSource(strings = {"IP", "TCP_UDP", "PORT", "DNS", "HTTP"})
     void givenLikeExists_whenToggleSubCategoryLike_thenDeleteLike(Sub sub) {
-        //given
+        // given
         subCategory = createSubCategory(sub, mainCategory);
         docsLike = createDocsLike();
         log.info("getSubDocsId= {}", docsLike.getSubCategory().getSubDocsId());
         when(docsLikeRepository.findDocsLikeByMemberAndSubCategory(member, subCategory))
-                .thenReturn(Optional.of(docsLike));
+            .thenReturn(Optional.of(docsLike));
 
-        //when
+        // when
         docsLikeService.toggleSubCategoryLike(member, subCategory);
 
-        //then
+        // then
         ArgumentCaptor<DocsLike> docsLikeCaptor = ArgumentCaptor.forClass(DocsLike.class);
         assertAll(() -> verify(docsLikeRepository).delete(docsLikeCaptor.capture()),
-                () -> verify(subCategoryRepository).subLikeCount(subCategory),
-                () -> assertEquals(docsLike.getSubCategory(), docsLikeCaptor.getValue().getSubCategory()),
-                () -> assertEquals(docsLike.getMember(), docsLikeCaptor.getValue().getMember()));
+            () -> verify(subCategoryRepository).subLikeCount(subCategory),
+            () -> assertEquals(docsLike.getSubCategory(), docsLikeCaptor.getValue().getSubCategory()),
+            () -> assertEquals(docsLike.getMember(), docsLikeCaptor.getValue().getMember()));
     }
 
     @DisplayName("소분류 좋아요 추가")
@@ -109,31 +110,31 @@ class DocsLikeServiceTest {
         // then
         ArgumentCaptor<DocsLike> docsLikeCaptor = ArgumentCaptor.forClass(DocsLike.class);
         assertAll(() -> verify(docsLikeRepository).save(docsLikeCaptor.capture()),
-                () -> verify(subCategoryRepository).addLikeCount(subCategory),
-                () -> assertEquals(docsLike.getSubCategory(), docsLikeCaptor.getValue().getSubCategory()),
-                () -> assertEquals(docsLike.getMember(), docsLikeCaptor.getValue().getMember()));
+            () -> verify(subCategoryRepository).addLikeCount(subCategory),
+            () -> assertEquals(docsLike.getSubCategory(), docsLikeCaptor.getValue().getSubCategory()),
+            () -> assertEquals(docsLike.getMember(), docsLikeCaptor.getValue().getMember()));
     }
 
     @DisplayName("마이페이지: MyRoadMap")
     @Test
     void findAllByMemberTest() {
-        //given
+        // given
         Pageable pageable = PageRequest.of(0, 6);
         List<DocsLike> DocsLikes = new ArrayList<>();
         Page<DocsLike> DocsLikePage = new PageImpl<>(DocsLikes, pageable, DocsLikes.size());
 
         when(docsLikeRepository.findAllByMember(member, pageable)).thenReturn(DocsLikePage);
 
-        //when
+        // when
         docsLikeService.findAllByMember(member, pageable);
 
-        //then
+        // then
         verify(docsLikeRepository).findAllByMember(member, pageable); // 메소드 호출 검증
     }
 
     private Member createMember() {
         Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
-                1, 0, Role.GUEST, 0, 0, 0);
+            1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }

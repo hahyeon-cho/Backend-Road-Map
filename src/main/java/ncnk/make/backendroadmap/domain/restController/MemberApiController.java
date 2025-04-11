@@ -15,11 +15,11 @@ import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberRankingDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyPracticeResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyRoadMapResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MyTestResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MemberRankingDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MemberResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MyPracticeResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MyRoadMapResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MyTestResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;
@@ -36,39 +36,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//TODO: 마이페이지에서 Member 같은 속성값을 각 페이지마다 ResponseDto에 담아서 return 함! 리소스 낭비 예상!
-
 /**
  * 회원 RestController (json)
  */
-
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/member")
 public class MemberApiController {
+
     private final MemberService memberService;
     private final DocsLikeService docsLikeService;
     private final PracticeCodeService practiceCodeService;
     private final SolvedService solvedService;
 
     // 마이페이지(MyRoadMap)
-    //    http://localhost:8080/member/roadmap/1?page=2&size=5
+    // http://localhost:8080/member/roadmap/1?page=2&size=5
     @Timed("MemberApiController.myRoad")
     @GetMapping("/roadmap/{id}")
     public MyPage myRoad(@PathVariable Long id, @LoginUser SessionUser user,
-                         @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
 
         loginValidate(user);
 
         Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기 TODO: @Session 추가
-        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
+        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); // Return 할 dto 생성
 
-        Page<DocsLike> docsLikesPage = docsLikeService.findAllByMember(member, pageable); //회원이 소분류에 누른 좋아요 찾기
+        Page<DocsLike> docsLikesPage = docsLikeService.findAllByMember(member, pageable); // 회원이 소분류에 누른 좋아요 찾기
 
         List<SubCategory> subCategories = docsLikesPage.getContent().stream()
-                .map(DocsLike::getSubCategory)
-                .collect(Collectors.toList()); //찾은 소분류 데이터를 List로 반환
+            .map(DocsLike::getSubCategory)
+            .collect(Collectors.toList()); // 찾은 소분류 데이터를 List로 반환
 
         List<MyRoadMapResponseDto> myRoadMapResponseDto = new ArrayList<>();
 
@@ -78,7 +76,7 @@ public class MemberApiController {
                 MainCategory mainCategory = subCategory.getMainCategory();
                 myRoadMapResponseDto.add(MyRoadMapResponseDto.createSubCategoryResponseDto(subCategory, mainCategory));
             }
-            memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto); //MyRoadMap에 필요한 Fit한 데이터를 만들어서 dto로 Set
+            memberResponseDto.setRoadMapResponseDto(myRoadMapResponseDto); // MyRoadMap에 필요한 Fit한 데이터를 만들어서 dto로 Set
         }
 
         List<Member> findTop5Point = memberService.findTop5Point();
@@ -89,26 +87,26 @@ public class MemberApiController {
         memberResponseDto.setMemberRankingDtos(memberRankingDtos);
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getNickName(),
-                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getHard(),
-                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
-                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
-                memberResponseDto.getRoadMapResponseDto());
+            memberResponseDto.getName(), memberResponseDto.getNickName(),
+            memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+            memberResponseDto.getPoint(), memberResponseDto.getHard(),
+            memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+            memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+            memberResponseDto.getRoadMapResponseDto());
     }
 
     // 마이페이지(MyPractice)
     @Timed("MemberApiController.myPractice")
     @GetMapping("/practice/{id}")
     public MyPage myPractice(@PathVariable Long id, @LoginUser SessionUser user,
-                             @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
         loginValidate(user);
 
-        Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기 TODO: @Session 추가
-        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
+        Member member = memberService.findMemberById(id); // 회원 PK값을 통해 회원 찾기 TODO: @Session 추가
+        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); // Return 할 dto 생성
 
         Page<PracticeCode> practices = practiceCodeService.getPracticesByMember(member,
-                pageable);  //회원이 저장한 웹 컴파일러 정보 찾기
+            pageable);  // 회원이 저장한 웹 컴파일러 정보 찾기
 
         List<MyPracticeResponseDto> myPracticeResponseDto = new ArrayList<>();
 
@@ -117,7 +115,7 @@ public class MemberApiController {
 
             for (PracticeCode practice : practices) {
                 myPracticeResponseDto.add(MyPracticeResponseDto.createMyPracticeResponseDto(
-                        practice)); //MyPractice에 필요한 Fit한 데이터를 만들어서 dto로 Set
+                    practice)); // MyPractice에 필요한 Fit한 데이터를 만들어서 dto로 Set
             }
             memberResponseDto.setPracticeResponseDto(myPracticeResponseDto);
         }
@@ -130,31 +128,31 @@ public class MemberApiController {
         memberResponseDto.setMemberRankingDtos(memberRankingDtos);
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getNickName(),
-                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getHard(),
-                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
-                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
-                memberResponseDto.getPracticeResponseDto());
+            memberResponseDto.getName(), memberResponseDto.getNickName(),
+            memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+            memberResponseDto.getPoint(), memberResponseDto.getHard(),
+            memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+            memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+            memberResponseDto.getPracticeResponseDto());
     }
 
     // 마이페이지(MyTest)
-//     예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
-//     속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
+    // 예시 : http://localhost:8080/api/member/test/1?page=0&size=30&difficulty=Hard&order=desc&problemSolved=true
+    // 속성값 diffuculty: Hard/Middle/Easy order: asc/desc problemSolved: true/false
     @Timed("MemberApiController.myTest")
     @GetMapping("/test/{id}")
     public MyPage myTest(@PathVariable Long id, @LoginUser SessionUser user,
-                         @RequestParam(value = "difficulty", required = false) String difficulty,
-                         @RequestParam(value = "order", required = false) String order,
-                         @RequestParam(value = "problemSolved", required = false) Boolean problemSolved,
-                         @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
+        @RequestParam(value = "difficulty", required = false) String difficulty,
+        @RequestParam(value = "order", required = false) String order,
+        @RequestParam(value = "problemSolved", required = false) Boolean problemSolved,
+        @PageableDefault(size = 5, direction = Direction.ASC) Pageable pageable) {
 
         loginValidate(user);
 
-        Member member = memberService.findMemberById(id); //회원 PK값을 통해 회원 찾기
-        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); //Return 할 dto 생성
+        Member member = memberService.findMemberById(id); // 회원 PK값을 통해 회원 찾기
+        MemberResponseDto memberResponseDto = MemberResponseDto.createMemberResponseDto(member); // Return 할 dto 생성
 
-        //회원이 검색한 코딩테스트 찾기 (정렬: 난이도, 오름/내림차순, 풀이 여부)
+        // 회원이 검색한 코딩테스트 찾기 (정렬: 난이도, 오름/내림차순, 풀이 여부)
         Page<Solved> solveds = solvedService.dynamicSearching(difficulty, order, problemSolved, pageable);
 
         List<MyTestResponseDto> myTestResponseDto = new ArrayList<>();
@@ -163,7 +161,7 @@ public class MemberApiController {
 
             for (Solved solved : solveds) {
                 myTestResponseDto.add(MyTestResponseDto.createTestResponseDto(solved,
-                        solved.getCodingTest())); //MyTest에 필요한 Fit한 데이터를 만들어서 dto로 Set
+                    solved.getCodingTest())); // MyTest에 필요한 Fit한 데이터를 만들어서 dto로 Set
             }
             memberResponseDto.setTestResponseDto(myTestResponseDto);
         }
@@ -176,12 +174,12 @@ public class MemberApiController {
         memberResponseDto.setMemberRankingDtos(memberRankingDtos);
 
         return new MyPage(memberResponseDto.getProfile(), memberResponseDto.getEmail(),
-                memberResponseDto.getName(), memberResponseDto.getNickName(),
-                memberResponseDto.getGithub(), memberResponseDto.getLevel(),
-                memberResponseDto.getPoint(), memberResponseDto.getHard(),
-                memberResponseDto.getNormal(), memberResponseDto.getEasy(),
-                memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
-                memberResponseDto.getTestResponseDto());
+            memberResponseDto.getName(), memberResponseDto.getNickName(),
+            memberResponseDto.getGithub(), memberResponseDto.getLevel(),
+            memberResponseDto.getPoint(), memberResponseDto.getHard(),
+            memberResponseDto.getNormal(), memberResponseDto.getEasy(),
+            memberResponseDto.getMemberRankingDtos(), pageable.getPageSize(),
+            memberResponseDto.getTestResponseDto());
     }
 
     private static void loginValidate(SessionUser user) {
@@ -193,6 +191,7 @@ public class MemberApiController {
     @AllArgsConstructor
     @Getter
     static class MyPage<T> {
+
         private String profile;
         private String email;
         private String name;

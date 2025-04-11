@@ -20,7 +20,7 @@ import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Problem;
 import ncnk.make.backendroadmap.domain.entity.Solved;
-import ncnk.make.backendroadmap.domain.repository.Solved.SolvedRepository;
+import ncnk.make.backendroadmap.domain.repository.solved.SolvedRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,18 +72,18 @@ class SolvedServiceTest {
     @DisplayName("코딩 테스트 풀이 여부에 따라 포인트 더하는 로직")
     @Test
     void solvedProblemTest() {
-        //given
+        // given
         when(codingTest.getProblemLevel()).thenReturn(Problem.NORMAL.getProblemLevel());
         when(solvedRepository.findSolvedByCodingTestAndMember(codingTest, member))
-                .thenReturn(Optional.of(solved));
+            .thenReturn(Optional.of(solved));
 
-        //when
+        // when
         Optional<Solved> result = solvedService.solvedProblem(codingTest, member);
 
-        //then
+        // then
         assertAll(() -> assertTrue(result.isPresent()),
-                () -> verify(member, times(1)).updateSolvedProblemsCount(Problem.NORMAL.getProblemLevel()),
-                () -> verify(member, times(1)).calculatePoint(Problem.NORMAL.getProblemLevel()));
+            () -> verify(member, times(1)).updateSolvedProblemsCount(Problem.NORMAL.getProblemLevel()),
+            () -> verify(member, times(1)).calculatePoint(Problem.NORMAL.getProblemLevel()));
     }
 
     @DisplayName("처음 시도한 문제의 경우 solved 테이블에 컬럼을 추가한다.")
@@ -97,13 +97,13 @@ class SolvedServiceTest {
 
         // then
         assertAll(() -> assertTrue(result.isPresent()),
-                () -> verify(solvedRepository, times(1)).save(result.get()));
+            () -> verify(solvedRepository, times(1)).save(result.get()));
     }
 
     @DisplayName("이미 시도한 문제의 경우 solved 테이블에 컬럼을 추가 되지 않는다.")
     @Test
     void recordAttemptedProblem_WhenProblemAlreadyExists_ShouldReturnEmpty() {
-        //given
+        // given
         when(solvedRepository.existsByCodingTestAndMember(codingTest, member)).thenReturn(true);
 
         // when
@@ -118,19 +118,19 @@ class SolvedServiceTest {
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"Hard, desc, true", "Normal, desc, true", "Easy, asc, false"})
     void dynamicSearchingTest(String difficulty, String order, Boolean problemSolved) {
-        //given
+        // given
         Pageable pageable = PageRequest.of(0, 6);
         List<Solved> solvedList = new ArrayList<>();
         Page<Solved> solvedPage = new PageImpl<>(solvedList, pageable, solvedList.size());
 
         when(solvedRepository.dynamicSearching(difficulty, order, problemSolved, pageable)).thenReturn(solvedPage);
 
-        //when
+        // when
         Page<Solved> resultPage = solvedService.dynamicSearching(difficulty, order, problemSolved, pageable);
 
-        //then
+        // then
         assertAll(() -> assertEquals(solvedPage, resultPage),
-                () -> verify(solvedRepository).dynamicSearching(difficulty, order, problemSolved, pageable));
+            () -> verify(solvedRepository).dynamicSearching(difficulty, order, problemSolved, pageable));
     }
 
 

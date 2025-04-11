@@ -31,6 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Slf4j
 @Transactional
 class DocsLikeApiControllerTest {
+
     @PersistenceContext
     EntityManager em;
 
@@ -67,8 +68,8 @@ class DocsLikeApiControllerTest {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         mockMvc.perform(post("/api/like/{id}", subCategory.getSubDocsId())
-                        .session(session))
-                .andExpect(status().isOk());
+                .session(session))
+            .andExpect(status().isOk());
     }
 
     @DisplayName("좋아요 토글 - 비로그인 사용자")
@@ -79,12 +80,12 @@ class DocsLikeApiControllerTest {
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         mockMvc.perform(post("/api/like/{id}", subCategory.getSubDocsId()))
-                .andExpect(status().is4xxClientError());
+            .andExpect(status().is4xxClientError());
     }
 
     private Member createMember() {
         Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
-                1, 0, Role.GUEST, 0, 0, 0);
+            1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }

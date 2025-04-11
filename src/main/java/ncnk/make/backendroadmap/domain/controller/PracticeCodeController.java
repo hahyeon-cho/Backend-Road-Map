@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequestMapping("/practice")
 public class PracticeCodeController {
+
     private final MemberService memberService;
 
     @GetMapping()

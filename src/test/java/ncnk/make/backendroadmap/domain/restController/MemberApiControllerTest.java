@@ -20,7 +20,7 @@ import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.Member.MemberResponseDto;
+import ncnk.make.backendroadmap.domain.restController.dto.member.MemberResponseDto;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,6 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional
 class MemberApiControllerTest {
+
     @Autowired
     private MainCategoryService mainCategoryService;
 
@@ -86,15 +87,15 @@ class MemberApiControllerTest {
 
         // when & then
         mockMvc.perform(get("/api/member/roadmap/{id}", member.getMemberId()))
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[%d].subDocsTitle", sub.ordinal())
-                        .value(collect.get(0).getSubCategory().getSubDocsTitle().getSubCategory()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[%d].subDescription", sub.ordinal())
-                        .value(collect.get(0).getSubCategory().getSubDocsTitle().getSubDescription()))
-                .andExpect(status().isOk());
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.data[%d].subDocsTitle", sub.ordinal())
+                .value(collect.get(0).getSubCategory().getSubDocsTitle().getSubCategory()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.data[%d].subDescription", sub.ordinal())
+                .value(collect.get(0).getSubCategory().getSubDocsTitle().getSubDescription()))
+            .andExpect(status().isOk());
     }
 
     @DisplayName("마이페이지: myPractice")
@@ -110,15 +111,15 @@ class MemberApiControllerTest {
         List<PracticeCode> collect = practiceCodePage.get().collect(Collectors.toList());
 
         mockMvc.perform(get("/api/member/practice/{id}", member.getMemberId()))
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].fileName")
-                        .value(collect.get(0).getFileName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].language")
-                        .value(collect.get(0).getLanguage()))
-                .andExpect(status().isOk());
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].fileName")
+                .value(collect.get(0).getFileName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.data[0].language")
+                .value(collect.get(0).getLanguage()))
+            .andExpect(status().isOk());
     }
 
     @DisplayName("마이페이지: myTest")
@@ -133,19 +134,19 @@ class MemberApiControllerTest {
         solveds.add(solved);
 
         mockMvc.perform(get("/api/member/test/{id}", member.getMemberId())
-                        .param("difficulty", "Hard")
-                        .param("order", "desc")
-                        .param("problemSolved", "true"))
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
-                .andExpect(status().isOk());
+                .param("difficulty", "Hard")
+                .param("order", "desc")
+                .param("problemSolved", "true"))
+            .andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(memberResponseDto.getEmail()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(memberResponseDto.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.level").value(memberResponseDto.getLevel()))
+            .andExpect(status().isOk());
     }
 
     private Member createMember() {
         Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
-                1, 0, Role.GUEST, 0, 0, 0);
+            1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }
@@ -158,7 +159,7 @@ class MemberApiControllerTest {
 
     private CodingTest createCodingTest() {
         CodingTest codingTest = CodingTest.createCodingTest("problemTitle", "problemSlug", "problemLevel", 10.0,
-                "problemContents", Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+            "problemContents", Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
         em.persist(codingTest);
         return codingTest;
     }

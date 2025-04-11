@@ -11,10 +11,10 @@ import jakarta.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import ncnk.make.backendroadmap.domain.controller.dto.Member.MemberUpdateRequestDto;
+import ncnk.make.backendroadmap.domain.controller.dto.member.MemberUpdateRequestDto;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Role;
-import ncnk.make.backendroadmap.domain.repository.Member.MemberRepository;
+import ncnk.make.backendroadmap.domain.repository.member.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +46,7 @@ class MemberServiceTest {
         // given
         Member member = createMember();
         MemberUpdateRequestDto memberUpdateRequest = MemberUpdateRequestDto.createMemberUpdateRequest(name,
-                gitHub);
+            gitHub);
 
         when(memberRepository.save(any(Member.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(memberRepository.findById(anyLong())).thenReturn(Optional.of(member));
@@ -57,10 +57,10 @@ class MemberServiceTest {
 
         // then
         assertAll(
-                () -> assertThat(findUpdateMember).isPresent(),
-                () -> assertThat(findUpdateMember.get().getProfile()).isEqualTo(profile),
-                () -> assertThat(findUpdateMember.get().getName()).isEqualTo(name),
-                () -> assertThat(findUpdateMember.get().getGithub()).isEqualTo(gitHub)
+            () -> assertThat(findUpdateMember).isPresent(),
+            () -> assertThat(findUpdateMember.get().getProfile()).isEqualTo(profile),
+            () -> assertThat(findUpdateMember.get().getName()).isEqualTo(name),
+            () -> assertThat(findUpdateMember.get().getGithub()).isEqualTo(gitHub)
         );
     }
 
@@ -71,7 +71,7 @@ class MemberServiceTest {
         List<Member> expectedTop5Members = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Member member = Member.createMember("profile" + i, "email" + i, "name" + i, "nickname" + i, "github" + i,
-                    1, 10 - i, Role.GUEST, 0, 0, 0);
+                1, 10 - i, Role.GUEST, 0, 0, 0);
             expectedTop5Members.add(member);
         }
 
@@ -87,35 +87,36 @@ class MemberServiceTest {
     @DisplayName("유저 PK 값으로 유저 찾기")
     @Test
     void findMemberByIdTest() {
-        //given
+        // given
         Member member = createMember();
-        when(memberRepository.findMemberByMemberId(member.getMemberId())).thenReturn(Optional.of(member)); // Mock 설정 추가
+        when(memberRepository.findMemberByMemberId(member.getMemberId())).thenReturn(
+            Optional.of(member)); //  Mock 설정 추가
 
-        //when
+        // when
         Member findMember = memberService.findMemberById(member.getMemberId());
 
-        //then
+        // then
         assertThat(findMember).isEqualTo(member);
     }
 
     @DisplayName("유저 Email 값으로 유저 찾기")
     @Test
     void findMemberByEmailTest() {
-        //given
+        // given
         Member member = createMember();
         when(memberRepository.findMemberByEmail(member.getEmail())).thenReturn(Optional.of(member)); // Mock 설정 추가
 
-        //when
+        // when
         Member findMember = memberService.findMemberByEmail(member.getEmail());
 
-        //then
+        // then
         assertThat(findMember).isEqualTo(member);
     }
 
 
     private Member createMember() {
         Member member = Member.createMember("profile", "email1", "name", "nickname", "github",
-                1, 0, Role.GUEST, 0, 0, 0);
+            1, 0, Role.GUEST, 0, 0, 0);
         em.persist(member);
         return member;
     }

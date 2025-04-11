@@ -18,27 +18,28 @@ import ncnk.make.backendroadmap.domain.common.BaseTimeEntity;
  * 코딩 테스트 풀이 여부 테이블 CodingTest 테이블 변동에 따라 컬럼값 변할 수 있음!
  */
 @Entity
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Solved extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "solved_id")
-    private Long solvedId; //PK
+    private Long solvedId; // PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codingTest_id")
-    private CodingTest codingTest; //코딩 테스트 FK
+    private CodingTest codingTest; // 코딩 테스트 FK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member; //회원 FK
+    private Member member; // 회원 FK
 
-    private Boolean problemSolved; //문제 풀이 여부
+    private Boolean problemSolved; // 문제 풀이 여부
 
-    private String problemPath; //제출 경로
+    private String problemPath; // 제출 경로
 
-    //생성자
+    // 생성자
     private Solved(CodingTest codingTest, Member member, Boolean problemSolved, String problemPath) {
         this.codingTest = codingTest;
         this.member = member;
@@ -46,7 +47,7 @@ public class Solved extends BaseTimeEntity {
         this.problemPath = problemPath;
     }
 
-    //정적 팩토리 메서드 방식을 적용한 생성자
+    // 정적 팩토리 메서드 방식을 적용한 생성자
     public static Solved createSolved(CodingTest codingTest, Member member, Boolean problemSolved, String problemPath) {
         return new Solved(codingTest, member, problemSolved, problemPath);
     }

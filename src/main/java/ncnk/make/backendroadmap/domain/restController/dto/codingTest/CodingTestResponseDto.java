@@ -11,8 +11,8 @@ import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.exception.JsonParsingException;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
 
-@Getter
 @Slf4j
+@Getter
 public class CodingTestResponseDto {
 
     private String problemTitle;

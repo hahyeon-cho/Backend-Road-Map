@@ -13,10 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 
+@Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-@Configuration
 public class SecurityConfig {
+
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
@@ -27,42 +28,31 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/login", "/", "/css/**", "/images/**", "/img/**", "/js/**", "/h2-console/**",
-                        "/profile", "/error", "/home/**");
+            .requestMatchers("/login", "/", "/css/**", "/images/**", "/img/**", "/js/**", "/h2-console/**",
+                "/profile", "/error", "/home/**");
     }
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-                .securityMatcher(new NegatedRequestMatcher(EndpointRequest.toAnyEndpoint()))
-                .csrf(csrf -> csrf.disable())
-                .headers(header -> header
-                        .frameOptions(frameOptions -> frameOptions.disable()))
+            .securityMatcher(new NegatedRequestMatcher(EndpointRequest.toAnyEndpoint()))
+            .csrf(csrf -> csrf.disable())
+            .headers(header -> header
+                .frameOptions(frameOptions -> frameOptions.disable()))
 
-                .authorizeRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/login/*", "/logout/*").permitAll()
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .dispatcherTypeMatchers(DispatcherType.INCLUDE).permitAll()
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
-//                        .requestMatchers("/**").hasRole(Role.GUEST.name())
-//                                .requestMatchers("/   admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
-                        .anyRequest().authenticated())
-//                        .anyRequest().permitAll())
-//                .formLogin((formLogin) ->
-//                        formLogin
-//                                .loginPage("/login/login")
-//                                .usernameParameter("username")
-//                                .passwordParameter("password")
-//                                .loginProcessingUrl("/login/login-proc")
-//                                .defaultSuccessUrl("/", true)
-//                )
-                .logout((logoutConfig) ->
-                        logoutConfig.logoutSuccessUrl("/")
-                                .invalidateHttpSession(true))
-                .oauth2Login(oauth2Login -> oauth2Login
-                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-                                .userService(customOAuth2UserService)));
+            .authorizeRequests(authorizeRequests -> authorizeRequests
+                .requestMatchers("/", "/login/*", "/logout/*").permitAll()
+                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                .dispatcherTypeMatchers(DispatcherType.INCLUDE).permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .requestMatchers("/actuator/**").permitAll()
+                .anyRequest().authenticated())
+            .logout((logoutConfig) ->
+                logoutConfig.logoutSuccessUrl("/")
+                    .invalidateHttpSession(true))
+            .oauth2Login(oauth2Login -> oauth2Login
+                .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+                    .userService(customOAuth2UserService)));
         return http.build();
     }
 

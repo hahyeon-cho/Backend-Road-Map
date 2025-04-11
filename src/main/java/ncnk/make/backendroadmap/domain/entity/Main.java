@@ -38,7 +38,7 @@ public enum Main {
     private final int mainDocsOrder;
     private final String url;
 
-    //생성자
+    // 생성자
     Main(String mainCategory, int mainDocsOrder, String url) {
         this.mainCategory = mainCategory;
         this.mainDocsOrder = mainDocsOrder;
@@ -81,7 +81,7 @@ public enum Main {
     // 대분류 순서대로 정렬해서 List로 반환
     public static List<Main> getOrderedMainDocs() {
         return EnumSet.allOf(Main.class).stream()
-                .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
-                .collect(Collectors.toList());
+            .sorted(Comparator.comparingInt(Main::getMainDocsOrder))
+            .collect(Collectors.toList());
     }
 }

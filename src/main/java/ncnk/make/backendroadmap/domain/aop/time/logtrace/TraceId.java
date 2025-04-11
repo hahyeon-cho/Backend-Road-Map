@@ -8,6 +8,7 @@ import lombok.Getter;
  */
 @Getter
 public class TraceId {
+
     private String id;
     private int level;
 

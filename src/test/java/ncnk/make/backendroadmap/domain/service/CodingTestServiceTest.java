@@ -17,7 +17,7 @@ import ncnk.make.backendroadmap.api.leetcode.LeetCodeApi;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Problem;
-import ncnk.make.backendroadmap.domain.repository.CodingTest.CodingTestRepository;
+import ncnk.make.backendroadmap.domain.repository.codingTest.CodingTestRepository;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.LeetCodeCrawling;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.WebDriverPool;
 import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
@@ -73,7 +73,7 @@ class CodingTestServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         codingTestService = new CodingTestService(codingTestRepository, leetCodeApi, leetcodeCrawling, webDriverPool,
-                template);
+            template);
     }
 
     @DisplayName("예상 입출력 중 첫 번째 예상 입력에 대한 예상 출력 값과 사용자가 웹 컴파일러를 통해 결과를 반환한 것을 비교한다.")
@@ -94,17 +94,17 @@ class CodingTestServiceTest {
             codingTestAnswers.add(codingTestAnswer);
         }
 
-        //when
+        // when
         boolean result = codingTestService.evaluateCodingTest(userCodeResult, codingTestAnswers);
 
-        //then
+        // then
         assertTrue(result);
     }
 
     @DisplayName("알고리즘 문제는 사용자가 풀지 않은 문제 중 하/하/중 3문제를 랜덤으로 뽑는다.")
     @Test
     void findRandomProblemsByLevel_ReturnsCorrectlyCombinedList() {
-        //given
+        // given
         List<CodingTest> normalProblems = new ArrayList<>();
         normalProblems.add(createNormalLevel());
 
@@ -114,60 +114,60 @@ class CodingTestServiceTest {
         }
 
         when(codingTestRepository.findRandomProblemsByLevel(Problem.NORMAL.getProblemLevel(), 1))
-                .thenReturn(normalProblems);
+            .thenReturn(normalProblems);
         when(codingTestRepository.findRandomProblemsByLevel(Problem.EASY.getProblemLevel(), 2))
-                .thenReturn(easyProblems);
+            .thenReturn(easyProblems);
 
-        //when
+        // when
         List<CodingTest> result = codingTestService.findRandomProblemsByLevel();
 
-        //then
+        // then
         assertAll(() -> assertEquals(3, result.size()),
-                () -> assertTrue(result.stream()
-                        .anyMatch(problem -> problem.getProblemLevel().equals(Problem.NORMAL.getProblemLevel()))),
-                () -> assertTrue(result.stream()
-                        .filter(problem -> problem.getProblemLevel().equals(Problem.EASY.getProblemLevel()))
-                        .count() == 2),
-                () -> verify(codingTestRepository).findRandomProblemsByLevel(Problem.NORMAL.getProblemLevel(), 1),
-                () -> verify(codingTestRepository).findRandomProblemsByLevel(Problem.EASY.getProblemLevel(), 2));
+            () -> assertTrue(result.stream()
+                .anyMatch(problem -> problem.getProblemLevel().equals(Problem.NORMAL.getProblemLevel()))),
+            () -> assertTrue(result.stream()
+                .filter(problem -> problem.getProblemLevel().equals(Problem.EASY.getProblemLevel()))
+                .count() == 2),
+            () -> verify(codingTestRepository).findRandomProblemsByLevel(Problem.NORMAL.getProblemLevel(), 1),
+            () -> verify(codingTestRepository).findRandomProblemsByLevel(Problem.EASY.getProblemLevel(), 2));
     }
 
     @DisplayName("코딩 테스트 PK 값으로 알고리즘 문제 찾기")
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"31, contents0", "32, contents1", "33, contents2", "34, contents3", "35, contents4"})
     void findCodingTestByIdTest(Long id, String problemContents) {
-        //given
+        // given
         CodingTest codingTest = createCodingTest(problemContents);
 
         when(codingTestRepository.findCodingTestByCodingTestId(id)).thenReturn(Optional.of(codingTest));
 
-        //when
+        // when
         CodingTest findCodingTest = codingTestService.findCodingTestById(id);
 
-        //then
+        // then
         assertAll(() -> assertThat(findCodingTest.getCodingTestId()).isEqualTo(id),
-                () -> assertThat(findCodingTest.getProblemContents()).isEqualTo(problemContents));
+            () -> assertThat(findCodingTest.getProblemContents()).isEqualTo(problemContents));
     }
 
     @DisplayName("문제 리스트에서 정렬 기능")
     @ParameterizedTest(name = "{index} {displayName} arguments = {arguments}")
     @CsvSource({"Hard, asc, solved", "Normal, desc, solved", "Easy, asc, unsolved"})
     void dynamicSearchingTest(String problemLevel, String problemAccuracy, String status) {
-        //given
+        // given
         Pageable pageable = PageRequest.of(0, 6);
         List<CodingTest> codingTestList = new ArrayList<>();
         Page<CodingTest> codingTestPage = new PageImpl<>(codingTestList, pageable, codingTestList.size());
 
         when(codingTestRepository.dynamicSearching(problemLevel, problemAccuracy, status, pageable))
-                .thenReturn(codingTestPage);
+            .thenReturn(codingTestPage);
 
-        //when
+        // when
         Page<CodingTest> resultPage = codingTestService.dynamicSearching(problemLevel, problemAccuracy, status,
-                pageable);
+            pageable);
 
-        //then
+        // then
         assertAll(() -> assertEquals(codingTestPage, resultPage),
-                () -> verify(codingTestRepository).dynamicSearching(problemLevel, problemAccuracy, status, pageable));
+            () -> verify(codingTestRepository).dynamicSearching(problemLevel, problemAccuracy, status, pageable));
     }
 
     private CodingTest createCodingTest(String problemContents) {
@@ -178,14 +178,14 @@ class CodingTestServiceTest {
 
     private CodingTest createNormalLevel() {
         CodingTest codingTest = CodingTest.createCodingTest("NormalName", "NormalSlug", "Normal",
-                50.7, "NormalContents", null, null, null);
+            50.7, "NormalContents", null, null, null);
         em.persist(codingTest);
         return codingTest;
     }
 
     private CodingTest createEasyLevel() {
         CodingTest codingTest = CodingTest.createCodingTest("EasyName", "EasySlug", "Easy",
-                50.7, "EasyContents", null, null, null);
+            50.7, "EasyContents", null, null, null);
         em.persist(codingTest);
         return codingTest;
     }
