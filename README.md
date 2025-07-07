@@ -1,5 +1,13 @@
 # ✏ README
 
+## 📎 관련 문서
+- <a href="https://hahyeon-cho.notion.site/NCNK-22fa0fd7145080bca394c7b19bfb3bad">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion" width="18" height="18" style="vertical-align:middle;"/> 
+  Notion 포트폴리오 </a>
+<br>
+
+---
+
 ## ◾목차
 
 - [개요]
@@ -97,3 +105,9 @@
 
 - 알고리즘 문제를 풀 수 있는 페이지
 - 리트코드 API를 이용해 문제를 크롤링하여 직접 문제를 풀 수 있음
+
+---
+
+## ◾트러블슈팅 및 성능 개선
+> 본 프로젝트 전반에 걸친 주요 문제 해결 사례와 성능 개선 내역은  
+[포트폴리오 페이지 내 '주요 문제 상황 및 해결'](https://hahyeon-cho.notion.site/NCNK-22fa0fd7145080bca394c7b19bfb3bad?pvs=25#22fa0fd7145081fbaa42f14ee0c11658)에서 확인하실 수 있습니다.
