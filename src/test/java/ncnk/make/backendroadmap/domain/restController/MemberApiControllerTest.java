@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -20,7 +20,7 @@ import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MemberResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MemberResponseDto;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import io.micrometer.core.annotation.Timed;
 import jakarta.servlet.http.HttpSession;
@@ -15,10 +15,10 @@ import ncnk.make.backendroadmap.domain.entity.Main;
 import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Quiz;
-import ncnk.make.backendroadmap.domain.restController.DocsLikeApiController.Result;
-import ncnk.make.backendroadmap.domain.restController.dto.quiz.AlgorithmResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.quiz.QuizAnswerDto;
-import ncnk.make.backendroadmap.domain.restController.dto.quiz.QuizPageDto;
+import ncnk.make.backendroadmap.domain.restcontroller.DocsLikeApiController.Result;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.quiz.AlgorithmResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.quiz.QuizAnswerDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.quiz.QuizPageDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;

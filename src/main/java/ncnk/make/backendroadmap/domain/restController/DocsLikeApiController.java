@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.aop.time.callback.TraceTemplate;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.like.DocsLikeResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.like.DocsLikeResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;

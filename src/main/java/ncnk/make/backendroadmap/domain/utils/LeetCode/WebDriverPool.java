@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.utils.LeetCode;
+package ncnk.make.backendroadmap.domain.utils.leetcode;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;

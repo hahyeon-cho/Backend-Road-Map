@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -12,7 +12,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;
-import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.leetcode.wrapper.CodingTestAnswer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;

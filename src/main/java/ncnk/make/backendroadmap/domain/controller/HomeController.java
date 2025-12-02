@@ -24,6 +24,6 @@ public class HomeController {
             model.addAttribute("userPicture", user.getPicture());
         }
 
-        return "mainHome";
+        return "main-home";
     }
 }

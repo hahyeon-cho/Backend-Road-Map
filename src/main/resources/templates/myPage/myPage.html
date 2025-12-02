@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/footer.css">
   <link rel="stylesheet" href="/css/nav.css">
   <link rel="stylesheet" href="/css/mypage.css">
-  <link rel="stylesheet" href="/css/codingTest.css">
+  <link rel="stylesheet" href="/css/coding-test.css">
   <link rel="icon" href="/images/favicon.svg">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -29,37 +29,37 @@
 <div class="container-md mx-5 my-4 px-5">
   <div class="row">
     <div class="col-md-5">
-      <div id="myProfile">
-        <div class="profileBox">
-          <div class="profileTop">
-            <a class="setting" href="/myPage/updateForm"><i class="fa-solid fa-gear"
+      <div id="my-profile">
+        <div class="profile-box">
+          <div class="profile-top">
+            <a class="setting" th:href="@{/member/edit/{id}(id=${memberId})}"><i class="fa-solid fa-gear"
                                                             style="color: #ffffff;"></i></a>
-            <div class="Profile"><img th:if="${Profile != null }" th:src="${Profile}">
+            <div class="profile-image"><img th:if="${profile != null }" th:src="${profile}">
             </div>
-            <div class="myName">
-              <p class="nickname"><span th:text="${NickName}"></span></p>
-              <div class="profileUsername">
+            <div class="my-name">
+              <p class="nickname"><span th:text="${nickName}"></span></p>
+              <div class="profile-username">
                 <p class="username">USERNAME</p>
-                <span class="userName" th:text="${Name}"></span>
+                <span class="user-name" th:text="${name}"></span>
               </div>
             </div>
             <div class="git-email">
               <ul>
                 <p class="github"><i class="fa-brands fa-github"
-                                     style="color: #000000"></i><span th:text="${Github}"></span></p>
+                                     style="color: #000000"></i><span th:text="${github}"></span></p>
                 <p class="email"><i class="fa-regular fa-envelope"
-                                    style="color: #000000;"></i><span th:text="${Email}"></span></p>
+                                    style="color: #000000;"></i><span th:text="${email}"></span></p>
               </ul>
             </div>
           </div>
         </div>
-        <div class="myPointTotal">
-          <div class="pointBox">
-            <div class="userPoint">
-              <p class="point">My Point <span th:text="${Point}"></span></p>
+        <div class="my-point-total">
+          <div class="point-box">
+            <div class="user-point">
+              <p class="point">My Point <span th:text="${point}"></span></p>
             </div>
             <hr class="divider">
-            <div class="Difficulty">
+            <div class="difficulty">
               <p class="hard">상<br><span th:text="${hard}"></span></p>
               <p class="normal">중<br><span th:text="${normal}"></span></p>
               <p class="easy">하<br><span th:text="${easy}"></span></p>
@@ -102,7 +102,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script type="module" src="/js/codingTest.js"></script>
+<script type="module" src="/js/coding-test.js"></script>
 </body>
 
 </html>

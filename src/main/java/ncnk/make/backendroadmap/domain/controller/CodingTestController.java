@@ -43,7 +43,7 @@ public class CodingTestController {
         List<CodingTest> problems = codingTestService.findAllProblems();
         model.addAttribute("userPicture", user.getPicture());
         model.addAttribute("problems", problems);
-        return "/codingTest/codingTest";
+        return "codingtest/codingtest";
     }
 
     @GetMapping("/{id}")
@@ -60,7 +60,7 @@ public class CodingTestController {
         if (problem.getProblemTopics() != null) {
             model.addAttribute("problemTopic", String.join(", ", problem.getProblemTopics()));
         }
-        return "/codingTest/codingTestProblem";
+        return "codingtest/codingtest-problem";
     }
 
 

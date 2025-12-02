@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 
 import io.micrometer.core.annotation.Timed;
@@ -13,9 +13,9 @@ import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.RecommendBook;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.roadMap.RecommendBookDto;
-import ncnk.make.backendroadmap.domain.restController.dto.roadMap.RoadMapResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.roadMap.SubCategoryResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.roadmap.RecommendBookDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.roadmap.RoadMapResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.roadmap.SubCategoryResponseDto;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.RecommendBookService;
 import ncnk.make.backendroadmap.domain.service.SubCategoryService;

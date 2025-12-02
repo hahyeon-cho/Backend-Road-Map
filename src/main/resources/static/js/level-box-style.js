@@ -20,7 +20,7 @@ function updateLevelDisplay(levelText) {
             levelText = 'Unknown';
     }
 
-    var displayElement = document.getElementById('levelDisplay');
+    var displayElement = document.getElementById('level-display');
     if (displayElement) {
         displayElement.textContent = levelText;
         displayElement.classList.add(className);

@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.member;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.member;
 
 import java.util.List;
 import lombok.Getter;

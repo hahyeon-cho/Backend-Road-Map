@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.repository.subCategory;
+package ncnk.make.backendroadmap.domain.repository.subcategory;
 
 import java.util.List;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.domain.controller.dto.docsLike.DocsLikeResponseDto;
+import ncnk.make.backendroadmap.domain.controller.dto.docslike.DocsLikeResponseDto;
 import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
@@ -34,10 +34,10 @@ public class RoadMapController {
     public String roadMapMain(@LoginUser SessionUser user, Model model) {
         loginValidate(user);
         Member member = memberService.findMemberByEmail(user.getEmail()); // 회원 검색
-        model.addAttribute("userID", member.getMemberId());
+        model.addAttribute("userId", member.getMemberId());
         model.addAttribute("userPicture", user.getPicture());
-        model.addAttribute("Level", member.getLevel());
-        return "roadMap/roadMapMain";
+        model.addAttribute("level", member.getLevel());
+        return "roadmap/roadmap-main";
     }
 
     private static void loginValidate(SessionUser user) {
@@ -58,9 +58,9 @@ public class RoadMapController {
             docsLikeResponseDtos.add(DocsLikeResponseDto.createDocsLikeResponseDto(docsLike.getLikeId()));
         }
         model.addAttribute("docsLikeResponseDtos", docsLikeResponseDtos);
-        model.addAttribute("userID", member.getMemberId());
+        model.addAttribute("userId", member.getMemberId());
         model.addAttribute("userPicture", member.getProfile());
-        model.addAttribute("Level", member.getLevel());
-        return "roadMap/roadMapSub";
+        model.addAttribute("level", member.getLevel());
+        return "roadmap/roadmap-sub";
     }
 }

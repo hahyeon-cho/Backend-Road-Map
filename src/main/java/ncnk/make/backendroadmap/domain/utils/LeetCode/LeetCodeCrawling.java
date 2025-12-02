@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.utils.LeetCode;
+package ncnk.make.backendroadmap.domain.utils.leetcode;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
-import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
-import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestProblem;
+import ncnk.make.backendroadmap.domain.utils.leetcode.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.leetcode.wrapper.CodingTestProblem;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;

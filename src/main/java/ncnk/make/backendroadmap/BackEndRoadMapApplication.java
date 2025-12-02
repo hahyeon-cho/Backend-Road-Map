@@ -23,9 +23,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
     PracticeCodeAspect.class,
     SolvedAspect.class
 })
-public class BackEndRoadMapApplication {
+public class BackendRoadMapApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BackEndRoadMapApplication.class, args);
+        SpringApplication.run(BackendRoadMapApplication.class, args);
     }
 }

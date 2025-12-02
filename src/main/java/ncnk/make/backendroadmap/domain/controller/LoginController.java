@@ -25,11 +25,11 @@ public class LoginController {
         }
         // TODO: dev/server 머지하고 mainPage.html로 return 값 변경하기!
 
-        return "Login/login";
+        return "login/login";
     }
 
     @PostMapping("/logout")
-    public String Logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         // 세션삭제
         HttpSession session = request.getSession(false);
 
@@ -37,7 +37,7 @@ public class LoginController {
             session.invalidate();
         }
 
-        return "/mainHome";
+        return "main-home";
     }
 }
 

@@ -38,21 +38,21 @@ public class MemberController {
 
         model.addAttribute("userPicture", user.getPicture());
         Member member = memberService.findMemberByEmail(sessionUser.getEmail()); // 회원 검색
-        model.addAttribute("memberID", member.getMemberId());
-        model.addAttribute("Profile", member.getProfile());
-        model.addAttribute("Email", member.getEmail());
-        model.addAttribute("Name", member.getName());
-        model.addAttribute("NickName", member.getNickName());
-        model.addAttribute("Github", member.getGithub());
-        model.addAttribute("Level", member.getLevel());
-        model.addAttribute("Point", member.getPoint());
+        model.addAttribute("memberId", member.getMemberId());
+        model.addAttribute("profile", member.getProfile());
+        model.addAttribute("email", member.getEmail());
+        model.addAttribute("name", member.getName());
+        model.addAttribute("nickName", member.getNickName());
+        model.addAttribute("github", member.getGithub());
+        model.addAttribute("level", member.getLevel());
+        model.addAttribute("point", member.getPoint());
         model.addAttribute("hard", member.getHard());
         model.addAttribute("normal", member.getNormal());
         model.addAttribute("easy", member.getEasy());
 
         model.addAttribute("member", member); // 회원 정보를 model에 담고
 
-        return "myPage/myPage";
+        return "mypage/mypage";
     }
 
     @GetMapping("/edit/{memberId}")
@@ -62,7 +62,7 @@ public class MemberController {
 
         Member member = memberService.findMemberById(memberId); //회원 조회
         model.addAttribute("member", member); // 회원 정보를 model에 담고
-        return "myPage/updateForm"; // updateForm.html로 반환
+        return "mypage/update-form";
     }
 
     @PostMapping("/edit/{memberId}")
@@ -74,7 +74,7 @@ public class MemberController {
         Member member = memberService.findMemberById(memberId); //회원 조회
         memberService.updateProfile(member, multipartFile, updateRequestDto);// 회원 프로필 정보 업데이트 BIZ로직 실행
 
-        return "redirect:/form/myPage/{memberId}";// myPage로 Redirect
+        return "redirect:/member/mypage";
     }
 
     private static void loginValidate(SessionUser user) {

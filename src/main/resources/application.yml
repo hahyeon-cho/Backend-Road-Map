@@ -51,8 +51,7 @@ server:
     restart:
       enabled: true
 
-# LeetCode 문제 상세 스크래핑(WebDriver)용 선택적 프록시.
-# 목록 API(공개 API) => 프록시 미적용.
+# LeetCode 문제 상세 스크래핑(WebDriver)용 프록시
 leetcode:
   proxy:
     enabled: false

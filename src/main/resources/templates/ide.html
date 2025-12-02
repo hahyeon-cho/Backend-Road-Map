@@ -44,7 +44,7 @@
     <script type="module" src = "/config/config.js"></script>
     <script type="module" src="/js/ide.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/css/Ide/ide.css">
+    <link type="text/css" rel="stylesheet" href="/css/ide/ide.css">
 
     <title>Practice</title>
 </head>
@@ -60,7 +60,7 @@
         </div>
         <div>
             <div class="ui input">
-                <input type="hidden" id="userId" th:value="${userID}">
+                <input type="hidden" id="user-id" th:value="${user-id}">
                 <div class="item download"><i class="download icon"></i> Download</div>
             </div>
         </div>
@@ -110,13 +110,13 @@
         </div>
     </div>
 </div>
-<div id="fileContentDisplay"></div>
+<div id="file-content-display"></div>
 
 <!--<script>-->
 <!--    window.onload = function() {-->
 <!--        const urlParams = new URLSearchParams(window.location.search);-->
 <!--        const fileContent = urlParams.get('fileContent');-->
-<!--        document.getElementById('fileContentDisplay').textContent = fileContent;-->
+<!--        document.getElementById('file-content-display').textContent = fileContent;-->
 <!--    };-->
 <!--</script>-->
 </body>

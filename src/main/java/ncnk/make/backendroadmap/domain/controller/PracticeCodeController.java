@@ -29,7 +29,7 @@ public class PracticeCodeController {
         loginValidate(user);
 
         Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
-        model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
+        model.addAttribute("userId", member.getMemberId()); //회원 PK값 model에 담고
         model.addAttribute("userPicture", user.getPicture());
 
         return "navi/practice";
@@ -40,7 +40,7 @@ public class PracticeCodeController {
         loginValidate(user);
 
         Member member = memberService.findMemberByEmail(user.getEmail()); //회원 찾기
-        model.addAttribute("userID", member.getMemberId()); //회원 PK값 model에 담고
+        model.addAttribute("userId", member.getMemberId()); //회원 PK값 model에 담고
         return "ide";
     }
 

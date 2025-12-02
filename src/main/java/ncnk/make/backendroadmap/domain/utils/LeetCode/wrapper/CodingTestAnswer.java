@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper;
+package ncnk.make.backendroadmap.domain.utils.leetcode.wrapper;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

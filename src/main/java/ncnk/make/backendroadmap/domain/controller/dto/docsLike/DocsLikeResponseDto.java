@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.controller.dto.docsLike;
+package ncnk.make.backendroadmap.domain.controller.dto.docslike;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class DocsLikeResponseDto {
 
-    private Long DocsLikeId;
+    private Long docsLikeId;
 
     private DocsLikeResponseDto(Long docsLikeId) {
-        DocsLikeId = docsLikeId;
+        this.docsLikeId = docsLikeId;
     }
 
     public static DocsLikeResponseDto createDocsLikeResponseDto(Long docsLikeId) {

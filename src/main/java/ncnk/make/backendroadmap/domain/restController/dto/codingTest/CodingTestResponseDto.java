@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.codingTest;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.codingtest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.exception.JsonParsingException;
-import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.leetcode.wrapper.CodingTestAnswer;
 
 @Slf4j
 @Getter

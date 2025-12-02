@@ -10,7 +10,7 @@ import ncnk.make.backendroadmap.domain.entity.DocsLike;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
-import ncnk.make.backendroadmap.domain.repository.subCategory.SubCategoryRepository;
+import ncnk.make.backendroadmap.domain.repository.subcategory.SubCategoryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

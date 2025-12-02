@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.quiz;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.quiz;
 
 import java.io.Serializable;
 import lombok.Getter;

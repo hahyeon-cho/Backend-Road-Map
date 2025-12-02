@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Roadmap</title>
-    <link rel="stylesheet" href="/css/RoadMap/roadMapsub.css">
+    <link rel="stylesheet" href="/css/roadmap/roadmap-sub.css">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class ="main-container">
-    <div class ="mainNav">
+    <div class ="main-nav">
         <div class="maintitle">
             <a class="navbar-brand" aria-current="page"  href="/" ><img src ="/images/navNCNK.svg"></a>
             <div class="navbar-menu" id="menu">
@@ -38,7 +38,7 @@
         </div>
         <div class="nav">
 
-            <div class="profile"><a href="/myPage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="Profile Image" ></a></div>
+            <div class="profile"><a href="/member/mypage"><img th:if="${userPicture != null}" th:src="${userPicture}" alt="profile-image Image" ></a></div>
             <div class="logoutbtn"><a  href="/logout">Logout</a></div>
 
         </div>
@@ -51,12 +51,12 @@
 
 <div style="background:black; display: flex; justify-content: space-between;">
     <div id="maincategory-name" style="margin-left: 20px;">
-        <h1 id="categoryTitle" style="color:white; font-weight:1000; font-size:400%">Internet</h1>
+        <h1 id="category-title" style="color:white; font-weight:1000; font-size:400%">internet</h1>
         <h4 style="color:#9FBCE9"><I>Backend RoadMap</I></h4>
     </div>
     <div style="margin-right: 20px;">
         <div class="container">
-            <button id="quizButton" popovertarget="mydiv1" style="background:black; border:none">
+            <button id="quiz-button" popovertarget="mydiv1" style="background:black; border:none">
                 <img src="/images/quiz.png" style="background:black; border:none; height:100px;">
             </button>
             <div popover="" id="mydiv1" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:20%; transform: translate(0, -50%); max-width: 1200px;">
@@ -66,26 +66,26 @@
                     <p>메인 카테고리 선택하세요.</p>
                 </div>
             </div>
-            <button id="bookButton" popovertarget="mydiv" style="background:black; border:none">
+            <button id="book-button" popovertarget="mydiv" style="background:black; border:none">
                 <img src="/images/lamp.svg" style="background:black; border:none">
             </button>
             <script>
                 $(document).ready(function() {
-                    $('#bookButton').click(function() {
+                    $('#book-button').click(function() {
                         var currentImage = $(this).find('img').attr('src');
                         var newImage = currentImage === '/images/lamp.svg' ? '/images/aladdin.svg' : '/images/lamp.svg';
                         $(this).find('img').attr('src', newImage);
                     });
 
                     $('#mydiv button').click(function() {
-                        $('#bookButton img').attr('src', '/images/lamp.svg');
+                        $('#book-button img').attr('src', '/images/lamp.svg');
                     });
                 });
             </script>
             <div popover="" id="mydiv" style="border: 2px solid #D9D9D9; border-radius: 20px; position: fixed; top: 63%; left:60%; transform: translate(0, -50%); max-width: 500px;">
                 <h2>도서 판매량 TOP3</h2>
                 <hr>
-                <div id="bookItems">
+                <div id="book-items">
                     <p>메인 카테고리 선택하세요.</p>
                 </div>
             </div>
@@ -95,40 +95,40 @@
 
 
 <!--서브 카테고리 페이지-->
-<div id="layoutSidenav">
-    <!-- mainCategory 선택 -->
-    <div id="layoutSidenav_nav line-stamp">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+<div id="layout-sidenav">
+    <!-- main-category 선택 -->
+    <div id="layout-sidenav_nav line-stamp">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenav-accordion">
             <div class="sb-sidenav-menu category">
                 <div class="nav" style="background-color: black">
                     <div class="container">
                         <div class="wrapper" style="background-color: black">
                             <ul class="sessions">
-                                <li><a class="nav-link Internet" href="#" data-id="1">Internet</a></li>
-                                <li><a class="nav-link Basic FE" href="#" data-id="2">Basic FE</a></li>
-                                <li><a class="nav-link OS" href="#" data-id="3">OS</a></li>
-                                <li><a class="nav-link Language" href="#" data-id="4">Langugage</a></li>
-                                <li><a class="nav-link Algorithm" href="#" data-id="5">Algorithm</a></li>
-                                <li><a class="nav-link Using Git" href="#" data-id="6">Using Git</a></li>
-                                <li><a class="nav-link GithubGitLab" href="#" data-id="7">Github & GitLab</a></li>
-                                <li><a class="nav-link RelationalDB" href="#" data-id="8">Relational DB</a></li>
-                                <li><a class="nav-link NoSQLDB" href="#" data-id="9">NoSQL DB</a></li>
-                                <li><a class="nav-link DBKnowledge" href="#" data-id="10">DB Knowledge</a></li>
-                                <li><a class="nav-link APIs" href="#" data-id="11">APIs</a></li>
-                                <li><a class="nav-link Framework" href="#" data-id="12">Framework</a></li>
-                                <li><a class="nav-link Caching" href="#" data-id="13">Caching</a></li>
-                                <li><a class="nav-link WebSecurity" href="#" data-id="14">Web Security</a></li>
-                                <li><a class="nav-link Test" href="#" data-id="15">Test</a></li>
-                                <li><a class="nav-link CICD" href="#" data-id="16">CI/CD</a></li>
-                                <li><a class="nav-link DesignPattern" href="#" data-id="17">Design Pattern</a></li>
-                                <li><a class="nav-link SearchEngines" href="#" data-id="18">Search Engines</a></li>
-                                <li><a class="nav-link Container" href="#" data-id="19">Container</a></li>
-                                <li><a class="nav-link WebServer" href="#" data-id="20">Web server</a></li>
+                                <li><a class="nav-link internet" href="#" data-id="1">internet</a></li>
+                                <li><a class="nav-link basic-fe" href="#" data-id="2">Basic FE</a></li>
+                                <li><a class="nav-link os" href="#" data-id="3">OS</a></li>
+                                <li><a class="nav-link language" href="#" data-id="4">Langugage</a></li>
+                                <li><a class="nav-link algorithm" href="#" data-id="5">Algorithm</a></li>
+                                <li><a class="nav-link using-git" href="#" data-id="6">Using Git</a></li>
+                                <li><a class="nav-link github-gitlab" href="#" data-id="7">Github & GitLab</a></li>
+                                <li><a class="nav-link relational-db" href="#" data-id="8">Relational DB</a></li>
+                                <li><a class="nav-link nosql-db" href="#" data-id="9">NoSQL DB</a></li>
+                                <li><a class="nav-link db-knowledge" href="#" data-id="10">DB Knowledge</a></li>
+                                <li><a class="nav-link apis" href="#" data-id="11">apis</a></li>
+                                <li><a class="nav-link framework" href="#" data-id="12">Framework</a></li>
+                                <li><a class="nav-link caching" href="#" data-id="13">Caching</a></li>
+                                <li><a class="nav-link web-security" href="#" data-id="14">Web Security</a></li>
+                                <li><a class="nav-link test" href="#" data-id="15">Test</a></li>
+                                <li><a class="nav-link ci-cd" href="#" data-id="16">CI/CD</a></li>
+                                <li><a class="nav-link design-pattern" href="#" data-id="17">Design Pattern</a></li>
+                                <li><a class="nav-link search-engines" href="#" data-id="18">Search Engines</a></li>
+                                <li><a class="nav-link container" href="#" data-id="19">Container</a></li>
+                                <li><a class="nav-link web-server" href="#" data-id="20">Web server</a></li>
                             </ul>
                         </div>
                         <script>
                             $(document).ready(function() {
-                                var level = [[${Level}]];
+                                var level = [[${level}]];
 
                                 $('.nav-link').each(function() {
                                     var dataId = parseInt($(this).data('id'));
@@ -136,9 +136,9 @@
                                     if (level < dataId) {
                                         $(this).off('click');
                                     } else if (level === dataId){
-                                        $(this).addClass('MainCategory-blinkingLink');
+                                        $(this).addClass('main-category-blinking-link');
                                     } else {
-                                        $(this).addClass('MainCategory-link');
+                                        $(this).addClass('main-category-link');
                                     }
                                 });
                             });
@@ -149,14 +149,14 @@
             </div>
         </nav>
     </div>
-    <!-- subCategory 박스 -->
-    <div id="layoutSidenav_content" style="background-color: #C0C0C0;">
+    <!-- sub-category 박스 -->
+    <div id="layout-sidenav_content" style="background-color: #C0C0C0;">
         <main>
             <div class="container-fluid px-4" id="subcategory" style="background-color:transparent;">
                 <section class="page-section portfolio" id="portfolio" style="background-color:transparent;">
 
                     <div class="container">
-                        <div class="row justify-content-center" id="portfolioItems">
+                        <div class="row justify-content-center" id="portfolio-items">
 
                         </div>
                     </div>
@@ -166,8 +166,8 @@
     </div>
 </div>
 
-<!-- subCategory Modal창 -->
-<div class="portfolio-modal modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModal" aria-hidden="true">
+<!-- sub-category Modal창 -->
+<div class="portfolio-modal modal fade" id="portfolio-modal" tabindex="-1" aria-labelledby="portfolio-modal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -176,29 +176,29 @@
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr>
-            <div class="modal-body text-center pb-5" id="portfolioModalContent">
+            <div class="modal-body text-center pb-5" id="portfolio-modal-content">
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+<div class="modal fade" id="quiz-modal" tabindex="-1" aria-labelledby="quiz-modal-label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="quizModalLabel"></h5>
+                <h5 class="modal-title" id="quiz-modal-label"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="quizModalBody"></div>
+            <div class="modal-body" id="quiz-modal-body"></div>
             <div class="modal-footer">
 <!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>-->
-                <button type="button" id="quizModalNextButton" class="btn btn-warning">확인</button>
+                <button type="button" id="quiz-modal-next-button" class="btn btn-warning">확인</button>
             </div>
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function() {
-        var level = [[${Level}]];
+        var level = [[${level}]];
 
         window.onpopstate = function(event) {
             var urlParams = new URLSearchParams(window.location.search);
@@ -211,12 +211,12 @@
         };
 
         $(document).ready(function() {
-            // roadMapMain 에서 roadMapsub 로 넘어왔을 때 대분류 제목 변경
+            // roadMapMain에서 roadMapSub로 넘어왔을 때 대분류 제목 변경
             var urlParams = new URLSearchParams(window.location.search);
             var dataId = urlParams.get('dataId');
             if (dataId !== null) {
-                var categoryTitle = $('.nav-link[data-id="' + dataId + '"]').text();
-                $('#categoryTitle').text(categoryTitle);
+                var category-title = $('.nav-link[data-id="' + dataId + '"]').text();
+                $('#category-title').text(category-title);
             }
 
             $('.nav-link').click(function(e) {
@@ -227,13 +227,13 @@
                     return;
                 }
                 // sub 내에서 대분류 이동시 대분류 제목 변경
-                var categoryTitle = $(this).text(); // 클릭한 대분류 카테고리의 텍스트 가져오기
+                var category-title = $(this).text(); // 클릭한 대분류 카테고리의 텍스트 가져오기
                 var newUrl = window.location.origin + '/roadmap/subcategory?dataId=' + dataId;
                 history.pushState({}, '', newUrl);
                 fetchData(dataId);
 
                 // 대분류 제목
-                $('#categoryTitle').text(categoryTitle);
+                $('#category-title').text(category-title);
 
                 // 뒤로가기시 로드맵 메인 페이지로 이동함
                 window.onpopstate = function(event) {
@@ -250,15 +250,15 @@
                 // AJAX
                 $.getJSON('http://localhost:8080/api/roadmap/sub/' + dataId, function(data) {
                     console.log(data);
-                    // subCategory 박스
-                    $('#portfolioItems').empty();
-                    data.subCategory.forEach(function(subCategory, index) {
+                    // sub-category 박스
+                    $('#portfolio-items').empty();
+                    data.sub-category.forEach(function(sub-category, index) {
 
-                        var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolioModal" data-index="' + index + '">';
+                        var html = '<div class="portfolio-item" data-bs-toggle="modal" data-bs-target="#portfolio-modal" data-index="' + index + '">';
                         html += '<div style="margin:20px; background-color: white; border: 2px solid #D9D9D9; border-radius: 10px; padding: 20px;">';
-                        html += '<h2>' + subCategory.subDocsTitle + '</h2>';
-                        html += '<p>' + subCategory.subDescription + '</p><hr>';
-                        html += '<p>좋아요 ' + subCategory.likeCount + '</p>';
+                        html += '<h2>' + sub-category.subDocsTitle + '</h2>';
+                        html += '<p>' + sub-category.subDescription + '</p><hr>';
+                        html += '<p>좋아요 ' + sub-category.likeCount + '</p>';
                         html += '</div>';
                         html += '</div>';
                         var $portfolioItem = $(html);
@@ -270,7 +270,7 @@
                             $.get(data.url, function(htmlData) {
                                 console.log(data.url);
                                 var selectedContent = $(htmlData).find('div.' + index).html();
-                                $('#portfolioModalContent').html(selectedContent);
+                                $('#portfolio-modal-content').html(selectedContent);
                             });
 
                             // console.log(index);
@@ -284,7 +284,7 @@
                                 });
 
                                 // 좋아요 토글 함수
-                                function toggleLike(subCategoryId) {
+                                function toggleLike(sub-categoryId) {
                                     // 백엔드로 좋아요 토글 요청 보내기
                                     var subheart=index+1;
                                     $.ajax({
@@ -300,16 +300,16 @@
                                 }
                             });
 
-                            $('#portfolioModal').modal('show');
+                            $('#portfolio-modal').modal('show');
 
                         });
 
-                        $('#portfolioItems').append($portfolioItem);
+                        $('#portfolio-items').append($portfolioItem);
 
                     });
 
                     // 도서추천
-                    $('#bookItems').empty();
+                    $('#book-items').empty();
                     data.recommendBookDtos.forEach(function(book, index) {
                         var html = '<div style="width:700px;">';
                         html += '<div class="book1">';
@@ -319,15 +319,15 @@
                         html += '<p>' + book.bookAuthor + '</p>';
                         html += '<p>' + book.publisher + '</p></div></div>';
                         html += '</div>';
-                        var $bookItems = $(html);
+                        var $book-items = $(html);
 
-                        $('#bookItems').append($bookItems);
+                        $('#book-items').append($book-items);
                     });
 
                 });
 
                 $(document).ready(function() {
-                    $('#quizButton').click(function() {
+                    $('#quiz-button').click(function() {
                         // AJAX를 사용하여 JSON 데이터 가져오기
                         $.getJSON('/api/quiz/' + dataId, function(data) {
                             var quizHtml = '<div>';
@@ -344,7 +344,7 @@
                             quizHtml += '<br></div>';
 
                             // 제출 버튼
-                            quizHtml += '<div style="margin-top: 10px;"><button id="submitQuizButton" style="background-color: black; color: white; border: none; padding: 10px 20px;">SUBMIT</button><br></div>';
+                            quizHtml += '<div style="margin-top: 10px;"><button id="submit-quiz-button" style="background-color: black; color: white; border: none; padding: 10px 20px;">SUBMIT</button><br></div>';
 
                             // 팝오버 내용 업데이트
                             $('#mydiv1 #quiz').html(quizHtml);
@@ -355,7 +355,7 @@
                     });
 
                     // 제출 버튼 클릭 이벤트
-                    $(document).on('click', '#submitQuizButton', function() {
+                    $(document).on('click', '#submit-quiz-button', function() {
                         var userAnswers = [];
 
                         // 각 퀴즈의 답안을 가져와서 배열에 저장
@@ -372,12 +372,12 @@
                             success: function(response) {
                                 if (response.passed) {
                                     // 퀴즈 통과 모달
-                                    $('#quizModalTitle').text('퀴즈 통과');
-                                    $('#quizModalBody').text('퀴즈 통과. 다음 단계로 이동.');
-                                    $('#quizModal').modal('show');
+                                    $('#quiz-modal-title').text('퀴즈 통과');
+                                    $('#quiz-modal-body').text('퀴즈 통과. 다음 단계로 이동.');
+                                    $('#quiz-modal').modal('show');
 
                                     // 다음 step으로 이동하는 버튼 클릭 이벤트 처리
-                                    $('#quizModalNextButton').click(function() {
+                                    $('#quiz-modal-next-button').click(function() {
                                         var urlParams = new URLSearchParams(window.location.search);
                                         var dataId = parseInt(urlParams.get('dataId'));
                                         var nextDataId = dataId + 1;
@@ -386,12 +386,12 @@
                                     });
                                 } else {
                                     // 퀴즈 실패 모달
-                                    $('#quizModalTitle').text('퀴즈 실패');
-                                    $('#quizModalBody').text('퀴즈 실패. 다시 시도.');
-                                    $('#quizModal').modal('show');
+                                    $('#quiz-modal-title').text('퀴즈 실패');
+                                    $('#quiz-modal-body').text('퀴즈 실패. 다시 시도.');
+                                    $('#quiz-modal').modal('show');
 
                                     // 다시 시도하는 버튼 클릭 이벤트 처리
-                                    $('#quizModalNextButton').click(function() {
+                                    $('#quiz-modal-next-button').click(function() {
                                         location.reload();
                                     });
                                 }
@@ -399,12 +399,12 @@
                             error: function(xhr, status, error) {
                                 console.error(xhr.responseText);
                                 // 오류 메시지 모달
-                                $('#quizModalTitle').text('오류 발생');
-                                $('#quizModalBody').text('퀴즈 제출 중 오류가 발생했습니다.');
-                                $('#quizModal').modal('show');
+                                $('#quiz-modal-title').text('오류 발생');
+                                $('#quiz-modal-body').text('퀴즈 제출 중 오류가 발생했습니다.');
+                                $('#quiz-modal').modal('show');
 
                                 // 새로고침 버튼 클릭 이벤트 처리
-                                $('#quizModalNextButton').click(function() {
+                                $('#quiz-modal-next-button').click(function() {
                                     location.reload();
                                 });
                             }

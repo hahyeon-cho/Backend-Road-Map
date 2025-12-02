@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import io.micrometer.core.annotation.Timed;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import ncnk.make.backendroadmap.domain.entity.CodingTest;
 import ncnk.make.backendroadmap.domain.entity.Member;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
-import ncnk.make.backendroadmap.domain.restController.dto.codingTest.CodingTestResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.codingTest.ProblemPageResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.codingtest.CodingTestResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.codingtest.ProblemPageResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.CodingTestService;

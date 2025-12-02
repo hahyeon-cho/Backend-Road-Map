@@ -9,9 +9,9 @@ import ncnk.make.backendroadmap.domain.entity.Quiz;
 
 @Getter
 @NoArgsConstructor
-public class Quizs {
+public class Quizzes {
 
-    List<Quiz> quizs = new ArrayList<>();
+    List<Quiz> quizzes = new ArrayList<>();
 
     List<CodingTest> codingTests = new ArrayList<>();
 }

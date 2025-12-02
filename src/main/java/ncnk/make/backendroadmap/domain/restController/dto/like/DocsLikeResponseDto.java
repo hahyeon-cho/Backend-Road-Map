@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.like;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.like;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

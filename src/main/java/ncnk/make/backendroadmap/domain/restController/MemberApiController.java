@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import io.micrometer.core.annotation.Timed;
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ import ncnk.make.backendroadmap.domain.entity.PracticeCode;
 import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.exception.SessionNullPointException;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MemberRankingDto;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MemberResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MyPracticeResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MyRoadMapResponseDto;
-import ncnk.make.backendroadmap.domain.restController.dto.member.MyTestResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MemberRankingDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MemberResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MyPracticeResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MyRoadMapResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.member.MyTestResponseDto;
 import ncnk.make.backendroadmap.domain.security.auth.LoginUser;
 import ncnk.make.backendroadmap.domain.security.auth.dto.SessionUser;
 import ncnk.make.backendroadmap.domain.service.DocsLikeService;

@@ -22,7 +22,7 @@ import ncnk.make.backendroadmap.domain.entity.Solved;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.quiz.QuizRepository;
-import ncnk.make.backendroadmap.domain.utils.LeetCode.wrapper.CodingTestAnswer;
+import ncnk.make.backendroadmap.domain.utils.leetcode.wrapper.CodingTestAnswer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -152,10 +152,10 @@ public class InitDataH2DB {
         public void initQuiz(List<MainCategory> mainCategories) {
             log.info("excelPath = {}", excelFilePath);
             try {
-                Quizs quizs = readQuizFromExcel(new File(excelFilePath), mainCategories);
+                Quizzes quizzes = readQuizFromExcel(new File(excelFilePath), mainCategories);
 
                 // 읽은 데이터 DB에 삽입
-                for (Quiz quiz : quizs.getQuizs()) {
+                for (Quiz quiz : quizzes.getQuizzes()) {
                     insertQuizService.insertQuiz(quiz);
                 }
 
@@ -167,8 +167,8 @@ public class InitDataH2DB {
             }
         }
 
-        private Quizs readQuizFromExcel(File file, List<MainCategory> mainCategories) throws IOException {
-            Quizs quizs = new Quizs();
+        private Quizzes readQuizFromExcel(File file, List<MainCategory> mainCategories) throws IOException {
+            Quizzes quizzes = new Quizzes();
             try (Workbook workbook = WorkbookFactory.create(file)) {
                 Sheet sheet = workbook.getSheetAt(0);
                 Iterator<Row> rowIterator = sheet.rowIterator();
@@ -191,14 +191,14 @@ public class InitDataH2DB {
 
                     if (category != null) {
                         Quiz quiz = Quiz.createQuiz(quizContext, quizAnswer, quizExplain, category);
-                        if (!quizs.getQuizs().contains(quiz)) {
-                            quizs.getQuizs().add(quiz);
+                        if (!quizzes.getQuizzes().contains(quiz)) {
+                            quizzes.getQuizzes().add(quiz);
                         }
                     }
                 }
             }
 
-            return quizs;
+            return quizzes;
         }
 
         private static String getStringCellValue(Cell cell) {

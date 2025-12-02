@@ -25,8 +25,9 @@ public class PageController {
         MainCategory mainCategory = mainCategoryService.findMainCategoryById(id);
         if (mainCategory != null) {
             String mainDocsTitle = String.valueOf(mainCategory.getMainDocsTitle());
+            String mainDocsSlug = mainDocsTitle.toLowerCase().replace('_', '-');
             model.addAttribute("mainDocsTitle", mainDocsTitle);
-            return "/DataSet/" + mainDocsTitle + "/" + mainDocsTitle; // 반환
+            return "dataset/" + mainDocsSlug + "/" + mainDocsSlug;
         } else {
             // MainCategory가 없는 경우 에러 페이지 반환
             return "error";

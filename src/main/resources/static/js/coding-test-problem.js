@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    var topics = $('#topicDisplay').data('data-tooltip');
+    var topics = $('#topic-display').data('data-tooltip');
 
-    $('#topicDisplay').popup({
+    $('#topic-display').popup({
         on: 'click',
         content: `${topics}`
     });

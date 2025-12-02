@@ -12,36 +12,36 @@
 <body>
 <div th:replace="~{navbar::nav}"></div>
 <div class="container">
-  <div id="myProfile">
-    <div class="profileBox">
-      <div class="profileTop"></div>-->
-      <div class="profileTop">
-        <a class="setting" href="/myPage/updateForm"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></a>
-        <div class ="Profile"><img th:if="${Profile != null }" th:src="${Profile}" >
+  <div id="my-profile">
+    <div class="profile-box">
+      <div class="profile-top"></div>-->
+      <div class="profile-top">
+        <a class="setting" th:href="@{/member/edit/{id}(id=${memberId})}"><i class="fa-solid fa-gear" style="color: #ffffff;"></i></a>
+        <div class ="profile-image"><img th:if="${profile != null }" th:src="${profile}" >
         </div>
-        <div class ="myName">
-          <p class="nickname" ><span th:text="${NickName}"></span></p>
-          <div class="profileUsername">
+        <div class ="my-name">
+          <p class="nickname" ><span th:text="${nickName}"></span></p>
+          <div class="profile-username">
             <p class ="username" >USERNAME</p>
-            <span class="userName" th:text="${Name}"></span>
+            <span class="user-name" th:text="${name}"></span>
           </div>
         </div>
         <div class ="git-email">
           <ul>
-            <p class="github"><i class="fa-brands fa-github" style="color: #000000"></i><span th:text="${Github}"></span></p>
-            <p class="email"><i class="fa-regular fa-envelope" style="color: #000000;"></i><span th:text="${Email}"></span></p>
+            <p class="github"><i class="fa-brands fa-github" style="color: #000000"></i><span th:text="${github}"></span></p>
+            <p class="email"><i class="fa-regular fa-envelope" style="color: #000000;"></i><span th:text="${email}"></span></p>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class ="myPointTotal">
-      <div class="pointBox">
-        <div class="userPoint">
-          <p class="point">My Point  <span th:text="${Point}"></span></p>
+    <div class ="my-point-total">
+      <div class="point-box">
+        <div class="user-point">
+          <p class="point">My Point  <span th:text="${point}"></span></p>
         </div>
         <hr class="divider">
-        <div class ="Difficulty">
+        <div class ="difficulty">
           <p class="hard">상<br><span th:text="${hard}"></span></p>
 
           <p class="normal">중<br><span th:text="${normal}"></span></p>
@@ -53,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class ="myTest">
+  <div class ="my-test">
     <p>오른쪽 요소들</p>
   </div>
 </div>

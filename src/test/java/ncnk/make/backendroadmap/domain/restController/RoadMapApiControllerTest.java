@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController;
+package ncnk.make.backendroadmap.domain.restcontroller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -14,7 +14,7 @@ import ncnk.make.backendroadmap.domain.entity.MainCategory;
 import ncnk.make.backendroadmap.domain.entity.RecommendBook;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
-import ncnk.make.backendroadmap.domain.restController.dto.roadMap.RoadMapResponseDto;
+import ncnk.make.backendroadmap.domain.restcontroller.dto.roadmap.RoadMapResponseDto;
 import ncnk.make.backendroadmap.domain.service.MainCategoryService;
 import ncnk.make.backendroadmap.domain.service.SubCategoryService;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.member;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.member;
 
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;

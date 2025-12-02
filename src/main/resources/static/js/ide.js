@@ -176,7 +176,7 @@ function importSource() {
 document.querySelector('.import').addEventListener('click', importSource);
 
 function downloadSource() {
-    var userId = document.getElementById('userId').value;
+    var user-id = document.getElementById('user-id').value;
     var value = parseInt($selectLanguage.val());
     var sourceCode = sourceEditor.getValue();
 
@@ -205,7 +205,7 @@ function downloadSource() {
     formData.append("extension", extension);
 
     $.ajax({
-        url: "http://localhost:8080/upload/" + userId,
+        url: "http://localhost:8080/upload/" + user-id,
         method: "POST",
         data: formData,
         processData: false,  // 필수 옵션

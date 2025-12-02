@@ -26,7 +26,7 @@ header{
     height: 100px;
 }
 
-.roadMapTitle h1{
+.roadmap-title h1{
     margin-left: 60px;
     vertical-align : bottom;
     font-family: 'JalnanGothic';
@@ -47,25 +47,25 @@ li {
 }
 
 
-.mainCategory {
+.main-category {
     height: 1500px;
     position: relative;
     background-position: 130px 200px;
     background-size: 1300px;
     width: 100vw;
 }
-.mainCategory>a {
+.main-category>a {
     position: absolute;
 }
-.mainCategory>ul{
+.main-category>ul{
     position: absolute;
 }
-.subCategory li{
+.sub-category li{
     color: #bdbdbd;
     font-size: small;
     white-space:pre-wrap;
 }
-.Internet {
+.internet {
     top: 230px;
     left: 500px;
 }
@@ -74,7 +74,7 @@ li {
     top: 545px;
     left: 455px;
 }
-.BasicFE{
+.basic-fe{
     top: 230px;
     left: 710px;
 }
@@ -83,7 +83,7 @@ li {
     top:545px;
     left: 695px;
 }
-.OS{
+.os{
     top : 230px;
     left: 930px;
 }
@@ -92,7 +92,7 @@ li {
     top:545px;
     left: 855px;
 }
-.Language{
+.language{
     top: 290px;
     left:1230px;
 }
@@ -101,7 +101,7 @@ li {
     top:605px;
     left: 1200px;
 }
-.Algorithm {
+.algorithm {
     top: 490px;
     left: 930px;
 }
@@ -110,7 +110,7 @@ li {
     top: 805px;
     left: 885px;
 }
-.UsingGit {
+.using-git {
     top: 490px;
     left: 710px;
 }
@@ -119,7 +119,7 @@ li {
     top: 805px;
     left: 717px;
 }
-.GithubGitLab {
+.github-gitlab {
     top: 490px;
     left: 450px;
 }
@@ -128,7 +128,7 @@ li {
     top:805px;
     left: 473px;
 }
-.RelationalDB {
+.relational-db {
     top: 570px;
     left: 180px;
 }
@@ -137,7 +137,7 @@ li {
     top: 885px;
     left: 164px;
 }
-.NoSQLDB {
+.nosql-db {
     top: 790px;
     left: 350px;
 }
@@ -146,7 +146,7 @@ li {
     top: 1105px;
     left: 358px;
 }
-.DBKnowledge {
+.db-knowledge {
     top: 790px;
     left: 580px;
 }
@@ -155,7 +155,7 @@ li {
     top:1105px;
     left: 542px;
 }
-.APIs {
+.apis {
     top: 790px;
     left: 830px;
 }
@@ -164,7 +164,7 @@ li {
     top: 1105px;
     left: 787px;
 }
-.Framework {
+.framework {
     top: 790px;
     left: 1008px;
 }
@@ -173,7 +173,7 @@ li {
     top: 1105px;
     left: 1010px;
 }
-.Caching {
+.caching {
     position: relative;
     top: 840px;
     left: 1300px;
@@ -183,7 +183,7 @@ li {
     top: 1155px;
     left: 1272px;
 }
-.WebSecurity {
+.web-security {
     position: relative;
     top: 1040px;
     left: 1010px;
@@ -193,7 +193,7 @@ li {
     top: 1360px;
     left: 995px;
 }
-.Test {
+.test {
     position: relative;
     top: 1040px;
     left: 830px;
@@ -203,7 +203,7 @@ li {
     top: 1360px;
     left: 783px;
 }
-.CICD {
+.ci-cd {
     position: relative;
     top: 1040px;
     left: 590px;
@@ -213,7 +213,7 @@ li {
     top: 1360px;
     left: 593px;
 }
-.DesignPattern {
+.design-pattern {
     position: relative;
     top: 1040px;
     left: 300px;
@@ -223,7 +223,7 @@ li {
     top: 1360px;
     left: 260px;
 }
-.SearchEngines{
+.search-engines{
     top: 1310px;
     left: 300px;
 }
@@ -232,7 +232,7 @@ li {
     top: 1630px;
     left: 322px;
 }
-.Container{
+.container{
     top: 1310px;
     left: 560px;
 }
@@ -241,7 +241,7 @@ li {
     top: 1630px;
     left: 574px;
 }
-.WebServer{
+.web-server{
     top: 1310px;
     left: 790px;
 }
@@ -250,30 +250,30 @@ li {
     top: 1630px;
     left: 765px;
 }
-.mainCategory a {
+.main-category a {
     color: #ffffff;
     font-size: 1.2rem;
     text-decoration-line: none;
 }
-.MainCategory-disabledLink{
+.main-category-disabled-link{
     color: #a8a8a8;
     cursor: default;
 }
 
-.MainCategory-link {
+.main-category-link {
    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
 }
-.MainCategory-link:hover {
+.main-category-link:hover {
    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
    color: #9FBCE9;
 }
 
-.MainCategory-blinkingLink{
+.main-category-blinking-link{
    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #9FBCE9, 0 0 30px #9FBCE9, 0 0 40px #9FBCE9, 0 0 55px #9FBCE9, 0 0 75px #9FBCE9;
    color: #9FBCE9;
    animation: blink 1s infinite;
 }
-.MainCategory-blinkingLink:hover {
+.main-category-blinking-link:hover {
    color: #9FBCE9;
 }
 

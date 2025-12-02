@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.repository.codingTest;
+package ncnk.make.backendroadmap.domain.repository.codingtest;
 
 import java.util.List;
 import ncnk.make.backendroadmap.domain.entity.CodingTest;

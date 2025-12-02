@@ -20,7 +20,7 @@ import ncnk.make.backendroadmap.domain.entity.Role;
 import ncnk.make.backendroadmap.domain.entity.Sub;
 import ncnk.make.backendroadmap.domain.entity.SubCategory;
 import ncnk.make.backendroadmap.domain.repository.DocsLikeRepository;
-import ncnk.make.backendroadmap.domain.repository.subCategory.SubCategoryRepository;
+import ncnk.make.backendroadmap.domain.repository.subcategory.SubCategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -120,10 +120,10 @@ class DocsLikeServiceTest {
     void findAllByMemberTest() {
         // given
         Pageable pageable = PageRequest.of(0, 6);
-        List<DocsLike> DocsLikes = new ArrayList<>();
-        Page<DocsLike> DocsLikePage = new PageImpl<>(DocsLikes, pageable, DocsLikes.size());
+        List<DocsLike> docsLikes = new ArrayList<>();
+        Page<DocsLike> docsLikePage = new PageImpl<>(docsLikes, pageable, docsLikes.size());
 
-        when(docsLikeRepository.findAllByMember(member, pageable)).thenReturn(DocsLikePage);
+        when(docsLikeRepository.findAllByMember(member, pageable)).thenReturn(docsLikePage);
 
         // when
         docsLikeService.findAllByMember(member, pageable);

@@ -1,4 +1,4 @@
-package ncnk.make.backendroadmap.domain.restController.dto.roadMap;
+package ncnk.make.backendroadmap.domain.restcontroller.dto.roadmap;
 
 import lombok.Getter;
 import ncnk.make.backendroadmap.domain.entity.RecommendBook;
